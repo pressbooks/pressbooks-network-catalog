@@ -1,0 +1,19 @@
+{
+    "name": "pressbooks/pressbooks-network-catalog",
+    "description": "A books catalog for Pressbooks Network",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "PressbooksNetworkCatalog\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pressbooks (Book Oven Inc.)",
+            "email": "code@pressbooks.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
