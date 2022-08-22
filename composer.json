@@ -3,11 +3,6 @@
     "description": "A books catalog for Pressbooks Network",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
-    "autoload": {
-        "psr-4": {
-            "PressbooksNetworkCatalog\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Pressbooks (Book Oven Inc.)",
@@ -15,5 +10,28 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": "^7.4|^8.0",
+        "pressbooks/pressbooks": "dev-pb-upgrade-container"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.10"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "PressbooksNetworkCatalog\\": "src/"
+        }
+    },
+    "scripts": {
+        "fix": [
+            "vendor/bin/php-cs-fixer fix"
+        ]
+    }
 }
