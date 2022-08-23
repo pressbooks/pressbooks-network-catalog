@@ -13,6 +13,8 @@
 
 use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 
+define('IS_VITE_DEVELOPMENT', true);
+
 require __DIR__ . '/vendor/autoload.php';
 
 add_action( 'plugins_loaded', [PressbooksNetworkCatalog::class, 'init']);

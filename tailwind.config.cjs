@@ -1,10 +1,10 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  mode: 'jit',
   content: [
     './*.php',
-    './resources/**/*.php',
+    './resources/views/*.php',
+    './resources/views/partials/*.php',
   ],
   theme: {
     extend: {

@@ -1,6 +1,6 @@
 @php( get_header() )
 
-<main style="height: 100%; display: flex; background-color: #f0f0f0; padding: 0 1rem;">
+<main class="app">
 	<aside id="filters" style="padding: 2rem 0; min-width: 300px;">
 		@include('PressbooksNetworkCatalog::partials.filters')
 	</aside>
