@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+
+.pb-network-catalog {
+  @apply bg-pb-red;
+  font-size: 40px;
+}
