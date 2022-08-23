@@ -11,8 +11,8 @@
  * Network: True
  */
 
-use PressbooksNetworkCatalog\Application;
+use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 
 require __DIR__ . '/vendor/autoload.php';
 
-new Application();
+add_action( 'plugins_loaded', [PressbooksNetworkCatalog::class, 'init']);
