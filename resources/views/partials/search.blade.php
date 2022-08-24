@@ -1,22 +1,21 @@
 <div class="search-box">
 	<div class="search">
 		<input type="search" />
-		<button>&#128269;</button>
+		<button>{{ __('Search', 'pressbooks-network-catalog') }}</button>
 	</div>
 
 	<div class="results-per-page">
-		<span>10 results</span>
+		<span>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 10) }}</span>
 		<span>&#8964</span>
 	</div>
 
 	<div class="results-sort-by">
-		<span>Sort by relevance</span>
+		<span>{{ __('Sort by relevance', 'pressbooks-network-catalog') }}</span>
 		<span>&#8964</span>
 	</div>
 </div>
 
-{{-- TODO: Should this be an h2 or a regular text? --}}
-<h2 class="result-stats">2 Results for ‘Historical Agriculture’</h2>
+<h2 class="result-stats">{{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), 2, 'Historical Agriculture') }}</h2>
 
 <div class="applied-filters">
 	<span class="applied-filter">

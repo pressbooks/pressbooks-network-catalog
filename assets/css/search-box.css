@@ -7,11 +7,26 @@
 }
 
 .search-box .search input[type=search] {
-  @apply w-full p-3 border border-gray-300 rounded-l;
+  @apply w-full p-3 border border-gray-300 rounded-l focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+}
+
+.search-box .search input[type=search]:focus {
+  outline-color: var(--primary-dark);
 }
 
 .search-box .search button {
-  @apply py-3 px-4 border-y text-white bg-pb-red border border-pb-red rounded-l-none rounded-r hover:shadow hover:shadow-pb-red
+  @apply py-3 px-4 border-y border rounded-l-none rounded-r hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-fg);
+}
+
+.search-box .search button:focus {
+  outline-color: var(--primary-dark);
+}
+
+.search-box .search button:hover {
+  background-color: var(--primary-dark);
 }
 
 .search-box .results-per-page, .search-box .results-sort-by {

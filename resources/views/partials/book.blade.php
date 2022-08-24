@@ -6,43 +6,45 @@
 		<h2>{{ $book->title }}</h2>
 		<p>
 			<span>{{ $book->license }}</span>
-			<span>{{ $book->h5p_count ?: 'No' }} H5P Activities</span>
+			@if( $book->h5p_count)
+				<span>{{ sprintf(__('%d H5P Activites', 'pressbooks-network-catalog'), $book->h5p_count) }}</span>
+			@endif
 			<span>{{ $book->language }}</span>
 		</p>
 
 		<div class="book-extra-info">
 			@if($book->authors)
 				<p>
-					<span>Author(s):</span> {{ $book->authors }}
+					<span>{{ __('Author(s):', 'pressbooks-network-catalog') }}</span> {{ $book->authors }}
 				</p>
 			@endif
 
 			@if($book->editors)
 				<p>
-					<span>Editors(s):</span> {{ $book->editors }}
+					<span>{{ __('Editor(s):', 'pressbooks-network-catalog') }}</span> {{ $book->editors }}
 				</p>
 			@endif
 
 			@if($book->subjects)
 				<p>
-					<span>Subject(s):</span> {{ $book->subjects }}
+					<span>{{ __('Subject(s):', 'pressbooks-network-catalog') }}</span> {{ $book->subjects }}
 				</p>
 			@endif
 
 			@if($book->institutions)
 				<p>
-					<span>Institution(s):</span> {{ $book->institutions }}
+					<span>{{ __('Institution(s):', 'pressbooks-network-catalog') }}</span> {{ $book->institutions }}
 				</p>
 			@endif
 
 			@if($book->publisher)
 				<p>
-					<span>Publisher:</span> {{ $book->publisher }}
+					<span>{{ __('Publisher:', 'pressbooks-network-catalog') }}</span> {{ $book->publisher }}
 				</p>
 			@endif
 
 			<p>
-				<span>Last updated:</span> {{ $book->updated_at }}
+				<span>{{ __('Last updated:', 'pressbooks-network-catalog') }}</span> {{ $book->updated_at }}
 			</p>
 		</div>
 

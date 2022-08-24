@@ -5,5 +5,5 @@
 	</div>
 @endforeach
 <button class="reset-filters">
-	Clear all filters
+	{{ __('Clear filters', 'pressbooks-network-catalog') }}
 </button>

@@ -3,5 +3,15 @@
 }
 
 .side-filters .reset-filters {
-  @apply w-full py-2 px-3 uppercase text-red-50 bg-pb-red border border-pb-red hover:shadow hover:shadow-pb-red;
+  @apply w-full p-3 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  background-color: var(--primary);
+  color: var(--primary-fg);
+}
+
+.side-filters .reset-filters:hover {
+  background-color: var(--primary-dark);
+}
+
+.side-filters .reset-filters:focus {
+  outline-color: var(--primary-dark);
 }

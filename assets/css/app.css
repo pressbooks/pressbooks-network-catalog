@@ -1,9 +1,8 @@
 @import 'tailwindcss/base.css';
 @import 'tailwindcss/components.css';
+@import 'tailwindcss/utilities.css';
 
 @import 'main-catalog.css';
 @import 'side-filters.css';
 @import 'search-box.css';
 @import 'book-card.css';
-
-@import 'tailwindcss/utilities.css';
