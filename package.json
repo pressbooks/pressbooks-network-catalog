@@ -2,7 +2,7 @@
   "name": "pressbooks-network-catalog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "assets/js/app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development vite",
     "build": "vite build --mode production",

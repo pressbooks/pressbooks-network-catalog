@@ -30,10 +30,10 @@ class PressbooksNetworkCatalog
 
     protected function enqueueScripts(): void
     {
-        add_action(
-        /**
-         * @throws \JsonException
-         */ 'wp_enqueue_scripts', function () {
+        add_action('wp_enqueue_scripts', function () {
+			if (get_page_template_slug() !== 'page-catalog.php') {
+				return;
+			}
 
             /**
              * VITE & Tailwind JIT development
@@ -42,7 +42,7 @@ class PressbooksNetworkCatalog
             if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT) {
                 // insert hmr into head for live reload
                 add_action('wp_head', function () {
-                    echo '<script type="module" crossorigin src="http://127.0.0.1:3000/index.js"></script>';
+                    echo '<script type="module" crossorigin src="http://127.0.0.1:3000/assets/js/app.js"></script>';
                 });
 
                 return;

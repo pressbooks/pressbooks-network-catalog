@@ -15,7 +15,12 @@ export default defineConfig(() => {
       },
     },
     plugins: [
-      liveReload(__dirname+'/src/**/*.php', __dirname + '/assets/**/*.css', __dirname + '/assets/**/*.js'),
+      liveReload(
+        __dirname + '/src/**/*.php',
+        __dirname + '/resources/**/*.blade.php',
+        __dirname + '/assets/**/*.css',
+        __dirname + '/assets/**/*.js'
+						),
     ],
     root: '',
     base: process.env.NODE_ENV === 'development'
@@ -29,7 +34,7 @@ export default defineConfig(() => {
       emptyOutDir: true,
       rollupOptions: {
         input: {
-          main: resolve( __dirname + '/index.js')
+          app: resolve(__dirname + '/assets/js/app.js')
         }
       },
       minify: true,
