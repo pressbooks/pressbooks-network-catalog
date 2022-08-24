@@ -32,7 +32,6 @@ class PressbooksNetworkCatalog
         define('VITE_SERVER', 'http://127.0.0.1:3000');
         define('VITE_ENTRY_POINT', '/index.js');
 
-        wp_dequeue_script('aldine_scripts');
         add_action('wp_enqueue_scripts', function () {
 
             if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT === true) {
@@ -62,6 +61,7 @@ class PressbooksNetworkCatalog
                     }
                 }
             }
+            wp_dequeue_script('aldine_scripts');
         });
     }
 }
