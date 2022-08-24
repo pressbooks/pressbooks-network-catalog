@@ -1,0 +1,7 @@
+.side-filters .side-filter {
+  @apply py-3 px-4 flex items-center justify-between border-b border-gray-300;
+}
+
+.side-filters .reset-filters {
+  @apply w-full py-2 px-3 uppercase text-red-50 bg-pb-red border border-pb-red hover:shadow hover:shadow-pb-red;
+}

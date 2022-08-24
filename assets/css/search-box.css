@@ -1,0 +1,36 @@
+.search-box {
+  @apply flex space-x-4;
+}
+
+.search-box .search {
+  @apply flex flex-1 items-center;
+}
+
+.search-box .search input[type=search] {
+  @apply w-full p-3 border border-gray-300 rounded-l;
+}
+
+.search-box .search button {
+  @apply py-3 px-4 border-y text-white bg-pb-red border border-pb-red rounded-l-none rounded-r hover:shadow hover:shadow-pb-red
+}
+
+.search-box .results-per-page, .search-box .results-sort-by {
+  @apply p-3 flex items-center space-x-4 border border-gray-300 rounded;
+}
+
+/* TODO: this is temporary and should be removed */
+.search-box .results-per-page span:nth-of-type(2), .search-box .results-sort-by span:nth-of-type(2) {
+  @apply -mt-2;
+}
+
+.result-stats {
+  @apply text-2xl text-left font-bold normal-case;
+}
+
+.applied-filters {
+  @apply flex space-x-2;
+}
+
+.applied-filters .applied-filter {
+  @apply py-1 px-3 flex items-center space-x-4 border border-gray-300 rounded-full
+}

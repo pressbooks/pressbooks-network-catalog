@@ -20,7 +20,7 @@ export default defineConfig(() => {
         __dirname + '/resources/**/*.blade.php',
         __dirname + '/assets/**/*.css',
         __dirname + '/assets/**/*.js'
-						),
+      ),
     ],
     root: '',
     base: process.env.NODE_ENV === 'development'

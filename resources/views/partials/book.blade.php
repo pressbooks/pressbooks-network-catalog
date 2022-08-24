@@ -1,53 +1,53 @@
-<article style="margin: 2rem 0; display: flex; align-items: start; background-color: #ffffff; border: 1px solid #cccccc; padding: 1.5rem; max-width: none;">
-	<div style="min-width: 300px;">
-		<img src="{{ $book->cover }}" style="width: 100%; max-width: 300px;"/>
+<div class="book-card">
+	<div class="book-cover">
+		<img src="{{ $book->cover }}" />
 	</div>
-	<div style="margin: 0 1.5rem;">
-		<h2 style="text-align: left; text-transform: capitalize; font-size: 1.5rem; margin: 0">{{ $book->title }}</h2>
-		<p style="margin: 0.25rem 0;">
+	<div class="book-info">
+		<h2>{{ $book->title }}</h2>
+		<p>
 			<span>{{ $book->license }}</span>
-			| <span>{{ $book->h5p_count ?: 'No' }} H5P Activities</span>
-			| <span>{{ $book->language }}</span>
+			<span>{{ $book->h5p_count ?: 'No' }} H5P Activities</span>
+			<span>{{ $book->language }}</span>
 		</p>
 
-		<div style="margin-top: 2rem;">
+		<div class="book-extra-info">
 			@if($book->authors)
-				<p style="margin: 0.5rem 0;">
-					<span style="font-weight: 600;">Author(s):</span> <span>{{ $book->authors }}</span>
+				<p>
+					<span>Author(s):</span> {{ $book->authors }}
 				</p>
 			@endif
 
 			@if($book->editors)
-				<p style="margin: 0.5rem 0;">
-					<span style="font-weight: 600;">Editors(s):</span> <span>{{ $book->editors }}</span>
+				<p>
+					<span>Editors(s):</span> {{ $book->editors }}
 				</p>
 			@endif
 
 			@if($book->subjects)
-				<p style="margin: 0.5rem 0;">
-					<span style="font-weight: 600;">Subject(s):</span> <span>{{ $book->subjects }}</span>
+				<p>
+					<span>Subject(s):</span> {{ $book->subjects }}
 				</p>
 			@endif
 
 			@if($book->institutions)
-				<p style="margin: 0.5rem 0;">
-					<span style="font-weight: 600;">Institution(s):</span> <span>{{ $book->institutions }}</span>
+				<p>
+					<span>Institution(s):</span> {{ $book->institutions }}
 				</p>
 			@endif
 
 			@if($book->publisher)
-				<p style="margin: 0.5rem 0;">
-					<span style="font-weight: 600;">Publisher:</span> <span>{{ $book->publisher }}</span>
+				<p>
+					<span>Publisher:</span> {{ $book->publisher }}
 				</p>
 			@endif
 
-			<p style="margin: 0.5rem 0;">
-				<span style="font-weight: 600;">Last updated:</span> <span>{{ $book->updated_at }}</span>
+			<p>
+				<span>Last updated:</span> {{ $book->updated_at }}
 			</p>
 		</div>
 
-		<div style="margin-top: 2rem;">
+		<p class="book-description">
 			{{ $book->description }}
-		</div>
+		</p>
 	</div>
-</article>
+</div>
