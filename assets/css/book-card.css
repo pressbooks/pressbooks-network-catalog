@@ -15,7 +15,7 @@
 }
 
 .book-cards .book-card .book-info h2 {
-  @apply text-2xl text-left font-medium normal-case;
+  @apply m-0 text-2xl text-left font-medium normal-case;
 }
 
 .book-cards .book-card .book-info p {

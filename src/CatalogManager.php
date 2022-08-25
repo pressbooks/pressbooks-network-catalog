@@ -8,7 +8,6 @@ use PressbooksNetworkCatalog\Filters\Subject;
 
 class CatalogManager
 {
-
 	public function handle()
 	{
 		return Container::get('Blade')->render(
@@ -25,8 +24,8 @@ class CatalogManager
 	}
 
 	/**
-     * Query books list and return array of book objects
-     *
+	 * Query books list and return array of book objects
+	 *
 	 * @return array
 	 */
 	protected function queryBooks(): array

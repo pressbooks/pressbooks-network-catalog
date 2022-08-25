@@ -86,16 +86,16 @@ class Books
 		$sqlQuery .= $this->getConditionsByParams($params);
 		$sqlQuery .= ' LIMIT %d OFFSET %d';
 
-        $coverImage = Book::COVER;
-        $title = Book::TITLE;
-        $url = Book::BOOK_URL;
-        $language = Book::LANGUAGE;
-        $lastEdited = Book::LAST_EDITED;
-        $subject = Book::SUBJECT;
-        $license = Book::LICENSE;
-        $h5pActivities = Book::H5P_ACTIVITIES;
-        $inCatalog = Book::IN_CATALOG;
-        $informationArray = Book::BOOK_INFORMATION_ARRAY;
+		$coverImage = Book::COVER;
+		$title = Book::TITLE;
+		$url = Book::BOOK_URL;
+		$language = Book::LANGUAGE;
+		$lastEdited = Book::LAST_EDITED;
+		$subject = Book::SUBJECT;
+		$license = Book::LICENSE;
+		$h5pActivities = Book::H5P_ACTIVITIES;
+		$inCatalog = Book::IN_CATALOG;
+		$informationArray = Book::BOOK_INFORMATION_ARRAY;
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
@@ -138,7 +138,7 @@ class Books
 				global $wpdb;
 				$in = '';
 				foreach ($params[$filter] as $filterValue) {
-					$in .= $wpdb->prepare('%s', $filterValue) . ',';
+					$in .= $wpdb->prepare('%s', $filterValue).',';
 				}
 				$in = str_replace(',', '', $in);
 
@@ -146,7 +146,7 @@ class Books
 			}
 		}
 
-		return empty($sqlQueryConditions) ? '' : '  HAVING ' . $sqlQueryConditions;
+		return empty($sqlQueryConditions) ? '' : '  HAVING '.$sqlQueryConditions;
 	}
 
 	/**
