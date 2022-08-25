@@ -4,7 +4,7 @@
   top: 0;
   z-index: 1; /* for sticky header */
   background-image: none !important;
-  background: var(--accent-fg) !important;
+  background: var(--accent-fg);
 }
 
 .page-template-page-catalog .hero {

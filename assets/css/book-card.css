@@ -1,5 +1,5 @@
 .book-cards .book-card {
-  @apply p-5 flex items-start space-x-6 border rounded shadow-md;
+  @apply p-5 flex items-start space-x-6 border rounded shadow-md bg-white;
 }
 
 .book-cards .book-card .book-cover {

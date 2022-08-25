@@ -41,7 +41,7 @@
 }
 
 .side-filters .reset-filters {
-  @apply w-full p-3 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply w-full p-4 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
   background-color: var(--primary);
   color: var(--primary-fg);
 }
