@@ -7,7 +7,7 @@
 }
 
 .search-box .search input[type=search] {
-  @apply w-full p-3 border border-gray-300 rounded-l focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply w-full p-3 border rounded-l focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
 }
 
 .search-box .search input[type=search]:focus {
@@ -30,12 +30,11 @@
 }
 
 .search-box .results-per-page, .search-box .results-sort-by {
-  @apply p-3 flex items-center space-x-4 border border-gray-300 rounded;
+  @apply py-3 px-4 rounded border-b border-gray-400 shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1
 }
 
-/* TODO: this is temporary and should be removed */
-.search-box .results-per-page span:nth-of-type(2), .search-box .results-sort-by span:nth-of-type(2) {
-  @apply -mt-2;
+.search-box .results-per-page:focus, .search-box .results-sort-by:focus {
+  outline-color: var(--primary);
 }
 
 .result-stats {
@@ -47,5 +46,5 @@
 }
 
 .applied-filters .applied-filter {
-  @apply py-1 px-3 flex items-center space-x-4 border border-gray-300 rounded-full
+  @apply py-1 px-3 flex items-center space-x-4 border rounded-full
 }

@@ -4,15 +4,17 @@
 		<button>{{ __('Search', 'pressbooks-network-catalog') }}</button>
 	</div>
 
-	<div class="results-per-page">
-		<span>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 10) }}</span>
-		<span>&#8964</span>
-	</div>
+	<select class="results-per-page">
+		<option>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 10) }}</option>
+		<option>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 20) }}</option>
+		<option>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 50) }}</option>
+	</select>
 
-	<div class="results-sort-by">
-		<span>{{ __('Sort by relevance', 'pressbooks-network-catalog') }}</span>
-		<span>&#8964</span>
-	</div>
+	<select class="results-sort-by">
+		<option>{{ __('Sort by relevance', 'pressbooks-network-catalog')}}</option>
+		<option>{{ __('Sort by recently updated', 'pressbooks-network-catalog') }}</option>
+		<option>{{ __('Sort by title (A-Z)', 'pressbooks-network-catalog') }}</option>
+	</select>
 </div>
 
 <h2 class="result-stats">{{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), 2, 'Historical Agriculture') }}</h2>

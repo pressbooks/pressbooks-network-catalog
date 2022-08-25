@@ -10,7 +10,7 @@ class Books
 	private int $defaultBooksPerPage = 15;
 
 	/**
-	 * Get all catalog books.
+	 * Get Books list to display in the Catalog page.
 	 *
 	 * @param array $params Valid keys: page (int), per_page (int), subjects (array), licenses (array), institutions (array), publishers (array), h5p_count (array symb => int)
 	 *
@@ -21,9 +21,8 @@ class Books
 		if (! $this->validateParams($params)) {
 			return [];
 		}
-		$rawBookQueries = $this->query($params);
 
-		return $this->prepareBooksList($rawBookQueries);
+		return $this->prepareResponse($this->query($params));
 	}
 
 	/**
@@ -35,16 +34,23 @@ class Books
 	 */
 	private function validateParams(array $params): bool
 	{
-		$numericParams = ['page', 'per_page', 'h5p_count'];
+		$numericParams = ['page', 'per_page'];
 		foreach ($numericParams as $param) {
 			if (isset($params[$param]) && ! is_numeric($params[$param])) {
 				return false;
 			}
 		}
 
-		$arrayParams = ['subjects', 'licenses', 'institutions', 'publishers'];
+		$arrayParams = ['subjects', 'licenses', 'institutions', 'publishers', 'h5p_count'];
 		foreach ($arrayParams as $param) {
 			if (isset($params[$param]) && ! is_array($params[$param])) {
+				return false;
+			}
+		}
+
+		if (isset($params['h5p_count'])) {
+			$symbol = array_key_first($params['h5p_count']);
+			if (! in_array($symbol, ['>=', '<=']) || ! is_int($params['h5p_count'][$symbol])) {
 				return false;
 			}
 		}
@@ -83,47 +89,38 @@ class Books
             )
         GROUP BY blog_id";
 
-		$sqlQuery .= $this->getConditionsByParams($params);
+		$sqlQuery .= $this->getQueryConditionsByParams($params);
 		$sqlQuery .= ' LIMIT %d OFFSET %d';
-
-		$coverImage = Book::COVER;
-		$title = Book::TITLE;
-		$url = Book::BOOK_URL;
-		$language = Book::LANGUAGE;
-		$lastEdited = Book::LAST_EDITED;
-		$subject = Book::SUBJECT;
-		$license = Book::LICENSE;
-		$h5pActivities = Book::H5P_ACTIVITIES;
-		$inCatalog = Book::IN_CATALOG;
-		$informationArray = Book::BOOK_INFORMATION_ARRAY;
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
 				$sqlQuery,
-				$coverImage,
-				$title,
-				$url,
-				$informationArray,
-				$lastEdited,
-				$language,
-				$subject,
-				$license,
-				$h5pActivities,
-				$inCatalog,
-				$limit,
-				$offset
+				[
+					Book::COVER,
+					Book::TITLE,
+					Book::BOOK_URL,
+					Book::BOOK_INFORMATION_ARRAY,
+					Book::LAST_EDITED,
+					Book::LANGUAGE,
+					Book::SUBJECT,
+					Book::LICENSE,
+					Book::H5P_ACTIVITIES,
+					Book::IN_CATALOG,
+					$limit,
+					$offset,
+				]
 			)
 		);
 	}
 
 	/**
-	 * Get conditions by filter parameters.
+	 * Get SQL query conditions by filter parameters.
 	 *
 	 * @param array $params
 	 *
 	 * @return string
 	 */
-	private function getConditionsByParams(array $params): string
+	private function getQueryConditionsByParams(array $params): string
 	{
 		if (empty($params)) {
 			return '';
@@ -146,17 +143,24 @@ class Books
 			}
 		}
 
+		if (isset($params['h5p_count']) && ! empty($params['h5p_count'])) {
+			global $wpdb;
+
+			$symbol = array_key_first($params['h5p_count']);
+			$sqlQueryConditions .= $wpdb->prepare(" h5pCount $symbol %d", $params['h5p_count'][$symbol]);
+		}
+
 		return empty($sqlQueryConditions) ? '' : '  HAVING '.$sqlQueryConditions;
 	}
 
 	/**
-	 * Prepare books list.
+	 * Prepare books list response.
 	 *
 	 * @param array $booksList raw books list
 	 *
 	 * @return array
 	 */
-	private function prepareBooksList(array $booksList): array
+	private function prepareResponse(array $booksList): array
 	{
 		$possibleLicenses = License::getPossibleValues();
 
@@ -164,11 +168,11 @@ class Books
 			$bookInformation = unserialize($book->informationArray);
 			$book->authors = $bookInformation['pb_authors'] ?? '';
 			$book->editors = $bookInformation['pb_editors'] ?? '';
-			$book->description = $bookInformation['pb_about_50'] ?? '';
+			$book->description = $bookInformation['pb_about_unlimited'] ?? '';
 			$book->institutions = isset($bookInformation['pb_institutions']) ?
 				implode(',', $bookInformation['pb_institutions']) : '';
 			$book->publisher = $bookInformation['pb_publisher'] ?? '';
-			$book->license = $possibleLicenses[$book->license] ?? '';
+			$book->license = $possibleLicenses[$book->licenses] ?? '';
 
 			return $book;
 		}, $booksList);

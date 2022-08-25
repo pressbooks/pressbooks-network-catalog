@@ -3,6 +3,7 @@
 namespace PressbooksNetworkCatalog;
 
 use Pressbooks\Container;
+use PressbooksNetworkCatalog\Filters\Institution;
 use PressbooksNetworkCatalog\Filters\License;
 use PressbooksNetworkCatalog\Filters\Subject;
 
@@ -15,10 +16,8 @@ class CatalogManager
 				'books' => $this->queryBooks(),
 				'subjects' => Subject::getPossibleValues(),
 				'licenses' => License::getPossibleValues(),
-				'last_updated' => [],
-				'institutions' => [],
+				'institutions' => Institution::getPossibleValues(),
 				'publishers' => [],
-				'h5p_activities' => [],
 			]
 		);
 	}

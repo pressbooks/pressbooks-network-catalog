@@ -5,7 +5,7 @@
 			<span>&#8964;</span>
 		</button>
 	</h3>
-	<ul x-bind:class="open ? '' : 'hidden'">
+	<ul x-cloak x-bind:class="!open && 'hidden'">
 		@foreach($subjects as $key => $subject)
 			<li>{{ $subject }}</li>
 		@endforeach
@@ -18,7 +18,7 @@
 			<span>&#8964;</span>
 		</button>
 	</h3>
-	<ul x-bind:class="open ? '' : 'hidden'">
+	<ul x-cloak x-bind:class="!open && 'hidden'">
 		@foreach($licenses as $key => $license)
 			<li>{{ $license }}</li>
 		@endforeach
@@ -31,7 +31,7 @@
 			<span>&#8964;</span>
 		</button>
 	</h3>
-	<ul x-bind:class="open ? '' : 'hidden'">
+	<ul x-cloak x-bind:class="!open && 'hidden'">
 		<li>No available filters at the moment</li>
 	</ul>
 </div>
@@ -42,8 +42,10 @@
 			<span>&#8964;</span>
 		</button>
 	</h3>
-	<ul x-bind:class="open ? '' : 'hidden'">
-		<li>No available filters at the moment</li>
+	<ul x-cloak x-bind:class="!open && 'hidden'">
+		@foreach($institutions as $institution)
+			<li>{{ $institution }}</li>
+		@endforeach
 	</ul>
 </div>
 <div class="side-filter" x-data="{open: false}">
@@ -53,7 +55,7 @@
 			<span>&#8964;</span>
 		</button>
 	</h3>
-	<ul x-bind:class="open ? '' : 'hidden'">
+	<ul x-cloak x-bind:class="!open && 'hidden'">
 		<li>No available filters at the moment</li>
 	</ul>
 </div>
@@ -64,7 +66,7 @@
 			<span>&#8964;</span>
 		</button>
 	</h3>
-	<ul x-bind:class="open ? '' : 'hidden'">
+	<ul x-cloak x-bind:class="!open && 'hidden'">
 		<li>No available filters at the moment</li>
 	</ul>
 </div>
