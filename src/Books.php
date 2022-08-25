@@ -65,16 +65,6 @@ class Books
 
 		global $wpdb;
 
-		$coverImage = Book::COVER;
-		$title = Book::TITLE;
-		$url = Book::BOOK_URL;
-		$language = Book::LANGUAGE;
-		$lastEdited = Book::LAST_EDITED;
-		$subject = Book::SUBJECT;
-		$license = Book::LICENSE;
-		$h5pActivities = Book::H5P_ACTIVITIES;
-		$inCatalog = Book::IN_CATALOG;
-		$informationArray = Book::BOOK_INFORMATION_ARRAY;
 		$sqlQuery = "SELECT SQL_CALC_FOUND_ROWS
             b.blog_id AS id,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS cover,
@@ -84,7 +74,7 @@ class Books
             MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null)) AS updatedAt,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS language,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS subjects,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS license,
+            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS licenses,
             MAX(IF(b.meta_key=%s,CAST(b.meta_value AS UNSIGNED),null)) AS h5pCount
         FROM {$wpdb->blogmeta} b
         WHERE blog_id IN (
@@ -95,6 +85,17 @@ class Books
 
 		$sqlQuery .= $this->getConditionsByParams($params);
 		$sqlQuery .= ' LIMIT %d OFFSET %d';
+
+        $coverImage = Book::COVER;
+        $title = Book::TITLE;
+        $url = Book::BOOK_URL;
+        $language = Book::LANGUAGE;
+        $lastEdited = Book::LAST_EDITED;
+        $subject = Book::SUBJECT;
+        $license = Book::LICENSE;
+        $h5pActivities = Book::H5P_ACTIVITIES;
+        $inCatalog = Book::IN_CATALOG;
+        $informationArray = Book::BOOK_INFORMATION_ARRAY;
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
@@ -127,25 +128,25 @@ class Books
 		if (empty($params)) {
 			return '';
 		}
-		$sqlQueryConditions = ' HAVING ';
-		$keyFilterMap = [
-			'subjects' => 'subjects',
-			'licenses' => 'license',
+		$sqlQueryConditions = '';
+		$arrayFormatParams = [
+			'subjects',
+			'licenses',
 		];
-		foreach ($keyFilterMap as $filter => $key) {
+		foreach ($arrayFormatParams as $filter) {
 			if (isset($params[$filter]) && ! empty($params[$filter])) {
 				global $wpdb;
 				$in = '';
 				foreach ($params[$filter] as $filterValue) {
-					$in .= $wpdb->prepare('%s', $filterValue).',';
+					$in .= $wpdb->prepare('%s', $filterValue) . ',';
 				}
 				$in = str_replace(',', '', $in);
 
-				$sqlQueryConditions .= " $key IN ($in)";
+				$sqlQueryConditions .= " $filter IN ($in)";
 			}
 		}
 
-		return $sqlQueryConditions === ' HAVING ' ? '' : $sqlQueryConditions;
+		return empty($sqlQueryConditions) ? '' : '  HAVING ' . $sqlQueryConditions;
 	}
 
 	/**
