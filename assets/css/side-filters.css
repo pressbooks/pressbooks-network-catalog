@@ -1,8 +1,12 @@
+.side-filters .side-filter {
+  @apply border-b border-gray-800;
+}
+
 .side-filters .side-filter h3 {
-  @apply text-base normal-case font-normal;
+  @apply m-0 text-base normal-case font-normal;
 }
 .side-filters .side-filter button {
-  @apply py-3 px-4 w-full flex items-center justify-between border border-transparent border-b-gray-300 rounded-none normal-case font-normal focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply py-3 px-4 w-full flex items-center justify-between border-transparent rounded-none normal-case font-normal focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
   background-color: var(--primary-fg);
   color: var(--primary);
 }
@@ -14,6 +18,18 @@
 
 .side-filters .side-filter button:focus {
   outline-color: var(--primary-dark);
+}
+
+.side-filters .side-filter:first-child {
+  @apply rounded-t;
+}
+
+.side-filters .side-filter:first-child button {
+  @apply rounded-t;
+}
+
+.side-filters .side-filter:last-of-type {
+  @apply border-none;
 }
 
 .side-filters .side-filter > ul {
