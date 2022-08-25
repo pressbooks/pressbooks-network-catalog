@@ -1,8 +1,10 @@
 @php( get_header() )
-<div class="flex flex-col text-center px-2">
-    <h3>{{ get_the_title() }}</h3>
-    <div>
-        {!! wp_kses_post(get_the_content()) !!}
+<div class="hero">
+    <div class="hero-content">
+        <h3>{{ get_the_title() }}</h3>
+        <div>
+            {!! wp_kses_post(get_the_content()) !!}
+        </div>
     </div>
 </div>
 <main class="network-catalog">

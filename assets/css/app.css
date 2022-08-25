@@ -3,6 +3,7 @@
 @import 'tailwindcss/components.css';
 @import 'tailwindcss/utilities.css';
 
+@import "header.css";
 @import 'main-catalog.css';
 @import 'side-filters.css';
 @import 'search-box.css';

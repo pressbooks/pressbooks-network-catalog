@@ -3,8 +3,13 @@
   @apply box-border border-0 border-solid border-gray-300;
 }
 
+.page-template-page-catalog #content {
+  @apply w-full;
+}
+
 .page-template-page-catalog {
   @apply font-sans;
+  background: #DAE1E7;
 }
 
 .page-template-page-catalog h2 {
@@ -13,10 +18,6 @@
 
 .page-template-page-catalog p {
   @apply text-base;
-}
-
-.page-template-page-catalog .header {
-  @apply h-fit !important;
 }
 
 .network-catalog {
