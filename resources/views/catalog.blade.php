@@ -5,17 +5,15 @@
         {!! wp_kses_post(get_the_content()) !!}
     </div>
 </div>
-<main class="app">
-	<aside id="filters" style="padding: 2rem 0; min-width: 300px;">
+<main class="network-catalog">
+	<aside class="side-filters">
 		@include('PressbooksNetworkCatalog::partials.filters')
 	</aside>
 
-	<div style="margin-left: 2rem; flex: 1;">
-		<div style="padding: 2rem 0;">
-			@include('PressbooksNetworkCatalog::partials.search')
-		</div>
+	<div>
+		@include('PressbooksNetworkCatalog::partials.search')
 
-		<div id="books">
+		<div class="book-cards">
 			@forelse( $books as $book )
 				@include('PressbooksNetworkCatalog::partials.book')
 			@empty
