@@ -49,7 +49,7 @@
 		</div>
 
 		<p class="book-description">
-			{{ $book->description }}
+			{!! $book->description !!}
 		</p>
 	</div>
 </div>
