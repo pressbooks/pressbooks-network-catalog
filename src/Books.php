@@ -168,7 +168,7 @@ class Books
 			$book->institutions = isset($bookInformation['pb_institutions']) ?
 				implode(',', $bookInformation['pb_institutions']) : '';
 			$book->publisher = $bookInformation['pb_publisher'] ?? '';
-			$book->license = $possibleLicenses[$book->license] ?? '';
+			$book->license = $possibleLicenses[$book->licenses] ?? '';
 
 			return $book;
 		}, $booksList);
