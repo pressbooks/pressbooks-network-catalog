@@ -1,0 +1,43 @@
+.book-cards .book-card {
+  @apply p-5 flex items-start space-x-6 border border-gray-300 rounded shadow-md;
+}
+
+.book-cards .book-card .book-cover {
+  @apply w-full max-w-xs;
+}
+
+.book-cards .book-card .book-cover img {
+  @apply w-full rounded shadow-md object-cover;
+}
+
+.book-cards .book-card .book-info {
+  @apply flex-1;
+}
+
+.book-cards .book-card .book-info h2 {
+  @apply text-2xl text-left font-medium normal-case;
+}
+
+.book-cards .book-card .book-info p {
+  @apply m-0;
+}
+
+.book-cards .book-card .book-info > p:first-of-type {
+  @apply text-sm text-gray-500 space-x-1;
+}
+
+.book-cards .book-card .book-info > p span:not(:first-child) {
+  @apply before:mr-1 before:content-['|'];
+}
+
+.book-cards .book-card .book-info .book-extra-info {
+  @apply mt-4 space-y-1;
+}
+
+.book-cards .book-card .book-info .book-extra-info p span {
+  @apply font-bold;
+}
+
+.book-cards .book-card .book-info .book-description {
+  @apply mt-4 tracking-wide;
+}

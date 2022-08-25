@@ -1,0 +1,34 @@
+.side-filters .side-filter > button, .side-filters .side-filter > div {
+  @apply py-3 px-4 w-full flex items-center justify-between border border-transparent border-b-gray-300 rounded-none focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+}
+
+.side-filters .side-filter > button:hover, .side-filters .side-filter > button:focus {
+  background-color: var(--primary-fg);
+  color: var(--primary);
+}
+
+.side-filters .side-filter > button:focus {
+  outline-color: var(--primary-dark);
+}
+
+.side-filters .side-filter > ul {
+  @apply py-2
+}
+
+.side-filters .side-filter > ul li {
+  @apply py-2 px-4
+}
+
+.side-filters .reset-filters {
+  @apply w-full p-3 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  background-color: var(--primary);
+  color: var(--primary-fg);
+}
+
+.side-filters .reset-filters:hover {
+  background-color: var(--primary-dark);
+}
+
+.side-filters .reset-filters:focus {
+  outline-color: var(--primary-dark);
+}

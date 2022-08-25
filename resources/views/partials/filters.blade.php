@@ -1,11 +1,61 @@
-<div style="width: 100%; background-color: #ffffff;">
-	@foreach( $filters as $filter )
-		<div style="padding: 0.75rem 1rem; display: flex; align-items: start; justify-content: space-between; border-bottom: 1px solid #cccccc;">
-			<h3 style="margin: 0; font-size: 1rem;">{{ $filter }}</h3>
-			<span>&#8964</span>
-		</div>
-	@endforeach
-	<button style="text-transform: uppercase; width: 100%; padding: 0.5rem;">
-		Clear all filters
+<div class="side-filter" x-data="{open: false}">
+	<button x-on:click="open = !open">
+		<h3>{{ __('Subject', 'pressbooks-network-catalog') }}</h3>
+		<span>&#8964;</span>
 	</button>
+	<ul :class="open ? '' : 'hidden'">
+		@foreach($subjects as $key => $subject)
+			<li>{{ $subject }}</li>
+		@endforeach
+	</ul>
 </div>
+<div class="side-filter" x-data="{open: false}">
+	<button x-on:click="open = !open">
+		<h3>{{ __('License', 'pressbooks-network-catalog') }}</h3>
+		<span>&#8964;</span>
+	</button>
+	<ul :class="open ? '' : 'hidden'">
+		@foreach($licenses as $key => $license)
+			<li>{{ $license }}</li>
+		@endforeach
+	</ul>
+</div>
+<div class="side-filter" x-data="{open: false}">
+	<button x-on:click="open = !open">
+		<h3>{{ __('Last Updated', 'pressbooks-network-catalog') }}</h3>
+		<span>&#8964;</span>
+	</button>
+	<ul :class="open ? '' : 'hidden'">
+		<li>No available filters at the moment</li>
+	</ul>
+</div>
+<div class="side-filter" x-data="{open: false}">
+	<button x-on:click="open = !open">
+		<h3>{{ __('Institution', 'pressbooks-network-catalog') }}</h3>
+		<span>&#8964;</span>
+	</button>
+	<ul :class="open ? '' : 'hidden'">
+		<li>No available filters at the moment</li>
+	</ul>
+</div>
+<div class="side-filter" x-data="{open: false}">
+	<button x-on:click="open = !open">
+		<h3>{{ __('Publisher', 'pressbooks-network-catalog') }}</h3>
+		<span>&#8964;</span>
+	</button>
+	<ul :class="open ? '' : 'hidden'">
+		<li>No available filters at the moment</li>
+	</ul>
+</div>
+<div class="side-filter" x-data="{open: false}">
+	<button x-on:click="open = !open">
+		<h3>{{ __('H5P Activites', 'pressbooks-network-catalog') }}</h3>
+		<span>&#8964;</span>
+	</button>
+	<ul :class="open ? '' : 'hidden'">
+		<li>No available filters at the moment</li>
+	</ul>
+</div>
+<button class="reset-filters">
+	{{ __('Clear filters', 'pressbooks-network-catalog') }}
+</button>

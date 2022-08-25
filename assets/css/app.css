@@ -1,18 +1,8 @@
-@tailwind base;
-@tailwind components;
+@import 'tailwindcss/base.css';
+@import 'tailwindcss/components.css';
+@import 'tailwindcss/utilities.css';
 
-.app {
-  @apply flex;
-}
-
-/*@import(catalog)*/
-/*@import(book-card)*/
-/*@import(filters)*/
-
-#content {
-	@apply w-full max-w-sm md:max-w-7xl;
-}
-
-header.header{
-  height: 5rem !important;
-}
+@import 'main-catalog.css';
+@import 'side-filters.css';
+@import 'search-box.css';
+@import 'book-card.css';

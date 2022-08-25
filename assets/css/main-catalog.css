@@ -1,0 +1,31 @@
+.page-template-page-catalog {
+  @apply font-sans;
+}
+
+.page-template-page-catalog h2 {
+  @apply before:hidden;
+}
+
+.page-template-page-catalog p {
+  @apply text-base;
+}
+
+.page-template-page-catalog .header {
+  @apply h-fit !important;
+}
+
+.network-catalog {
+  @apply flex p-8;
+}
+
+.network-catalog .side-filters {
+  @apply w-full max-w-xs;
+}
+
+.network-catalog > div {
+  @apply ml-8 flex-1 space-y-8;
+}
+
+.network-catalog .book-cards {
+  @apply space-y-8;
+}
