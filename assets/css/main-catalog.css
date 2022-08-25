@@ -3,17 +3,21 @@
   @apply box-border border-0 border-solid border-gray-300;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  @apply m-0;
+}
+
 [x-cloak] {
   @apply hidden;
 }
 
-.page-template-page-catalog #content {
-  @apply w-full max-w-none;
-}
-
 .page-template-page-catalog {
   @apply font-sans;
-  background: #DAE1E7; /* Decide which variable will be */
+}
+
+.page-template-page-catalog #content {
+  @apply w-full max-w-none;
+  background-color: #DAE1E7; /* Decide which variable will be */
 }
 
 .page-template-page-catalog h2 {
@@ -25,7 +29,7 @@
 }
 
 .network-catalog {
-  @apply flex p-8 -mt-14 w-full mx-auto lg:w-9/12;
+  @apply flex p-8 -mt-14 mx-auto w-full lg:px-0 lg:w-9/12;
 }
 
 .network-catalog .side-filters {

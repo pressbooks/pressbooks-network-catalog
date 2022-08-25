@@ -1,5 +1,5 @@
 .search-box {
-  @apply flex space-x-4;
+  @apply flex gap-4;
 }
 
 .search-box .search {
@@ -38,13 +38,13 @@
 }
 
 .result-stats {
-  @apply text-2xl text-left font-bold normal-case;
+  @apply text-xl text-left font-bold normal-case;
 }
 
 .applied-filters {
-  @apply flex space-x-2;
+  @apply mt-2 flex gap-2;
 }
 
 .applied-filters .applied-filter {
-  @apply py-1 px-3 flex items-center space-x-4 border rounded-full
+  @apply py-2 px-3 w-fit flex gap-3 items-center justify-center bg-gray-50 rounded shadow;
 }

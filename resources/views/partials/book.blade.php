@@ -48,8 +48,10 @@
 			</p>
 		</div>
 
-		<p class="book-description">
-			{!! $book->description !!}
-		</p>
+		@if($book->description)
+			<p class="book-description">
+				{!! $book->description !!}
+			</p>
+		@endif
 	</div>
 </div>

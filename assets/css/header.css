@@ -8,12 +8,16 @@
 }
 
 .page-template-page-catalog .hero {
-  @apply flex flex-col text-center h-72 items-center justify-center py-3 w-full;
+  @apply p-36 w-full flex text-center items-center justify-center;
   /* TODO: This is a temporary fix for the hero image not showing up on the catalog page */
   background: url("https://pressbooks.test/app/plugins/pressbooks-network-catalog/assets/images/catalogbg.png") no-repeat top center;
   background-size: cover;
 }
 
 .page-template-page-catalog .hero-content {
-  @apply flex flex-col items-center shadow-lg w-8/12 bg-white;
+  @apply py-9 px-12 w-full max-w-5xl bg-white rounded shadow-lg space-y-8;
+}
+
+.page-template-page-catalog .hero-content div {
+  @apply w-7/12 mx-auto;
 }

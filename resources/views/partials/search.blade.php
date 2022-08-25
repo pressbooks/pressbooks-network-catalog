@@ -17,15 +17,17 @@
 	</select>
 </div>
 
-<h2 class="result-stats">{{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), 2, 'Historical Agriculture') }}</h2>
+<div>
+	<h2 class="result-stats">{{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), 2, 'Historical Agriculture') }}</h2>
 
-<div class="applied-filters">
-	<span class="applied-filter">
-		<span>History</span>
-		<span>x</span>
-	</span>
-	<span class="applied-filter">
-		<span>CC BY</span>
-		<span>x</span>
-	</span>
+	<div class="applied-filters">
+		<span class="applied-filter">
+			<span>History</span>
+			<span>x</span>
+		</span>
+		<span class="applied-filter">
+			<span>CC BY</span>
+			<span>x</span>
+		</span>
+	</div>
 </div>
