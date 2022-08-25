@@ -6,8 +6,8 @@
 		<h2>{{ $book->title }}</h2>
 		<p>
 			<span>{{ $book->license }}</span>
-			@if( $book->h5p_count)
-				<span>{{ sprintf(__('%d H5P Activites', 'pressbooks-network-catalog'), $book->h5p_count) }}</span>
+			@if( $book->h5pCount)
+				<span>{{ sprintf(__('%d H5P Activites', 'pressbooks-network-catalog'), $book->h5pCount) }}</span>
 			@endif
 			<span>{{ $book->language }}</span>
 		</p>
@@ -44,7 +44,7 @@
 			@endif
 
 			<p>
-				<span>{{ __('Last updated:', 'pressbooks-network-catalog') }}</span> {{ $book->updated_at }}
+				<span>{{ __('Last updated:', 'pressbooks-network-catalog') }}</span> {{ $book->updatedAt }}
 			</p>
 		</div>
 

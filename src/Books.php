@@ -2,83 +2,174 @@
 
 namespace  PressbooksNetworkCatalog;
 
-use Pressbooks\Contributors;
 use Pressbooks\DataCollector\Book;
-use Pressbooks\Metadata;
+use PressbooksNetworkCatalog\Filters\License;
 
 class Books
 {
-    public function get(array $params = []): array
-    {
-        $this->rawBooksList = $this->query($params);
-        $this->booksList = $this->prepareBooksList($this->rawBooksList);
-        return $this->booksList;
-    }
+	private int $defaultBooksPerPage = 15;
 
-    /**
-     * @param array $params
-     * @return array
-     */
-    private function query( array $params = [] )
-    {
-        global $wpdb;
+	/**
+	 * Get all catalog books.
+	 *
+	 * @param array $params Valid keys: page (int), per_page (int), subjects (array), licenses (array), institutions (array), publishers (array), h5p_count (array symb => int)
+	 *
+	 * @return array
+	 */
+	public function get(array $params = []): array
+	{
+		if (! $this->validateParams($params)) {
+			return [];
+		}
+		$rawBookQueries = $this->query($params);
 
-        $cover_image = Book::COVER;
-        $title = Book::TITLE;
-        $url = Book::BOOK_URL;
-        $language = Book::LANGUAGE;
-        $last_edited = Book::LAST_EDITED;
-        $subject = Book::SUBJECT;
-        $license = Book::LICENSE;
-        $h5p_activities = Book::H5P_ACTIVITIES;
-        $in_catalog = Book::IN_CATALOG;
-        $information_array = Book::BOOK_INFORMATION_ARRAY;
-        $sql_query = "SELECT SQL_CALC_FOUND_ROWS
+		return $this->prepareBooksList($rawBookQueries);
+	}
+
+	/**
+	 * Validate filter parameters.
+	 *
+	 * @param array $params
+	 *
+	 * @return bool
+	 */
+	private function validateParams(array $params): bool
+	{
+		$numericParams = ['page', 'per_page', 'h5p_count'];
+		foreach ($numericParams as $param) {
+			if (isset($params[$param]) && ! is_numeric($params[$param])) {
+				return false;
+			}
+		}
+
+		$arrayParams = ['subjects', 'licenses', 'institutions', 'publishers'];
+		foreach ($arrayParams as $param) {
+			if (isset($params[$param]) && ! is_array($params[$param])) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Perform SQL query to get paginated, filtered catalog books.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+	private function query(array $params = [])
+	{
+		$limit = $params['per_page'] ?? $this->defaultBooksPerPage;
+		$offset = isset($params['page']) ? ($params['page'] - 1) * $limit : 0;
+
+		global $wpdb;
+
+		$coverImage = Book::COVER;
+		$title = Book::TITLE;
+		$url = Book::BOOK_URL;
+		$language = Book::LANGUAGE;
+		$lastEdited = Book::LAST_EDITED;
+		$subject = Book::SUBJECT;
+		$license = Book::LICENSE;
+		$h5pActivities = Book::H5P_ACTIVITIES;
+		$inCatalog = Book::IN_CATALOG;
+		$informationArray = Book::BOOK_INFORMATION_ARRAY;
+		$sqlQuery = "SELECT SQL_CALC_FOUND_ROWS
             b.blog_id AS id,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS cover,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS title,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS url,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS information_array,
-            MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null)) AS updated_at,
+            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS informationArray,
+            MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null)) AS updatedAt,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS language,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS subjects,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS license,
-            MAX(IF(b.meta_key=%s,CAST(b.meta_value AS UNSIGNED),null)) AS h5p_count
+            MAX(IF(b.meta_key=%s,CAST(b.meta_value AS UNSIGNED),null)) AS h5pCount
         FROM {$wpdb->blogmeta} b
         WHERE blog_id IN (
             SELECT blog_id FROM {$wpdb->blogmeta}
                 WHERE meta_key = %s AND meta_value = '1'
             )
         GROUP BY blog_id";
-        return $wpdb->get_results(
-            $wpdb->prepare(
-                $sql_query,
-                $cover_image,
-                $title,
-                $url,
-                $information_array,
-                $last_edited,
-                $language,
-                $subject,
-                $license,
-                $h5p_activities,
-                $in_catalog
-            ),
-            ARRAY_A
-        );
-    }
 
-    private function prepareBooksList(array $booksList): array
-    {
-        foreach ($booksList as &$book) {
-            $book_information = unserialize($book['information_array']);
-            $book['authors'] = isset($book_information['pb_authors']) ? $book_information['pb_authors'] :  '';
-            $book['editors'] = isset($book_information['pb_editors']) ? $book_information['pb_editors'] :  '';
-            $book['description'] = isset($book_information['pb_about_50']) ? $book_information['pb_about_50'] :  '';
-            $book['institutions'] = isset($book_information['pb_institutions']) ?
-                implode(',', $book_information['pb_institutions']) : '';
-            $book['publisher'] = isset($book_information['pb_publisher']) ? $book_information['pb_publisher'] :  '';
-        }
-        return $booksList;
-    }
+		$sqlQuery .= $this->getConditionsByParams($params);
+		$sqlQuery .= ' LIMIT %d OFFSET %d';
+
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				$sqlQuery,
+				$coverImage,
+				$title,
+				$url,
+				$informationArray,
+				$lastEdited,
+				$language,
+				$subject,
+				$license,
+				$h5pActivities,
+				$inCatalog,
+				$limit,
+				$offset
+			)
+		);
+	}
+
+	/**
+	 * Get conditions by filter parameters.
+	 *
+	 * @param array $params
+	 *
+	 * @return string
+	 */
+	private function getConditionsByParams(array $params): string
+	{
+		if (empty($params)) {
+			return '';
+		}
+		$sqlQueryConditions = ' HAVING ';
+		$keyFilterMap = [
+			'subjects' => 'subjects',
+			'licenses' => 'license',
+		];
+		foreach ($keyFilterMap as $filter => $key) {
+			if (isset($params[$filter]) && ! empty($params[$filter])) {
+				global $wpdb;
+				$in = '';
+				foreach ($params[$filter] as $filterValue) {
+					$in .= $wpdb->prepare('%s', $filterValue).',';
+				}
+				$in = str_replace(',', '', $in);
+
+				$sqlQueryConditions .= " $key IN ($in)";
+			}
+		}
+
+		return $sqlQueryConditions === ' HAVING ' ? '' : $sqlQueryConditions;
+	}
+
+	/**
+	 * Prepare books list.
+	 *
+	 * @param array $booksList raw books list
+	 *
+	 * @return array
+	 */
+	private function prepareBooksList(array $booksList): array
+	{
+		$possibleLicenses = License::getPossibleValues();
+
+		return array_map(function ($book) use ($possibleLicenses) {
+			$bookInformation = unserialize($book->informationArray);
+			$book->authors = $bookInformation['pb_authors'] ?? '';
+			$book->editors = $bookInformation['pb_editors'] ?? '';
+			$book->description = $bookInformation['pb_about_50'] ?? '';
+			$book->institutions = isset($bookInformation['pb_institutions']) ?
+				implode(',', $bookInformation['pb_institutions']) : '';
+			$book->publisher = $bookInformation['pb_publisher'] ?? '';
+			$book->license = $possibleLicenses[$book->license] ?? '';
+
+			return $book;
+		}, $booksList);
+	}
 }

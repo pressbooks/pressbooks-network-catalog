@@ -28,7 +28,8 @@ class CatalogManager
 	 */
 	protected function queryBooks(): array
 	{
-        $books = new Books();
-        return $books->get();
+		$books = new Books();
+
+		return $books->get();
 	}
 }
