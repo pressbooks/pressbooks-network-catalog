@@ -3,6 +3,10 @@
   @apply box-border border-0 border-solid border-gray-300;
 }
 
+[x-cloak] {
+  @apply hidden;
+}
+
 .page-template-page-catalog {
   @apply font-sans;
 }
@@ -24,7 +28,7 @@
 }
 
 .network-catalog .side-filters {
-  @apply w-full max-w-xs;
+  @apply h-fit w-full max-w-xs shadow rounded-t;
 }
 
 .network-catalog > div {
