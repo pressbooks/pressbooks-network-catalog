@@ -3,8 +3,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 module.exports = {
   content: [
     './*.php',
-    './resources/views/*.php',
-    './resources/views/partials/*.php',
+    './resources/views/**/*.blade.php',
   ],
   theme: {
     extend: {

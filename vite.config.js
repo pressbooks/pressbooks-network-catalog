@@ -15,7 +15,7 @@ export default defineConfig(() => {
       },
     },
     plugins: [
-      liveReload(__dirname+'/src/**/*.php')
+      liveReload(__dirname+'/src/**/*.php', __dirname + '/assets/**/*.css', __dirname + '/assets/**/*.js'),
     ],
     root: '',
     base: process.env.NODE_ENV === 'development'

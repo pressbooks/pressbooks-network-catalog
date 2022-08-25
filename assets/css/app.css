@@ -5,6 +5,14 @@
   @apply flex;
 }
 
+/*@import(catalog)*/
+/*@import(book-card)*/
+/*@import(filters)*/
+
+#content {
+	@apply w-full max-w-sm md:max-w-7xl;
+}
+
 header.header{
-  height: 200px !important;
+  height: 5rem !important;
 }
