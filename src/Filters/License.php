@@ -10,6 +10,12 @@ class License implements Filters
 {
 	public static function getPossibleValues(): array
 	{
+		$values = get_transient('pb-network-catalog-licenses');
+
+		if ($values) {
+			return $values;
+		}
+
 		$supportedLicenses = (new Licensing)->getSupportedTypes();
 		$currentLicenses = DataCollector::init()->getPossibleValuesFor(DataCollector::LICENSE);
 
@@ -22,6 +28,8 @@ class License implements Filters
 		}, []);
 
 		ksort($licenses);
+
+		set_transient('pb-network-catalog-licenses', $licenses, DAY_IN_SECONDS);
 
 		return $licenses;
 	}

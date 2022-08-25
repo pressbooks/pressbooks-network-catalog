@@ -9,6 +9,16 @@ class Subject implements Filters
 {
 	public static function getPossibleValues(): array
 	{
-		return DataCollector::init()->getPossibleValuesFor(DataCollector::SUBJECT);
+		$values = get_transient('pb-network-catalog-subjects');
+
+		if ($values) {
+			return $values;
+		}
+
+		$subjects = DataCollector::init()->getPossibleValuesFor(DataCollector::SUBJECT);
+
+		set_transient('pb-network-catalog-subjects', $subjects, DAY_IN_SECONDS);
+
+		return $subjects;
 	}
 }
