@@ -4,7 +4,11 @@
   top: 0;
   z-index: 1; /* for sticky header */
   background-image: none !important;
-  background: var(--accent-fg);
+  background: var(--accent);
+}
+
+.page-template-page-catalog .header #nav-primary-menu a {
+  color: var(--accent-fg);
 }
 
 .page-template-page-catalog .hero {
