@@ -1,13 +1,7 @@
-.side-filters .side-filter {
-  @apply border-b border-gray-800;
-}
-
-.side-filters .side-filter h3 {
-  @apply m-0 text-base normal-case font-normal;
-}
 .side-filters .side-filter button {
-  @apply py-3 px-4 w-full flex items-center justify-between border-transparent rounded-none normal-case font-normal focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
   background-color: var(--primary-fg);
+  border-bottom-color: var(--primary);
   color: var(--primary);
 }
 
@@ -32,12 +26,26 @@
   @apply border-none;
 }
 
-.side-filters .side-filter > ul {
-  @apply py-2
+.side-filters .side-filter > ul, .side-filters .side-filter > div {
+  @apply p-2 m-0 bg-white border-b;
+  border-bottom-color: var(--primary);
 }
+
+.side-filters .side-filter > ul {
+  @apply list-none;
+}
+
 
 .side-filters .side-filter > ul li {
   @apply py-2 px-4
+}
+
+.side-filters .side-filter > div input {
+  @apply py-2 px-3 w-full border rounded;
+}
+
+.side-filters .side-filter > div input:not(hidden) ~ :not(hidden) {
+  @apply mt-2;
 }
 
 .side-filters .reset-filters {
