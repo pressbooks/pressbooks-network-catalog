@@ -2,10 +2,13 @@
 
 <main>
 	<div class="hero">
-		<div class="hero-content">
-			<h1>{{ get_the_title() }}</h1>
-			<div>
-				{!! wp_kses_post(get_the_content()) !!}
+		<div>
+			<div class="hero-sidebar"></div>
+			<div class="hero-content">
+				<h1>{{ get_the_title() }}</h1>
+				<div>
+					{!! wp_kses_post(get_the_content()) !!}
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 <div class="search-box">
 	<div class="search">
-		<label id="search-input-label" class="sr-only">{{ __('Search', 'pressbooks-network-catalog') }}</label>
-		<input type="search" placeholder="{{ __('Find a book', 'pressbooks-network-catalog') }}" aria-labelledby="search-input-label"/>
+		<label id="search-input-label" class="sr-only">{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}</label>
+		<input type="search" placeholder="{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}" aria-labelledby="search-input-label"/>
 		<button>{{ __('Search', 'pressbooks-network-catalog') }}</button>
 	</div>
 

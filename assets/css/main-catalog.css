@@ -20,7 +20,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #DAE1E7; /* Decide which variable will be */
 }
 
-.page-template-page-catalog h2 {
+.page-template-page-catalog h1,
+.page-template-page-catalog h2,
+.page-template-page-catalog h3,
+.page-template-page-catalog h4,
+.page-template-page-catalog h5,
+.page-template-page-catalog h6 {
   @apply before:hidden;
 }
 
@@ -29,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .network-catalog {
-  @apply flex py-8 px-4 -mt-14 mx-auto w-full max-w-8xl;
+  @apply flex py-8 px-4 gap-y-8 gap-x-20 -mt-14 mx-auto w-full max-w-8xl;
 }
 
 .network-catalog .side-filters {
@@ -37,7 +42,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .network-catalog > div {
-  @apply ml-8 flex-1 space-y-8;
+  @apply flex-1 space-y-8;
 }
 
 .network-catalog .book-cards {
