@@ -188,6 +188,10 @@ class Books
 			$sqlQueryConditions[] = $params['h5p'] ? ' h5pCount > 0' : 'h5pCount = 0';
 		}
 
+		if (isset($params['search'])) {
+			$sqlQueryConditions[] = ' title LIKE '.$wpdb->prepare('%s', '%'.$params['search'].'%');
+		}
+
 		if (isset($params['last_updated'])) {
 			$sqlQueryConditions[] = ' UNIX_TIMESTAMP(updatedAt) > UNIX_TIMESTAMP('.
 				$wpdb->prepare('%s', $params['last_updated']).')';

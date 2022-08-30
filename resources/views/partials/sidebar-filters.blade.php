@@ -37,11 +37,10 @@
     <div x-cloak :class="!open && 'hidden'">
         <label for="h5p">
             {{ __('Has H5P activities', 'pressbooks-network-catalog') }}
-            <input x-data id="h5p" type="checkbox" name="h5p" :checked="$store.filters.h5p === true"
-                   x-model="$store.filters.h5p" @change="$store.filters.toggle('h5p')"/>
+            <input x-data id="h5p" type="checkbox" name="h5p" value="1"/>
         </label>
     </div>
 </div>
-<button class="reset-filters">
+<button class="reset-filters" type="reset">
     {{ __('Clear filters', 'pressbooks-network-catalog') }}
 </button>
