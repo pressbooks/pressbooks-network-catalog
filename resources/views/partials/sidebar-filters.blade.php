@@ -26,7 +26,7 @@
 
 @include(
     'PressbooksNetworkCatalog::components.selectable-filter',
-	['title' => __('Publisher', 'pressbooks-network-catalog'), 'items' => [], 'searchable' => true]
+	['title' => __('Publisher', 'pressbooks-network-catalog'), 'items' => $publishers, 'searchable' => true]
 )
 
 <div class="side-filter" x-data="{open: $store.filters.h5p === true}">

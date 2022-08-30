@@ -37,7 +37,7 @@
 
 
 .side-filters .side-filter ul li, .side-filters .side-filter ul span {
-  @apply py-2 px-4 text-sm;
+  @apply block py-2 px-4 text-sm;
 }
 
 .side-filters .side-filter ul li:hover {

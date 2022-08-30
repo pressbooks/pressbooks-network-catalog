@@ -5,6 +5,7 @@ namespace PressbooksNetworkCatalog;
 use Pressbooks\Container;
 use PressbooksNetworkCatalog\Filters\Institution;
 use PressbooksNetworkCatalog\Filters\License;
+use PressbooksNetworkCatalog\Filters\Publisher;
 use PressbooksNetworkCatalog\Filters\Subject;
 
 class CatalogManager
@@ -17,7 +18,7 @@ class CatalogManager
 				'subjects' => Subject::getPossibleValues(),
 				'licenses' => License::getPossibleValues(),
 				'institutions' => Institution::getPossibleValues(),
-				'publishers' => [],
+				'publishers' => Publisher::getPossibleValues(),
 			]
 		);
 	}

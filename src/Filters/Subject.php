@@ -3,19 +3,28 @@
 namespace PressbooksNetworkCatalog\Filters;
 
 use Pressbooks\DataCollector\Book as DataCollector;
+use function Pressbooks\Metadata\get_subject_from_thema;
 use PressbooksNetworkCatalog\Contracts\Filters;
 
 class Subject implements Filters
 {
 	public static function getPossibleValues(): array
 	{
-		$values = get_transient('pb-network-catalog-subjects');
+		$subjects = get_transient('pb-network-catalog-subjects');
 
-		if ($values) {
-			return $values;
+		if ($subjects) {
+			return $subjects;
 		}
 
-		$subjects = DataCollector::init()->getPossibleValuesFor(DataCollector::SUBJECT);
+		$codes = DataCollector::init()->getPossibleValuesFor(DataCollector::SUBJECTS_CODES);
+
+		$subjects = array_reduce($codes, function ($subjects, $key) {
+			$subjects[$key] = get_subject_from_thema($key);
+
+			return $subjects;
+		}, []);
+
+		asort($subjects);
 
 		set_transient('pb-network-catalog-subjects', $subjects, DAY_IN_SECONDS);
 
