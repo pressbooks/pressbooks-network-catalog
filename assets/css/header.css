@@ -1,14 +1,28 @@
 .page-template-page-catalog .header {
+  @apply py-6;
   @apply h-fit !important;
   position: sticky;
   top: 0;
   z-index: 1; /* for sticky header */
   background-image: none !important;
+}
+
+.page-template-page-catalog .header, .header__nav--active .js-header-nav {
   background: var(--accent);
+}
+
+.page-template-page-catalog .header .header__inside {
+  @apply px-4;
 }
 
 .page-template-page-catalog .header #nav-primary-menu a {
   color: var(--accent-fg);
+}
+
+.page-template-page-catalog .header__nav-icon__icon,
+.page-template-page-catalog .header__nav-icon__icon:after,
+.page-template-page-catalog .header__nav-icon__icon:before {
+  background: var(--accent-fg);
 }
 
 .page-template-page-catalog .hero {
