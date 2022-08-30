@@ -57,19 +57,14 @@
   color: var(--accent);
 }
 
-/* start */
-/* temporary, we will have different date pickers */
-.side-filters .side-filter:not(.selectable) > div {
-  @apply p-2;
-}
-.side-filters .side-filter:not(.selectable) input {
-  @apply py-2 px-3 w-full border rounded;
+.side-filters .side-filter.checkbox button {
+  @apply flex;
 }
 
-.side-filters .side-filter > div input:not(hidden) ~ input:not(hidden) {
-  @apply mt-2;
+.side-filters .side-filter.checkbox input[type=checkbox] {
+  @apply h-5 w-5 focus:outline-none;
+  accent-color: var(--primary);
 }
-/* end */
 
 .side-filters .reset-filters {
   @apply w-full p-4 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
