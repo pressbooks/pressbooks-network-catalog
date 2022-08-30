@@ -11,18 +11,25 @@ class Books
 
 	/**
 	 * Get Books list to display in the Catalog page.
+	 * Valid parameters with examples are:
+	 * [
+	 *  page (int),
+	 *  per_page (int),
+	 *  subjects => [ 'ABC', 'LNR' ],
+	 *  licenses [ 'public-domain', 'all-rights-reserved' ],
+	 *  institutions [ 'Australian National University', 'University of Newcastle' ],
+	 *  publishers => [ 'Press Books', 'Univ Pub' ],
+	 *  h5p => true / false, // boolean
+	 *  last_updated => '2019-01-01', // YYYY-MM-DD format
+	 * ]
 	 *
-	 * @param array $params Valid keys: page (int), per_page (int), subjects (array), licenses (array), institutions (array), publishers (array), h5p_count (array symb => int)
+	 * @param array $params Parameters to filter the list of books.
 	 *
 	 * @return array
 	 */
 	public function get(array $params = []): array
 	{
-		if (! $this->validateParams($params)) {
-			return [];
-		}
-
-		return $this->prepareResponse($this->query($params));
+		return $this->validateParams($params) ? $this->prepareResponse($this->query($params)) : [];
 	}
 
 	/**
@@ -34,6 +41,7 @@ class Books
 	 */
 	private function validateParams(array $params): bool
 	{
+		// We want to display different messages depending on the type of validation error.
 		$numericParams = ['page', 'per_page'];
 		foreach ($numericParams as $param) {
 			if (isset($params[$param]) && ! is_numeric($params[$param])) {
@@ -41,16 +49,23 @@ class Books
 			}
 		}
 
-		$arrayParams = ['subjects', 'licenses', 'institutions', 'publishers', 'h5p_count'];
+		$arrayParams = ['subjects', 'licenses', 'institutions', 'publishers'];
 		foreach ($arrayParams as $param) {
 			if (isset($params[$param]) && ! is_array($params[$param])) {
 				return false;
 			}
 		}
 
-		if (isset($params['h5p_count'])) {
-			$symbol = array_key_first($params['h5p_count']);
-			if (! in_array($symbol, ['>=', '<=']) || ! is_int($params['h5p_count'][$symbol])) {
+		if (isset($params['h5p']) && ! is_bool($params['h5p'])) {
+			return false;
+		}
+
+		if (isset($params['last_updated'])) {
+			if (
+				! is_string($params['last_updated']) ||
+				! preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $params['last_updated']) ||
+				time() < strtotime($params['last_updated'])
+			) {
 				return false;
 			}
 		}
@@ -76,11 +91,15 @@ class Books
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS cover,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS title,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS url,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS informationArray,
+            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS institutions,
+            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS authors,
+            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS editors,
+            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS publisher,
+            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS description,
             MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null)) AS updatedAt,
             MAX(IF(b.meta_key=%s,b.meta_value,null)) AS language,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS subjects,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS licenses,
+            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS subjects,
+            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS license,
             MAX(IF(b.meta_key=%s,CAST(b.meta_value AS UNSIGNED),null)) AS h5pCount
         FROM {$wpdb->blogmeta} b
         WHERE blog_id IN (
@@ -99,10 +118,14 @@ class Books
 					Book::COVER,
 					Book::TITLE,
 					Book::BOOK_URL,
-					Book::BOOK_INFORMATION_ARRAY,
+					Book::INSTITUTIONS,
+					Book::AUTHORS,
+					Book::EDITORS,
+					Book::PUBLISHER,
+					Book::LONG_DESCRIPTION,
 					Book::LAST_EDITED,
 					Book::LANGUAGE,
-					Book::SUBJECT,
+					Book::SUBJECTS_CODES,
 					Book::LICENSE,
 					Book::H5P_ACTIVITIES,
 					Book::IN_CATALOG,
@@ -125,32 +148,52 @@ class Books
 		if (empty($params)) {
 			return '';
 		}
-		$sqlQueryConditions = '';
-		$arrayFormatParams = [
-			'subjects',
-			'licenses',
+		$sqlQueryConditions = [];
+
+		global $wpdb;
+
+		$queryFilters = [
+			'licenses' => 'license',
+			'publishers' => 'publisher',
 		];
-		foreach ($arrayFormatParams as $filter) {
+		foreach ($queryFilters as $filter => $column) {
 			if (isset($params[$filter]) && ! empty($params[$filter])) {
-				global $wpdb;
 				$in = '';
 				foreach ($params[$filter] as $filterValue) {
 					$in .= $wpdb->prepare('%s', $filterValue).',';
 				}
-				$in = str_replace(',', '', $in);
+				$in = rtrim($in, ',');
 
-				$sqlQueryConditions .= " $filter IN ($in)";
+				$sqlQueryConditions[] = " $column IN ($in)";
 			}
 		}
 
-		if (isset($params['h5p_count']) && ! empty($params['h5p_count'])) {
-			global $wpdb;
-
-			$symbol = array_key_first($params['h5p_count']);
-			$sqlQueryConditions .= $wpdb->prepare(" h5pCount $symbol %d", $params['h5p_count'][$symbol]);
+		$subQueryFilters = [
+			'subjects' => Book::SUBJECTS_CODES,
+			'institutions' => Book::INSTITUTIONS,
+		];
+		foreach ($subQueryFilters as $filter => $column) {
+			if (isset($params[$filter]) && ! empty($params[$filter])) {
+				$in = '';
+				foreach ($params[$filter] as $filterValue) {
+					$in .= $wpdb->prepare('%s', $filterValue).',';
+				}
+				$in = rtrim($in, ',');
+				$sqlQueryConditions[] = " blog_id IN (SELECT blog_id FROM {$wpdb->blogmeta}
+                WHERE meta_key = '$column' AND meta_value IN ($in) GROUP BY blog_id)";
+			}
 		}
 
-		return empty($sqlQueryConditions) ? '' : '  HAVING '.$sqlQueryConditions;
+		if (isset($params['h5p'])) {
+			$sqlQueryConditions[] = $params['h5p'] ? ' h5pCount > 0' : 'h5pCount = 0';
+		}
+
+		if (isset($params['last_updated'])) {
+			$sqlQueryConditions[] = ' UNIX_TIMESTAMP(updatedAt) > UNIX_TIMESTAMP('.
+				$wpdb->prepare('%s', $params['last_updated']).')';
+		}
+
+		return empty($sqlQueryConditions) ? '' : '  HAVING '.implode('AND', $sqlQueryConditions);
 	}
 
 	/**
@@ -165,14 +208,13 @@ class Books
 		$possibleLicenses = License::getPossibleValues();
 
 		return array_map(function ($book) use ($possibleLicenses) {
-			$bookInformation = unserialize($book->informationArray);
-			$book->authors = $bookInformation['pb_authors'] ?? '';
-			$book->editors = $bookInformation['pb_editors'] ?? '';
-			$book->description = $bookInformation['pb_about_unlimited'] ?? '';
-			$book->institutions = isset($bookInformation['pb_institutions']) ?
-				implode(',', $bookInformation['pb_institutions']) : '';
-			$book->publisher = $bookInformation['pb_publisher'] ?? '';
-			$book->license = $possibleLicenses[$book->licenses] ?? '';
+			$book->license = $possibleLicenses[$book->license] ?? '';
+			if ($book->subjects) {
+				$book->subjects = implode(', ', array_map(function ($subject_code) {
+					// We want to use the main site language here
+					return \Pressbooks\Metadata\get_subject_from_thema($subject_code);
+				}, explode(', ', $book->subjects)));
+			}
 
 			return $book;
 		}, $booksList);
