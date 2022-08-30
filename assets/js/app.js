@@ -4,7 +4,6 @@ import '../css/app.css';
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
-
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const search = urlParams.get('search');
@@ -24,7 +23,23 @@ document.addEventListener('alpine:init', () => {
   })
 
   console.log(Alpine.store('filters'));
-})
+});
+
+window.selectableFilters = ({open}) => {
+  return {
+    open,
+    visibility() {
+      if (this.open) {
+        return '';
+      }
+
+      return 'hidden';
+    },
+    toggle() {
+      this.open ^= true;
+    }
+  }
+}
 
 Alpine.start();
 

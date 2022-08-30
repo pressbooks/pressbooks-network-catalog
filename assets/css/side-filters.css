@@ -1,4 +1,4 @@
-.side-filters .side-filter button {
+.side-filters .side-filter > button {
   @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
   background-color: var(--primary-fg);
   border-bottom-color: var(--primary);
@@ -26,27 +26,50 @@
   @apply border-none;
 }
 
-.side-filters .side-filter > ul, .side-filters .side-filter > div {
-  @apply p-2 m-0 bg-white border-b;
+.side-filters .side-filter > div {
+  @apply m-0 bg-white border-b;
   border-bottom-color: var(--primary);
 }
 
-.side-filters .side-filter > ul {
-  @apply list-none;
+.side-filters .side-filter ul {
+  @apply list-none m-0 p-0;
 }
 
 
-.side-filters .side-filter > ul li {
-  @apply py-2 px-4
+.side-filters .side-filter ul li, .side-filters .side-filter ul span {
+  @apply py-2 px-4 text-sm;
 }
 
-.side-filters .side-filter > div input {
+.side-filters .side-filter ul li:hover {
+  background-color: #eef2f5;
+}
+
+.side-filters .side-filter.selectable input {
+  @apply py-2 px-2 w-full border-b text-sm focus:outline-none;
+}
+
+.side-filters .side-filter.selectable input:focus {
+  border-bottom-color: var(--primary);
+}
+
+.side-filters .side-filter.selectable button.show-more {
+  @apply w-full bg-transparent border-none normal-case font-normal text-sm text-left py-2 px-4 hover:font-bold;
+  color: var(--accent);
+}
+
+/* start */
+/* temporary, we will have different date pickers */
+.side-filters .side-filter:not(.selectable) > div {
+  @apply p-2;
+}
+.side-filters .side-filter:not(.selectable) input {
   @apply py-2 px-3 w-full border rounded;
 }
 
-.side-filters .side-filter > div input:not(hidden) ~ :not(hidden) {
+.side-filters .side-filter > div input:not(hidden) ~ input:not(hidden) {
   @apply mt-2;
 }
+/* end */
 
 .side-filters .reset-filters {
   @apply w-full p-4 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
