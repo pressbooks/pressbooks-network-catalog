@@ -1,5 +1,5 @@
 .side-filters .side-filter > button, .side-filters .side-filter > label {
-  @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none;
   background-color: var(--primary-fg);
   border-bottom-color: var(--primary);
   color: var(--primary);
@@ -16,6 +16,10 @@
 
 .side-filters .side-filter button:focus {
   outline-color: var(--primary-dark);
+}
+
+.side-filters .side-filter > button > span.icon {
+  @apply h-4 w-4;
 }
 
 .side-filters .side-filter:first-child {
@@ -91,7 +95,7 @@
 }
 
 .side-filters .reset-filters, .side-filters .submit-filters {
-  @apply w-full p-3 text-sm font-bold uppercase border rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply w-full p-3 text-sm font-bold uppercase border rounded-t-none hover:shadow focus:outline-none;
   color: var(--primary-fg);
 }
 

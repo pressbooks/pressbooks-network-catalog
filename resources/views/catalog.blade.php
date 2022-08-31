@@ -22,11 +22,15 @@
                 @include('PressbooksNetworkCatalog::partials.search-box')
 
                 <div class="book-cards">
+					@include('PressbooksNetworkCatalog::components.pagination')
+
                     @forelse( $books as $book )
                         @include('PressbooksNetworkCatalog::partials.book-card')
                     @empty
                         <p>No books have been added to the catalog yet.</p>
                     @endforelse
+
+					@include('PressbooksNetworkCatalog::components.pagination')
                 </div>
             </div>
         </div>
