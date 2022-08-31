@@ -3,23 +3,13 @@ import '../css/app.css';
 
 window.Alpine = Alpine;
 
-const falsy = (value) => {
-  let values = [
-    null,
-    undefined,
-    0,
-    false,
-    '',
-    '0',
-    'false'
-  ];
-
-  return values.includes(value);
-}
-
-window.selectableFilters = ({open}) => {
+window.selectableFilters = ({open, items, selected}) => {
   return {
     open,
+    items,
+    selected,
+    search: '',
+    displayAmount: 10,
     visibility() {
       if (this.open) {
         return '';
@@ -29,6 +19,28 @@ window.selectableFilters = ({open}) => {
     },
     toggle() {
       this.open ^= true;
+    },
+    empty() {
+      return this.filteredItems().length === 0;
+    },
+    filteredItems() {
+      return Object.entries(this.items)
+        .filter(
+          ([key, value]) => value.toLowerCase().includes(this.search.toLowerCase())
+        ).slice(0, this.displayAmount);
+    },
+    showMore() {
+      this.displayAmount += 10;
+    },
+    highlightSearch(value) {
+      if (! this.search) {
+        return value;
+      }
+
+      return value.replaceAll(
+        new RegExp(`(${this.search.toLowerCase()})`, 'ig'),
+        '<span class="font-bold">$1</span>'
+      )
     }
   }
 }

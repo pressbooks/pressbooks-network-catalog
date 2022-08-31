@@ -2,6 +2,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
+    './assets/js/*.js',
     './*.php',
     './resources/views/**/*.blade.php',
   ],
