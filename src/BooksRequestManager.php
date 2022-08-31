@@ -171,6 +171,11 @@ class BooksRequestManager
 		return empty($sqlQueryConditions) ? '' : '  HAVING '.implode(' AND ', $sqlQueryConditions);
 	}
 
+	/**
+	 * Get SQL Search Conditions for books catalog query.
+	 *
+	 * @return string
+	 */
 	private function getSqlSearchConditionsForCatalogQuery(): string
 	{
 		global $wpdb;
