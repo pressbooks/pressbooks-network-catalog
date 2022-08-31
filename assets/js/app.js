@@ -17,7 +17,7 @@ const falsy = (value) => {
   return values.includes(value);
 }
 
-window.selectableFilters = ({open}  ) => {
+window.selectableFilters = ({open}) => {
   return {
     open,
     visibility() {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0086dee00f4f90d871574f806b7cd8f",
+    "content-hash": "7aa1b03b8256ed1c328bff2d504477fc",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.234.5",
+            "version": "3.234.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0293e7b4684827688dba3f3b58d99778a99156ae"
+                "reference": "c0ae9fbc8295678502a8fde6a2ecc49f2bd39580"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0293e7b4684827688dba3f3b58d99778a99156ae",
-                "reference": "0293e7b4684827688dba3f3b58d99778a99156ae",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c0ae9fbc8295678502a8fde6a2ecc49f2bd39580",
+                "reference": "c0ae9fbc8295678502a8fde6a2ecc49f2bd39580",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.234.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.234.6"
             },
-            "time": "2022-08-29T19:14:31+00:00"
+            "time": "2022-08-30T20:25:10+00:00"
         },
         {
             "name": "composer/installers",
@@ -2600,12 +2600,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "6ae007f7af4c29343fb66abb6bcc23f9384d9d54"
+                "reference": "2734036ac2aaa9acec2fbe450c79bb217512e5e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/6ae007f7af4c29343fb66abb6bcc23f9384d9d54",
-                "reference": "6ae007f7af4c29343fb66abb6bcc23f9384d9d54",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/2734036ac2aaa9acec2fbe450c79bb217512e5e5",
+                "reference": "2734036ac2aaa9acec2fbe450c79bb217512e5e5",
                 "shasum": ""
             },
             "require": {
@@ -2619,6 +2619,8 @@
                 "illuminate/contracts": "^8.0",
                 "illuminate/events": "^8.0",
                 "illuminate/filesystem": "^8.0",
+                "illuminate/http": "^8.0",
+                "illuminate/support": "^8.0",
                 "illuminate/view": "^8.0",
                 "jenssegers/imagehash": "0.5.0",
                 "johnbillion/extended-cpts": "^5.0",
@@ -2677,7 +2679,7 @@
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2022-08-30T13:10:03+00:00"
+            "time": "2022-08-31T13:46:44+00:00"
         },
         {
             "name": "psr/container",
