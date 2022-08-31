@@ -65,25 +65,6 @@ class Books
 
 		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery().
 			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
-		$q = $wpdb->prepare(
-			$sqlQuery,
-			[
-				Book::COVER,
-				Book::TITLE,
-				Book::BOOK_URL,
-				Book::INSTITUTIONS,
-				Book::AUTHORS,
-				Book::EDITORS,
-				Book::PUBLISHER,
-				Book::LONG_DESCRIPTION,
-				Book::LAST_EDITED,
-				Book::LANGUAGE,
-				Book::SUBJECTS_CODES,
-				Book::LICENSE,
-				Book::H5P_ACTIVITIES,
-				Book::IN_CATALOG,
-			]
-		);
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
