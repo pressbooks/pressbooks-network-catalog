@@ -9,11 +9,6 @@ class Books
 {
 	private BooksRequestManager $booksRequestManager;
 
-	public function __construct()
-	{
-		$this->booksRequestManager = new BooksRequestManager();
-	}
-
 	/**
 	 * Get Books list to display in the Catalog page.
 	 * Valid GET Request parameters with examples are:
@@ -32,6 +27,7 @@ class Books
 	 */
 	public function get(): array
 	{
+        $this->booksRequestManager = new BooksRequestManager();
 		return $this->booksRequestManager->validateRequest() ? $this->prepareResponse($this->query()) : [];
 	}
 
