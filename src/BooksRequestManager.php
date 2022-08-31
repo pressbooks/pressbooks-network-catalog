@@ -86,7 +86,7 @@ class BooksRequestManager
 			if (isset($this->request[$filter]) && ! empty($this->request[$filter])) {
 				if (
 					gettype($this->request[$filter]) !== $config['type'] ||
-					isset($config['regex']) && ! preg_match($config['regex'], $this->request[$filter])
+                    (isset($config['regex']) && ! preg_match($config['regex'], $this->request[$filter]))
 				) {
 					return false;
 				}

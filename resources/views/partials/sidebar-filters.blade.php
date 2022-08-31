@@ -1,6 +1,6 @@
 @include(
     'PressbooksNetworkCatalog::components.selectable-filter',
-    ['title' => __('Subject', 'pressbooks-network-catalog'), 'items' => $subjects, 'searchable' => true]
+    ['title' => __('Subject', 'pressbooks-network-catalog'), 'items' => $subjects, 'searchable' => true, 'name'=> 'subjects']
 )
 
 @include(
@@ -43,6 +43,10 @@
 		/>
 	</button>
 </div>
+
+<button class="submit-filters" type="submit">
+    {{ __('Filter books', 'pressbooks-network-catalog') }}
+</button>
 
 <button class="reset-filters" type="reset">
     {{ __('Clear filters', 'pressbooks-network-catalog') }}

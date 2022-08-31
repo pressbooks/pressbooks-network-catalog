@@ -72,10 +72,24 @@
   color: var(--primary-fg);
 }
 
+.side-filters .submit-filters {
+  @apply w-full p-4 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  background-color: var(--accent);
+  color: var(--primary-fg);
+}
+
 .side-filters .reset-filters:hover {
   background-color: var(--primary-dark);
 }
 
 .side-filters .reset-filters:focus {
   outline-color: var(--primary-dark);
+}
+
+.side-filters .submit-filters:hover {
+  background-color: var(--accent);
+}
+
+.side-filters .submit-filters:focus {
+  outline-color: var(--accent);
 }
