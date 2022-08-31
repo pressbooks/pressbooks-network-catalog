@@ -1,5 +1,5 @@
 .search-box {
-  @apply flex gap-4;
+  @apply flex lg:flex lg:gap-4 lg:flex-row flex-col
 }
 
 .search-box .search {
@@ -47,4 +47,13 @@
 
 .applied-filters .applied-filter {
   @apply py-2 px-3 w-fit flex gap-3 items-center justify-center bg-gray-50 rounded shadow;
+  background: var(--bg-chip);
+}
+
+.remove {
+  @apply cursor-pointer justify-center items-center text-gray-500 hover:text-gray-700 pt-1;
+}
+
+.remove svg {
+  @apply h-4 w-4;
 }

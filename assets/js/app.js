@@ -33,7 +33,7 @@ window.selectableFilters = ({open, items, selected}) => {
       this.displayAmount += 10;
     },
     highlightSearch(value) {
-      if (! this.search) {
+      if (!this.search) {
         return value;
       }
 
@@ -43,6 +43,13 @@ window.selectableFilters = ({open, items, selected}) => {
       )
     }
   }
+}
+
+window.removeFilter = (filter) => {
+  // TODO: Date filter
+  const attr = filter === 'h5p' ? 'name' : 'value';
+  document.querySelector(`input[${attr}="${filter}"]`).click();
+  document.getElementById('network-catalog-form').submit();
 }
 
 Alpine.start();
