@@ -1,7 +1,9 @@
 <div class="side-filter selectable" x-data='selectableFilters({open: @json($open ?? false), items: @json($items), selected: @json($selected ?? [])})'>
 	<button @click="toggle" :aria-expanded="open" type="button">
 		<span>{{ $title }}</span>
-		<span>&#8964;</span>
+		<span class="icon">
+			@include('PressbooksNetworkCatalog::icons.chevron-down')
+		</span>
 	</button>
 	<div x-cloak :class="visibility">
 		@if($searchable ?? false)
