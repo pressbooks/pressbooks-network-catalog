@@ -13,7 +13,13 @@
 				<li>
 					<label>
 						<span>{{ $item }}</span>
-						<input type="checkbox" name="{{ $name }}[]" value="{{ $key }}" />
+						<input
+							type="checkbox"
+							name="{{ $name }}[]"
+							value="{{ $key }}"
+							@if(in_array($key, $selected ?? []))
+								checked
+							@endif />
 					</label>
 
 				</li>

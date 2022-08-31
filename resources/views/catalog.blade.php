@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <form method="get" action="{{$request->url()}}">
+    <form method="get" action="{{ $request->url() }}">
         <div class="network-catalog">
             <aside class="side-filters">
                 @include('PressbooksNetworkCatalog::partials.sidebar-filters')
