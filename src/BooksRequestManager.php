@@ -2,16 +2,19 @@
 
 namespace PressbooksNetworkCatalog;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Pressbooks\DataCollector\Book;
 
 class BooksRequestManager
 {
+	/**
+	 * Filters parameters configuration
+	 *
+	 * @var array[]
+	 */
 	private array $filtersConfig;
 
-	//    private Request $request;
-
-	private array $request;
+	private Request $request;
 
 	public function __construct()
 	{
@@ -48,7 +51,7 @@ class BooksRequestManager
 				'column' => Book::H5P_ACTIVITIES,
 				'name' => 'h5p',
 				'alias' => 'h5pCount',
-				'type' => 'boolean',
+				'type' => 'string',
 				'conditionQueryType' => 'numeric',
 			],
 			'last_updated' => [
@@ -69,12 +72,14 @@ class BooksRequestManager
 			],
 		];
 
-		//        $this->request = Request::capture()->all();
-		//        var_dump($this->request->all());
-
-		$this->request = $_GET;
+		$this->request = Request::capture();
 	}
 
+	/**
+	 * Validate parameters requests.
+	 *
+	 * @return bool
+	 */
 	public function validateRequest(): bool
 	{
 		foreach ($this->filtersConfig as $filter => $config) {
@@ -91,6 +96,16 @@ class BooksRequestManager
 		return true;
 	}
 
+	/**
+	 * Get SQL Query Limit and Offset for books catalog query.
+	 *
+	 * @return string
+	 */
+	public function getSqlPaginationForCatalogQuery(): string
+	{
+		return ' LIMIT '.$this->getPageLimit().' OFFSET '.$this->getPageOffset();
+	}
+
 	public function getPageLimit(): int
 	{
 		return $this->request['per_page'] ?? $this->filtersConfig['per_page']['default'];
@@ -102,7 +117,12 @@ class BooksRequestManager
 			($this->request['page'] - 1) * $this->getPageLimit() : $this->filtersConfig['page']['default'];
 	}
 
-	public function getSqlConditions(): string
+	/**
+	 * Get SQL Books Catalog Query conditions according to the request parameters.
+	 *
+	 * @return string
+	 */
+	public function getSqlConditionsForCatalogQuery(): string
 	{
 		if (empty($this->request)) {
 			return '';
@@ -135,8 +155,7 @@ class BooksRequestManager
 												$wpdb->prepare('%s', $this->request[$filter]).')';
 					}
 					if ($config['conditionQueryType'] === 'numeric') {
-						$column = $config['alias'];
-						$sqlQueryConditions[] = $this->request[$filter] ? "$column > 0" : "$column = 0";
+						$sqlQueryConditions[] = $config['alias'].' > 0';
 					}
 				}
 			}

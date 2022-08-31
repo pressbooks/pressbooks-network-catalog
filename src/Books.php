@@ -16,17 +16,27 @@ class Books
 
 	/**
 	 * Get Books list to display in the Catalog page.
-	 *
+	 * Valid GET Request parameters with examples are:
+	 *  [
+	 *      page (int),
+	 *      per_page (int),
+	 *      subjects => [ 'ABC', 'LNR' ],
+	 *      licenses [ 'public-domain', 'all-rights-reserved' ],
+	 *      institutions [ 'Australian National University', 'University of Newcastle' ],
+	 *      publishers => [ 'Press Books', 'Univ Pub' ],
+	 *      h5p => 'on',
+	 *      last_updated => '2019-01-01', // YYYY-MM-DD format
+	 *  ]
 	 *
 	 * @return array
 	 */
-	public function get(array $params = []): array
+	public function get(): array
 	{
 		return $this->booksRequestManager->validateRequest() ? $this->prepareResponse($this->query()) : [];
 	}
 
 	/**
-	 * Perform SQL query to get paginated, filtered catalog books.
+	 * Perform SQL query to get paginated, filtered catalog books according to Request parameters.
 	 *
 	 * @return array
 	 */
@@ -56,30 +66,8 @@ class Books
             )
         GROUP BY blog_id";
 
-		$sqlQuery .= $this->booksRequestManager->getSqlConditions();
-		$sqlQuery .= ' LIMIT %d OFFSET %d';
-
-		$q = $wpdb->prepare(
-			$sqlQuery,
-			[
-				Book::COVER,
-				Book::TITLE,
-				Book::BOOK_URL,
-				Book::INSTITUTIONS,
-				Book::AUTHORS,
-				Book::EDITORS,
-				Book::PUBLISHER,
-				Book::LONG_DESCRIPTION,
-				Book::LAST_EDITED,
-				Book::LANGUAGE,
-				Book::SUBJECTS_CODES,
-				Book::LICENSE,
-				Book::H5P_ACTIVITIES,
-				Book::IN_CATALOG,
-				$this->booksRequestManager->getPageLimit(),
-				$this->booksRequestManager->getPageOffset(),
-			]
-		);
+		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery();
+		$sqlQuery .= $this->booksRequestManager->getSqlPaginationForCatalogQuery();
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
@@ -99,8 +87,6 @@ class Books
 					Book::LICENSE,
 					Book::H5P_ACTIVITIES,
 					Book::IN_CATALOG,
-					$this->booksRequestManager->getPageLimit(),
-					$this->booksRequestManager->getPageOffset(),
 				]
 			)
 		);
@@ -121,8 +107,10 @@ class Books
 			$book->license = $possibleLicenses[$book->license] ?? '';
 			if ($book->subjects) {
 				$book->subjects = implode(', ', array_map(function ($subject_code) {
-					// We want to use the main site language here
-					return \Pressbooks\Metadata\get_subject_from_thema($subject_code);
+					// We want to use the book local language for the subject name in the book card.
+					$subject = \Pressbooks\Metadata\get_subject_from_thema($subject_code);
+
+					return $subject;
 				}, explode(', ', $book->subjects)));
 			}
 

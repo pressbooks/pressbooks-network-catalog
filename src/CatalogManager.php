@@ -2,6 +2,7 @@
 
 namespace PressbooksNetworkCatalog;
 
+use Illuminate\Http\Request;
 use Pressbooks\Container;
 use PressbooksNetworkCatalog\Filters\Institution;
 use PressbooksNetworkCatalog\Filters\License;
@@ -12,8 +13,11 @@ class CatalogManager
 {
 	public function handle()
 	{
+		$request = Request::capture();
+
 		return Container::get('Blade')->render(
 			'PressbooksNetworkCatalog::catalog', [
+				'request' => $request,
 				'books' => $this->queryBooks(),
 				'subjects' => Subject::getPossibleValues(),
 				'licenses' => License::getPossibleValues(),
@@ -30,8 +34,6 @@ class CatalogManager
 	 */
 	protected function queryBooks(): array
 	{
-		$books = new Books();
-
-		return $books->get();
+		return (new Books())->get();
 	}
 }
