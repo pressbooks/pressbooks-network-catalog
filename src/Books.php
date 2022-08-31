@@ -66,8 +66,8 @@ class Books
             )
         GROUP BY blog_id";
 
-		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery();
-		$sqlQuery .= $this->booksRequestManager->getSqlPaginationForCatalogQuery();
+		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery().
+			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
 
 		return $wpdb->get_results(
 			$wpdb->prepare(
@@ -108,9 +108,7 @@ class Books
 			if ($book->subjects) {
 				$book->subjects = implode(', ', array_map(function ($subject_code) {
 					// We want to use the book local language for the subject name in the book card.
-					$subject = \Pressbooks\Metadata\get_subject_from_thema($subject_code);
-
-					return $subject;
+					return \Pressbooks\Metadata\get_subject_from_thema($subject_code);
 				}, explode(', ', $book->subjects)));
 			}
 
