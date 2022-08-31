@@ -62,6 +62,10 @@ class BooksRequestManager
 				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
 				'conditionQueryType' => 'date',
 			],
+			'search' => [
+				'type' => 'string',
+				'default' => '',
+			],
 			'page' => [
 				'type' => 'integer',
 				'default' => 0,
@@ -86,7 +90,7 @@ class BooksRequestManager
 			if (isset($this->request[$filter]) && ! empty($this->request[$filter])) {
 				if (
 					gettype($this->request[$filter]) !== $config['type'] ||
-					isset($config['regex']) && ! preg_match($config['regex'], $this->request[$filter])
+					(isset($config['regex']) && ! preg_match($config['regex'], $this->request[$filter]))
 				) {
 					return false;
 				}
@@ -158,9 +162,31 @@ class BooksRequestManager
 						$sqlQueryConditions[] = $config['alias'].' > 0';
 					}
 				}
+				if ($filter === 'search') {
+					$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
+				}
 			}
 		}
 
 		return empty($sqlQueryConditions) ? '' : '  HAVING '.implode(' AND ', $sqlQueryConditions);
+	}
+
+	private function getSqlSearchConditionsForCatalogQuery(): string
+	{
+		global $wpdb;
+
+		$searchableColumns = [
+			'title',
+			'description',
+			'authors',
+			'editors',
+		];
+
+		return '('.implode(
+			' OR ',
+			array_map(function ($column) use ($wpdb) {
+				return "$column LIKE ".$wpdb->prepare('%s', '%'.$this->request['search'].'%');
+			}, $searchableColumns))
+		.')';
 	}
 }
