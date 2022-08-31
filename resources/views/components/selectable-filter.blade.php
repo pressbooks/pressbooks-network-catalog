@@ -1,5 +1,5 @@
 <div class="side-filter selectable" x-data="selectableFilters({open: @json($open ?? false)})">
-	<button @click="toggle" :aria-expanded="open">
+	<button @click="toggle" :aria-expanded="open" type="button">
 		<span>{{ $title }}</span>
 		<span>&#8964;</span>
 	</button>
@@ -16,6 +16,6 @@
 			@endforelse
 		</ul>
 
-		<button class="show-more">Show more +</button>
+		<button type="button" class="show-more">Show more +</button>
 	</div>
 </div>
