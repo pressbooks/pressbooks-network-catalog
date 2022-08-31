@@ -23,7 +23,15 @@
 </div>
 
 <div>
-    <h2 class="result-stats">{{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), 2, $request->search ) }}</h2>
+	@if($request->has('search'))
+    	<h2 class="result-stats">
+			{{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), 2, $request->search ) }}
+		</h2>
+	@else
+		<h2 class="result-stats">
+			{{ sprintf(__('%d Results', 'pressbooks-network-catalog'), 2) }}
+		</h2>
+	@endif
 
     <div class="applied-filters">
 		<span class="applied-filter">

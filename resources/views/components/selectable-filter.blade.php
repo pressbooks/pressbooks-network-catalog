@@ -10,16 +10,13 @@
 
 		<ul>
 			@forelse($items as $key => $item)
-				<li data-key="{{ $key }}">
-                    <label>
-                        {{ $item }}
-                        <input
-                            type="checkbox"
-                            name="{{ $name }}[]"
-                            value="{{ $key }}"
-                        />
-                    </label>
-                </li>
+				<li>
+					<label>
+						<span>{{ $item }}</span>
+						<input type="checkbox" name="{{ $name }}[]" value="{{ $key }}" />
+					</label>
+
+				</li>
 			@empty
 				<span>{{ __('No available filters at the moment', 'pressbooks-network-catalog') }}</span>
 			@endforelse

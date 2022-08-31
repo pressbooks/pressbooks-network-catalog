@@ -1,8 +1,12 @@
-.side-filters .side-filter > button {
+.side-filters .side-filter > button, .side-filters .side-filter > label {
   @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
   background-color: var(--primary-fg);
   border-bottom-color: var(--primary);
   color: var(--primary);
+}
+
+.side-filters .side-filter > label {
+  @apply m-0;
 }
 
 .side-filters .side-filter button:hover, .side-filters .side-filter button:focus {
@@ -26,25 +30,41 @@
   @apply border-none;
 }
 
-.side-filters .side-filter > div {
+.side-filters .side-filter.selectable > div {
   @apply m-0 bg-white border-b;
   border-bottom-color: var(--primary);
 }
 
-.side-filters .side-filter ul {
+.side-filters .side-filter.selectable ul {
   @apply list-none m-0 p-0;
 }
 
-
-.side-filters .side-filter ul li, .side-filters .side-filter ul span {
-  @apply block py-2 px-4 text-sm;
+.side-filters .side-filter.selectable ul > span {
+  @apply block;
 }
 
-.side-filters .side-filter ul li:hover {
+.side-filters .side-filter.selectable ul li, .side-filters .side-filter.selectable ul > span {
+  @apply py-2 px-4 text-sm;
+}
+
+.side-filters .side-filter.selectable ul li > label {
+  @apply m-0 w-full flex items-center;
+}
+
+.side-filters .side-filter.selectable ul li label span {
+  @apply flex-1;
+}
+
+.side-filters .side-filter.selectable ul li label input[type=checkbox] {
+  @apply h-4 w-4;
+  accent-color: var(--primary);
+}
+
+.side-filters .side-filter.selectable ul li:hover {
   background-color: #eef2f5;
 }
 
-.side-filters .side-filter.selectable input {
+.side-filters .side-filter.selectable input:not([type=checkbox]) {
   @apply py-2 px-2 w-full border-b text-sm focus:outline-none;
 }
 
@@ -62,7 +82,7 @@
 }
 
 .side-filters .side-filter.checkbox input[type=checkbox] {
-  @apply h-5 w-5 focus:outline-none;
+  @apply h-4 w-4;
   accent-color: var(--primary);
 }
 

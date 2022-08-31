@@ -5,7 +5,7 @@
 
 @include(
     'PressbooksNetworkCatalog::components.selectable-filter',
-	['title' => __('License', 'pressbooks-network-catalog'), 'items' => $licenses]
+	['title' => __('License', 'pressbooks-network-catalog'), 'items' => $licenses, 'name' => 'licenses']
 )
 
 {{-- TODO: add it back once we've defined the datepicker --}}
@@ -22,26 +22,24 @@
 
 @include(
     'PressbooksNetworkCatalog::components.selectable-filter',
-	['title' => __('Institution', 'pressbooks-network-catalog'), 'items' => $institutions, 'searchable' => true]
+	['title' => __('Institution', 'pressbooks-network-catalog'), 'items' => $institutions, 'searchable' => true, 'name' => 'institutions']
 )
 
 @include(
     'PressbooksNetworkCatalog::components.selectable-filter',
-	['title' => __('Publisher', 'pressbooks-network-catalog'), 'items' => $publishers, 'searchable' => true]
+	['title' => __('Publisher', 'pressbooks-network-catalog'), 'items' => $publishers, 'searchable' => true, 'name' => 'publishers']
 )
 
 <div class="side-filter checkbox">
-	<button @click="$store.filters.toggle('h5p')">
+	<label>
 		<span>{{ __('Has H5P Activities', 'pressbooks-network-catalog') }}</span>
 		<input
 			id="h5p"
 			name="h5p"
 			type="checkbox"
-			:checked="$store.filters.h5p"
-			x-model="$store.filters.h5p"
-			aria-labelledby="has-h5p-label"
+			value="1"
 		/>
-	</button>
+	</label>
 </div>
 
 <button class="submit-filters" type="submit">
