@@ -86,14 +86,18 @@
   accent-color: var(--primary);
 }
 
+.side-filters .buttons {
+  @apply flex rounded-b rounded-t-none;
+}
+
 .side-filters .reset-filters {
-  @apply w-full p-4 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply w-full p-4 text-sm font-bold uppercase border rounded-br rounded-l-none rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
   background-color: var(--primary);
   color: var(--primary-fg);
 }
 
 .side-filters .submit-filters {
-  @apply w-full p-4 text-sm font-bold uppercase border rounded-b rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
+  @apply w-full p-4 text-sm font-bold uppercase border-none rounded-bl rounded-r-none rounded-t-none hover:shadow focus:outline-none focus:ring focus:ring-offset-2 focus:ring-1;
   background-color: var(--accent);
   color: var(--primary-fg);
 }
@@ -107,9 +111,9 @@
 }
 
 .side-filters .submit-filters:hover {
-  background-color: var(--accent);
+  background-color: var(--accent-dark);
 }
 
 .side-filters .submit-filters:focus {
-  outline-color: var(--accent);
+  outline-color: var(--accent-dark);
 }

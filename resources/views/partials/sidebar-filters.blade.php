@@ -68,10 +68,11 @@
 	</label>
 </div>
 
-<button class="submit-filters" type="submit">
-    {{ __('Filter books', 'pressbooks-network-catalog') }}
-</button>
-
-<button class="reset-filters" type="reset">
-    {{ __('Clear filters', 'pressbooks-network-catalog') }}
-</button>
+<div class="buttons">
+	<button class="submit-filters" type="submit">
+		{{ __('Apply filters', 'pressbooks-network-catalog') }}
+	</button>
+	<button class="reset-filters" type="reset">
+		{{ __('Clear filters', 'pressbooks-network-catalog') }}
+	</button>
+</div>
