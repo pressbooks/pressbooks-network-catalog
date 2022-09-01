@@ -3,79 +3,38 @@
 namespace PressbooksNetworkCatalog;
 
 use Illuminate\Http\Request;
-use Pressbooks\DataCollector\Book;
+use Illuminate\Support\Collection;
 
 class BooksRequestManager
 {
-	/**
-	 * Filters parameters configuration
-	 *
-	 * @var array[]
-	 */
-	private array $filtersConfig;
 
+    /**
+     * Request object handler
+     *
+     * @var Request
+     */
 	private Request $request;
 
-	public function __construct()
-	{
-		$this->filtersConfig = [
-			'subjects' => [
-				'column' => Book::SUBJECTS_CODES,
-				'alias' => 'subjects',
-				'name' => 'subjects',
-				'type' => 'array',
-				'conditionQueryType' => 'subquery',
-			],
-			'licenses' => [
-				'column' => Book::LICENSE,
-				'name' => 'licenses',
-				'alias' => 'license',
-				'type' => 'array',
-				'conditionQueryType' => 'standard',
-			],
-			'institutions' => [
-				'column' => Book::INSTITUTIONS,
-				'name' => 'institutions',
-				'alias' => 'institutions',
-				'type' => 'array',
-				'conditionQueryType' => 'subquery',
-			],
-			'publishers' => [
-				'column' => Book::PUBLISHER,
-				'name' => 'publishers',
-				'alias' => 'publisher',
-				'type' => 'array',
-				'conditionQueryType' => 'standard',
-			],
-			'h5p' => [
-				'column' => Book::H5P_ACTIVITIES,
-				'name' => 'h5p',
-				'alias' => 'h5pCount',
-				'type' => 'string',
-				'conditionQueryType' => 'numeric',
-			],
-			'last_updated' => [
-				'column' => Book::LAST_EDITED,
-				'name' => 'last_updated',
-				'alias' => 'updatedAt',
-				'type' => 'string',
-				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
-				'conditionQueryType' => 'date',
-			],
-			'search' => [
-				'type' => 'string',
-				'default' => '',
-			],
-			'page' => [
-				'type' => 'integer',
-				'default' => 0,
-			],
-			'per_page' => [
-				'type' => 'integer',
-				'default' => 15,
-			],
-		];
+	/**
+	 * Book fields.
+	 *
+	 * @var Collection
+	 */
+	private Collection $bookFields;
 
+	/**
+	 * Default of books per page requested.
+	 *
+	 * @var int
+	 */
+	private int $defaultPerPage = 15;
+
+	/**
+	 * @param Collection $bookFields
+	 */
+	public function __construct(Collection $bookFields)
+	{
+		$this->bookFields = $bookFields;
 		$this->request = Request::capture();
 	}
 
@@ -86,18 +45,23 @@ class BooksRequestManager
 	 */
 	public function validateRequest(): bool
 	{
-		foreach ($this->filtersConfig as $filter => $config) {
+		$filterableColumns = $this->bookFields->where('filterable', true);
+		$valid = true;
+		$filterableColumns->each(function ($config) use (&$valid) {
+			$filter = $config['filterColumn'];
 			if (isset($this->request[$filter]) && ! empty($this->request[$filter])) {
 				if (
 					gettype($this->request[$filter]) !== $config['type'] ||
 					(isset($config['regex']) && ! preg_match($config['regex'], $this->request[$filter]))
 				) {
+					$valid = false;
+
 					return false;
 				}
 			}
-		}
+		});
 
-		return true;
+		return $valid;
 	}
 
 	/**
@@ -112,13 +76,13 @@ class BooksRequestManager
 
 	public function getPageLimit(): int
 	{
-		return $this->request['per_page'] ?? $this->filtersConfig['per_page']['default'];
+		return $this->request['per_page'] ?? $this->defaultPerPage;
 	}
 
 	public function getPageOffset(): int
 	{
 		return isset($this->request['page']) ?
-			($this->request['page'] - 1) * $this->getPageLimit() : $this->filtersConfig['page']['default'];
+			($this->request['page'] - 1) * $this->getPageLimit() : 0;
 	}
 
 	/**
@@ -131,11 +95,15 @@ class BooksRequestManager
 		if (empty($this->request)) {
 			return '';
 		}
+
+		$filtertableColumns = $this->bookFields->where('filterable', true);
+
 		$sqlQueryConditions = [];
 
 		global $wpdb;
 
-		foreach ($this->filtersConfig as $filter => $config) {
+		$filtertableColumns->each(function ($config) use (&$sqlQueryConditions, $wpdb) {
+			$filter = $config['filterColumn'];
 			if (isset($this->request[$filter]) && ! empty($this->request[$filter])) {
 				if (isset($config['conditionQueryType'])) {
 					if ($config['conditionQueryType'] === 'standard') {
@@ -162,10 +130,10 @@ class BooksRequestManager
 						$sqlQueryConditions[] = $config['alias'].' > 0';
 					}
 				}
-				if ($filter === 'search') {
-					$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
-				}
 			}
+		});
+		if (isset($this->request['search']) && is_string($this->request['search'])) {
+			$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
 		}
 
 		return empty($sqlQueryConditions) ? '' : '  HAVING '.implode(' AND ', $sqlQueryConditions);
@@ -179,19 +147,10 @@ class BooksRequestManager
 	private function getSqlSearchConditionsForCatalogQuery(): string
 	{
 		global $wpdb;
+		$searchableColumns = $this->bookFields->where('searchable', true);
 
-		$searchableColumns = [
-			'title',
-			'description',
-			'authors',
-			'editors',
-		];
-
-		return '('.implode(
-			' OR ',
-			array_map(function ($column) use ($wpdb) {
-				return "$column LIKE ".$wpdb->prepare('%s', '%'.$this->request['search'].'%');
-			}, $searchableColumns))
-		.')';
+		return '('.$searchableColumns->map(function ($field) use ($wpdb) {
+			return $field['alias'].' LIKE '.$wpdb->prepare('%s', '%'.$this->request['search'].'%');
+		})->implode(' OR ').')';
 	}
 }

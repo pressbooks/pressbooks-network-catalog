@@ -2,12 +2,133 @@
 
 namespace  PressbooksNetworkCatalog;
 
+use Illuminate\Support\Collection;
 use Pressbooks\DataCollector\Book;
 use PressbooksNetworkCatalog\Filters\License;
 
 class Books
 {
 	private BooksRequestManager $booksRequestManager;
+
+	/**
+	 * Fields to be returned from the query.
+	 *
+	 * @var array
+	 */
+	private Collection $fields;
+
+	public function __construct()
+	{
+		global $wpdb;
+
+		$this->fields = Collection::make([
+			[
+				'column' => 'blog_id',
+				'alias' => 'id',
+				'selectMethod' => 'b.blog_id',
+			],
+			[
+				'column' => Book::COVER,
+				'alias' => 'cover',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+			],
+			[
+				'column' => Book::BOOK_URL,
+				'alias' => 'url',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+			],
+			[
+				'column' => Book::LONG_DESCRIPTION,
+				'alias' => 'description',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+				'searchable' => true,
+			],
+			[
+				'column' => Book::SHORT_DESCRIPTION,
+				'alias' => 'shortDescription',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+				'searchable' => true,
+			],
+			[
+				'column' =>Book::TITLE,
+				'alias' => 'title',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+				'searchable' => true,
+			],
+			[
+				'column' => Book::SUBJECTS_CODES,
+				'alias' => 'subjects',
+				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
+				'type' => 'array',
+				'conditionQueryType' => 'subquery',
+				'filterable' => true,
+				'filterColumn' => 'subjects',
+			],
+			[
+				'column' => Book::AUTHORS,
+				'alias' => 'authors',
+				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ',') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
+				'searchable' => true,
+			],
+			[
+				'column' => Book::EDITORS,
+				'alias' => 'editors',
+				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
+				'searchable' => true,
+			],
+			[
+				'column' => Book::LICENSE,
+				'alias' => 'license',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+				'type' => 'array',
+				'conditionQueryType' => 'standard',
+				'filterable' => true,
+				'filterColumn' => 'licenses',
+			],
+			[
+				'column' => Book::INSTITUTIONS,
+				'alias' => 'institutions',
+				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ',') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
+				'type' => 'array',
+				'conditionQueryType' => 'subquery',
+				'filterable' => true,
+				'filterColumn' => 'institutions',
+			],
+			[
+				'column' => Book::PUBLISHER,
+				'alias' => 'publisher',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+				'type' => 'array',
+				'conditionQueryType' => 'standard',
+				'filterable' => true,
+				'filterColumn' => 'publishers',
+			],
+			[
+				'column' => Book::H5P_ACTIVITIES,
+				'alias' => 'h5pCount',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,CAST(b.meta_value AS UNSIGNED),null))',
+				'type' => 'string',
+				'conditionQueryType' => 'numeric',
+				'filterable' => true,
+				'filterColumn' => 'h5p',
+			],
+			[
+				'column' => Book::LAST_EDITED,
+				'alias' => 'updatedAt',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null))',
+				'conditionQueryType' => 'date',
+				'type' => 'string',
+				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
+				'filterable' => true,
+				'filterColumn' => 'last_updated',
+			],
+			[
+				'column' => Book::LANGUAGE,
+				'alias' => 'language',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
+			],
+		]);
+	}
 
 	/**
 	 * Get Books list to display in the Catalog page.
@@ -27,7 +148,7 @@ class Books
 	 */
 	public function get(): array
 	{
-		$this->booksRequestManager = new BooksRequestManager();
+		$this->booksRequestManager = new BooksRequestManager($this->fields);
 
 		return $this->booksRequestManager->validateRequest() ? $this->prepareResponse($this->query()) : [];
 	}
@@ -41,52 +162,26 @@ class Books
 	{
 		global $wpdb;
 
-		$sqlQuery = "SELECT SQL_CALC_FOUND_ROWS
-            b.blog_id AS id,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS cover,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS title,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS url,
-            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS institutions,
-            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS authors,
-            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS editors,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS publisher,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS description,
-            MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null)) AS updatedAt,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS language,
-            (SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id) AS subjects,
-            MAX(IF(b.meta_key=%s,b.meta_value,null)) AS license,
-            MAX(IF(b.meta_key=%s,CAST(b.meta_value AS UNSIGNED),null)) AS h5pCount
-        FROM {$wpdb->blogmeta} b
-        WHERE blog_id IN (
-            SELECT blog_id FROM {$wpdb->blogmeta}
-                WHERE meta_key = %s AND meta_value = '1'
-            )
-        GROUP BY blog_id";
+		$sqlQuery = 'SELECT SQL_CALC_FOUND_ROWS ';
+		$sqlQuery .= $this->fields->map(
+			function ($field) use ($wpdb) {
+				return strpos($field['selectMethod'], '%s') !== false ?
+					$wpdb->prepare($field['selectMethod'], $field['column']).' AS '.$field['alias'] :
+					$field['selectMethod'].' AS '.$field['alias'];
+			}
+		)->implode(', ');
+
+		$sqlQuery .= " FROM {$wpdb->blogmeta} b
+            WHERE blog_id IN (
+                SELECT blog_id FROM {$wpdb->blogmeta}
+                    WHERE meta_key = %s AND meta_value = '1'
+                )
+            GROUP BY blog_id";
 
 		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery().
 			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
 
-		return $wpdb->get_results(
-			$wpdb->prepare(
-				$sqlQuery,
-				[
-					Book::COVER,
-					Book::TITLE,
-					Book::BOOK_URL,
-					Book::INSTITUTIONS,
-					Book::AUTHORS,
-					Book::EDITORS,
-					Book::PUBLISHER,
-					Book::LONG_DESCRIPTION,
-					Book::LAST_EDITED,
-					Book::LANGUAGE,
-					Book::SUBJECTS_CODES,
-					Book::LICENSE,
-					Book::H5P_ACTIVITIES,
-					Book::IN_CATALOG,
-				]
-			)
-		);
+		return $wpdb->get_results($wpdb->prepare($sqlQuery, Book::IN_CATALOG));
 	}
 
 	/**
