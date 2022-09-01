@@ -62,7 +62,7 @@ class BooksRequestManager
 			}
 		});
 
-		foreach (['page', 'per_page'] as $param) {
+		foreach (['pg', 'per_page'] as $param) {
 			if (empty($this->request[$param])) {
 				$this->request->request->remove($param);
 				continue;
@@ -92,8 +92,8 @@ class BooksRequestManager
 
 	public function getPageOffset(): int
 	{
-		return isset($this->request['page']) ?
-			($this->request['page'] - 1) * $this->getPageLimit() : 0;
+		return isset($this->request['pg']) ?
+			($this->request['pg'] - 1) * $this->getPageLimit() : 0;
 	}
 
 	/**

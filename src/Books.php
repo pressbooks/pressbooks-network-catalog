@@ -134,7 +134,7 @@ class Books
 	 * Get Books list to display in the Catalog page.
 	 * Valid GET Request parameters with examples are:
 	 *  [
-	 *      page (int),
+	 *      pg (int),
 	 *      per_page (int),
 	 *      subjects => [ 'ABC', 'LNR' ],
 	 *      licenses [ 'public-domain', 'all-rights-reserved' ],
