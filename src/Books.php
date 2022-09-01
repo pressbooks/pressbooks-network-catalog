@@ -181,6 +181,8 @@ class Books
 		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery().
 			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
 
+		$q = $wpdb->prepare($sqlQuery, Book::IN_CATALOG);
+
 		return $wpdb->get_results($wpdb->prepare($sqlQuery, Book::IN_CATALOG));
 	}
 

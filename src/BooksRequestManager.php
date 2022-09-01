@@ -7,12 +7,11 @@ use Illuminate\Support\Collection;
 
 class BooksRequestManager
 {
-
-    /**
-     * Request object handler
-     *
-     * @var Request
-     */
+	/**
+	 * Request object handler
+	 *
+	 * @var Request
+	 */
 	private Request $request;
 
 	/**
@@ -49,8 +48,10 @@ class BooksRequestManager
 		$valid = true;
 		$filterableColumns->each(function ($config) use (&$valid) {
 			$filter = $config['filterColumn'];
-			if (isset($this->request[$filter]) && ! empty($this->request[$filter])) {
-				if (
+			if (isset($this->request[$filter])) {
+				if (empty($this->request[$filter])) {
+					$this->request->request->remove($filter);
+				} elseif (
 					gettype($this->request[$filter]) !== $config['type'] ||
 					(isset($config['regex']) && ! preg_match($config['regex'], $this->request[$filter]))
 				) {
@@ -60,6 +61,16 @@ class BooksRequestManager
 				}
 			}
 		});
+
+		foreach (['page', 'per_page'] as $param) {
+			if (empty($this->request[$param])) {
+				$this->request->request->remove($param);
+				continue;
+			}
+			if (isset($this->request[$param]) && ! is_numeric($this->request[$param])) {
+				$valid = false;
+			}
+		}
 
 		return $valid;
 	}
@@ -81,6 +92,8 @@ class BooksRequestManager
 
 	public function getPageOffset(): int
 	{
+		$p = $this->request['page'];
+
 		return isset($this->request['page']) ?
 			($this->request['page'] - 1) * $this->getPageLimit() : 0;
 	}
@@ -132,7 +145,7 @@ class BooksRequestManager
 				}
 			}
 		});
-		if (isset($this->request['search']) && is_string($this->request['search'])) {
+		if (isset($this->request['search']) && ! empty($this->request['search']) && is_string($this->request['search'])) {
 			$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
 		}
 
