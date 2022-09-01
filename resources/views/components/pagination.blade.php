@@ -35,7 +35,7 @@
 		<span>{{ __('Go to page', 'pressbooks-network-catalog') }}</span>
 		<div>
 			<input type="text" name="page" />
-			<button>{{ __('Go', 'pressbooks-network-catalog') }}</button>
+			<button type="submit">{{ __('Go', 'pressbooks-network-catalog') }}</button>
 		</div>
 	</div>
 </nav>

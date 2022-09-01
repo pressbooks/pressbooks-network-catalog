@@ -3,6 +3,20 @@ import '../css/app.css';
 
 window.Alpine = Alpine;
 
+const form = document.getElementById('network-catalog-form');
+
+form.addEventListener('submit', function(event) {
+  const inputs = Array
+    .from(event.target.getElementsByTagName('input'))
+    .filter(input => ['search', 'page'].includes(input.name));
+
+  inputs
+    .filter(input => input.value === '')
+    .forEach(input => input.disabled = true);
+
+  return true;
+});
+
 window.selectableFilters = ({open, items, selected}) => {
   return {
     open,
@@ -49,6 +63,7 @@ window.removeFilter = (filter) => {
   // TODO: Date filter
   const attr = filter === 'h5p' ? 'name' : 'value';
   document.querySelector(`input[${attr}="${filter}"]`).click();
+
   document.getElementById('network-catalog-form').submit();
 }
 

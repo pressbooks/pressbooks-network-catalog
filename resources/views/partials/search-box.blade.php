@@ -1,8 +1,13 @@
 <div class="search-box">
     <div class="search">
         <label id="search-input-label" class="sr-only">{{ __('Search', 'pressbooks-network-catalog') }}</label>
-        <input type="search" name="search" placeholder="{{ __('Find a book', 'pressbooks-network-catalog') }}"
-               aria-labelledby="search-input-label"/>
+        <input
+			type="search"
+			name="search"
+			placeholder="{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}"
+			value="{{ $request->search }}"
+			aria-labelledby="search-input-label"
+		/>
         <button type="submit">{{ __('Search', 'pressbooks-network-catalog') }}</button>
     </div>
 

@@ -7,11 +7,15 @@
 }
 
 .search-box .search input[type=search] {
-  @apply w-full p-3 border rounded-l focus:outline-none;
+  @apply w-full p-3 bg-white border rounded-l focus:outline-none;
 }
 
 .search-box .search input[type=search]:focus {
   outline-color: var(--primary-dark);
+}
+
+.search-box .search input[type=search]:disabled {
+  @apply bg-white;
 }
 
 .search-box .search button {
