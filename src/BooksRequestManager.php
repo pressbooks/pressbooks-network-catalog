@@ -92,8 +92,6 @@ class BooksRequestManager
 
 	public function getPageOffset(): int
 	{
-		$p = $this->request['page'];
-
 		return isset($this->request['page']) ?
 			($this->request['page'] - 1) * $this->getPageLimit() : 0;
 	}
