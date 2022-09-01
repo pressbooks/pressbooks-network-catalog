@@ -1,0 +1,27 @@
+.dropdown {
+  @apply flex justify-center;
+}
+
+.dropdown > div {
+  @apply relative;
+}
+
+.dropdown button {
+  @apply flex items-center gap-2 bg-white px-5 py-3 rounded-md shadow border normal-case font-normal focus:outline-none;
+}
+
+.dropdown button span {
+  @apply h-5 w-5 text-gray-400;
+}
+
+.dropdown button:focus {
+  color: var(--primary);
+}
+
+.dropdown .content {
+  @apply absolute left-0 mt-px w-full rounded-md bg-white shadow-md;
+}
+
+.dropdown .content a {
+  @apply flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2 text-left text-sm hover:bg-gray-100 disabled:text-gray-500;
+}

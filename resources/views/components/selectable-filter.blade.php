@@ -1,14 +1,26 @@
-<div class="side-filter selectable" x-data='selectableFilters({open: @json($open ?? false), items: @json($items), selected: @json($selected ?? [])})'>
+<div
+	class="side-filter selectable"
+	x-data='selectableFilters(@json([
+    	'open' => $open ?? false,
+    	'items' => $items,
+    	'selected' => $selected ?? []
+	]))'
+>
 	<button @click="toggle" :aria-expanded="open" type="button">
 		<span>{{ $title }}</span>
 		<span class="icon">
 			@include('PressbooksNetworkCatalog::icons.chevron-down')
 		</span>
 	</button>
-	<div x-cloak :class="visibility">
+	<div x-show="open">
 		@if($searchable ?? false)
 			<label id="search-{{ $name }}-label" class="sr-only">{{ $title }}</label>
-			<input type="search" x-model="search" placeholder="{{ __('Search', 'pressbooks-network-catalog') }}" aria-labelledby="search-{{ $name }}-label"/>
+			<input
+				type="search"
+				x-model="search"
+				placeholder="{{ __('Search', 'pressbooks-network-catalog') }}"
+				aria-labelledby="search-{{ $name }}-label"
+			/>
 		@endif
 
 		<ul>

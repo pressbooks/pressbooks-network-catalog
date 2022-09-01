@@ -8,27 +8,30 @@
 			value="{{ $request->search }}"
 			aria-labelledby="search-input-label"
 		/>
-        <button type="submit">{{ __('Search', 'pressbooks-network-catalog') }}</button>
+        <button id="search" type="submit">{{ __('Search', 'pressbooks-network-catalog') }}</button>
     </div>
 
-    <div>
-        <label id="per-page-label"
-               class="sr-only">{{ __('Number of results per page', 'pressbooks-network-catalog') }}</label>
-        <select class="results-per-page" aria-labelledby="per-page-label">
-            <option>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 10) }}</option>
-            <option>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 20) }}</option>
-            <option>{{ sprintf(__('%d results', 'pressbooks-network-catalog'), 50) }}</option>
-        </select>
-    </div>
+	@include('PressbooksNetworkCatalog::components.dropdown', [
+    	'label' => __('Results per page', 'pressbooks-network-catalog'),
+    	'name' => 'per_page',
+    	'default' => 10,
+    	'options' => [
+    		10 => sprintf(__('%d results', 'pressbooks-network-catalog'), 10),
+    		20 => sprintf(__('%d results', 'pressbooks-network-catalog'), 20),
+    		50 => sprintf(__('%d results', 'pressbooks-network-catalog'), 50),
+		]
+	])
 
-    <div>
-        <label id="sort-by-label" class="sr-only">{{ __('Sort results by', 'pressbooks-network-catalog') }}</label>
-        <select class="results-sort-by" aria-labelledby="sort-by-label">
-            <option>{{ __('Sort by relevance', 'pressbooks-network-catalog')}}</option>
-            <option>{{ __('Sort by recently updated', 'pressbooks-network-catalog') }}</option>
-            <option>{{ __('Sort by title (A-Z)', 'pressbooks-network-catalog') }}</option>
-        </select>
-    </div>
+	@include('PressbooksNetworkCatalog::components.dropdown', [
+        'label' => __('Sort by', 'pressbooks-network-catalog'),
+    	'name' => 'sort_by',
+    	'default' => 'relevance',
+    	'options' => [
+    		'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
+    		'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
+    		'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
+		]
+	])
 </div>
 
 <div>

@@ -9,6 +9,7 @@
 @import 'search-box.css';
 @import 'book-card.css';
 @import 'pagination.css';
+@import 'dropdown.css';
 
 :root{
   --bg-chip: #EEF2F5; /* TODO: define if this color should be */

@@ -1,9 +1,13 @@
-<nav class="pagination" role="navigation" aria-label="{{ __('Pagination navigation', 'pressbooks-network-catalog') }}">
+<nav
+	class="pagination"
+	role="navigation"
+	aria-label="{{ sprintf(__('%s pagination', 'pressbooks-network-catalog'), $placement) }}"
+>
 	<ul class="page-list">
 		<li class="page-item previous-page">
 			@if(($request->pg ?? 1) > 1) {{-- TODO: improve this check? --}}
 				<a
-					href="{{ $request->fullUrlWithQuery(['pg' => ($request->pg ?? 1) - 1 ]) }}"
+					href="{{ $request->fullUrlWithQuery(['pg' => ($request->pg ?? 1) - 1]) }}"
 					rel="prev"
 					aria-label="{{ __('Previous page', 'pressbooks-network-catalog') }}"
 				>
@@ -32,7 +36,7 @@
 
 		<li class="page-item next-page">
 			<a
-				href="{{ $request->fullUrlWithQuery(['pg' => ($request->pg ?? 1) + 1 ]) }}"
+				href="{{ $request->fullUrlWithQuery(['pg' => ($request->pg ?? 1) + 1]) }}"
 				rel="next"
 				aria-label="{{ __('Next page', 'pressbooks-network-catalog') }}"
 			>
@@ -41,10 +45,10 @@
 		</li>
 	</ul>
 
-	<div class="go-to-page">
-		<span>{{ __('Go to page', 'pressbooks-network-catalog') }}</span>
+	<div class="go-to-page" x-data x-id="['pagination-go-to']">
+		<label :for="$id('pagination-go-to')">{{ __('Go to page', 'pressbooks-network-catalog') }}</label>
 		<div>
-			<input type="text" name="pg" />
+			<input type="text" name="pg" :id="$id('pagination-go-to')" />
 			<button type="submit">{{ __('Go', 'pressbooks-network-catalog') }}</button>
 		</div>
 	</div>

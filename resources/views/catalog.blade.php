@@ -22,7 +22,7 @@
                 @include('PressbooksNetworkCatalog::partials.search-box')
 
                 <div class="book-cards">
-					@include('PressbooksNetworkCatalog::components.pagination')
+					@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'Top'])
 
                     @forelse( $books as $book )
                         @include('PressbooksNetworkCatalog::partials.book-card')
@@ -30,7 +30,7 @@
                         <p>No books have been added to the catalog yet.</p>
                     @endforelse
 
-					@include('PressbooksNetworkCatalog::components.pagination')
+					@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'Bottom'])
                 </div>
             </div>
         </div>

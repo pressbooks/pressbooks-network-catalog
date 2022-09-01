@@ -69,10 +69,10 @@
 </div>
 
 <div class="buttons">
-	<button class="submit-filters" type="submit">
+	<button id="apply-filters" class="submit-filters" type="submit">
 		{{ __('Apply filters', 'pressbooks-network-catalog') }}
 	</button>
-	<button class="reset-filters" type="reset">
+	<button id="clear-filters" class="reset-filters" type="reset">
 		{{ __('Clear filters', 'pressbooks-network-catalog') }}
 	</button>
 </div>
