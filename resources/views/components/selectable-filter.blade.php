@@ -28,6 +28,13 @@
 			<span x-show="empty()">{{ __('No available filters at the moment', 'pressbooks-network-catalog') }}</span>
 		</ul>
 
-		<button x-show="Object.entries(items).length > displayAmount" @click="showMore()" type="button" class="show-more">Show more +</button>
+		<button
+			type="button"
+			class="show-more"
+			x-show="Object.entries(items).length > displayAmount"
+			@click="showMore()"
+		>
+			{{ __('Show more +', 'pressbooks-network-catalog') }}
+		</button>
 	</div>
 </div>

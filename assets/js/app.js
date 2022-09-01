@@ -8,7 +8,7 @@ const form = document.getElementById('network-catalog-form');
 form.addEventListener('submit', function(event) {
   const inputs = Array
     .from(event.target.getElementsByTagName('input'))
-    .filter(input => ['search', 'page'].includes(input.name));
+    .filter(input => ['search', 'pg'].includes(input.name));
 
   inputs
     .filter(input => input.value === '')
