@@ -19,7 +19,7 @@
 	]
 )
 
-<div class="side-filter" x-data="{open: {{ $request->has('updated_from') || $request->has('updated_to')  ? 'true' : 'false'}}}">
+<div class="side-filter" x-data="{open: {{ !empty($request->updated_from) || !empty($request->updated_to) ? 'true' : 'false'}}}">
 	<button @click="open = !open" :aria-expanded="open" type="button">
 		<span>{{ __('Last Updated', 'pressbooks-network-catalog') }}</span>
         <span class="icon">

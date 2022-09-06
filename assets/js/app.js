@@ -83,8 +83,14 @@ window.dropdown = ({selected, options}) => {
 };
 
 window.removeFilter = (filter) => {
-  const attr = filter === 'h5p' ? 'name' : 'value';
-  document.querySelector(`input[${attr}="${filter}"]`).click();
+
+  const attr = ['h5p'].includes(filter) ? 'name' : 'value';
+
+  if(filter === 'updated_from' || filter === 'updated_to') {
+    document.querySelector(`input[name="${filter}"]`).value = '';
+  } else {
+    document.querySelector(`input[${attr}="${filter}"]`).click();
+  }
 
   submitForm();
 }
