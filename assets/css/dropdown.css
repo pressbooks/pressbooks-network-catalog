@@ -6,22 +6,28 @@
   @apply relative;
 }
 
-.dropdown button {
-  @apply flex items-center gap-2 bg-white px-5 py-3 rounded-md shadow border normal-case font-normal focus:outline-none;
+.dropdown button.trigger {
+  border: inherit;
+  @apply flex items-center gap-2 bg-white px-5 py-3 border-b rounded-md shadow normal-case font-normal focus:outline-none;
+  border-bottom-color: var(--primary);
 }
 
-.dropdown button span {
+.dropdown button.trigger.open {
+  @apply rounded-b-none;
+}
+
+.dropdown button.trigger span {
   @apply h-5 w-5 text-gray-400;
 }
 
-.dropdown button:focus {
-  color: var(--primary);
+.dropdown button.trigger:focus {
+  outline-color: var(--primary);
 }
 
 .dropdown .content {
-  @apply absolute left-0 mt-px w-full rounded-md bg-white shadow-md;
+  @apply absolute left-0 w-full rounded-b-md bg-white shadow-md;
 }
 
-.dropdown .content a {
-  @apply flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2 text-left text-sm hover:bg-gray-100 disabled:text-gray-500;
+.dropdown .content button {
+  @apply flex items-center gap-2 w-full px-4 py-2 text-left text-sm normal-case font-normal hover:bg-gray-200 last-of-type:rounded-b-md;
 }

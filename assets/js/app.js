@@ -17,6 +17,10 @@ form.addEventListener('submit', function(event) {
   return true;
 });
 
+window.submitForm = () => {
+  document.getElementById('apply-filters').click();
+}
+
 window.selectableFilters = ({open, items, selected}) => {
   return {
     open,
@@ -52,9 +56,11 @@ window.selectableFilters = ({open, items, selected}) => {
   }
 };
 
-window.dropdown = () => {
+window.dropdown = ({selected, options}) => {
   return {
     open: false,
+    selected: selected,
+    options: options,
     toggle() {
       if (this.open) {
         return this.close()
@@ -79,7 +85,7 @@ window.removeFilter = (filter) => {
   const attr = filter === 'h5p' ? 'name' : 'value';
   document.querySelector(`input[${attr}="${filter}"]`).click();
 
-  document.getElementById('apply-filters').click();
+  submitForm();
 }
 
 Alpine.start();
