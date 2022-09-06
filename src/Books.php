@@ -59,11 +59,16 @@ class Books
 				'column' => Book::SUBJECTS_STRINGS,
 				'alias' => 'subjects',
 				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
-				'type' => 'array',
+				'conditionQueryType' => 'subquery',
+				'searchable' => true,
+			],
+			[
+				'column' => Book::SUBJECTS_CODES,
+				'alias' => 'subjectsCodes',
+				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
 				'conditionQueryType' => 'subquery',
 				'filterable' => true,
 				'filterColumn' => 'subjects',
-				'searchable' => true,
 			],
 			[
 				'column' => Book::AUTHORS,
@@ -81,7 +86,6 @@ class Books
 				'column' => Book::LICENSE,
 				'alias' => 'license',
 				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
-				'type' => 'array',
 				'conditionQueryType' => 'standard',
 				'filterable' => true,
 				'filterColumn' => 'licenses',
@@ -90,7 +94,6 @@ class Books
 				'column' => Book::INSTITUTIONS,
 				'alias' => 'institutions',
 				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ',') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
-				'type' => 'array',
 				'conditionQueryType' => 'subquery',
 				'filterable' => true,
 				'filterColumn' => 'institutions',
@@ -99,7 +102,6 @@ class Books
 				'column' => Book::PUBLISHER,
 				'alias' => 'publisher',
 				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
-				'type' => 'array',
 				'conditionQueryType' => 'standard',
 				'filterable' => true,
 				'filterColumn' => 'publishers',
@@ -108,7 +110,6 @@ class Books
 				'column' => Book::H5P_ACTIVITIES,
 				'alias' => 'h5pCount',
 				'selectMethod' => 'MAX(IF(b.meta_key=%s,CAST(b.meta_value AS UNSIGNED),null))',
-				'type' => 'string',
 				'conditionQueryType' => 'numeric',
 				'filterable' => true,
 				'filterColumn' => 'h5p',
@@ -118,8 +119,6 @@ class Books
 				'alias' => 'updatedAt',
 				'selectMethod' => 'MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null))',
 				'conditionQueryType' => 'date',
-				'type' => 'string',
-				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
 				'filterable' => true,
 				'filterColumn' => 'last_updated',
 			],
@@ -142,7 +141,8 @@ class Books
 	 *      institutions [ 'Australian National University', 'University of Newcastle' ],
 	 *      publishers => [ 'Press Books', 'Univ Pub' ],
 	 *      h5p => 'on',
-	 *      last_updated => '2019-01-01', // YYYY-MM-DD format
+	 *      updated_from => '2019-01-01', // YYYY-MM-DD format
+	 *      updated_to => '2020-05-20', // YYYY-MM-DD format
 	 *  ]
 	 *
 	 * @return array
@@ -180,6 +180,7 @@ class Books
             GROUP BY blog_id";
 
 		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery().
+			$this->booksRequestManager->getSqlOrderByForCatalogQuery().
 			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
 
 		return $wpdb->get_results($wpdb->prepare($sqlQuery, Book::IN_CATALOG));

@@ -40,7 +40,7 @@
 }
 
 .pagination .page-list .page-item svg {
-  @apply h-5 w-5;
+  @apply h-4 w-4;
 }
 
 .pagination .go-to-page {
@@ -48,7 +48,7 @@
 }
 
 .pagination .go-to-page label {
-  @apply m-0 text-sm;
+  @apply m-0 text-xs;
 }
 
 .pagination .go-to-page > div {

@@ -1,14 +1,19 @@
 <div class="search-box">
     <div class="search">
         <label id="search-input-label" class="sr-only">{{ __('Search', 'pressbooks-network-catalog') }}</label>
-        <input
-			type="search"
-			name="search"
-			placeholder="{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}"
-			value="{{ $request->search }}"
-			aria-labelledby="search-input-label"
-		/>
-        <button id="search" type="submit">{{ __('Search', 'pressbooks-network-catalog') }}</button>
+		<div class="search-input">
+			<input
+				type="search"
+				name="search"
+				placeholder="{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}"
+				value="{{ $request->search }}"
+				aria-labelledby="search-input-label"
+			/>
+		</div>
+		<button id="search" type="submit">
+			<span class="sr-only">{{ __('Search', 'pressbooks-network-catalog') }}</span>
+			@include('PressbooksNetworkCatalog::icons.search')
+		</button>
     </div>
 
 	@include('PressbooksNetworkCatalog::components.dropdown', [
@@ -25,11 +30,11 @@
 	@include('PressbooksNetworkCatalog::components.dropdown', [
         'label' => __('Sort by', 'pressbooks-network-catalog'),
     	'name' => 'sort_by',
-    	'default' => 'relevance',
+    	'default' => 'last_updated',
     	'options' => [
-    		'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
-    		'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
-    		'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
+            //'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
+            'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
+            'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
 		]
 	])
 </div>
@@ -45,16 +50,17 @@
         </h2>
     @endif
 
-    <div class="applied-filters" x-data="">
-        @foreach($request->activeFilters as $filter)
-            <div class="applied-filter">
-                <span>{{ $filter['label'] }}</span>
-                <a class="remove" @click="removeFilter('{{$filter['key']}}')">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </a>
-            </div>
-        @endforeach
-    </div>
+	@if($request->activeFilters->isNotEmpty())
+		<div class="applied-filters" x-data>
+			@foreach($request->activeFilters as $filter)
+				<div class="applied-filter">
+					<span>{{ $filter['label'] }}</span>
+					<button type="button" class="remove" @click="removeFilter('{{ $filter['key'] }}')">
+						<span class="sr-only">{{ sprintf(__('Remove %s filter', 'pressbooks-network-catalog'), $filter['label']) }}</span>
+						@include('PressbooksNetworkCatalog::icons.x-mark')
+					</button>
+				</div>
+			@endforeach
+		</div>
+	@endif
 </div>

@@ -21,16 +21,16 @@
 				<li class="page-item disabled" aria-disabled="true">
 					<span>{{ $page }}</span>
 				</li>
-			@endif
-
-			@if($page === (int) ($request->pg ?? 1))
-				<li class="page-item active" aria-current="true">
-					<span>{{ $page }}</span>
-				</li>
 			@else
-				<li class="page-item">
-					<a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}">{{ $page }}</a>
-				</li>
+				@if($page === (int) ($request->pg ?? 1))
+					<li class="page-item active" aria-current="true">
+						<span>{{ $page }}</span>
+					</li>
+				@else
+					<li class="page-item">
+						<a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}">{{ $page }}</a>
+					</li>
+				@endif
 			@endif
 		@endforeach
 

@@ -12,7 +12,7 @@
 			@include('PressbooksNetworkCatalog::icons.chevron-down')
 		</span>
 	</button>
-	<div x-show="open">
+	<div x-show="open" x-cloak>
 		@if($searchable ?? false)
 			<label id="search-{{ $name }}-label" class="sr-only">{{ $title }}</label>
 			<input
