@@ -120,18 +120,18 @@ class BooksRequestManager
 		$valid = true;
 		$this->allowedParams->each(function ($config, $filter) use (&$valid) {
 			// It could be improved with filter_var_array, see https://www.php.net/manual/es/function.filter-var-array.php
-			if (isset($this->request[$filter])) {
-				if (empty($this->request[$filter])) {
+			if ($this->request->get($filter)) {
+				if (empty($this->request->get($filter))) {
 					$this->request->request->remove($filter);
 				} elseif (
-					gettype($this->request[$filter]) !== $config['type'] ||
+					gettype($this->request->get($filter)) !== $config['type'] ||
 					(
 						isset($config['regex']) &&
-						filter_var($this->request[$filter], $config['filter'], ['options' => ['regexp' => $config['regex']]]) === false
+						filter_var($this->request->get($filter), $config['filter'], ['options' => ['regexp' => $config['regex']]]) === false
 					) ||
 					(
 						! isset($config['regex']) && isset($config['filter']) &&
-						filter_var($this->request[$filter], $config['filter']) === false
+						filter_var($this->request->get($filter), $config['filter']) === false
 					)
 				) {
 					$valid = false;
@@ -156,13 +156,13 @@ class BooksRequestManager
 
 	public function getPageLimit(): int
 	{
-		return $this->request['per_page'] ?? $this->defaultPerPage;
+		return $this->request->per_page ?? $this->defaultPerPage;
 	}
 
 	public function getPageOffset(): int
 	{
-		return isset($this->request['pg']) ?
-			($this->request['pg'] - 1) * $this->getPageLimit() : 0;
+		return $this->request->pg ?
+			((int) $this->request->pg - 1) * $this->getPageLimit() : 0;
 	}
 
 	/**
@@ -183,18 +183,18 @@ class BooksRequestManager
 		global $wpdb;
 
 		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filtearableColumns) {
-			if (isset($this->request[$filter]) && ! empty($this->request[$filter]) && isset($paramConfig['field'])) {
+			if ($this->request->get($filter) && ! empty($this->request->get($filter)) && isset($paramConfig['field'])) {
 				$config = $filtearableColumns->where('filterColumn', $paramConfig['field'])->first();
 				if ($config['conditionQueryType']) {
 					switch ($config['conditionQueryType']) {
 						case 'standard':
-							$in_placeholder = array_fill(0, count($this->request[$filter]), '%s');
+							$in_placeholder = array_fill(0, count($this->request->get($filter)), '%s');
 							$sqlQueryConditions[] = $config['alias'].
-								$wpdb->prepare(' IN ('.implode(', ', $in_placeholder).')', $this->request[$filter]);
+								$wpdb->prepare(' IN ('.implode(', ', $in_placeholder).')', $this->request->get($filter));
 							break;
 						case 'subquery':
 							$in = '';
-							foreach ($this->request[$filter] as $filterValue) {
+							foreach ($this->request->get($filter) as $filterValue) {
 								$in .= $wpdb->prepare('%s', $filterValue).',';
 							}
 							$in = rtrim($in, ',');
@@ -207,7 +207,7 @@ class BooksRequestManager
 								$column = $config['alias'];
 								$sqlOperator = $paramConfig['sqlOperator'];
 								$sqlQueryConditions[] = "UNIX_TIMESTAMP($column) $sqlOperator UNIX_TIMESTAMP(".
-									$wpdb->prepare('%s', $this->request[$filter]).')';
+									$wpdb->prepare('%s', $this->request->get($filter)).')';
 							}
 							break;
 						case 'numeric':
@@ -217,7 +217,7 @@ class BooksRequestManager
 				}
 			}
 		});
-		if (isset($this->request['search']) && ! empty($this->request['search'])) {
+		if (isset($this->request->search) && ! empty($this->request->search)) {
 			$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
 		}
 
@@ -235,7 +235,7 @@ class BooksRequestManager
 		$searchableColumns = $this->bookFields->where('searchable', true);
 
 		return '('.$searchableColumns->map(function ($field) use ($wpdb) {
-			return 'LOWER('.$field['alias'].') LIKE '.$wpdb->prepare('%s', '%'.strtolower($this->request['search']).'%');
+			return 'LOWER('.$field['alias'].') LIKE '.$wpdb->prepare('%s', '%'.strtolower($this->request->search).'%');
 		})->implode(' OR ').')';
 	}
 
@@ -246,10 +246,11 @@ class BooksRequestManager
 	 */
 	public function getSqlOrderByForCatalogQuery(): string
 	{
-		if ($this->request['sort_by'] &&
-		   in_array($this->request['sort_by'], array_keys($this->allowedParams->get('sort_by')['allowedValues']))
+		if (
+			isset($this->request->sort_by) &&
+		   in_array($this->request->sort_by, array_keys($this->allowedParams->get('sort_by')['allowedValues']))
 		) {
-			$orderBy = $this->allowedParams->get('sort_by')['allowedValues'][$this->request['sort_by']];
+			$orderBy = $this->allowedParams->get('sort_by')['allowedValues'][$this->request->sort_by];
 
 			return ' ORDER BY '.$orderBy['field'].' '.$orderBy['order'];
 		}
