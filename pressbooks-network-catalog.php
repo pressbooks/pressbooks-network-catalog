@@ -13,7 +13,7 @@
 
 use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 
-const IS_VITE_DEVELOPMENT = false;
+const IS_VITE_DEVELOPMENT = true;
 
 require __DIR__ . '/vendor/autoload.php';
 

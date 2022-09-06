@@ -12,5 +12,8 @@
 @import 'dropdown.css';
 
 :root{
-  --bg-chip: #EEF2F5; /* TODO: define if this color should be */
+  /* TODO: define where this colors should be */
+  --bg-chip: #EEF2F5;
+  --support-color: #5a6171;
+  --color-txt: #333333;
 }

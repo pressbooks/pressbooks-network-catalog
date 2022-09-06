@@ -2,7 +2,8 @@
   @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none;
   background-color: var(--primary-fg);
   border-bottom-color: var(--primary);
-  color: var(--primary);
+  color: var(--color-txt);
+  font-weight: 700;
 }
 
 .side-filters .side-filter > label {

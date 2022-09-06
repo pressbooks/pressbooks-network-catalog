@@ -19,17 +19,26 @@
 	]
 )
 
-{{-- TODO: add it back once we've defined the datepicker --}}
-{{--<div class="side-filter" x-data="{open: false}">--}}
-{{--	<button @click="open = !open" :aria-expanded="open">--}}
-{{--		<span>{{ __('Last Updated', 'pressbooks-network-catalog') }}</span>--}}
-{{--		<span>&#8964;</span>--}}
-{{--	</button>--}}
-{{--    <div x-cloak :class="!open && 'hidden'">--}}
-{{--        <input type="date" name="from"/>--}}
-{{--        <input type="date" name="to"/>--}}
-{{--    </div>--}}
-{{--</div>--}}
+<div class="side-filter" x-data="{open: {{ $request->has('from_date') ? 'true' : 'false'}}}">
+	<button @click="open = !open" :aria-expanded="open" type="button">
+		<span>{{ __('Last Updated', 'pressbooks-network-catalog') }}</span>
+        <span class="icon">
+			@include('PressbooksNetworkCatalog::icons.chevron-down')
+		</span>
+	</button>
+    <div id="last-updated-wrapper" x-cloak :class="!open && 'hidden'" x-data="{ tab: 'from', selectedFrom: formatDate('{{$request->from_date ?? 'DD/MM/YYYY'}}'), selectedTo: formatDate('{{$request->to_date ?? 'DD/MM/YYYY'}}') }">
+        <nav class="last-update-tabs">
+            <a :class="{ 'active': tab === 'from' }" @click.prevent="tab = 'from'" href="#">From <span x-text="selectedFrom"></span> </a>
+            <a :class="{ 'active': tab === 'to' }" @click.prevent="tab = 'to'" href="#">To <span x-text="selectedTo"></span> </a>
+        </nav>
+        <div x-show="tab === 'from'">
+            <input type="date" name="from_date" id="from_date" value="{{$request->from_date ?? ''}}" class="hidden" @change="selectedFrom = formatDate($el.value)"/>
+        </div>
+        <div x-show="tab === 'to'">
+            <input type="date" name="to_date" id="to_date" value="{{$request->to_date ?? ''}}" class="hidden" @change="selectedTo = formatDate($el.value)"/>
+        </div>
+    </div>
+</div>
 
 @include(
     'PressbooksNetworkCatalog::components.selectable-filter', [

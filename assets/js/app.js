@@ -1,14 +1,16 @@
 import Alpine from 'alpinejs';
 import '../css/app.css';
+import '../css/datepicker.css';
+import PbDatePicker from "./datepicker";
 
 window.Alpine = Alpine;
 
 const form = document.getElementById('network-catalog-form');
 
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', function (event) {
   const inputs = Array
     .from(event.target.getElementsByTagName('input'))
-    .filter(input => ['search', 'pg'].includes(input.name));
+    .filter(input => ['search', 'pg', 'from_date', 'to_date'].includes(input.name));
 
   inputs
     .filter(input => input.value === '')
@@ -65,7 +67,7 @@ window.dropdown = () => {
       this.open = true
     },
     close(focusAfter) {
-      if (! this.open) return
+      if (!this.open) return
 
       this.open = false
 
@@ -75,12 +77,13 @@ window.dropdown = () => {
 };
 
 window.removeFilter = (filter) => {
-  // TODO: Date filter
   const attr = filter === 'h5p' ? 'name' : 'value';
   document.querySelector(`input[${attr}="${filter}"]`).click();
 
   document.getElementById('apply-filters').click();
 }
+
+PbDatePicker();
 
 Alpine.start();
 

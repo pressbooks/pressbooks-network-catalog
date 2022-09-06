@@ -35,6 +35,8 @@
     "vite-plugin-live-reload": "^3.0.0"
   },
   "dependencies": {
-    "alpinejs": "^3.10.3"
+    "alpinejs": "^3.10.3",
+    "dayjs": "^1.11.5",
+    "flatpickr": "^4.6.13"
   }
 }
