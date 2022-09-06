@@ -19,7 +19,7 @@
 }
 
 .search-box .search button {
-  @apply py-3 px-4 border-y border rounded-l-none rounded-r hover:shadow focus:outline-none;
+  @apply -ml-px py-3 px-4 inline-flex border-y border rounded-l-none rounded-r hover:shadow focus:outline-none;
   background-color: var(--primary);
   border-color: var(--primary);
   color: var(--primary-fg);
@@ -31,6 +31,10 @@
 
 .search-box .search button:hover {
   background-color: var(--primary-dark);
+}
+
+.search-box .search button svg {
+  @apply h-6 w-6;
 }
 
 .search-box .results-per-page, .search-box .results-sort-by {

@@ -15,7 +15,7 @@
 			type="button"
 			aria-label="{{ $label }}"
 		>
-			{{ $options[$request[$name] ?? $default] }}
+			{{ $options[$request[$name]] ?? $options[$default] }}
 
 			<span>
 				@include('PressbooksNetworkCatalog::icons.chevron-down')

@@ -8,7 +8,10 @@
 			value="{{ $request->search }}"
 			aria-labelledby="search-input-label"
 		/>
-        <button id="search" type="submit">{{ __('Search', 'pressbooks-network-catalog') }}</button>
+        <button id="search" type="submit">
+			<span class="sr-only">{{ __('Search', 'pressbooks-network-catalog') }}</span>
+			@include('PressbooksNetworkCatalog::icons.search')
+		</button>
     </div>
 
 	@include('PressbooksNetworkCatalog::components.dropdown', [
@@ -25,11 +28,11 @@
 	@include('PressbooksNetworkCatalog::components.dropdown', [
         'label' => __('Sort by', 'pressbooks-network-catalog'),
     	'name' => 'sort_by',
-    	'default' => 'relevance',
+    	'default' => 'last_updated',
     	'options' => [
-    		'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
-    		'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
-    		'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
+            //'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
+            'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
+            'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
 		]
 	])
 </div>
