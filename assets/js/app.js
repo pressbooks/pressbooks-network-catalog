@@ -50,7 +50,7 @@ window.selectableFilters = ({open, items, selected}) => {
 
       return value.replaceAll(
         new RegExp(`(${this.search.toLowerCase()})`, 'ig'),
-        '<span class="font-bold">$1</span>'
+        `<span class="font-bold">$1</span>`
       );
     }
   }

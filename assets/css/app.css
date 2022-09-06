@@ -3,7 +3,7 @@
 @import 'tailwindcss/components.css';
 @import 'tailwindcss/utilities.css';
 
-@import "header.css";
+@import 'header.css';
 @import 'main-catalog.css';
 @import 'side-filters.css';
 @import 'search-box.css';
@@ -11,6 +11,6 @@
 @import 'pagination.css';
 @import 'dropdown.css';
 
-:root{
+:root {
   --bg-chip: #EEF2F5; /* TODO: define if this color should be */
 }

@@ -13,6 +13,12 @@ module.exports = {
         'pb-dark-blue': '#00243a',
         'pb-red' : '#BB2026'
       },
+      fontFamily: {
+        sans: [
+          'Karla',
+          ...fontFamily.sans,
+        ]
+      },
       maxWidth: {
         '8xl': '90rem',
       }

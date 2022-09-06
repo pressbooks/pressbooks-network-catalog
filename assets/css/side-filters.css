@@ -95,7 +95,7 @@
 }
 
 .side-filters .reset-filters, .side-filters .submit-filters {
-  @apply w-full p-3 text-sm font-bold uppercase border rounded-t-none hover:shadow focus:outline-none;
+  @apply w-full p-3 text-xs font-bold uppercase border rounded-t-none hover:shadow focus:outline-none;
   color: var(--primary-fg);
 }
 
