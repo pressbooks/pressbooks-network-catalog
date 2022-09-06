@@ -4,7 +4,7 @@ import flatpickr from "flatpickr";
 export default function PbDatePicker() {
 
   window.formatDate = function(date) {
-    return date ? dayjs(date).format('DD/MM/YYYY') : '';
+    return date !== 'DD/MM/YYYY' && date!=='' ? dayjs(date).format('DD/MM/YYYY') : 'DD/MM/YYYY';
   }
 
   flatpickr.defaultConfig.nextArrow = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">\n' +
@@ -16,8 +16,8 @@ export default function PbDatePicker() {
     '</svg>\n';
 
 
-  const fromElement = document.getElementById('from_date');
-  const toElement = document.getElementById('to_date');
+  const fromElement = document.getElementById('updated_from');
+  const toElement = document.getElementById('updated_to');
 
   flatpickr(fromElement, {inline: true, dateFormat: 'Y-m-d', defaultDate: fromElement.value});
   flatpickr(toElement, {inline: true, dateFormat: 'Y-m-d', defaultDate: toElement.value});
