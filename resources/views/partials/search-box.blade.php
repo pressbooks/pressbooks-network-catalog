@@ -48,16 +48,17 @@
         </h2>
     @endif
 
-    <div class="applied-filters" x-data="">
-        @foreach($request->activeFilters as $filter)
-            <div class="applied-filter">
-                <span>{{ $filter['label'] }}</span>
-                <a class="remove" @click="removeFilter('{{$filter['key']}}')">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </a>
-            </div>
-        @endforeach
-    </div>
+	@if($request->activeFilters->isNotEmpty())
+		<div class="applied-filters" x-data>
+			@foreach($request->activeFilters as $filter)
+				<div class="applied-filter">
+					<span>{{ $filter['label'] }}</span>
+					<button type="button" class="remove" @click="removeFilter('{{ $filter['key'] }}')">
+						<span class="sr-only">{{ sprintf(__('Remove %s filter', 'pressbooks-network-catalog'), $filter['label']) }}</span>
+						@include('PressbooksNetworkCatalog::icons.x-mark')
+					</button>
+				</div>
+			@endforeach
+		</div>
+	@endif
 </div>
