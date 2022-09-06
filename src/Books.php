@@ -56,13 +56,14 @@ class Books
 				'searchable' => true,
 			],
 			[
-				'column' => Book::SUBJECTS_CODES,
+				'column' => Book::SUBJECTS_STRINGS,
 				'alias' => 'subjects',
 				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
 				'type' => 'array',
 				'conditionQueryType' => 'subquery',
 				'filterable' => true,
 				'filterColumn' => 'subjects',
+				'searchable' => true,
 			],
 			[
 				'column' => Book::AUTHORS,
@@ -197,12 +198,6 @@ class Books
 
 		return array_map(function ($book) use ($possibleLicenses) {
 			$book->license = $possibleLicenses[$book->license] ?? '';
-			if ($book->subjects) {
-				$book->subjects = implode(', ', array_map(function ($subject_code) {
-					// We want to use the book local language for the subject name in the book card.
-					return \Pressbooks\Metadata\get_subject_from_thema($subject_code);
-				}, explode(', ', $book->subjects)));
-			}
 
 			return $book;
 		}, $booksList);
