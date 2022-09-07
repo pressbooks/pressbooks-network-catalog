@@ -48,7 +48,9 @@
 	<div class="go-to-page" x-data x-id="['pagination-go-to']">
 		<label :for="$id('pagination-go-to')">{{ __('Go to page', 'pressbooks-network-catalog') }}</label>
 		<div>
-			<input type="text" name="pg" :id="$id('pagination-go-to')" />
+			<div class="go-to-page-input">
+				<input type="text" name="pg" :id="$id('pagination-go-to')" />
+			</div>
 			<button type="submit">{{ __('Go', 'pressbooks-network-catalog') }}</button>
 		</div>
 	</div>
