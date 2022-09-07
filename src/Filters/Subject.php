@@ -10,11 +10,11 @@ class Subject implements Filters
 {
 	public static function getPossibleValues(): array
 	{
-//		$subjects = get_transient('pb-network-catalog-subjects');
-//
-//		if ($subjects) {
-//			return $subjects;
-//		}
+		$subjects = get_transient('pb-network-catalog-subjects');
+
+		if ($subjects) {
+			return $subjects;
+		}
 
 		$codes = DataCollector::init()->getPossibleValuesFor(DataCollector::SUBJECTS_CODES);
 
