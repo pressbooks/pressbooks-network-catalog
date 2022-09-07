@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f8d0df5a5b308432fae1dc73b1a9edf",
+    "content-hash": "464a7fe6e7a2728adf9087091d3a535a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.235.2",
+            "version": "3.235.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9776dc3235bf7c0fce59d5c70e3ade88d0d095d2"
+                "reference": "d14bf468240f5bd8a0754b8a8248ff219ebada02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9776dc3235bf7c0fce59d5c70e3ade88d0d095d2",
-                "reference": "9776dc3235bf7c0fce59d5c70e3ade88d0d095d2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d14bf468240f5bd8a0754b8a8248ff219ebada02",
+                "reference": "d14bf468240f5bd8a0754b8a8248ff219ebada02",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.3"
             },
-            "time": "2022-09-06T18:15:53+00:00"
+            "time": "2022-09-07T18:17:39+00:00"
         },
         {
             "name": "composer/installers",
@@ -2596,16 +2596,16 @@
         },
         {
             "name": "pressbooks/pressbooks",
-            "version": "dev-pb-upgrade-container",
+            "version": "dev-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "6f459b51775a10d44435b7f729b5a348dae8876f"
+                "reference": "e3b9f35c60f38eac2633d4d21298c7e0f0d92b8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/6f459b51775a10d44435b7f729b5a348dae8876f",
-                "reference": "6f459b51775a10d44435b7f729b5a348dae8876f",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/e3b9f35c60f38eac2633d4d21298c7e0f0d92b8f",
+                "reference": "e3b9f35c60f38eac2633d4d21298c7e0f0d92b8f",
                 "shasum": ""
             },
             "require": {
@@ -2653,6 +2653,7 @@
                 "pressbooks/pressbooks-aldine": "Aldine is the default theme for the home page of Pressbooks networks.",
                 "pressbooks/pressbooks-book": "Pressbooks Book is the canonical book theme for Pressbooks."
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2673,13 +2674,13 @@
                 "webbooks"
             ],
             "support": {
-                "docs": "https://docs.pressbooks.org/",
+                "docs": "https://pressbooks.org/user-docs/",
                 "email": "code@pressbooks.com",
-                "forum": "https://discourse.pressbooks.org",
+                "forum": "https://pressbooks.community",
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2022-09-06T12:17:05+00:00"
+            "time": "2022-09-07T19:17:10+00:00"
         },
         {
             "name": "psr/container",
