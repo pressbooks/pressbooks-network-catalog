@@ -26,6 +26,7 @@ class CatalogManager
 			'institutions' => Institution::getPossibleValues(),
 			'publishers' => Publisher::getPossibleValues(),
 		];
+
 		// Inject active filters into the request object
 		$this->request->activeFilters = $this->getActiveFilters();
 
