@@ -1,5 +1,5 @@
 .book-cards .book-card {
-  @apply p-2 flex items-start justify-center gap-7 border rounded shadow-lg bg-white;
+  @apply p-4 flex items-start justify-center gap-7 border rounded shadow-lg bg-white;
 }
 
 .book-cards .book-card .book-cover {
@@ -11,11 +11,11 @@
 }
 
 .book-cards .book-card .book-info {
-  @apply mt-10 flex-1;
+  @apply mt-4 flex-1;
 }
 
 .book-cards .book-card .book-info h2 {
-  @apply text-2xl text-left font-medium normal-case;
+  @apply text-2xl text-left font-bold normal-case;
   color: var(--primary);
 }
 
