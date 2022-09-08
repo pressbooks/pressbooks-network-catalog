@@ -44,11 +44,11 @@
 <div>
     @if(!empty($request->search) && $request->has('search'))
         <h2 class="result-stats">
-            {{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), count($books), $request->search ) }}
+            {{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), $pagination['total'], $request->search ) }}
         </h2>
     @else
         <h2 class="result-stats">
-            {{ sprintf(__('%d Results', 'pressbooks-network-catalog'), count($books)) }}
+            {{ sprintf(__('%d Results', 'pressbooks-network-catalog'), $pagination['total']) }}
         </h2>
     @endif
 
