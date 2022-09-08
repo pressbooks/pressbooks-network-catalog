@@ -10,6 +10,7 @@
 @import 'book-card.css';
 @import 'pagination.css';
 @import 'dropdown.css';
+@import 'datepicker.css';
 
 :root{
   /* TODO: define where this colors should be */

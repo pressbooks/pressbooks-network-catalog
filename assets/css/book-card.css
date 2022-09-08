@@ -1,5 +1,5 @@
 .book-cards .book-card {
-  @apply p-2 flex items-start justify-center gap-5 border rounded shadow-lg bg-white;
+  @apply p-2 flex items-start justify-center gap-7 border rounded shadow-lg bg-white;
 }
 
 .book-cards .book-card .book-cover {
@@ -16,6 +16,7 @@
 
 .book-cards .book-card .book-info h2 {
   @apply text-2xl text-left font-medium normal-case;
+  color: var(--primary);
 }
 
 .book-cards .book-card .book-info p {
@@ -23,7 +24,7 @@
 }
 
 .book-cards .book-card .book-info > p:first-of-type {
-  @apply text-sm text-gray-500;
+  @apply text-sm;
 }
 
 .book-cards .book-card .book-info > p span:not(:first-child) {
@@ -40,4 +41,15 @@
 
 .book-cards .book-card .book-info .book-description {
   @apply mt-4 tracking-wide;
+}
+
+.line-clamp {
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.read-more {
+  @apply cursor-pointer;
 }

@@ -16,7 +16,8 @@
 		</button>
     </div>
 
-	@include('PressbooksNetworkCatalog::components.dropdown', [
+	<div class="refine-filters">
+        @include('PressbooksNetworkCatalog::components.dropdown', [
     	'label' => __('Results per page', 'pressbooks-network-catalog'),
     	'name' => 'per_page',
     	'default' => 10,
@@ -27,16 +28,17 @@
 		]
 	])
 
-	@include('PressbooksNetworkCatalog::components.dropdown', [
-        'label' => __('Sort by', 'pressbooks-network-catalog'),
-    	'name' => 'sort_by',
-    	'default' => 'last_updated',
-    	'options' => [
-            //'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
-            'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
-            'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
-		]
-	])
+        @include('PressbooksNetworkCatalog::components.dropdown', [
+            'label' => __('Sort by', 'pressbooks-network-catalog'),
+            'name' => 'sort_by',
+            'default' => 'last_updated',
+            'options' => [
+                //'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
+                'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
+                'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
+            ]
+        ])
+    </div>
 </div>
 
 <div>

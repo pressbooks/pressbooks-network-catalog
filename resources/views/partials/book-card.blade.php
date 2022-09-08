@@ -44,14 +44,17 @@
 			@endif
 
 			<p>
-				<span>{{ __('Last updated:', 'pressbooks-network-catalog') }}</span> {{ $book->updatedAt }}
+				<span>{{ __('Last updated:', 'pressbooks-network-catalog') }}</span> {{ \Illuminate\Support\Carbon::create($book->updatedAt)->format('d/m/Y') }}
 			</p>
 		</div>
 
 		@if($book->description)
-			<p class="book-description">
-				{!! $book->description !!}
-			</p>
-		@endif
+			<div x-data="{showRead: true}">
+                <div class="book-description line-clamp">
+                    {!! $book->description !!}
+                </div>
+                <a class="read-more" @click="window.toggleClass($el.previousElementSibling,'line-clamp'); showRead=!showRead " x-show="window.hasClampedText($el.previousElementSibling)" x-text="showRead? 'Read more' : 'Show less' "></a>
+            </div>
+        @endif
 	</div>
 </div>

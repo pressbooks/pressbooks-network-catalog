@@ -1,9 +1,13 @@
 .search-box {
-  @apply flex lg:flex lg:gap-4 lg:flex-row flex-col
+  @apply flex lg:flex lg:gap-4 lg:flex-row flex-col my-5 md:my-0;
 }
 
 .search-box .search {
-  @apply w-full flex flex-1 items-center bg-white border-b border-b-gray-900 rounded;
+  @apply w-full flex flex-1 items-center bg-white border-b border-b-gray-900 rounded my-5 md:my-0;
+}
+
+.search-box .refine-filters {
+  @apply w-full flex md:justify-evenly md:w-auto md:gap-4;
 }
 
 .search-box .search .search-input {
