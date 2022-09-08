@@ -52,7 +52,7 @@
             <label :for="$id('pagination-go-to')">{{ __('Go to page', 'pressbooks-network-catalog') }}</label>
             <div>
                 <div class="go-to-page-input">
-                    <input type="text" name="pg" :id="$id('pagination-go-to')" />
+                    <input type="text" name="pg" :id="$id('pagination-go-to')" placeholder="##"/>
                 </div>
                 <button type="submit">{{ __('Go', 'pressbooks-network-catalog') }}</button>
             </div>
