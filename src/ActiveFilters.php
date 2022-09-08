@@ -33,7 +33,7 @@ class ActiveFilters
 		if ($request->has('h5p')) {
 			$this->items->push([
 				'key' => 'h5p',
-				'label' => __('Has H5P Activities', 'pressbooks-network-catalog'),
+				'label' => __('H5P Activities', 'pressbooks-network-catalog'),
 				'type' => 'h5p',
 			]);
 		}

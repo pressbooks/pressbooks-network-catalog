@@ -64,7 +64,7 @@
 
 <div class="side-filter checkbox">
 	<label>
-		<span>{{ __('Has H5P Activities', 'pressbooks-network-catalog') }}</span>
+		<span>{{ __('H5P Activities', 'pressbooks-network-catalog') }}</span>
 		<input
 			id="h5p"
 			name="h5p"
