@@ -177,20 +177,27 @@ class Books
 	{
 		if (! $this->booksRequestManager->validateRequest()) {
 			return [
-				'total' => 0,
-				'totalPages' => 0,
-				'currentPage' => 1,
-				'perPage' => 0,
+                'currentPage' => 1,
+                'elements' => [],
+                'perPage' => 0,
+                'total' => 0,
+                'totalPages' => 0,
 			];
 		}
 
 		$this->queryBooksCount();
 
+        $totalPageCount = $this->getTotalPages();
+        $perPage = $this->booksRequestManager->getPerPage();
+        $currentPage = $this->booksRequestManager->getPage();
+        $elements = $this->getElements($currentPage, $totalPageCount);
+
 		return [
-			'total' => $this->totalBooks,
-			'totalPages' => $this->getTotalPages(),
-			'perPage' => $this->booksRequestManager->getPerPage(),
-			'currentPage' => $this->booksRequestManager->getPage(),
+            'currentPage' => $currentPage,
+            'elements' => $elements ?? [],
+            'perPage' => $perPage,
+            'total' => $this->totalBooks,
+            'totalPages' => $totalPageCount,
 		];
 	}
 
@@ -198,6 +205,43 @@ class Books
 	{
 		return ceil($this->totalBooks / $this->booksRequestManager->getPerPage());
 	}
+
+    private function getElements(int $currentPage, int $totalPageCount): array
+    {
+        $pagesToDisplay = 5;
+        $siblingCount = 1;
+
+        if ($pagesToDisplay >= $totalPageCount) {
+            return range(1, $totalPageCount);
+        }
+
+        $leftSiblingIndex = max($currentPage - $siblingCount, 1);
+        $rightSiblingIndex = min($currentPage + $siblingCount, $totalPageCount);
+
+        $shouldShowLeftDots = $leftSiblingIndex > 2;
+        $shouldShowRightDots = $rightSiblingIndex < $totalPageCount - 2;
+
+        $firstPageIndex = 1;
+        $lastPageIndex = $totalPageCount;
+
+        if ( ! $shouldShowLeftDots && $shouldShowRightDots) {
+            $leftItemCount = 2 + 2 * $siblingCount;
+            $leftRange = range(1, $leftItemCount);
+
+            return [...$leftRange, '...', $totalPageCount];
+        }
+
+        if ($shouldShowLeftDots && ! $shouldShowRightDots) {
+            $rightItemCount = 2 + 2 * $siblingCount;
+            $rightRange = range($totalPageCount - $rightItemCount + 1, $totalPageCount);
+
+            return [$firstPageIndex, '...', ...$rightRange];
+        }
+
+        $middleRange = range($leftSiblingIndex, $rightSiblingIndex);
+
+        return [$firstPageIndex, '...', ...$middleRange, '...', $lastPageIndex];
+    }
 
 	/**
 	 * Query books count according to the request parameters.

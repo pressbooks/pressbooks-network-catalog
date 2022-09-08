@@ -1,7 +1,7 @@
 .side-filters .side-filter > button, .side-filters .side-filter > label {
   @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none;
   background-color: var(--primary-fg);
-  border-bottom-color: var(--accent);
+  border-bottom-color: var(--color-txt);
   color: var(--color-txt);
   font-weight: 700;
 }
