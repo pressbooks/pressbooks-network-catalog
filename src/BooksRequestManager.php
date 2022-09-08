@@ -206,7 +206,7 @@ class BooksRequestManager
 							if (isset($paramConfig['sqlOperator'])) {
 								$column = $config['alias'];
 								$sqlOperator = $paramConfig['sqlOperator'];
-								$sqlQueryConditions[] = "UNIX_TIMESTAMP($column) $sqlOperator UNIX_TIMESTAMP(".
+								$sqlQueryConditions[] = "DATE($column) $sqlOperator DATE(".
 									$wpdb->prepare('%s', $this->request->get($filter)).')';
 							}
 							break;
