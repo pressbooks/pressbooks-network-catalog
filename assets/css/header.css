@@ -23,7 +23,7 @@
 }
 
 .page-template-page-catalog .hero > div {
-  @apply px-4 flex lg:gap-x-20 mx-auto w-full max-w-8xl;
+  @apply px-4 flex mx-auto w-full max-w-8xl;
 }
 
 .page-template-page-catalog .hero h1{
