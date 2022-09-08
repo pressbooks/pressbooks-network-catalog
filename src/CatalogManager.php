@@ -29,22 +29,15 @@ class CatalogManager
 		// Inject active filters into the request object
 		$this->request->activeFilters = $this->getActiveFilters();
 
+		$books = new Books();
+
 		return Container::get('Blade')->render(
 			'PressbooksNetworkCatalog::catalog', [
 				'request' => $this->request,
-				'books' => $this->getBooks(),
+				'books' => $books->get(),
+				'pagination' => $books->getPagination(),
 			] + $this->filters
 		);
-	}
-
-	/**
-	 * Query books list and return array of book objects
-	 *
-	 * @return array
-	 */
-	protected function getBooks(): array
-	{
-		return (new Books())->get();
 	}
 
 	protected function getActiveFilters(): Collection

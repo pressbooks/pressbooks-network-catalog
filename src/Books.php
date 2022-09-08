@@ -17,6 +17,20 @@ class Books
 	 */
 	private Collection $fields;
 
+	/**
+	 * Total number of paginated books in the DB.
+	 *
+	 * @var int
+	 */
+	private int $totalBooks = 0;
+
+	/**
+	 * List books requested.
+	 *
+	 * @var array
+	 */
+	private array $books = [];
+
 	public function __construct()
 	{
 		global $wpdb;
@@ -128,6 +142,8 @@ class Books
 				'selectMethod' => 'MAX(IF(b.meta_key=%s,b.meta_value,null))',
 			],
 		]);
+
+		$this->booksRequestManager = new BooksRequestManager($this->fields);
 	}
 
 	/**
@@ -141,59 +157,117 @@ class Books
 	 *      institutions [ 'Australian National University', 'University of Newcastle' ],
 	 *      publishers => [ 'Press Books', 'Univ Pub' ],
 	 *      h5p => 'on',
-	 *      updated_from => '2019-01-01', // YYYY-MM-DD format
-	 *      updated_to => '2020-05-20', // YYYY-MM-DD format
+	 *      from => '2019-01-01', // YYYY-MM-DD format
+	 *      to => '2020-05-20', // YYYY-MM-DD format
 	 *  ]
 	 *
 	 * @return array
 	 */
 	public function get(): array
 	{
-		$this->booksRequestManager = new BooksRequestManager($this->fields);
+		if (! $this->booksRequestManager->validateRequest()) {
+			return [];
+		}
+		$this->queryBooks();
 
-		return $this->booksRequestManager->validateRequest() ? $this->prepareResponse($this->query()) : [];
+		return $this->getPreparedBooks();
+	}
+
+	public function getPagination(): array
+	{
+		if (! $this->booksRequestManager->validateRequest()) {
+			return [
+				'total' => 0,
+				'totalPages' => 0,
+				'currentPage' => 1,
+				'perPage' => 0,
+			];
+		}
+
+		$this->queryBooksCount();
+
+		return [
+			'total' => $this->totalBooks,
+			'totalPages' => $this->getTotalPages(),
+			'perPage' => $this->booksRequestManager->getPerPage(),
+			'currentPage' => $this->booksRequestManager->getPage(),
+		];
+	}
+
+	private function getTotalPages(): int
+	{
+		return ceil($this->totalBooks / $this->booksRequestManager->getPerPage());
+	}
+
+	/**
+	 * Query books count according to the request parameters.
+	 *
+	 * @return void
+	 */
+	private function queryBooksCount(): void
+	{
+		global $wpdb;
+
+		$sqlQueryFields = $this->getSqlQueryFields();
+		$sqlQuery = $this->getSqlFromQuery();
+		$sqlQueryConditions = $this->booksRequestManager->getSqlConditionsForCatalogQuery();
+
+		$this->totalBooks = (int) $wpdb->get_var("SELECT COUNT(DISTINCT id) FROM ({$sqlQueryFields} {$sqlQuery} {$sqlQueryConditions}) AS t");
+	}
+
+	private function getSqlFromQuery(): string
+	{
+		global $wpdb;
+
+		return $wpdb->prepare(" FROM {$wpdb->blogmeta} b
+            WHERE blog_id IN (
+                SELECT blog_id FROM {$wpdb->blogmeta}
+                    WHERE meta_key = %s AND meta_value = '1'
+                )
+            GROUP BY blog_id", Book::IN_CATALOG);
 	}
 
 	/**
 	 * Perform SQL query to get paginated, filtered catalog books according to Request parameters.
 	 *
-	 * @return array
+	 * @return void
 	 */
-	private function query(): array
+	private function queryBooks(): void
 	{
 		global $wpdb;
 
-		$sqlQuery = 'SELECT SQL_CALC_FOUND_ROWS ';
-		$sqlQuery .= $this->fields->map(
+		$sqlBooksQuery = $this->getSqlQueryFields().$this->getSqlFromQuery().
+			$this->booksRequestManager->getSqlConditionsForCatalogQuery().
+			$this->booksRequestManager->getSqlOrderByForCatalogQuery().
+			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
+
+		$this->books = $wpdb->get_results($sqlBooksQuery);
+	}
+
+	/**
+	 * Get SQL query fields.
+	 *
+	 * @return string
+	 */
+	private function getSqlQueryFields(): string
+	{
+		global $wpdb;
+
+		return 'SELECT '.$this->fields->map(
 			function ($field) use ($wpdb) {
 				return strpos($field['selectMethod'], '%s') !== false ?
 					$wpdb->prepare($field['selectMethod'], $field['column']).' AS '.$field['alias'] :
 					$field['selectMethod'].' AS '.$field['alias'];
 			}
 		)->implode(', ');
-
-		$sqlQuery .= " FROM {$wpdb->blogmeta} b
-            WHERE blog_id IN (
-                SELECT blog_id FROM {$wpdb->blogmeta}
-                    WHERE meta_key = %s AND meta_value = '1'
-                )
-            GROUP BY blog_id";
-
-		$sqlQuery .= $this->booksRequestManager->getSqlConditionsForCatalogQuery().
-			$this->booksRequestManager->getSqlOrderByForCatalogQuery().
-			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
-
-		return $wpdb->get_results($wpdb->prepare($sqlQuery, Book::IN_CATALOG));
 	}
 
 	/**
 	 * Prepare books list response.
 	 *
-	 * @param array $booksList raw books list
-	 *
 	 * @return array
 	 */
-	private function prepareResponse(array $booksList): array
+	private function getPreparedBooks(): array
 	{
 		$possibleLicenses = License::getPossibleValues();
 
@@ -201,6 +275,6 @@ class Books
 			$book->license = $possibleLicenses[$book->license] ?? '';
 
 			return $book;
-		}, $booksList);
+		}, $this->books);
 	}
 }

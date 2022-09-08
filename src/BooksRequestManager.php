@@ -77,14 +77,14 @@ class BooksRequestManager
 				'filter' => FILTER_SANITIZE_STRING,
 				'field' => 'h5p',
 			],
-			'updated_from' => [
+			'from' => [
 				'type' => 'string',
 				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
 				'filter' => FILTER_VALIDATE_REGEXP,
 				'sqlOperator' => '>=',
 				'field' => 'last_updated',
 			],
-			'updated_to' => [
+			'to' => [
 				'type' => 'string',
 				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
 				'filter' => FILTER_VALIDATE_REGEXP,
@@ -151,10 +151,10 @@ class BooksRequestManager
 	 */
 	public function getSqlPaginationForCatalogQuery(): string
 	{
-		return ' LIMIT '.$this->getPageLimit().' OFFSET '.$this->getPageOffset();
+		return ' LIMIT '.$this->getPerPage().' OFFSET '.$this->getPageOffset();
 	}
 
-	public function getPageLimit(): int
+	public function getPerPage(): int
 	{
 		return $this->request->per_page ?? $this->defaultPerPage;
 	}
@@ -162,7 +162,7 @@ class BooksRequestManager
 	public function getPageOffset(): int
 	{
 		return $this->request->pg ?
-			((int) $this->request->pg - 1) * $this->getPageLimit() : 0;
+			((int) $this->request->pg - 1) * $this->getPerPage() : 0;
 	}
 
 	/**
@@ -256,5 +256,10 @@ class BooksRequestManager
 		}
 
 		return '';
+	}
+
+	public function getPage(): int
+	{
+		return $this->request->pg ?? $this->allowedParams->get('pg')['default'];
 	}
 }
