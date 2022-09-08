@@ -8,7 +8,7 @@
 
 .dropdown button.trigger {
   border: inherit;
-  @apply flex items-center gap-2 bg-white px-5 py-3 border-b border-b-gray-900 rounded-md shadow normal-case font-normal focus:outline-none;
+  @apply flex items-center gap-2 bg-white px-5 py-3 rounded-md shadow normal-case font-normal focus:outline-none;
 }
 
 .dropdown button.trigger.open {

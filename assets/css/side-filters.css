@@ -1,7 +1,7 @@
 .side-filters .side-filter > button, .side-filters .side-filter > label {
   @apply py-3 px-4 w-full flex items-center justify-between border-b border-transparent rounded-none normal-case font-normal focus:outline-none;
   background-color: var(--primary-fg);
-  border-bottom-color: var(--color-txt);
+  border-bottom-color: var(--border-color);
   color: var(--color-txt);
   font-weight: 700;
 }
@@ -41,6 +41,10 @@
   border-bottom-color: var(--primary);
 }
 
+.side-filters .side-filter.selectable [aria-expanded=true] svg {
+  @apply rotate-180;
+}
+
 .side-filters .side-filter.selectable ul {
   @apply list-none m-0 p-0;
 }
@@ -67,11 +71,11 @@
 }
 
 .side-filters .side-filter.selectable ul li:hover {
-  background-color: #eef2f5;
+  background-color: var(--border-color);
 }
 
 .side-filters .side-filter.selectable input:not([type=checkbox]) {
-  @apply py-2 px-2 w-full border-b text-sm focus:outline-none;
+  @apply py-2 px-4 w-full border-b text-sm focus:outline-none;
 }
 
 .side-filters .side-filter.selectable input:focus {

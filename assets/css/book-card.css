@@ -1,10 +1,9 @@
 .book-cards .book-card {
   @apply p-4 flex items-start justify-center gap-6 border rounded shadow-lg bg-white;
-  @apply p-4 flex items-start justify-center gap-7 border rounded shadow-lg bg-white;
 }
 
 .book-cards .book-card .book-cover {
-  @apply w-full max-w-xs;
+  @apply w-2/5;
 }
 
 .book-cards .book-card .book-cover img {
