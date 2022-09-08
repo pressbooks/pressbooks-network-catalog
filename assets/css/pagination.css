@@ -6,7 +6,7 @@
   @apply m-0 p-0 gap-1 inline-flex list-none;
 }
 
-.pagination .page-list .page-item a, .pagination .page-list .page-item span {
+.pagination .page-list .page-item a, .pagination .page-list .page-item span:not(.sr-only) {
   @apply relative inline-flex items-center bg-transparent border border-transparent rounded px-4 py-2 text-sm font-medium focus:outline-none;
   color: var(--accent);
 }
@@ -15,7 +15,7 @@
   outline-color: var(--accent);
 }
 
-.pagination .page-list .page-item.active span {
+.pagination .page-list .page-item.active a {
   background-color: var(--accent);
   color: var(--primary-fg);
 }

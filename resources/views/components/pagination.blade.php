@@ -10,7 +10,7 @@
                     <a
                         href="{{ $request->fullUrlWithQuery(['pg' => $pagination['currentPage'] - 1]) }}"
                         rel="prev"
-                        aria-label="{{ __('Previous page', 'pressbooks-network-catalog') }}"
+                        aria-label="{{ __('Go to previous page', 'pressbooks-network-catalog') }}"
                     >
                         @include('PressbooksNetworkCatalog::icons.chevron-left')
                     </a>
@@ -23,13 +23,19 @@
                         <span>{{ $page }}</span>
                     </li>
                 @else
-                    @if($page === (int) ($request->pg ?? 1))
+                    @if($page === $pagination['currentPage'])
                         <li class="page-item active" aria-current="true">
-                            <span>{{ $page }}</span>
+                            <a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}">
+                                <span class="sr-only">{{ __('Current page, page', 'pressbooks-network-catalog') }}</span>
+                                {{ $page }}
+                            </a>
                         </li>
                     @else
                         <li class="page-item">
-                            <a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}">{{ $page }}</a>
+                            <a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}">
+                                <span class="sr-only">{{ __('Go to page', 'pressbooks-network-catalog') }}</span>
+                                {{ $page }}
+                            </a>
                         </li>
                     @endif
                 @endif
@@ -40,7 +46,7 @@
                     <a
                         href="{{ $request->fullUrlWithQuery(['pg' => $pagination['currentPage'] + 1]) }}"
                         rel="next"
-                        aria-label="{{ __('Next page', 'pressbooks-network-catalog') }}"
+                        aria-label="{{ __('Go to next page', 'pressbooks-network-catalog') }}"
                     >
                         @include('PressbooksNetworkCatalog::icons.chevron-right')
                     </a>
@@ -52,7 +58,7 @@
             <label :for="$id('pagination-go-to')">{{ __('Go to page', 'pressbooks-network-catalog') }}</label>
             <div>
                 <div class="go-to-page-input">
-                    <input type="text" name="pg" :id="$id('pagination-go-to')" placeholder="##"/>
+                    <input type="text" name="pg" :id="$id('pagination-go-to')" placeholder="##" />
                 </div>
                 <button type="submit">{{ __('Go', 'pressbooks-network-catalog') }}</button>
             </div>
