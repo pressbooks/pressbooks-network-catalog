@@ -26,7 +26,7 @@ class BooksRequestManager
 	 *
 	 * @var int
 	 */
-	private int $defaultPerPage = 15;
+	private int $defaultPerPage = 10;
 
 	/**
 	 * Get parameters allowed to be used in the request.
