@@ -19,23 +19,23 @@
 	]
 )
 
-<div class="side-filter" x-data="{open: {{ !empty($request->updated_from) || !empty($request->updated_to) ? 'true' : 'false'}}}">
+<div class="side-filter" x-data="{open: {{ !empty($request->from) || !empty($request->to) ? 'true' : 'false'}}}">
 	<button @click="open = !open" :aria-expanded="open" type="button">
 		<span>{{ __('Last Updated', 'pressbooks-network-catalog') }}</span>
         <span class="icon">
 			@include('PressbooksNetworkCatalog::icons.chevron-down')
 		</span>
 	</button>
-    <div id="last-updated-wrapper" x-cloak :class="!open && 'hidden'" x-data="{ tab: 'from', selectedFrom: formatDate('{{$request->updated_from ?? 'DD/MM/YYYY'}}'), selectedTo: formatDate('{{$request->updated_to ?? 'DD/MM/YYYY'}}') }">
+    <div id="last-updated-wrapper" x-cloak :class="!open && 'hidden'" x-data="{ tab: 'from', selectedFrom: formatDate('{{$request->from ?? 'DD/MM/YYYY'}}'), selectedTo: formatDate('{{$request->to ?? 'DD/MM/YYYY'}}') }">
         <nav class="last-update-tabs">
             <a :class="{ 'active': tab === 'from' }" @click.prevent="tab = 'from'" href="#">From <span x-text="selectedFrom"></span> </a>
             <a :class="{ 'active': tab === 'to' }" @click.prevent="tab = 'to'" href="#">To <span x-text="selectedTo"></span> </a>
         </nav>
         <div x-show="tab === 'from'">
-            <input type="date" name="updated_from" id="updated_from" value="{{$request->updated_from ?? ''}}" class="hidden" @change="selectedFrom = formatDate($el.value)"/>
+            <input type="date" name="from" id="updated_from" value="{{$request->from ?? ''}}" class="hidden" @change="selectedFrom = formatDate($el.value)"/>
         </div>
         <div x-show="tab === 'to'">
-            <input type="date" name="updated_to" id="updated_to" value="{{$request->updated_to ?? ''}}" class="hidden" @change="selectedTo = formatDate($el.value)"/>
+            <input type="date" name="to" id="updated_to" value="{{$request->to ?? ''}}" class="hidden" @change="selectedTo = formatDate($el.value)"/>
         </div>
     </div>
 </div>

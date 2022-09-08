@@ -38,18 +38,18 @@ class ActiveFilters
 			]);
 		}
 
-		if ($request->updated_from) {
+		if ($request->from) {
 			$this->items->push([
-				'key' => 'updated_from',
-				'label' => sprintf(__('From: %s', 'pressbooks-network-catalog'), $request->updated_from),
+				'key' => 'from',
+				'label' => sprintf(__('From: %s', 'pressbooks-network-catalog'), $request->from),
 				'type' => 'date',
 			]);
 		}
 
-		if ($request->updated_to) {
+		if ($request->to) {
 			$this->items->push([
-				'key' => 'updated_to',
-				'label' => sprintf(__('To: %s', 'pressbooks-network-catalog'), $request->updated_to),
+				'key' => 'to',
+				'label' => sprintf(__('To: %s', 'pressbooks-network-catalog'), $request->to),
 				'type' => 'date',
 			]);
 		}

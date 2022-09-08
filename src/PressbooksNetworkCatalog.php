@@ -87,7 +87,7 @@ class PressbooksNetworkCatalog
 		add_filter('pb_network_catalog', fn () => (new CatalogManager)->handle());
 		add_filter(
 			'admin_init',
-			fn () => remove_filter( 'admin_init', '\Aldine\Actions\hide_catalog_content_editor' ),
+			fn () => remove_filter('admin_init', '\Aldine\Actions\hide_catalog_content_editor'),
 			1
 		);
 	}

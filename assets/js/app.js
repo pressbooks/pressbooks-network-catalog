@@ -9,7 +9,7 @@ const form = document.getElementById('network-catalog-form');
 form.addEventListener('submit', function (event) {
   const inputs = Array
     .from(event.target.getElementsByTagName('input'))
-    .filter(input => ['search', 'pg', 'from_date', 'to_date'].includes(input.name));
+    .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
 
   inputs
     .filter(input => input.value === '')
@@ -82,10 +82,9 @@ window.dropdown = ({selected, options}) => {
 };
 
 window.removeFilter = (filter) => {
-
   const attr = ['h5p'].includes(filter) ? 'name' : 'value';
 
-  if(filter === 'updated_from' || filter === 'updated_to') {
+  if(filter === 'from' || filter === 'to') {
     document.querySelector(`input[name="${filter}"]`).value = '';
   } else {
     document.querySelector(`input[${attr}="${filter}"]`).click();
