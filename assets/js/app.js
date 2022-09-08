@@ -1,6 +1,5 @@
 import Alpine from 'alpinejs';
 import '../css/app.css';
-import '../css/datepicker.css';
 import PbDatePicker from "./datepicker";
 
 window.Alpine = Alpine;
@@ -93,6 +92,19 @@ window.removeFilter = (filter) => {
   }
 
   submitForm();
+}
+
+window.reset = () => {
+  form.reset();
+  window.location.href = window.location.href.split('?')[0];
+}
+
+window.hasClampedText = (element) => {
+  return element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth;
+}
+
+window.toggleClass = (element, className) => {
+  element.classList.toggle(className);
 }
 
 PbDatePicker();

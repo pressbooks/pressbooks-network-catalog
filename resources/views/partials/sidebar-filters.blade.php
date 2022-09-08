@@ -81,7 +81,7 @@
 	<button id="apply-filters" class="submit-filters" type="submit">
 		{{ __('Apply filters', 'pressbooks-network-catalog') }}
 	</button>
-	<button id="clear-filters" class="reset-filters" type="reset">
+	<button id="clear-filters" class="reset-filters" type="button" @click="window.reset()" x-data>
 		{{ __('Clear filters', 'pressbooks-network-catalog') }}
 	</button>
 </div>
