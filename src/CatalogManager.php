@@ -36,6 +36,7 @@ class CatalogManager
 				'request' => $this->request,
 				'books' => $books->get(),
 				'pagination' => $books->getPagination(),
+                'catalogBg' => $this->getBackgroundImage(),
 			] + $this->filters
 		);
 	}
@@ -44,4 +45,9 @@ class CatalogManager
 	{
 		return (new ActiveFilters($this->filters))->getFilters($this->request);
 	}
+
+    protected function getBackgroundImage(): string
+    {
+        return plugin_dir_url( __DIR__ ) . 'assets/images/catalogbg.png';
+    }
 }

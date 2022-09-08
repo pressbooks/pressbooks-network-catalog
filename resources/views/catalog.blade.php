@@ -1,7 +1,7 @@
 @php(get_header())
 
 <main>
-    <div class="hero">
+    <div class="hero" style="background-image: url({{$catalogBg}})">
         <div>
             <div class="hero-sidebar"></div>
             <div class="hero-content">
