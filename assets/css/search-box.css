@@ -19,7 +19,7 @@
 }
 
 .search-box .search input[type=search] {
-  @apply py-1 w-full border-b border-gray-900 focus:outline-none;
+  @apply py-1 w-full focus:outline-none;
 }
 
 .search-box .search input[type=search]:focus {

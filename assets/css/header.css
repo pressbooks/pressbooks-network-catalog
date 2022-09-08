@@ -1,24 +1,13 @@
 .page-template-page-catalog .header {
   @apply py-6;
   @apply h-fit !important;
-  position: sticky;
-  top: 0;
-  z-index: 1; /* for sticky header */
   background-image: none !important;
-}
-
-.page-template-page-catalog .header, .header__nav--active .js-header-nav {
-  background: var(--accent);
 }
 
 .page-template-page-catalog .header .header__inside {
   @apply px-4 py-0;
 }
 
-
-.page-template-page-catalog .header #nav-primary-menu a {
-  color: var(--accent-fg);
-}
 
 .page-template-page-catalog .header__nav-icon__icon,
 .page-template-page-catalog .header__nav-icon__icon:after,
@@ -42,10 +31,6 @@
   color: var(--primary);
 }
 
-/* placeholder to position the hero content correctly */
-.page-template-page-catalog .hero-sidebar {
-  @apply lg:w-full lg:max-w-xs;
-}
 .page-template-page-catalog .hero-content {
   @apply py-9 px-12 w-full bg-white rounded shadow-lg lg:space-y-8 text-center;
 }

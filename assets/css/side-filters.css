@@ -21,6 +21,7 @@
 
 .side-filters .side-filter > button > span.icon {
   @apply h-4 w-4;
+  color: var(--accent);
 }
 
 .side-filters .side-filter:first-child {
@@ -92,26 +93,26 @@
 }
 
 .side-filters .buttons {
-  @apply flex rounded-b rounded-t-none;
+  @apply flex gap-2 mt-1.5;
 }
 
 .side-filters .reset-filters, .side-filters .submit-filters {
-  @apply w-full p-3 text-xs font-bold uppercase border rounded-t-none hover:shadow focus:outline-none;
+  @apply w-full p-3 text-xs font-bold uppercase border hover:shadow focus:outline-none;
   color: var(--primary-fg);
 }
 
 .side-filters .reset-filters {
-  @apply rounded-br rounded-l-none;
-  background-color: var(--primary);
+  background-color: var(--primary-fg);
+  color: var(--primary);
 }
 
 .side-filters .submit-filters {
-  @apply rounded-bl rounded-r-none border-transparent;
-  background-color: var(--accent);
+  @apply border-transparent;
+  background-color: var(--primary);
 }
 
 .side-filters .reset-filters:hover {
-  background-color: var(--primary-dark);
+  color: var(--primary-dark);
 }
 
 .side-filters .reset-filters:focus {
@@ -119,9 +120,9 @@
 }
 
 .side-filters .submit-filters:hover {
-  background-color: var(--accent-dark);
+  background-color: var(--primary-dark);
 }
 
 .side-filters .submit-filters:focus {
-  outline-color: var(--accent-dark);
+  outline-color: var(--primary-dark);
 }
