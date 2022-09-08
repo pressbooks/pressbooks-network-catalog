@@ -1,4 +1,4 @@
-@unless($pagination['currentPage'] === $pagination['totalPages'])
+@unless($pagination['totalPages'] === 1)
     <nav
         class="pagination"
         role="navigation"
