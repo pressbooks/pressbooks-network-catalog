@@ -11,8 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.4|^8.0",
-        "pressbooks/pressbooks": "dev-pb-upgrade-container"
+        "php": "^7.4",
+        "pressbooks/pressbooks": "dev-dev"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.10"
