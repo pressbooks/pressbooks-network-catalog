@@ -1,5 +1,6 @@
 .book-cards .book-card {
   @apply p-4 flex items-start justify-center gap-6 border rounded shadow-lg bg-white;
+  @apply p-4 flex items-start justify-center gap-7 border rounded shadow-lg bg-white;
 }
 
 .book-cards .book-card .book-cover {
@@ -11,7 +12,7 @@
 }
 
 .book-cards .book-card .book-info {
-  @apply mt-8 flex-1;
+  @apply mt-4 flex-1;
 }
 
 .book-cards .book-card .book-info h2 {
