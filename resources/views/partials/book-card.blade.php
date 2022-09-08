@@ -7,9 +7,7 @@
 		<p>
 			<span>{{ $book->license }}&nbsp;</span>
 			@if( $book->h5pCount)
-				<span>
-                    &nbsp;{{ sprintf(__('%d H5P Activites', 'pressbooks-network-catalog'), $book->h5pCount) . ' ' }}&nbsp;
-                </span>
+				<span>&nbsp;{{ sprintf(__('%d H5P Activites', 'pressbooks-network-catalog'), $book->h5pCount) . ' ' }}&nbsp;</span>
 			@endif
 			<span>&nbsp;{{ $book->language }}</span>
 		</p>
