@@ -5,11 +5,13 @@
 	<div class="book-info">
 		<h2><a href="{{ $book->url }}">{{ $book->title }}</a></h2>
 		<p>
-			<span>{{ $book->license }}</span>
+			<span>{{ $book->license }}&nbsp;</span>
 			@if( $book->h5pCount)
-				<span>{{ sprintf(__('%d H5P Activites', 'pressbooks-network-catalog'), $book->h5pCount) }}</span>
+				<span>
+                    &nbsp;{{ sprintf(__('%d H5P Activites', 'pressbooks-network-catalog'), $book->h5pCount) . ' ' }}&nbsp;
+                </span>
 			@endif
-			<span>{{ $book->language }}</span>
+			<span>&nbsp;{{ $book->language }}</span>
 		</p>
 
 		<div class="book-extra-info">

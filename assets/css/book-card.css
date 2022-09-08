@@ -15,7 +15,7 @@
 }
 
 .book-cards .book-card .book-info h2 {
-  @apply text-2xl text-left font-medium normal-case;
+  @apply text-2xl text-left font-bold normal-case;
   color: var(--primary);
 }
 
@@ -28,7 +28,7 @@
 }
 
 .book-cards .book-card .book-info > p span:not(:first-child) {
-  @apply before:mr-1 before:content-['|'];
+  @apply before:mr-1 before:content-['|'] before:font-semibold;
 }
 
 .book-cards .book-card .book-info .book-extra-info {
