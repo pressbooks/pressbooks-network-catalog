@@ -19,9 +19,13 @@
   outline-color: var(--primary-dark);
 }
 
-.side-filters .side-filter > button > span.icon {
-  @apply h-4 w-4;
+.side-filters .side-filter > button svg {
+  @apply h-4 w-4 transform duration-300;
   color: var(--accent);
+}
+
+.side-filters .side-filter > button[aria-expanded=true] svg {
+  @apply rotate-180;
 }
 
 .side-filters .side-filter:first-child {
@@ -39,10 +43,6 @@
 .side-filters .side-filter.selectable > div {
   @apply m-0 bg-white border-b;
   border-bottom-color: var(--primary);
-}
-
-.side-filters .side-filter.selectable [aria-expanded=true] svg {
-  @apply rotate-180;
 }
 
 .side-filters .side-filter.selectable ul {

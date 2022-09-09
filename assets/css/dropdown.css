@@ -15,8 +15,8 @@
   @apply rounded-b-none;
 }
 
-.dropdown button.trigger span {
-  @apply h-5 w-5 text-gray-400;
+.dropdown button.trigger svg {
+  @apply h-4 w-4 text-gray-500;
 }
 
 .dropdown button.trigger:focus {
