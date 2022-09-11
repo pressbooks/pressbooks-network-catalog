@@ -17,9 +17,7 @@
 		>
 			{{ $options[$request[$name]] ?? $options[$default] }}
 
-			<span>
-				@include('PressbooksNetworkCatalog::icons.chevron-down')
-			</span>
+            @include('PressbooksNetworkCatalog::icons.chevron-down')
 		</button>
 
 		<input type="hidden" name="{{ $name }}" :value="selected">

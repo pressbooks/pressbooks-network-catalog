@@ -30,7 +30,7 @@ window.selectableFilters = ({open, items, selected}) => {
     search: '',
     displayAmount: 10,
     toggle() {
-      this.open ^= true;
+      this.open = ! this.open;
     },
     empty() {
       return this.filteredItems().length === 0;
@@ -64,19 +64,21 @@ window.dropdown = ({selected, options}) => {
     options: options,
     toggle() {
       if (this.open) {
-        return this.close()
+        return this.close();
       }
 
-      this.$refs.button.focus()
+      this.$refs.button.focus();
 
-      this.open = true
+      this.open = true;
     },
     close(focusAfter) {
-      if (!this.open) return
+      if (!this.open) {
+        return;
+      }
 
-      this.open = false
+      this.open = false;
 
-      focusAfter && focusAfter.focus()
+      focusAfter && focusAfter.focus();
     }
   };
 };

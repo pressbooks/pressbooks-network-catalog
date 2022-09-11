@@ -8,9 +8,7 @@
 >
 	<button @click="toggle" :aria-expanded="open" type="button">
 		<span>{{ $title }}</span>
-		<span class="icon">
-			@include('PressbooksNetworkCatalog::icons.chevron-down')
-		</span>
+        @include('PressbooksNetworkCatalog::icons.chevron-down')
 	</button>
 	<div x-show="open" x-cloak>
 		@if($searchable ?? false)

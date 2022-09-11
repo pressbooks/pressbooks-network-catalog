@@ -8,15 +8,15 @@
 
 .dropdown button.trigger {
   border: inherit;
-  @apply flex items-center gap-2 bg-white px-5 py-3 border-b border-b-gray-900 rounded-md shadow normal-case font-normal focus:outline-none;
+  @apply flex items-center gap-2 bg-white px-5 py-3 rounded-md shadow normal-case font-normal focus:outline-none;
 }
 
 .dropdown button.trigger.open {
   @apply rounded-b-none;
 }
 
-.dropdown button.trigger span {
-  @apply h-5 w-5 text-gray-400;
+.dropdown button.trigger svg {
+  @apply h-4 w-4 text-gray-500;
 }
 
 .dropdown button.trigger:focus {

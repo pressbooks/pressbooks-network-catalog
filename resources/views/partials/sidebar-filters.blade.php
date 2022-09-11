@@ -22,9 +22,7 @@
 <div class="side-filter" x-data="{open: {{ !empty($request->from) || !empty($request->to) ? 'true' : 'false'}}}">
 	<button @click="open = !open" :aria-expanded="open" type="button">
 		<span>{{ __('Last Updated', 'pressbooks-network-catalog') }}</span>
-        <span class="icon">
-			@include('PressbooksNetworkCatalog::icons.chevron-down')
-		</span>
+        @include('PressbooksNetworkCatalog::icons.chevron-down')
 	</button>
     <div id="last-updated-wrapper" x-cloak :class="!open && 'hidden'" x-data="{ tab: 'from', selectedFrom: formatDate('{{$request->from ?? 'DD/MM/YYYY'}}'), selectedTo: formatDate('{{$request->to ?? 'DD/MM/YYYY'}}') }">
         <nav class="last-update-tabs">
@@ -64,7 +62,7 @@
 
 <div class="side-filter checkbox">
 	<label>
-		<span>{{ __('Has H5P Activities', 'pressbooks-network-catalog') }}</span>
+		<span>{{ __('H5P Activities', 'pressbooks-network-catalog') }}</span>
 		<input
 			id="h5p"
 			name="h5p"

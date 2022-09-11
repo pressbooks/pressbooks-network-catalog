@@ -1,5 +1,4 @@
-/*TODO: check if we need base.css*/
-/*@import 'tailwindcss/base.css';*/
+@import 'tailwindcss/base.css';
 @import 'tailwindcss/components.css';
 @import 'tailwindcss/utilities.css';
 
@@ -17,4 +16,5 @@
   --bg-chip: #FFF;
   --support-color: #5a6171;
   --color-txt: #333333;
+  --border-color: #EEE;
 }

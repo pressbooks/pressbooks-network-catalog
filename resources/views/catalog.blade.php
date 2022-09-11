@@ -4,7 +4,7 @@
     <div class="hero" style="background-image: url({{$catalogBg}})">
         <div>
             <div class="hero-content">
-                <h1>{{ get_the_title() }}</h1>
+                <h1>{!! wp_kses_post(get_the_title()) !!}</h1>
                 <div>
                     {!! wp_kses_post(get_the_content()) !!}
                 </div>
