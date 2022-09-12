@@ -76,10 +76,10 @@ class PressbooksNetworkCatalog
 	protected function setUpBlade(): void
 	{
 		Container::get('Blade')
-				 ->addNamespace(
-				 	'PressbooksNetworkCatalog',
-				 	dirname(__DIR__).'/resources/views'
-				 );
+			->addNamespace(
+				'PressbooksNetworkCatalog',
+				dirname(__DIR__).'/resources/views'
+			);
 	}
 
 	protected function addHooks(): void
