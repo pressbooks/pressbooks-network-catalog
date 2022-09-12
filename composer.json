@@ -15,7 +15,8 @@
         "pressbooks/pressbooks": "dev-dev"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.10"
+        "friendsofphp/php-cs-fixer": "^3.10",
+        "yoast/phpunit-polyfills": "^1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -27,6 +28,11 @@
     "autoload": {
         "psr-4": {
             "PressbooksNetworkCatalog\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
