@@ -1,6 +1,7 @@
+@if( !empty( $items ) )
 <div
 	class="side-filter selectable"
-	x-data='selectableFilters(@json([
+    x-data='selectableFilters(@json([
     	'open' => $open ?? false,
     	'items' => $items,
     	'selected' => $selected ?? []
@@ -48,3 +49,4 @@
 		</button>
 	</div>
 </div>
+@endif
