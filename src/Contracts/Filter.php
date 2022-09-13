@@ -2,7 +2,7 @@
 
 namespace PressbooksNetworkCatalog\Contracts;
 
-interface Filters
+interface Filter
 {
 	public static function getPossibleValues(): array;
 }
