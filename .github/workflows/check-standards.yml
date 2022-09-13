@@ -2,20 +2,21 @@ name: Check Standards
 
 on:
   push:
-    branches: [ development, production ]
+    branches: [ development, staging, production ]
     tags:
       - '*.*.*'
   pull_request:
-    branches: [ development ]
+    branches: [ development, staging, production ]
 
 jobs:
   src:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: true
       matrix:
         php: [7.4]
+        os: [ubuntu-20.04]
 
     name: Source Code on PHP ${{ matrix.php }}
 
