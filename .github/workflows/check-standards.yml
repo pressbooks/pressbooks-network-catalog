@@ -1,4 +1,4 @@
-name: Check standards
+name: Check Standards
 
 on:
   push:
@@ -9,35 +9,37 @@ on:
     branches: [ development ]
 
 jobs:
-  tests:
-    runs-on: ${{ matrix.os }}
+  src:
+    runs-on: ubuntu-20.04
+
     strategy:
+      fail-fast: true
       matrix:
         php: [7.4]
-        os: [ubuntu-20.04]
-        wordpress: [latest]
-    name: Test - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
+
+    name: 'Source Code'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cache Composer packages
+      - name: Cache composer packages
         uses: actions/cache@v3
         with:
           path: vendor
           key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
 
-      - name: Setup PHP with Composer 2
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           tools: composer
           coverage: pcov
 
-      - name: Install PHP dependencies
+      - name: Install dependencies
         run: |
           export PATH="$HOME/.composer/vendor/bin:$PATH"
-          composer install --no-interaction
+          composer install --prefer-dist --no-interaction --no-progress
 
-      - name: Run php-cs-fixer
+      - name: Execute style checking
         run: composer standards
