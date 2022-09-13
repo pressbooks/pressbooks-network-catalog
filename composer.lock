@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "464a7fe6e7a2728adf9087091d3a535a",
+    "content-hash": "827616d048ca87b45fb34fe5fd882c83",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.235.3",
+            "version": "3.235.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d14bf468240f5bd8a0754b8a8248ff219ebada02"
+                "reference": "d7c649ff9d55eb8099cac97c5a37a5ed2720d06b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d14bf468240f5bd8a0754b8a8248ff219ebada02",
-                "reference": "d14bf468240f5bd8a0754b8a8248ff219ebada02",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d7c649ff9d55eb8099cac97c5a37a5ed2720d06b",
+                "reference": "d7c649ff9d55eb8099cac97c5a37a5ed2720d06b",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.6"
             },
-            "time": "2022-09-07T18:17:39+00:00"
+            "time": "2022-09-12T18:15:48+00:00"
         },
         {
             "name": "composer/installers",
@@ -2541,16 +2541,16 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "dev-dev",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "93c57ac4a5c8fab647af12fe46d8c4087a8ba304"
+                "reference": "1e0e271f7d50aeaa155f640e575247e104a36640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/93c57ac4a5c8fab647af12fe46d8c4087a8ba304",
-                "reference": "93c57ac4a5c8fab647af12fe46d8c4087a8ba304",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/1e0e271f7d50aeaa155f640e575247e104a36640",
+                "reference": "1e0e271f7d50aeaa155f640e575247e104a36640",
                 "shasum": ""
             },
             "require": {
@@ -2563,7 +2563,6 @@
                 "wp-cli/wp-cli": "^2.5",
                 "wp-cli/wp-cli-tests": "^3.0"
             },
-            "default-branch": true,
             "type": "wp-cli-package",
             "extra": {
                 "commands": [
@@ -2590,22 +2589,22 @@
             "homepage": "https://github.com/pressbooks/pb-cli/",
             "support": {
                 "issues": "https://github.com/pressbooks/pb-cli/issues",
-                "source": "https://github.com/pressbooks/pb-cli/tree/dev"
+                "source": "https://github.com/pressbooks/pb-cli/tree/3.0.0"
             },
-            "time": "2022-08-01T18:21:45+00:00"
+            "time": "2022-09-07T21:28:38+00:00"
         },
         {
             "name": "pressbooks/pressbooks",
-            "version": "dev-dev",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "e3b9f35c60f38eac2633d4d21298c7e0f0d92b8f"
+                "reference": "a653d28f6ced89ad5fb47f9e52f7777c2ac70001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/e3b9f35c60f38eac2633d4d21298c7e0f0d92b8f",
-                "reference": "e3b9f35c60f38eac2633d4d21298c7e0f0d92b8f",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/a653d28f6ced89ad5fb47f9e52f7777c2ac70001",
+                "reference": "a653d28f6ced89ad5fb47f9e52f7777c2ac70001",
                 "shasum": ""
             },
             "require": {
@@ -2631,7 +2630,7 @@
                 "php": ">=7.4",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "pressbooks/mix": "^2.1",
-                "pressbooks/pb-cli": "dev-dev",
+                "pressbooks/pb-cli": "^3",
                 "scssphp/scssphp": "~1.1.0",
                 "sinergi/browser-detector": "^6.1",
                 "vanilla/htmlawed": "^2.2",
@@ -2653,7 +2652,6 @@
                 "pressbooks/pressbooks-aldine": "Aldine is the default theme for the home page of Pressbooks networks.",
                 "pressbooks/pressbooks-book": "Pressbooks Book is the canonical book theme for Pressbooks."
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2680,7 +2678,7 @@
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2022-09-07T19:17:10+00:00"
+            "time": "2022-09-13T01:42:40+00:00"
         },
         {
             "name": "psr/container",
@@ -6191,9 +6189,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "pressbooks/pressbooks": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

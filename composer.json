@@ -1,6 +1,6 @@
 {
     "name": "pressbooks/pressbooks-network-catalog",
-    "description": "A books catalog for Pressbooks Network",
+    "description": "Add a SPA-like catalog to the Pressbooks Aldine theme",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
     "authors": [
@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.4",
-        "pressbooks/pressbooks": "dev-dev"
+        "pressbooks/pressbooks": "^6.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.10"
