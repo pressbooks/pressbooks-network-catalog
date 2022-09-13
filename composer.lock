@@ -3056,12 +3056,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "c975a395eb00651f33bb6563e618af169d7654c5"
+                "reference": "a7e448325d0b4ea13c091ad31613cffc4018815c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/c975a395eb00651f33bb6563e618af169d7654c5",
-                "reference": "c975a395eb00651f33bb6563e618af169d7654c5",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/a7e448325d0b4ea13c091ad31613cffc4018815c",
+                "reference": "a7e448325d0b4ea13c091ad31613cffc4018815c",
                 "shasum": ""
             },
             "require": {
@@ -3136,7 +3136,7 @@
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2022-09-13T03:21:38+00:00"
+            "time": "2022-09-13T16:17:53+00:00"
         },
         {
             "name": "psr/cache",

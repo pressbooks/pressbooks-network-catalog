@@ -1,6 +1,6 @@
 {
     "name": "pressbooks/pressbooks-network-catalog",
-    "description": "Add a SPA-like catalog to the Pressbooks Aldine theme",
+    "description": "Add a searchable, filterable catalog to the Pressbooks Aldine theme",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
     "authors": [

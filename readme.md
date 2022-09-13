@@ -9,7 +9,7 @@ Requires PHP: 7.4 \
 License: GPLv3 or later \
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin adds a SPA-like catalog to the Pressbooks Aldine theme.
+This plugin adds a searchable, filterable catalog to the Pressbooks Aldine theme.
 
 ## Installation
 

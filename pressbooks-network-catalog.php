@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Pressbooks Network Catalog
  * Plugin URI: https://pressbooks.org
- * Description: Add a SPA-like catalog to the Pressbooks Aldine theme
+ * Description: Add a searchable, filterable catalog to the Pressbooks Aldine theme
  * Version: 0.1.0
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org
