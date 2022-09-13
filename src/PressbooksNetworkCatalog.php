@@ -11,9 +11,9 @@ class PressbooksNetworkCatalog
 	public static function init(): self
 	{
 		if (! static::$instance) {
-			static::$instance = new static;
+        static::$instance = new static;
 
-			static::$instance->setUp();
+			    static::$instance->setUp();
 		}
 
 		return static::$instance;

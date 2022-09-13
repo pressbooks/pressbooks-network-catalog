@@ -4,14 +4,14 @@ namespace Tests;
 
 class PressbooksNetworkCatalogTest extends \WP_UnitTestCase
 {
-	use \utilsTrait;
+    use \utilsTrait;
 
-	/**
-	 * @test
-	 * @group network-catalog
-	 */
-	public function example()
-	{
-		$this->assertTrue(true);
-	}
+    /**
+     * @test
+     * @group network-catalog
+     */
+    public function example()
+    {
+        $this->assertTrue(true);
+    }
 }
