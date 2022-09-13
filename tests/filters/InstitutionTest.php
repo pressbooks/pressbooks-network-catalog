@@ -15,6 +15,8 @@ class InstitutionTest extends WP_UnitTestCase
 
 	protected DataCollector $collector;
 
+	protected Metadata $metadata;
+
 	public function setUp(): void
 	{
 		parent::setUp();
@@ -22,6 +24,8 @@ class InstitutionTest extends WP_UnitTestCase
 		$this->_book();
 
 		$this->collector = new DataCollector;
+
+		$this->metadata = new Metadata;
 	}
 
 	/**
@@ -34,7 +38,7 @@ class InstitutionTest extends WP_UnitTestCase
 			Institution::getPossibleValues()
 		);
 
-		$meta_id = (new Metadata)->getMetaPostId();
+		$meta_id = $this->metadata->getMetaPostId();
 
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');
@@ -63,7 +67,7 @@ class InstitutionTest extends WP_UnitTestCase
 	{
 		$this->assertEmpty(get_transient('pb-network-catalog-institutions'));
 
-		$meta_id = (new Metadata)->getMetaPostId();
+		$meta_id = $this->metadata->getMetaPostId();
 
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');
@@ -91,7 +95,7 @@ class InstitutionTest extends WP_UnitTestCase
 	{
 		$book_id = get_current_blog_id();
 
-		$meta_id = (new Metadata)->getMetaPostId();
+		$meta_id = $this->metadata->getMetaPostId();
 
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');
@@ -120,7 +124,7 @@ class InstitutionTest extends WP_UnitTestCase
 	{
 		$book_id = get_current_blog_id();
 
-		$meta_id = (new Metadata)->getMetaPostId();
+		$meta_id = $this->metadata->getMetaPostId();
 
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
 		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');

@@ -14,6 +14,8 @@ class LicenseTest extends WP_UnitTestCase
 
 	protected DataCollector $collector;
 
+	protected Metadata $metadata;
+
 	public function setUp(): void
 	{
 		parent::setUp();
@@ -23,6 +25,8 @@ class LicenseTest extends WP_UnitTestCase
 		$this->_openTextbook();
 
 		$this->collector = new DataCollector;
+
+		$this->metadata = new Metadata;
 	}
 
 	/**
@@ -75,7 +79,7 @@ class LicenseTest extends WP_UnitTestCase
 			'cc-by' => 'CC BY (Attribution)',
 		];
 
-		update_post_meta((new Metadata)->getMetaPostId(), 'pb_book_license', 'public-domain');
+		update_post_meta($this->metadata->getMetaPostId(), 'pb_book_license', 'public-domain');
 		update_site_meta(get_current_blog_id(), 'pb_book_license', 'public-domain');
 
 		$this->assertEquals($expected, License::getPossibleValues());
@@ -94,7 +98,7 @@ class LicenseTest extends WP_UnitTestCase
 			'public-domain' => 'Public Domain',
 		];
 
-		update_post_meta((new Metadata)->getMetaPostId(), 'pb_book_license', 'public-domain');
+		update_post_meta($this->metadata->getMetaPostId(), 'pb_book_license', 'public-domain');
 		update_site_meta(get_current_blog_id(), 'pb_book_license', 'public-domain');
 
 		delete_transient('pb-network-catalog-licenses');
