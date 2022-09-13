@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .network-catalog {
-  @apply flex py-8 px-4 lg:gap-y-8 lg:gap-x-20 mx-auto w-full lg:max-w-8xl flex-col lg:flex-row;
+  @apply flex py-8 px-4 lg:gap-8 mx-auto w-full lg:max-w-8xl flex-col lg:flex-row;
 }
 
 .network-catalog .side-filters {

@@ -8,10 +8,10 @@
   @apply px-4 py-1;
 }
 
-.page-template-page-catalog .header__nav-icon__icon,
-.page-template-page-catalog .header__nav-icon__icon:after,
-.page-template-page-catalog .header__nav-icon__icon:before {
-  background: var(--accent-fg);
+@media screen and (min-width: 59.975rem) {
+  .page-template-page-catalog .header .header__inside #navigation a {
+    color: var(--primary);
+  }
 }
 
 .page-template-page-catalog .hero {
