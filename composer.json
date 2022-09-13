@@ -11,11 +11,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.4",
-        "pressbooks/pressbooks": "^6.0"
+      "php": "^7.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.10"
+      "friendsofphp/php-cs-fixer": "^3.10",
+      "pressbooks/pressbooks": "dev-dev"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
