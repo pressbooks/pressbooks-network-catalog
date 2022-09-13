@@ -87,7 +87,7 @@ class Books
 			[
 				'column' => Book::AUTHORS,
 				'alias' => 'authors',
-				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ',') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
+				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
 				'searchable' => true,
 			],
 			[
@@ -107,7 +107,7 @@ class Books
 			[
 				'column' => Book::INSTITUTIONS,
 				'alias' => 'institutions',
-				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ',') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
+				'selectMethod' => "(SELECT GROUP_CONCAT(meta_value SEPARATOR ', ') FROM {$wpdb->blogmeta} WHERE meta_key=%s AND blog_id = id)",
 				'conditionQueryType' => 'subquery',
 				'filterable' => true,
 				'filterColumn' => 'institutions',
