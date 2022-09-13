@@ -1,8 +1,13 @@
 import Alpine from 'alpinejs';
 import '../css/app.css';
 import PbDatePicker from "./datepicker";
+import fakeSpaTransition from "./spa-transitions";
 
 window.Alpine = Alpine;
+
+document.addEventListener('alpine:initialized', () => {
+  fakeSpaTransition();
+})
 
 const form = document.getElementById('network-catalog-form');
 
@@ -85,14 +90,13 @@ window.dropdown = ({selected, options}) => {
 
 window.removeFilter = (filter) => {
   const attr = ['h5p'].includes(filter) ? 'name' : 'value';
-
   if(filter === 'from' || filter === 'to') {
-    document.querySelector(`input[name="${filter}"]`).value = '';
+    const el = document.querySelector(`input[name="${filter}"]`);
+    el.value = '';
+    el.dispatchEvent(new Event('change'));
   } else {
     document.querySelector(`input[${attr}="${filter}"]`).click();
   }
-
-  submitForm();
 }
 
 window.reset = () => {
