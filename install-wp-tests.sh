@@ -42,7 +42,6 @@ fi
 set -ex
 
 install_wp() {
-
 	if [ -d $WP_CORE_DIR ]; then
 		return;
 	fi
@@ -65,39 +64,6 @@ install_wp() {
 	fi
 
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
-}
-
-install_pressbooks_book() {
-	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-book ]; then
-		cd $WP_CORE_DIR/wp-content/themes/pressbooks-book && git pull
-		return;
-	fi
-
-	git clone --depth=1 https://github.com/pressbooks/pressbooks-book.git $WP_CORE_DIR/wp-content/themes/pressbooks-book
-}
-
-install_pressbooks_clarke() {
-	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-clarke ]; then
-		cd $WP_CORE_DIR/wp-content/themes/pressbooks-clarke && git pull
-		return;
-	fi
-
-	git clone --depth=1 https://github.com/pressbooks/pressbooks-clarke.git $WP_CORE_DIR/wp-content/themes/pressbooks-clarke
-}
-
-install_pressbooks_luther() {
-	if [ -d $WP_CORE_DIR/wp-content/themes/pressbooks-luther ]; then
-		cd $WP_CORE_DIR/wp-content/themes/pressbooks-luther && git pull
-		return;
-	fi
-
-	git clone --depth=1 https://github.com/pressbooks/pressbooks-luther.git $WP_CORE_DIR/wp-content/themes/pressbooks-luther
-}
-
-install_book_themes() {
-	install_pressbooks_book
-	install_pressbooks_clarke
-	install_pressbooks_luther
 }
 
 install_test_suite() {
@@ -130,7 +96,6 @@ install_test_suite() {
 }
 
 install_db() {
-
 	if [ ${SKIP_DB_CREATE} = "true" ]; then
 		return 0
 	fi
@@ -156,6 +121,5 @@ install_db() {
 }
 
 install_wp
-install_book_themes
 install_test_suite
 install_db
