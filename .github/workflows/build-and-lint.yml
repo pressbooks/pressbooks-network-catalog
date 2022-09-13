@@ -1,19 +1,19 @@
-name: Build & Lint
-on:
-  push:
-    branches: [ dev, master ]
-    tags:
-      - '*.*.*'
-  pull_request:
-    branches: [ dev ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [ '16', '18' ]
-    name: Node ${{ matrix.node }}
+#name: Build & Lint
+#on:
+#  push:
+#    branches: [ dev, master ]
+#    tags:
+#      - '*.*.*'
+#  pull_request:
+#    branches: [ dev ]
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        node: [ '16', '18' ]
+#    name: Node ${{ matrix.node }}
 #    steps:
 #      - uses: actions/checkout@v3
 #      - name: Setup node
