@@ -167,13 +167,88 @@ class CatalogManagerTest extends TestCase
 	}
 
 	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_by_license(): void
+	{
+		$allRightsBook1 = $this->createBookInCatalog();
+
+		$allRightsBook2 = $this->createBookInCatalog();
+
+		$ccByBook = $this->createBookInCatalog($createOpenBook = true);
+
+		$_GET['licenses'] = [
+			'all-rights-reserved',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(2, $books);
+
+		$this->assertTrue(
+			$books->containsAll([$allRightsBook1, $allRightsBook2])
+		);
+		$this->assertFalse($books->contains($ccByBook));
+
+		$_GET['licenses'] = [
+			'cc-by',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertFalse(
+			$books->containsAny([$allRightsBook1, $allRightsBook2])
+		);
+		$this->assertTrue($books->contains($ccByBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_by_multiple_licenses(): void
+	{
+		$allRightsBook1 = $this->createBookInCatalog();
+
+		$allRightsBook2 = $this->createBookInCatalog();
+
+		$ccByBook = $this->createBookInCatalog($createOpenBook = true);
+
+		$_GET['licenses'] = [
+			'all-rights-reserved',
+			'cc-by',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(3, $books);
+
+		$this->assertTrue(
+			$books->containsAll([
+				$allRightsBook1,
+				$allRightsBook2,
+				$ccByBook,
+			])
+		);
+	}
+
+	/**
 	 * Creates a new book and add it to the catalog
 	 *
 	 * @return int
 	 */
-	protected function createBookInCatalog(): int
+	protected function createBookInCatalog(bool $createOpenBook = false): int
 	{
-		$this->_book();
+		$createOpenBook ? $this->_openTextbook() : $this->_book();
 
 		return tap(get_current_blog_id(), function ($id) {
 			update_option(get_in_catalog_option(), 1);
