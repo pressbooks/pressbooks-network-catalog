@@ -4,7 +4,6 @@ namespace PressbooksNetworkCatalog;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Pressbooks\Container;
 use PressbooksNetworkCatalog\Filters\Institution;
 use PressbooksNetworkCatalog\Filters\License;
 use PressbooksNetworkCatalog\Filters\Publisher;
@@ -16,7 +15,7 @@ class CatalogManager
 
 	private $request;
 
-	public function handle()
+	public function handle(): array
 	{
 		$this->request = Request::capture();
 
@@ -32,14 +31,12 @@ class CatalogManager
 
 		$books = new Books();
 
-		return Container::get('Blade')->render(
-			'PressbooksNetworkCatalog::catalog', [
-				'request' => $this->request,
-				'books' => $books->get(),
-				'pagination' => $books->getPagination(),
-				'catalogBg' => $this->getBackgroundImage(),
-			] + $this->filters
-		);
+		return  [
+			'request' => $this->request,
+			'books' => $books->get(),
+			'pagination' => $books->getPagination(),
+			'catalogBg' => $this->getBackgroundImage(),
+		] + $this->filters;
 	}
 
 	protected function getActiveFilters(): Collection
