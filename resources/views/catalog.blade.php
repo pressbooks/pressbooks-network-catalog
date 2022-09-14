@@ -17,7 +17,7 @@
                 @include('PressbooksNetworkCatalog::partials.sidebar-filters')
             </aside>
 
-            <div>
+            <div data-barba="container" data-barba-namespace="home">
                 @include('PressbooksNetworkCatalog::partials.search-box')
 
                 <div class="book-cards">
