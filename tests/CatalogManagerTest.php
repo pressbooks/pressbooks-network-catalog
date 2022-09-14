@@ -59,10 +59,7 @@ class CatalogManagerTest extends TestCase
 
 		$response = (new CatalogManager)->handle();
 
-		$books = collect($response['books']);
-		$pagination = $response['pagination'];
-
-		$this->assertCount(10, $books);
+		$this->assertCount(10, $response['books']);
 
 		$this->assertEquals([
 			'currentPage' => 1,
@@ -70,7 +67,21 @@ class CatalogManagerTest extends TestCase
 			'perPage' => 10,
 			'total' => 11,
 			'totalPages' => 2,
-		], $pagination);
+		], $response['pagination']);
+
+		$_GET['pg'] = '2'; // this should be allowed to be either integer or string;
+
+		$response = (new CatalogManager)->handle();
+
+		$this->assertCount(1, $response['books']);
+
+		$this->assertEquals([
+			'currentPage' => 2,
+			'elements' => [1, 2],
+			'perPage' => 10,
+			'total' => 11,
+			'totalPages' => 2,
+		], $response['pagination']);
 	}
 
 	/**
