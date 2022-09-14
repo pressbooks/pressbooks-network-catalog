@@ -6,7 +6,7 @@
             <div class="hero-content">
                 <h1>{!! wp_kses_post(get_the_title()) !!}</h1>
                 <div>
-                    {!! wp_kses_post(get_the_content()) !!}
+                    {!! the_content() !!}
                 </div>
             </div>
         </div>
