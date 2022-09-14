@@ -255,7 +255,9 @@ class BooksRequestManager
 			return ' ORDER BY '.$orderBy['field'].' '.$orderBy['order'];
 		}
 
-		return '';
+		$orderBy = $this->allowedParams->get('sort_by')['allowedValues']['last_updated'];
+
+		return ' ORDER BY '.$orderBy['field'].' '.$orderBy['order'];
 	}
 
 	public function getPage(): int
