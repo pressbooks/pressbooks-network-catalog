@@ -140,7 +140,6 @@ class BooksRequestManager
 				}
 			}
 		});
-
 		return $valid;
 	}
 
@@ -220,7 +219,6 @@ class BooksRequestManager
 		if (isset($this->request->search) && ! empty($this->request->search)) {
 			$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
 		}
-
 		return empty($sqlQueryConditions) ? '' : '  HAVING '.implode(' AND ', $sqlQueryConditions);
 	}
 

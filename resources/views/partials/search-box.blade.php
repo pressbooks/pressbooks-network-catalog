@@ -10,7 +10,7 @@
 				aria-labelledby="search-input-label"
 			/>
 		</div>
-		<button id="search" type="button">
+		<button id="search" type="submit">
 			<span class="sr-only">{{ __('Search', 'pressbooks-network-catalog') }}</span>
 			@include('PressbooksNetworkCatalog::icons.search')
 		</button>

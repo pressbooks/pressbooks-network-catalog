@@ -34,7 +34,10 @@ class PressbooksNetworkCatalog
 			if (get_page_template_slug() !== 'page-catalog.php') {
 				return;
 			}
-
+            // Remove old catalog.js scripts
+            add_action('wp_print_scripts', function () {
+                wp_dequeue_script('aldine/script');
+            }, 100);
 			/**
 			 * VITE & Tailwind JIT development
 			 * Inspired by https://github.com/andrefelipe/vite-php-setup
