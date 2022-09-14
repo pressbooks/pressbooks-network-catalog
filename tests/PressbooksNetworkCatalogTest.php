@@ -3,10 +3,16 @@
 namespace Tests;
 
 use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
-use WP_UnitTestCase;
 
-class PressbooksNetworkCatalogTest extends WP_UnitTestCase
+class PressbooksNetworkCatalogTest extends TestCase
 {
+	public function setUp(): void
+	{
+		parent::setUp();
+
+		$this->invalidateSingletonInstance(PressbooksNetworkCatalog::class);
+	}
+
 	/**
 	 * @test
 	 * @group network-catalog
