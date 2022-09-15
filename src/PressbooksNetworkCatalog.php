@@ -28,6 +28,11 @@ class PressbooksNetworkCatalog
 		$this->addHooks();
 	}
 
+	/**
+	 * @return void
+	 * @throws \JsonException
+	 * @codeCoverageIgnore
+	 */
 	protected function enqueueScripts(): void
 	{
 		add_action('wp_enqueue_scripts', function () {
