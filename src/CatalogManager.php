@@ -32,7 +32,7 @@ class CatalogManager
 
 		$books = new Books($this->filters);
 
-		$this->request->replace($this->request->collect()->map(function ($value, $key) {
+		$this->request->replace($this->request->collect()->map(function ($value) {
 			if (is_array($value)) {
 				return array_map(function ($param) {
 					return $this->sanitize($param);
