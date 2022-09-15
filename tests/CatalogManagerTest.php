@@ -327,6 +327,85 @@ class CatalogManagerTest extends TestCase
 	}
 
 	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_by_institution(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addInstitutionsToBook($firstBook, [
+			'CA-ON-001',
+			'CA-ON-002',
+		]);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addInstitutionsToBook($secondBook, [
+			'CA-ON-003',
+		]);
+
+		$_GET['institutions'] = [
+			'Algoma University',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+
+		$_GET['institutions'] = [
+			'Assumption University',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertFalse($books->contains($firstBook));
+		$this->assertTrue($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_by_multiple_institutions(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addInstitutionsToBook($firstBook, [
+			'CA-ON-001',
+			'CA-ON-002',
+		]);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addInstitutionsToBook($secondBook, [
+			'CA-ON-003',
+		]);
+
+		$_GET['institutions'] = [
+			'Algoma University',
+			'Assumption University',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(2, $books);
+
+		$this->assertTrue($books->containsAll([$firstBook, $secondBook]));
+	}
+
+	/**
 	 * Creates a new book and add it to the catalog
 	 *
 	 * @param bool $createOpenBook
@@ -359,6 +438,18 @@ class CatalogManagerTest extends TestCase
 
 		if ($subjects['additional'] ?? false) {
 			add_post_meta($meta_id, 'pb_additional_subjects', implode(', ', $subjects['additional']));
+		}
+
+		Book::deleteBookObjectCache();
+		$this->collector->copyBookMetaIntoSiteTable($id);
+	}
+
+	protected function addInstitutionsToBook(int $id, array $institutions): void
+	{
+		$meta_id = $this->metadata->getMetaPostId();
+
+		foreach ($institutions as $institution) {
+			add_post_meta($meta_id, 'pb_institutions', $institution);
 		}
 
 		Book::deleteBookObjectCache();
