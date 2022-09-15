@@ -48,10 +48,14 @@
 			</p>
 		</div>
 
-		@if($book->description)
+		@if($book->description || $book->shortDescription)
 			<div x-data="{showRead: true}">
                 <div class="book-description line-clamp">
-                    {!! $book->description !!}
+                    @if($book->description)
+                        {!! $book->description !!}
+                    @elseif($book->shortDescription)
+                        {!! $book->shortDescription !!}
+                    @endif
                 </div>
                 <a class="read-more" @click="window.toggleClass($el.previousElementSibling,'line-clamp'); showRead=!showRead " x-show="window.hasClampedText($el.previousElementSibling)" x-text="showRead? 'Read more' : 'Show less' "></a>
             </div>
