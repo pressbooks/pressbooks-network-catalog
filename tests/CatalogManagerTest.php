@@ -557,6 +557,36 @@ class CatalogManagerTest extends TestCase
 	}
 
 	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_that_have_h5p_enabled(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->updateH5pActivities($firstBook, 5);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateH5pActivities($secondBook, 100);
+
+		$thirdBook = $this->createCatalogBook();
+
+		$this->updateH5pActivities($thirdBook, 0);
+
+		$_GET['h5p'] = '1'; // This should be a boolean flag either '1', 1, or true should be accepted.
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(2, $books);
+
+		$this->assertTrue($books->containsAll([$firstBook, $secondBook]));
+		$this->assertFalse($books->contains($thirdBook));
+	}
+
+	/**
 	 * Create a new book and add it to the catalog
 	 *
 	 * @param bool $createOpenBook
@@ -641,6 +671,20 @@ class CatalogManagerTest extends TestCase
 		]);
 
 		$this->syncBookMetadata($id);
+	}
+
+	/**
+	 * Update the h5p activities for a given book
+	 *
+	 * @param int $id
+	 * @param int $amount
+	 * @return void
+	 */
+	protected function updateH5pActivities(int $id, int $amount): void
+	{
+		update_site_meta(
+			$id, DataCollector::H5P_ACTIVITIES, $amount
+		);
 	}
 
 	/**
