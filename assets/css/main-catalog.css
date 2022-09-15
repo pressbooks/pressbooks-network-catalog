@@ -48,3 +48,7 @@ h1, h2, h3, h4, h5, h6 {
 .network-catalog .book-cards {
   @apply space-y-8;
 }
+
+#loading-bar .bar{
+  background: var(--primary);
+}
