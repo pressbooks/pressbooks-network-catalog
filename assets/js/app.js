@@ -19,13 +19,8 @@ form.addEventListener('submit', function (event) {
   inputs
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
-
-  return true;
+  return false;
 });
-
-window.submitForm = () => {
-  document.getElementById('apply-filters').click();
-}
 
 window.selectableFilters = ({open, items, selected}) => {
   return {
