@@ -7,6 +7,8 @@ use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use function Pressbooks\Metadata\get_in_catalog_option;
+use function Pressbooks\Metadata\get_institution_by_code;
+use PressbooksNetworkCatalog\BooksRequestManager;
 use PressbooksNetworkCatalog\CatalogManager;
 use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 use utilsTrait;
@@ -64,20 +66,27 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_paginates_book_results(): void
 	{
-		foreach (range(1, 11) as $_) {
+		foreach (range(1, 8) as $_) {
 			$this->createCatalogBook();
 		}
 
+		$instance = new \ReflectionClass(BooksRequestManager::class);
+
+		$_GET = [
+			'per_page' => '1',
+			'pg' => '4',
+		];
+
 		$response = $this->catalogManager->handle();
 
-		$this->assertCount(10, $response['books']);
+		$this->assertCount(1, $response['books']);
 
 		$this->assertEquals([
-			'currentPage' => 1,
-			'elements' => [1, 2],
-			'perPage' => 10,
-			'total' => 11,
-			'totalPages' => 2,
+			'currentPage' => 4,
+			'elements' => [1, '...', 3, 4, 5, '...', 8],
+			'perPage' => 1,
+			'total' => 8,
+			'totalPages' => 8,
 		], $response['pagination']);
 
 		$_GET['pg'] = '2'; // this should be allowed to be either integer or string;
@@ -88,10 +97,10 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertEquals([
 			'currentPage' => 2,
-			'elements' => [1, 2],
-			'perPage' => 10,
-			'total' => 11,
-			'totalPages' => 2,
+			'elements' => [1, 2, 3, 4, '...', 8],
+			'perPage' => 1,
+			'total' => 8,
+			'totalPages' => 8,
 		], $response['pagination']);
 	}
 
@@ -130,11 +139,7 @@ class CatalogManagerTest extends TestCase
 
 		$secondId = $this->createCatalogBook();
 
-		update_blog_details($secondId, [
-			'last_updated' => Carbon::now()->addMinutes(10)->toDateTimeString(),
-		]);
-
-		$this->syncBookMetadata($secondId);
+		$this->updateLastUpdated($secondId, Carbon::now()->addMinutes(10));
 
 		$response = $this->catalogManager->handle();
 
@@ -152,11 +157,7 @@ class CatalogManagerTest extends TestCase
 
 		$secondId = $this->createCatalogBook();
 
-		update_blog_details($secondId, [
-			'last_updated' => Carbon::now()->addMinutes(10)->toDateTimeString(),
-		]);
-
-		$this->syncBookMetadata($secondId);
+		$this->updateLastUpdated($secondId, Carbon::now()->addMinutes(10));
 
 		$_GET['sort_by'] = 'title';
 
@@ -164,6 +165,164 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertEquals($firstId, $response['books'][0]->id);
 		$this->assertEquals($secondId, $response['books'][1]->id);
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_searches_book_by_title(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->updateTitle($firstBook, 'Random First Book');
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateTitle($secondBook, 'Random Second Book');
+
+		$_GET['search'] = 'first';
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_searches_book_by_long_description(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->updateLongDescription($firstBook, 'Some random long description authors might have written');
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateLongDescription($secondBook, 'lorem ipsum dolor sit amet consectetur adipiscing elit...');
+
+		$_GET['search'] = 'long description';
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_searches_book_by_short_description(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->updateShortDescription($firstBook, 'Some random short description authors might have written');
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateShortDescription($secondBook, 'lorem ipsum dolor sit amet consectetur adipiscing elit...');
+
+		$_GET['search'] = 'short description';
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_searches_book_by_authors(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addAuthorsToToBook($firstBook, [
+			'J. R. R. Tolkien',
+		]);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addAuthorsToToBook($secondBook, [
+			'George R. R. Martin',
+		]);
+
+		$_GET['search'] = 'tolkien';
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_searches_book_by_editors(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addEditorsToToBook($firstBook, [
+			'Pressbooks',
+		]);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addEditorsToToBook($secondBook, [
+			'Some random editor',
+		]);
+
+		$_GET['search'] = 'pressbooks';
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_searches_book_by_subjects(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addSubjectsToBook($firstBook, [
+			'primary' => 'ABA',
+			'additional' => ['AVP', 'AVR', 'AVRQ'],
+		]);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addSubjectsToBook($secondBook, [
+			'primary' => 'AB',
+			'additional' => ['ABC', 'AF', 'AFCC'],
+		]);
+
+		$_GET['search'] = 'theory of art';
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
 	}
 
 	/**
@@ -586,12 +745,6 @@ class CatalogManagerTest extends TestCase
 		$this->assertFalse($books->contains($thirdBook));
 	}
 
-	/**
-	 * Create a new book and add it to the catalog
-	 *
-	 * @param bool $createOpenBook
-	 * @return int
-	 */
 	protected function createCatalogBook(bool $createOpenBook = false): int
 	{
 		$createOpenBook ? $this->_openTextbook() : $this->_book();
@@ -603,13 +756,20 @@ class CatalogManagerTest extends TestCase
 		});
 	}
 
-	/**
-	 * Add the list of subjects to the given book
-	 *
-	 * @param int $id
-	 * @param array $subjects
-	 * @return void
-	 */
+	protected function addAuthorsToToBook(int $id, array $authors): void
+	{
+		foreach ($authors as $author) {
+			add_site_meta($id, DataCollector::AUTHORS, $author);
+		}
+	}
+
+	protected function addEditorsToToBook(int $id, array $authors): void
+	{
+		foreach ($authors as $author) {
+			add_site_meta($id, DataCollector::EDITORS, $author);
+		}
+	}
+
 	protected function addSubjectsToBook(int $id, array $subjects): void
 	{
 		$meta_id = $this->metadata->getMetaPostId();
@@ -623,76 +783,50 @@ class CatalogManagerTest extends TestCase
 		$this->syncBookMetadata($id);
 	}
 
-	/**
-	 * Add the list institutions to the given book
-	 *
-	 * @param int $id
-	 * @param array $institutions
-	 * @return void
-	 */
 	protected function addInstitutionsToBook(int $id, array $institutions): void
 	{
-		$meta_id = $this->metadata->getMetaPostId();
-
 		foreach ($institutions as $institution) {
-			add_post_meta($meta_id, 'pb_institutions', $institution);
-		}
+			$data = get_institution_by_code($institution);
 
-		$this->syncBookMetadata($id);
+			add_site_meta($id, DataCollector::INSTITUTIONS, $data['name']);
+		}
 	}
 
-	/**
-	 * Add a publisher to the given book
-	 *
-	 * @param int $id
-	 * @param string $publisher
-	 * @return void
-	 */
 	protected function addPublisherToBook(int $id, string $publisher): void
 	{
-		add_post_meta(
-			$this->metadata->getMetaPostId(), 'pb_publisher', $publisher
-		);
-
-		$this->syncBookMetadata($id);
+		$this->updateBookMetadata($id, DataCollector::PUBLISHER, $publisher);
 	}
 
-	/**
-	 * Update the last updated date on the given book
-	 *
-	 * @param int $id
-	 * @param Carbon $date
-	 * @return void
-	 */
 	protected function updateLastUpdated(int $id, Carbon $date): void
 	{
-		update_blog_details($id, [
-			'last_updated' => $date->toDateTimeString(),
-		]);
-
-		$this->syncBookMetadata($id);
+		$this->updateBookMetadata($id, DataCollector::LAST_EDITED, $date->toDateTimeString());
 	}
 
-	/**
-	 * Update the h5p activities for a given book
-	 *
-	 * @param int $id
-	 * @param int $amount
-	 * @return void
-	 */
 	protected function updateH5pActivities(int $id, int $amount): void
 	{
-		update_site_meta(
-			$id, DataCollector::H5P_ACTIVITIES, $amount
-		);
+		$this->updateBookMetadata($id, DataCollector::H5P_ACTIVITIES, $amount);
 	}
 
-	/**
-	 * Sync the book metadata with the wp_blogmeta table.
-	 *
-	 * @param int $id
-	 * @return void
-	 */
+	protected function updateTitle(int $id, string $title): void
+	{
+		$this->updateBookMetadata($id, DataCollector::TITLE, $title);
+	}
+
+	protected function updateLongDescription(int $id, string $description): void
+	{
+		$this->updateBookMetadata($id, DataCollector::LONG_DESCRIPTION, $description);
+	}
+
+	protected function updateShortDescription(int $id, string $description): void
+	{
+		$this->updateBookMetadata($id, DataCollector::SHORT_DESCRIPTION, $description);
+	}
+
+	protected function updateBookMetadata(int $id, string $key, /* mixed */ $value): void
+	{
+		update_site_meta($id, $key, $value);
+	}
+
 	protected function syncBookMetadata(int $id): void
 	{
 		Book::deleteBookObjectCache();
