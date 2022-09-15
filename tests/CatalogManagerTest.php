@@ -402,7 +402,76 @@ class CatalogManagerTest extends TestCase
 	}
 
 	/**
-	 * Creates a new book and add it to the catalog
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_by_publisher(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addPublisherToBook($firstBook, 'Pressbooks');
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addPublisherToBook($secondBook, 'Random Publisher');
+
+		$_GET['publishers'] = [
+			'Pressbooks',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+
+		$_GET['publishers'] = [
+			'Random Publisher',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertFalse($books->contains($firstBook));
+		$this->assertTrue($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_by_multiple_publishers(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addPublisherToBook($firstBook, 'Pressbooks');
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addPublisherToBook($secondBook, 'Random Publisher');
+
+		$_GET['publishers'] = [
+			'Pressbooks',
+			'Random Publisher',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(2, $books);
+
+		$this->assertTrue($books->containsAll([$firstBook, $secondBook]));
+	}
+
+	/**
+	 * Create a new book and add it to the catalog
 	 *
 	 * @param bool $createOpenBook
 	 * @return int
@@ -419,9 +488,10 @@ class CatalogManagerTest extends TestCase
 	}
 
 	/**
+	 * Add the list of subjects to the given book
+	 *
 	 * @param int $id
-	 * @param string $primary
-	 * @param array $additional
+	 * @param array $subjects
 	 * @return void
 	 */
 	protected function addSubjectsToBook(int $id, array $subjects): void
@@ -437,6 +507,13 @@ class CatalogManagerTest extends TestCase
 		$this->syncBookMetadata($id);
 	}
 
+	/**
+	 * Add the list institutions to the given book
+	 *
+	 * @param int $id
+	 * @param array $institutions
+	 * @return void
+	 */
 	protected function addInstitutionsToBook(int $id, array $institutions): void
 	{
 		$meta_id = $this->metadata->getMetaPostId();
@@ -444,6 +521,22 @@ class CatalogManagerTest extends TestCase
 		foreach ($institutions as $institution) {
 			add_post_meta($meta_id, 'pb_institutions', $institution);
 		}
+
+		$this->syncBookMetadata($id);
+	}
+
+	/**
+	 * Add a publisher to the given book
+	 *
+	 * @param int $id
+	 * @param string $publisher
+	 * @return void
+	 */
+	protected function addPublisherToBook(int $id, string $publisher): void
+	{
+		add_post_meta(
+			$this->metadata->getMetaPostId(), 'pb_publisher', $publisher
+		);
 
 		$this->syncBookMetadata($id);
 	}
