@@ -31,9 +31,18 @@ class Books
 	 */
 	private array $books = [];
 
-	public function __construct()
+	/**
+	 * Main filters to be used in the query.
+	 *
+	 * @var array
+	 */
+	private array $filters = [];
+
+	public function __construct($filters = [])
 	{
 		global $wpdb;
+
+		$this->filters = $filters;
 
 		$this->fields = Collection::make([
 			[
@@ -161,11 +170,12 @@ class Books
 	 *      to => '2020-05-20', // YYYY-MM-DD format
 	 *  ]
 	 *
+	 * @param $params
 	 * @return array
 	 */
 	public function get(): array
 	{
-		if (! $this->booksRequestManager->validateRequest()) {
+		if (! $this->booksRequestManager->validateRequest($this->filters)) {
 			return [];
 		}
 		$this->queryBooks();
@@ -175,7 +185,7 @@ class Books
 
 	public function getPagination(): array
 	{
-		if (! $this->booksRequestManager->validateRequest()) {
+		if (! $this->booksRequestManager->validateRequest($this->filters)) {
 			return [
 				'currentPage' => 1,
 				'elements' => [],
