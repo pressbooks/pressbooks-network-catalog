@@ -121,7 +121,7 @@ class BooksRequestManager
 			$validator = ValidatorFactory::make($rules['type']);
 
 			return $validator->rules($rules + $params)->validate($this->request->get($key));
-		})->dump()->contains(false) === false;
+		})->contains(false) === false;
 	}
 
 	/**
