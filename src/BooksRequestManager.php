@@ -85,7 +85,7 @@ class BooksRequestManager
 				'field' => 'last_updated',
 			],
 			'sort_by' => [
-				'type' => 'string',
+				'type' => 'array',
 				'default' => 'last_updated',
 				'allowedValues' => [
 					'last_updated' => [
@@ -104,22 +104,24 @@ class BooksRequestManager
 
 	/**
 	 * Validate parameters requests.
+	 * This function prevents to pass invalid parameters to the query if any of the parameters is not valid it won't perform the query.
+	 * Meaning if any of the validators returns false the query won't be performed.
 	 *
 	 * @param $params
 	 * @return bool
 	 */
 	public function validateRequest($params): bool
 	{
-		return $this->allowedParams->filter(function ($rules, $key) use ($params) {
+		return $this->allowedParams->map(function ($rules, $key) use ($params) {
 			if (empty($this->request->get($key))) {
 				$this->request->request->remove($key);
 
-				return true; // Skip validation if param is not present
+				return true; // Skip parameter validation if param is not present or empty.
 			}
 			$validator = ValidatorFactory::make($rules['type']);
 
 			return $validator->rules($rules + $params)->validate($this->request->get($key));
-		})->contains(false) === false;
+		})->dump()->contains(false) === false;
 	}
 
 	/**
@@ -161,7 +163,7 @@ class BooksRequestManager
 		global $wpdb;
 
 		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filtearableColumns) {
-			if ($this->request->get($filter) && ! empty($this->request->get($filter)) && isset($paramConfig['field'])) {
+			if (isset($paramConfig['field']) && $this->request->has($filter) && ! empty($this->request->get($filter))) {
 				$config = $filtearableColumns->where('filterColumn', $paramConfig['field'])->first();
 				if ($config['conditionQueryType']) {
 					switch ($config['conditionQueryType']) {

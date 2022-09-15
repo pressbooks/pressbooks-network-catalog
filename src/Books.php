@@ -44,7 +44,7 @@ class Books
 
 		$this->filters = $filters;
 
-		$this->fields = Collection::make([
+		$this->fields = collect([
 			[
 				'column' => 'blog_id',
 				'alias' => 'id',
@@ -170,7 +170,6 @@ class Books
 	 *      to => '2020-05-20', // YYYY-MM-DD format
 	 *  ]
 	 *
-	 * @param $params
 	 * @return array
 	 */
 	public function get(): array

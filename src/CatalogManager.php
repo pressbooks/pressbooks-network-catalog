@@ -32,15 +32,7 @@ class CatalogManager
 
 		$books = new Books($this->filters);
 
-		$this->request->replace($this->request->collect()->map(function ($value) {
-			if (is_array($value)) {
-				return array_map(function ($param) {
-					return $this->sanitize($param);
-				}, $value);
-			}
-
-			return $this->sanitize($value);
-		})->toArray());
+		$this->request->replace($this->sanitizeRequestParams($this->request));
 
 		return Container::get('Blade')->render(
 			'PressbooksNetworkCatalog::catalog', [
@@ -60,6 +52,19 @@ class CatalogManager
 	protected function getBackgroundImage(): string
 	{
 		return plugin_dir_url(__DIR__).'assets/images/catalogbg.jpg';
+	}
+
+	protected function sanitizeRequestParams($request)
+	{
+		return $request->collect()->map(function ($value) {
+			if (is_array($value)) {
+				return array_map(function ($param) {
+					return $this->sanitize($param);
+				}, $value);
+			}
+
+			return $this->sanitize($value);
+		})->toArray();
 	}
 
 	protected function sanitize($value): string
