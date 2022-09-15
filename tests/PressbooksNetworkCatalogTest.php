@@ -10,7 +10,7 @@ class PressbooksNetworkCatalogTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->invalidateSingletonInstance(PressbooksNetworkCatalog::class);
+		$this->resetSingletonInstance(PressbooksNetworkCatalog::class);
 	}
 
 	/**

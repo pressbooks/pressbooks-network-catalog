@@ -6,10 +6,10 @@ use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use PressbooksNetworkCatalog\Filters\Publisher;
+use Tests\TestCase;
 use utilsTrait;
-use WP_UnitTestCase;
 
-class PublisherTest extends WP_UnitTestCase
+class PublisherTest extends TestCase
 {
 	use utilsTrait;
 

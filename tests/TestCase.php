@@ -7,7 +7,14 @@ use WP_UnitTestCase;
 
 class TestCase extends WP_UnitTestCase
 {
-	protected function invalidateSingletonInstance(string $className): void
+	/**
+	 * Reset the given class singleton instance.
+	 *
+	 * @param string $className
+	 * @return void
+	 * @throws \ReflectionException
+	 */
+	protected function resetSingletonInstance(string $className): void
 	{
 		$class = new ReflectionClass($className);
 

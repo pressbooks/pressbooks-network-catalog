@@ -5,10 +5,10 @@ namespace Tests\Filters;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use PressbooksNetworkCatalog\Filters\License;
+use Tests\TestCase;
 use utilsTrait;
-use WP_UnitTestCase;
 
-class LicenseTest extends WP_UnitTestCase
+class LicenseTest extends TestCase
 {
 	use utilsTrait;
 

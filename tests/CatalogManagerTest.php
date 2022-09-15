@@ -25,7 +25,7 @@ class CatalogManagerTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->invalidateSingletonInstance(PressbooksNetworkCatalog::class);
+		$this->resetSingletonInstance(PressbooksNetworkCatalog::class);
 
 		$this->catalogManager = new CatalogManager;
 
@@ -134,9 +134,7 @@ class CatalogManagerTest extends TestCase
 			'last_updated' => Carbon::now()->addMinutes(10)->toDateTimeString(),
 		]);
 
-		Book::deleteBookObjectCache();
-
-		$this->collector->copyBookMetaIntoSiteTable($secondId);
+		$this->syncBookMetadata($secondId);
 
 		$response = $this->catalogManager->handle();
 
@@ -158,9 +156,7 @@ class CatalogManagerTest extends TestCase
 			'last_updated' => Carbon::now()->addMinutes(10)->toDateTimeString(),
 		]);
 
-		Book::deleteBookObjectCache();
-
-		$this->collector->copyBookMetaIntoSiteTable($secondId);
+		$this->syncBookMetadata($secondId);
 
 		$_GET['sort_by'] = 'title';
 
@@ -418,9 +414,7 @@ class CatalogManagerTest extends TestCase
 		return tap(get_current_blog_id(), function ($id) {
 			update_option(get_in_catalog_option(), 1);
 
-			Book::deleteBookObjectCache();
-
-			$this->collector->copyBookMetaIntoSiteTable($id);
+			$this->syncBookMetadata($id);
 		});
 	}
 
@@ -440,8 +434,7 @@ class CatalogManagerTest extends TestCase
 			add_post_meta($meta_id, 'pb_additional_subjects', implode(', ', $subjects['additional']));
 		}
 
-		Book::deleteBookObjectCache();
-		$this->collector->copyBookMetaIntoSiteTable($id);
+		$this->syncBookMetadata($id);
 	}
 
 	protected function addInstitutionsToBook(int $id, array $institutions): void
@@ -452,7 +445,19 @@ class CatalogManagerTest extends TestCase
 			add_post_meta($meta_id, 'pb_institutions', $institution);
 		}
 
+		$this->syncBookMetadata($id);
+	}
+
+	/**
+	 * Sync the book metadata with the wp_blogmeta table.
+	 *
+	 * @param int $id
+	 * @return void
+	 */
+	protected function syncBookMetadata(int $id): void
+	{
 		Book::deleteBookObjectCache();
+
 		$this->collector->copyBookMetaIntoSiteTable($id);
 	}
 }
