@@ -471,6 +471,92 @@ class CatalogManagerTest extends TestCase
 	}
 
 	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_that_were_updated_after_a_given_date(): void
+	{
+		$firstBook = $this->createCatalogBook();
+		$firstBookLastUpdated = Carbon::now()->subMonth();
+
+		$this->updateLastUpdated($firstBook, $firstBookLastUpdated);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateLastUpdated($secondBook, Carbon::now()->subMonths(2));
+
+		$_GET['from'] = $firstBookLastUpdated->toDateString();
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_that_were_updated_before_a_given_date(): void
+	{
+		$firstBook = $this->createCatalogBook();
+		$firstBookLastUpdated = Carbon::now()->subMonths(2);
+
+		$this->updateLastUpdated($firstBook, $firstBookLastUpdated);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateLastUpdated($secondBook, Carbon::now()->subMonth());
+
+		$_GET['to'] = $firstBookLastUpdated->toDateString();
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_that_were_updated_on_a_given_period(): void
+	{
+		$firstBook = $this->createCatalogBook();
+		$firstBookLastUpdated = Carbon::now()->subDays(15);
+
+		$this->updateLastUpdated($firstBook, $firstBookLastUpdated);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateLastUpdated($secondBook, Carbon::now()->subMonths(2));
+
+		$thirdBook = $this->createCatalogBook();
+
+		$this->updateLastUpdated($thirdBook, Carbon::now()->addMonths(2));
+
+		$_GET['from'] = Carbon::now()->subMonth()->toDateString();
+		$_GET['to'] = Carbon::now()->addMonth()->toDateString();
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->containsAny([$secondBook, $thirdBook]));
+	}
+
+	/**
 	 * Create a new book and add it to the catalog
 	 *
 	 * @param bool $createOpenBook
@@ -537,6 +623,22 @@ class CatalogManagerTest extends TestCase
 		add_post_meta(
 			$this->metadata->getMetaPostId(), 'pb_publisher', $publisher
 		);
+
+		$this->syncBookMetadata($id);
+	}
+
+	/**
+	 * Update the last updated date on the given book
+	 *
+	 * @param int $id
+	 * @param Carbon $date
+	 * @return void
+	 */
+	protected function updateLastUpdated(int $id, Carbon $date): void
+	{
+		update_blog_details($id, [
+			'last_updated' => $date->toDateTimeString(),
+		]);
 
 		$this->syncBookMetadata($id);
 	}
