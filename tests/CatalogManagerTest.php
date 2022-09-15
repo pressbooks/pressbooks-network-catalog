@@ -5,6 +5,7 @@ namespace Tests;
 use Illuminate\Support\Carbon;
 use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as DataCollector;
+use Pressbooks\Metadata;
 use function Pressbooks\Metadata\get_in_catalog_option;
 use PressbooksNetworkCatalog\CatalogManager;
 use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
@@ -18,6 +19,8 @@ class CatalogManagerTest extends TestCase
 
 	protected DataCollector $collector;
 
+	protected Metadata $metadata;
+
 	public function setUp(): void
 	{
 		parent::setUp();
@@ -28,6 +31,8 @@ class CatalogManagerTest extends TestCase
 
 		$this->collector = new DataCollector;
 
+		$this->metadata = new Metadata;
+
 		PressbooksNetworkCatalog::init();
 	}
 
@@ -37,21 +42,20 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_retrieves_books_that_are_in_catalog(): void
 	{
-		$firstBookId = $this->createBookInCatalog();
+		$firstBookId = $this->createCatalogBook();
 
-		$secondBookId = $this->createBookInCatalog();
+		$secondBookId = $this->createCatalogBook();
 
 		$thirdBookId = $this->_book();
 
 		$response = $this->catalogManager->handle();
 
-		$books = collect($response['books']);
+		$books = collect($response['books'])->map->id;
 
 		$this->assertCount(2, $books);
 
-		$this->assertTrue($books->contains('id', $firstBookId));
-		$this->assertTrue($books->contains('id', $secondBookId));
-		$this->assertFalse($books->contains('id', $thirdBookId));
+		$this->assertTrue($books->containsAll([$firstBookId, $secondBookId]));
+		$this->assertFalse($books->contains($thirdBookId));
 	}
 
 	/**
@@ -61,7 +65,7 @@ class CatalogManagerTest extends TestCase
 	public function it_paginates_book_results(): void
 	{
 		foreach (range(1, 11) as $_) {
-			$this->createBookInCatalog();
+			$this->createCatalogBook();
 		}
 
 		$response = $this->catalogManager->handle();
@@ -98,7 +102,7 @@ class CatalogManagerTest extends TestCase
 	public function it_allows_changing_the_amount_of_books_per_page(): void
 	{
 		foreach (range(1, 11) as $_) {
-			$this->createBookInCatalog();
+			$this->createCatalogBook();
 		}
 
 		$_GET['per_page'] = '20'; // this should be allowed to be either integer or string
@@ -122,9 +126,9 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_sorts_books_by_last_updated_by_default(): void
 	{
-		$firstId = $this->createBookInCatalog();
+		$firstId = $this->createCatalogBook();
 
-		$secondId = $this->createBookInCatalog();
+		$secondId = $this->createCatalogBook();
 
 		update_blog_details($secondId, [
 			'last_updated' => Carbon::now()->addMinutes(10)->toDateTimeString(),
@@ -146,9 +150,9 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_allows_changing_the_sort_order_of_books(): void
 	{
-		$firstId = $this->createBookInCatalog();
+		$firstId = $this->createCatalogBook();
 
-		$secondId = $this->createBookInCatalog();
+		$secondId = $this->createCatalogBook();
 
 		update_blog_details($secondId, [
 			'last_updated' => Carbon::now()->addMinutes(10)->toDateTimeString(),
@@ -170,13 +174,13 @@ class CatalogManagerTest extends TestCase
 	 * @test
 	 * @group request
 	 */
-	public function it_filters_by_license(): void
+	public function it_filters_books_by_license(): void
 	{
-		$allRightsBook1 = $this->createBookInCatalog();
+		$allRightsBook1 = $this->createCatalogBook();
 
-		$allRightsBook2 = $this->createBookInCatalog();
+		$allRightsBook2 = $this->createCatalogBook();
 
-		$ccByBook = $this->createBookInCatalog($createOpenBook = true);
+		$ccByBook = $this->createCatalogBook($createOpenBook = true);
 
 		$_GET['licenses'] = [
 			'all-rights-reserved',
@@ -215,11 +219,11 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_filters_books_by_multiple_licenses(): void
 	{
-		$allRightsBook1 = $this->createBookInCatalog();
+		$allRightsBook1 = $this->createCatalogBook();
 
-		$allRightsBook2 = $this->createBookInCatalog();
+		$allRightsBook2 = $this->createCatalogBook();
 
-		$ccByBook = $this->createBookInCatalog($createOpenBook = true);
+		$ccByBook = $this->createCatalogBook($createOpenBook = true);
 
 		$_GET['licenses'] = [
 			'all-rights-reserved',
@@ -242,11 +246,93 @@ class CatalogManagerTest extends TestCase
 	}
 
 	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_by_subject(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addSubjectsToBook($firstBook, [
+			'primary' => 'ABA',
+			'additional' => ['AVP', 'AVR', 'AVRQ'],
+		]);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addSubjectsToBook($secondBook, [
+			'primary' => 'AB',
+			'additional' => ['ABC', 'AF', 'AFCC'],
+		]);
+
+		$_GET['subjects'] = [
+			'ABA',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertTrue($books->contains($firstBook));
+		$this->assertFalse($books->contains($secondBook));
+
+		$_GET['subjects'] = [
+			'ABC',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(1, $books);
+
+		$this->assertFalse($books->contains($firstBook));
+		$this->assertTrue($books->contains($secondBook));
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
+	public function it_filters_books_by_multiple_subjects(): void
+	{
+		$firstBook = $this->createCatalogBook();
+
+		$this->addSubjectsToBook($firstBook, [
+			'primary' => 'ABA',
+			'additional' => ['AVP', 'AVR', 'AVRQ'],
+		]);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->addSubjectsToBook($secondBook, [
+			'primary' => 'AB',
+			'additional' => ['ABC', 'AF', 'AFCC'],
+		]);
+
+		$_GET['subjects'] = [
+			'ABA',
+			'ABC',
+		];
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books'])->map->id;
+
+		$this->assertCount(2, $books);
+
+		$this->assertTrue($books->containsAll([$firstBook, $secondBook]));
+	}
+
+	/**
 	 * Creates a new book and add it to the catalog
 	 *
+	 * @param bool $createOpenBook
 	 * @return int
 	 */
-	protected function createBookInCatalog(bool $createOpenBook = false): int
+	protected function createCatalogBook(bool $createOpenBook = false): int
 	{
 		$createOpenBook ? $this->_openTextbook() : $this->_book();
 
@@ -257,5 +343,25 @@ class CatalogManagerTest extends TestCase
 
 			$this->collector->copyBookMetaIntoSiteTable($id);
 		});
+	}
+
+	/**
+	 * @param int $id
+	 * @param string $primary
+	 * @param array $additional
+	 * @return void
+	 */
+	protected function addSubjectsToBook(int $id, array $subjects): void
+	{
+		$meta_id = $this->metadata->getMetaPostId();
+
+		add_post_meta($meta_id, 'pb_primary_subject', $subjects['primary'] ?? 'ABA');
+
+		if ($subjects['additional'] ?? false) {
+			add_post_meta($meta_id, 'pb_additional_subjects', implode(', ', $subjects['additional']));
+		}
+
+		Book::deleteBookObjectCache();
+		$this->collector->copyBookMetaIntoSiteTable($id);
 	}
 }
