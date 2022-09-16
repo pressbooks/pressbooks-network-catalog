@@ -6,21 +6,22 @@ use PressbooksNetworkCatalog\Contracts\Validator;
 
 class ValidatorFactory
 {
+	protected static array $validators = [
+		'string' => StringValidator::class,
+		'array' => InArrayValidator::class,
+		'number' => NumberValidator::class,
+		'date' => DateValidator::class,
+		'flag' => FlagValidator::class,
+	];
+
 	public static function make(string $type): Validator
 	{
-		switch ($type) {
-			case 'string':
-				return new StringValidator();
-			case 'date':
-				return new DateValidator();
-			case 'flag':
-				return new FlagValidator();
-			case 'array':
-				return new InArrayValidator();
-			case 'number':
-				return new NumberValidator();
-			default:
-				throw new \InvalidArgumentException('Invalid validator type');
+		$class = static::$validators[$type] ?? null;
+
+		if (! $class) {
+			throw new \InvalidArgumentException('Invalid validator');
 		}
+
+		return new $class();
 	}
 }

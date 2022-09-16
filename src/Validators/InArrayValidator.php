@@ -15,8 +15,8 @@ class InArrayValidator implements Validator
 	 */
 	public function getValues() : array
 	{
-		if (isset($this->values['allowedValues']) || array_key_exists('field', $this->values)) {
-			return isset($this->values['allowedValues']) ? array_keys($this->values['allowedValues']) : array_keys($this->values[$this->values['field']]);
+		if (isset($this->values['allowedValues'])) {
+			return array_keys($this->values['allowedValues']);
 		}
 
 		return [];

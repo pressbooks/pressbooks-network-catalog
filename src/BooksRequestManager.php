@@ -119,9 +119,29 @@ class BooksRequestManager
 				return true; // Skip parameter validation if param is not present or empty.
 			}
 			$validator = ValidatorFactory::make($rules['type']);
+			$rules = $this->mergeParams($rules, $params);
 
-			return $validator->rules($rules + $params)->validate($this->request->get($key));
-		})->contains(false) === false;
+			return $validator->rules($rules)->validate($this->request->get($key));
+		})->doesntContain(false);
+	}
+
+	/**
+	 * Merge subjects, licenses, institutions and publishers as allowedValues to the rules.
+	 * @param $rules
+	 * @param $params
+	 * @return array|mixed
+	 */
+	public function mergeParams($rules, $params)
+	{
+		if (isset($rules['field']) && array_key_exists($rules['field'], $params)) {
+			foreach ($params[$rules['field']] as $key => $value) {
+				$rules['allowedValues'][$key] = $value;
+			}
+
+			return $rules;
+		}
+
+		return $rules;
 	}
 
 	/**
