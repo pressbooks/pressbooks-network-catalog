@@ -4,6 +4,7 @@ namespace PressbooksNetworkCatalog;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use PressbooksNetworkCatalog\Validators\ValidatorFactory;
 
 class BooksRequestManager
 {
@@ -41,16 +42,14 @@ class BooksRequestManager
 	public function __construct(Collection $bookFields)
 	{
 		$this->bookFields = $bookFields;
-		$this->allowedParams = Collection::make([
+		$this->allowedParams = collect([
 			'pg' => [
-				'type' => 'string',
+				'type' => 'number',
 				'default' => 1,
-				'filter' => FILTER_SANITIZE_STRING,
 			],
 			'per_page' => [
-				'type' => 'string',
+				'type' => 'number',
 				'default' => $this->defaultPerPage,
-				'filter' => FILTER_SANITIZE_STRING,
 			],
 			'subjects' => [
 				'type' => 'array',
@@ -70,30 +69,23 @@ class BooksRequestManager
 			],
 			'search' => [
 				'type' => 'string',
-				'filter' => FILTER_SANITIZE_STRING,
 			],
 			'h5p' => [
-				'type' => 'string',
-				'filter' => FILTER_SANITIZE_STRING,
+				'type' => 'flag',
 				'field' => 'h5p',
 			],
 			'from' => [
-				'type' => 'string',
-				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
-				'filter' => FILTER_VALIDATE_REGEXP,
+				'type' => 'date',
 				'sqlOperator' => '>=',
 				'field' => 'last_updated',
 			],
 			'to' => [
-				'type' => 'string',
-				'regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
-				'filter' => FILTER_VALIDATE_REGEXP,
+				'type' => 'date',
 				'sqlOperator' => '<=',
 				'field' => 'last_updated',
 			],
 			'sort_by' => [
-				'type' => 'string',
-				'filter' => FILTER_SANITIZE_STRING,
+				'type' => 'array',
 				'default' => 'last_updated',
 				'allowedValues' => [
 					'last_updated' => [
@@ -112,36 +104,45 @@ class BooksRequestManager
 
 	/**
 	 * Validate parameters requests.
+	 * This function prevents to pass invalid parameters to the query if any of the parameters is not valid it won't perform the query.
+	 * Meaning if any of the validators returns false the query won't be performed.
 	 *
+	 * @param $params
 	 * @return bool
 	 */
-	public function validateRequest(): bool
+	public function validateRequest($params): bool
 	{
-		$valid = true;
-		$this->allowedParams->each(function ($config, $filter) use (&$valid) {
-			// It could be improved with filter_var_array, see https://www.php.net/manual/es/function.filter-var-array.php
-			if ($this->request->get($filter)) {
-				if (empty($this->request->get($filter))) {
-					$this->request->request->remove($filter);
-				} elseif (
-					gettype($this->request->get($filter)) !== $config['type'] ||
-					(
-						isset($config['regex']) &&
-						filter_var($this->request->get($filter), $config['filter'], ['options' => ['regexp' => $config['regex']]]) === false
-					) ||
-					(
-						! isset($config['regex']) && isset($config['filter']) &&
-						filter_var($this->request->get($filter), $config['filter']) === false
-					)
-				) {
-					$valid = false;
+		return $this->allowedParams->map(function ($rules, $key) use ($params) {
+			if (empty($this->request->get($key))) {
+				$this->request->request->remove($key);
 
-					return false;
-				}
+				return true; // Skip parameter validation if param is not present or empty.
 			}
-		});
 
-		return $valid;
+			$validator = ValidatorFactory::make($rules['type']);
+			$rules = $this->mergeParams($rules, $params);
+
+			return $validator->rules($rules)->validate($this->request->get($key));
+		})->doesntContain(false);
+	}
+
+	/**
+	 * Merge subjects, licenses, institutions and publishers as allowedValues to the rules.
+	 * @param $rules
+	 * @param $params
+	 * @return array|mixed
+	 */
+	public function mergeParams($rules, $params)
+	{
+		if (isset($rules['field']) && array_key_exists($rules['field'], $params)) {
+			foreach ($params[$rules['field']] as $key => $value) {
+				$rules['allowedValues'][$key] = $value;
+			}
+
+			return $rules;
+		}
+
+		return $rules;
 	}
 
 	/**
@@ -183,7 +184,7 @@ class BooksRequestManager
 		global $wpdb;
 
 		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filtearableColumns) {
-			if ($this->request->get($filter) && ! empty($this->request->get($filter)) && isset($paramConfig['field'])) {
+			if (isset($paramConfig['field']) && $this->request->has($filter) && ! empty($this->request->get($filter))) {
 				$config = $filtearableColumns->where('filterColumn', $paramConfig['field'])->first();
 				if ($config['conditionQueryType']) {
 					switch ($config['conditionQueryType']) {
@@ -248,7 +249,7 @@ class BooksRequestManager
 	{
 		if (
 			isset($this->request->sort_by) &&
-		   in_array($this->request->sort_by, array_keys($this->allowedParams->get('sort_by')['allowedValues']))
+			array_key_exists($this->request->sort_by, $this->allowedParams->get('sort_by')['allowedValues'])
 		) {
 			$orderBy = $this->allowedParams->get('sort_by')['allowedValues'][$this->request->sort_by];
 

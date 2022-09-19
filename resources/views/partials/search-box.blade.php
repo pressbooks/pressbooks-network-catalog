@@ -40,13 +40,12 @@
         ])
     </div>
 </div>
-
 <div>
     @if(!empty($request->search) && $request->has('search'))
         <h2 class="result-stats">
             {{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), $pagination['total'], $request->search ) }}
         </h2>
-    @else
+    @elseif($pagination['currentPage'] < $pagination['totalPages'])
         <h2 class="result-stats">
             {{ sprintf(__('%d Results', 'pressbooks-network-catalog'), $pagination['total']) }}
         </h2>
