@@ -22,13 +22,13 @@ class ActiveFilters
 		foreach ($this->filters as $filter => $values) {
 			if ($request->has($filter)) {
 				collect($request->{$filter})->each(function ($item) use ($filter) {
-                    if($this->filters[$filter][$item] ?? false) {
-                        $this->items->push([
-                            'key' => $item,
-                            'label' => $this->getFilterValue($filter, $item),
-                            'type' => $filter,
-                        ]);
-                    }
+					if ($this->filters[$filter][$item] ?? false) {
+						$this->items->push([
+							'key' => $item,
+							'label' => $this->getFilterValue($filter, $item),
+							'type' => $filter,
+						]);
+					}
 				});
 			}
 		}
