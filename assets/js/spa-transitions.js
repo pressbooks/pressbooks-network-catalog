@@ -1,9 +1,32 @@
 import barba from '@barba/core';
+import Nanobar from 'nanobar';
 
 export default function fakeSpaTransition() {
 
+  const nanobar = new Nanobar( {
+    id: 'loading-bar',
+  } );
+
+  let loadingInterval;
+
   barba.init({
     preventRunning: true,
+    timeout: 10000, // 10 seconds timeout should be enough specially in slow networks? before barba triggers the location reload (default is 5 seconds)
+    transitions: [{
+      name: 'spa-transition',
+      leave() {
+        let progress = 0;
+        loadingInterval = setInterval(() => {
+          progress += 2;
+          nanobar.go(progress);
+        }, 100); // 200ms
+      },
+      enter() {
+        nanobar.go(100);
+        clearInterval(loadingInterval);
+        barba.history.clear();
+      }
+    }]
   });
 
   function debounce(func, timeout = 300) {
@@ -46,11 +69,6 @@ export default function fakeSpaTransition() {
     barba.go(buildUrl());
   });
 
-  document.getElementById('search').addEventListener('click', function () {
-    extraFilters.search = document.querySelector('input[name="search"]').value || '';
-    barba.go(buildUrl());
-  });
-
   function buildUrl() {
     let url = window.location.href.split('?')[0];
     let params = [];
@@ -64,13 +82,20 @@ export default function fakeSpaTransition() {
     }
 
     for (const [key, value] of Object.entries(extraFilters)) {
-      if (value !== 0) {
+      if (value !== 0 && value !== '') {
         params.push(`${key}=${value}`);
       }
     }
 
     if (params.length) {
       url += '?' + params.join('&');
+      const orderingAndPaginationParams = new URLSearchParams(window.location.search);
+      if (orderingAndPaginationParams.has('sort_by')) {
+        url += '&sort_by=' + orderingAndPaginationParams.get('sort_by');
+      }
+      if (orderingAndPaginationParams.has('per_page')) {
+        url += '&per_page=' + orderingAndPaginationParams.get('per_page');
+      }
     }
 
     return url;

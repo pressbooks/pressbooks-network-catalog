@@ -9,6 +9,7 @@
                 <li class="page-item previous-page">
                     <a
                         href="{{ $request->fullUrlWithQuery(['pg' => $pagination['currentPage'] - 1]) }}"
+                        data-barba-prevent="self"
                         rel="prev"
                         aria-label="{{ __('Go to previous page', 'pressbooks-network-catalog') }}"
                     >
@@ -25,14 +26,14 @@
                 @else
                     @if($page === $pagination['currentPage'])
                         <li class="page-item active" aria-current="true">
-                            <a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}">
+                            <a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}" data-barba-prevent="self">
                                 <span class="sr-only">{{ __('Current page, page', 'pressbooks-network-catalog') }}</span>
                                 {{ $page }}
                             </a>
                         </li>
                     @else
                         <li class="page-item">
-                            <a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}">
+                            <a href="{{ $request->fullUrlWithQuery(['pg' => $page]) }}" data-barba-prevent="self">
                                 <span class="sr-only">{{ __('Go to page', 'pressbooks-network-catalog') }}</span>
                                 {{ $page }}
                             </a>
@@ -45,6 +46,7 @@
                 <li class="page-item next-page">
                     <a
                         href="{{ $request->fullUrlWithQuery(['pg' => $pagination['currentPage'] + 1]) }}"
+                        data-barba-prevent="self"
                         rel="next"
                         aria-label="{{ __('Go to next page', 'pressbooks-network-catalog') }}"
                     >

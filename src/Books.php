@@ -31,11 +31,20 @@ class Books
 	 */
 	private array $books = [];
 
-	public function __construct()
+	/**
+	 * Main filters to be used in the query.
+	 *
+	 * @var array
+	 */
+	private array $filters = [];
+
+	public function __construct($filters = [])
 	{
 		global $wpdb;
 
-		$this->fields = Collection::make([
+		$this->filters = $filters;
+
+		$this->fields = collect([
 			[
 				'column' => 'blog_id',
 				'alias' => 'id',
@@ -165,7 +174,7 @@ class Books
 	 */
 	public function get(): array
 	{
-		if (! $this->booksRequestManager->validateRequest()) {
+		if (! $this->booksRequestManager->validateRequest($this->filters)) {
 			return [];
 		}
 		$this->queryBooks();
@@ -175,7 +184,7 @@ class Books
 
 	public function getPagination(): array
 	{
-		if (! $this->booksRequestManager->validateRequest()) {
+		if (! $this->booksRequestManager->validateRequest($this->filters)) {
 			return [
 				'currentPage' => 1,
 				'elements' => [],
