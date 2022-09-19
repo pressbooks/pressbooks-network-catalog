@@ -30,8 +30,12 @@
   color: var(--primary);
 }
 
+.page-template-page-catalog .hero a {
+  color: var(--primary);
+}
+
 .page-template-page-catalog .hero-content {
-  @apply py-9 px-12 w-full bg-white rounded shadow-lg lg:space-y-8 text-center;
+  @apply py-9 px-12 w-full bg-white rounded shadow-lg lg:space-y-8;
 }
 
 .page-template-page-catalog .hero-content div {

@@ -12,7 +12,7 @@
 }
 
 .book-cards .book-card .book-info {
-  @apply mt-4 flex-1;
+  @apply flex-1;
 }
 
 .book-cards .book-card .book-info h2 {
@@ -20,6 +20,9 @@
   color: var(--primary);
 }
 
+.book-cards .book-card .book-info a {
+  color: var(--primary);
+}
 .book-cards .book-card .book-info p {
   @apply m-0;
 }
@@ -41,7 +44,11 @@
 }
 
 .book-cards .book-card .book-info .book-description {
-  @apply mt-4 tracking-wide;
+  @apply mt-4;
+}
+
+.book-cards .book-card .book-info .book-description p {
+  @apply mb-4;
 }
 
 .line-clamp {
@@ -54,3 +61,5 @@
 .read-more {
   @apply cursor-pointer;
 }
+
+

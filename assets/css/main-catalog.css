@@ -26,11 +26,46 @@ h1, h2, h3, h4, h5, h6 {
 .page-template-page-catalog h4,
 .page-template-page-catalog h5,
 .page-template-page-catalog h6 {
-  @apply before:hidden;
+  @apply text-base text-left mt-6 font-bold before:hidden;
+}
+
+.page-template-page-catalog h2 {
+  @apply text-4xl normal-case;
+}
+
+.page-template-page-catalog h3 {
+  @apply text-3xl uppercase;
+}
+
+.page-template-page-catalog h4 {
+  @apply text-3xl;
+}
+
+.page-template-page-catalog h5 {
+  @apply text-2xl;
+}
+
+.page-template-page-catalog h6 {
+  @apply text-xl;
 }
 
 .page-template-page-catalog p {
   @apply text-base;
+}
+
+.page-template-page-catalog ol, .page-template-page-catalog ul {
+  @apply text-base list-inside pt-4;
+}
+.page-template-page-catalog ol {
+  @apply list-decimal;
+}
+
+.page-template-page-catalog ul {
+  @apply list-disc;
+}
+
+.page-template-page-catalog blockquote {
+  @apply pl-4 mt-6 border-l-2 border-gray-400;
 }
 
 .network-catalog {
@@ -49,6 +84,6 @@ h1, h2, h3, h4, h5, h6 {
   @apply space-y-8;
 }
 
-#loading-bar .bar{
+#loading-bar .bar {
   background: var(--primary);
 }
