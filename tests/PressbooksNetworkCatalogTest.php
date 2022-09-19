@@ -29,4 +29,18 @@ class PressbooksNetworkCatalogTest extends TestCase
 			has_action('pb_network_catalog')
 		);
 	}
+
+	/**
+	 * @test
+	 * group network-catalog
+	 */
+	public function it_renders_the_new_catalog_page(): void
+	{
+		PressbooksNetworkCatalog::init();
+
+		$content = apply_filters('pb_network_catalog', null);
+
+		$this->assertNotEmpty($content);
+		$this->assertStringContainsString('<div class="network-catalog">', $content);
+	}
 }
