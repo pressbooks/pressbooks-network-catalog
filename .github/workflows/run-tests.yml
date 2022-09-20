@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Remove MySQL
-        run: sudo apt remove mysql
+        run: apt list --installed | grep mysql && sudo apt remove mysql
 
       - name: Install MariaDB
         run: sudo apt install mariadb-server-10.5 mariadb-client-10.5
