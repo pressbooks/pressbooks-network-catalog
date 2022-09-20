@@ -45,7 +45,7 @@ jobs:
           mysql password: root
 
       - name: Start required services
-        run: sudo systemctl start mariadb && mysql --version && /usr/bin/mariadb --version
+        run: mysql --version && /usr/bin/mariadb --version
 
       - name: Cache composer packages
         uses: actions/cache@v3
