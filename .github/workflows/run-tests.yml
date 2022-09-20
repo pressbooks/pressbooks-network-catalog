@@ -36,16 +36,15 @@ jobs:
         run: sudo systemctl stop mysql.service && sudo rm -rf /var/lib/mysql
 
       - name: Set up MariaDB
-        uses: ankane/setup-mariadb@v1
+        uses: getong/mariadb-action@v1.1
         with:
-          mariadb-version: 10.5
+          mariadb version: 10.5
+          mysql root password: root
+          mysql user: root
+          mysql password: root
 
       - name: Start required services
         run: mysql --version
-#          sudo mysql -e "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'"
-#          sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost'"
-#          sudo mysql -e "FLUSH PRIVILEGES"
-
 
       - name: Cache composer packages
         uses: actions/cache@v3
