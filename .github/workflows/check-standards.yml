@@ -1,0 +1,46 @@
+name: Check Standards
+
+on:
+  push:
+    branches: [development, staging, production]
+    tags:
+      - '*.*.*'
+  pull_request:
+    branches: [development, staging, production]
+
+jobs:
+  src:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [7.4]
+        os: [ubuntu-20.04]
+
+    name: Source code on PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Cache composer packages
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+          coverage: pcov
+
+      - name: Install dependencies
+        run: |
+          export PATH="$HOME/.composer/vendor/bin:$PATH"
+          composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Execute style checking
+        run: composer standards

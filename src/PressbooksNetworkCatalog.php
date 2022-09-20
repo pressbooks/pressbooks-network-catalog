@@ -28,6 +28,11 @@ class PressbooksNetworkCatalog
 		$this->addHooks();
 	}
 
+	/**
+	 * @return void
+	 * @throws \JsonException
+	 * @codeCoverageIgnore
+	 */
 	protected function enqueueScripts(): void
 	{
 		add_action('wp_enqueue_scripts', function () {
@@ -79,19 +84,21 @@ class PressbooksNetworkCatalog
 	protected function setUpBlade(): void
 	{
 		Container::get('Blade')
-				 ->addNamespace(
-				 	'PressbooksNetworkCatalog',
-				 	dirname(__DIR__).'/resources/views'
-				 );
+			->addNamespace(
+				'PressbooksNetworkCatalog',
+				dirname(__DIR__).'/resources/views'
+			);
 	}
 
 	protected function addHooks(): void
 	{
-		add_filter('pb_network_catalog', fn () => (new CatalogManager)->handle());
+		add_filter('pb_network_catalog', function () {
+			$data = (new CatalogManager)->handle();
+
+			return Container::get('Blade')->render('PressbooksNetworkCatalog::catalog', $data);
+		});
 		add_filter(
-			'admin_init',
-			fn () => remove_filter('admin_init', '\Aldine\Actions\hide_catalog_content_editor'),
-			1
+			'admin_init', fn () => remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'), 1
 		);
 	}
 }

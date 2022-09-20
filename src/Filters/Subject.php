@@ -4,9 +4,9 @@ namespace PressbooksNetworkCatalog\Filters;
 
 use Pressbooks\DataCollector\Book as DataCollector;
 use function Pressbooks\Metadata\get_subject_from_thema;
-use PressbooksNetworkCatalog\Contracts\Filters;
+use PressbooksNetworkCatalog\Contracts\Filter;
 
-class Subject implements Filters
+class Subject implements Filter
 {
 	public static function getPossibleValues(): array
 	{

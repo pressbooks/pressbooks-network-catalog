@@ -45,7 +45,7 @@
         <h2 class="result-stats">
             {{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), $pagination['total'], $request->search ) }}
         </h2>
-    @elseif($pagination['currentPage'] < $pagination['totalPages'])
+    @elseif($pagination['currentPage'] <= $pagination['totalPages'])
         <h2 class="result-stats">
             {{ sprintf(__('%d Results', 'pressbooks-network-catalog'), $pagination['total']) }}
         </h2>

@@ -3,9 +3,9 @@
 namespace PressbooksNetworkCatalog\Filters;
 
 use Pressbooks\DataCollector\Book as DataCollector;
-use PressbooksNetworkCatalog\Contracts\Filters;
+use PressbooksNetworkCatalog\Contracts\Filter;
 
-class Publisher implements Filters
+class Publisher implements Filter
 {
 	public static function getPossibleValues(): array
 	{
