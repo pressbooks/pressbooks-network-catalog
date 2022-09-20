@@ -277,6 +277,8 @@ class CatalogManagerTest extends TestCase
 
 		$response = $this->catalogManager->handle();
 
+        dump($response['books'], $response['pagination']);
+
 		$books = collect($response['books'])->map->id;
 
 		$this->assertTrue($books->contains($firstBook), "Failed asserting that book id {$firstBook} is in [{$books->implode(', ')}]");
