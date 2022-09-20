@@ -236,7 +236,9 @@ class BooksRequestManager
 		$searchableColumns = $this->bookFields->where('searchable', true);
 
 		return '('.$searchableColumns->map(function ($field) use ($wpdb) {
-			return 'LOWER('.$field['alias'].') LIKE '.$wpdb->prepare('%s', '%'.strtolower($this->request->search).'%');
+			$term = $wpdb->esc_like(strtolower($this->request->search));
+
+			return "LOWER({$field['alias']}) LIKE '%{$term}%'";
 		})->implode(' OR ').')';
 	}
 
