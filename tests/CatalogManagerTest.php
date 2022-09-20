@@ -275,7 +275,7 @@ class CatalogManagerTest extends TestCase
 
         $thirdBook = $this->createCatalogBook();
 
-        $this->addAuthorsToToBook($secondBook, [
+        $this->addAuthorsToToBook($thirdBook, [
             'Edgar Alan Poe',
         ]);
 
