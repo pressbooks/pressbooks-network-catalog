@@ -152,7 +152,8 @@ class BooksRequestManager
 	 */
 	public function getSqlPaginationForCatalogQuery(): string
 	{
-		return ' LIMIT '.$this->getPerPage().' OFFSET '.$this->getPageOffset();
+        return ' LIMIT ' . $this->getPageOffset() . ', ' . $this->getPerPage();
+//		return ' LIMIT '.$this->getPerPage().' OFFSET '.$this->getPageOffset();
 	}
 
 	public function getPerPage(): int
