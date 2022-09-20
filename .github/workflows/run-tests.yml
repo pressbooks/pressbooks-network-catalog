@@ -33,19 +33,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Shutdown Ubuntu MySQL
-        run: sudo systemctl stop mysql.service
+      - name: Remove MySQL
+        run: sudo apt remove mysql
 
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
-        with:
-          mariadb version: 10.5
-          mysql root password: root
-          mysql user: root
-          mysql password: root
+      - name: Install MariaDB
+        run: sudo apt install mariadb-server-10.5 mariadb-client-10.5
+
+#      - name: Set up MariaDB
+#        uses: getong/mariadb-action@v1.1
+#        with:
+#          mariadb version: 10.5
+#          mysql root password: root
+#          mysql user: root
+#          mysql password: root
 
       - name: Start required services
-        run: mysql --version && /usr/bin/mariadb --version
+        run: sudo systemctl start mysql && mysql --version
 
       - name: Cache composer packages
         uses: actions/cache@v3
