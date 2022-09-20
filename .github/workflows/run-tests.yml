@@ -53,6 +53,7 @@ jobs:
           echo "deb http://downloads.mariadb.com/MariaDB/mariadb-10.5/repo/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/mariadb.list
           sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/mariadb.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
           sudo apt-get install mariadb-server-10.5 mariadb-client-10.5
+          sudo mysqladmin -p'' password 'root'
 
       - name: Start required services
         run: sudo systemctl start mysql && mysql --version
