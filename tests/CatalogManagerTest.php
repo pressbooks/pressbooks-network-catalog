@@ -260,8 +260,6 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_searches_book_by_authors(): void
 	{
-//		$this->markTestIncomplete('Failing on GH Actions for some reason');
-
 		$firstBook = $this->createCatalogBook();
 
 		$this->addAuthorsToToBook($firstBook, [
@@ -290,8 +288,6 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_searches_book_by_editors(): void
 	{
-//		$this->markTestIncomplete('Failing on GH Actions for some reason');
-
 		$firstBook = $this->createCatalogBook();
 
 		$this->addEditorsToToBook($firstBook, [
@@ -320,8 +316,6 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_searches_book_by_subjects(): void
 	{
-//		$this->markTestIncomplete('Failing on GH Actions for some reason');
-
 		$firstBook = $this->createCatalogBook();
 
 		$this->addSubjectsToBook($firstBook, [
