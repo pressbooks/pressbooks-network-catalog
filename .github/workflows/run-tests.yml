@@ -38,10 +38,11 @@ jobs:
       - name: Set up MariaDB
         uses: shogo82148/actions-setup-mysql@v1
         with:
-          mariadb-version: 10.5
-          user: 'root'
-          password: 'root'
-          root-password: 'root'
+          distribution: mariadb
+          mysql-version: 10.5
+          user: root
+          password: root
+          root-password: root
 
       - name: Start required services
         run: mysql --version
