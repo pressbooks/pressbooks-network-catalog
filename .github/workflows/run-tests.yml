@@ -13,6 +13,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
 
+    services:
+      mysql:
+        image: mariadb:10
+        env:
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     strategy:
       fail-fast: false
       matrix:
@@ -33,26 +44,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Remove MySQL
-        run: sudo apt remove mysql-server-8.0 mysql-common
+#      - name: Remove MySQL
+#        run: sudo apt remove mysql-server-8.0 mysql-common
 
-      - name: Install MariaDB
-        run: |
-          sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-          echo "deb http://downloads.mariadb.com/MariaDB/mariadb-10.5/repo/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/mariadb.list
-          sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/mariadb.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-          sudo apt-get install mariadb-server-10.5
-          sudo systemctl start mariadb
-          sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost'"
-          sudo mysql -e "FLUSH PRIVILEGES"
-
-#      - name: Set up MariaDB
-#        uses: getong/mariadb-action@v1.1
-#        with:
-#          mariadb version: 10.5
-#          mysql root password: root
-#          mysql user: root
-#          mysql password: root
+#      - name: Install MariaDB
+#        run: |
+#          sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+#          echo "deb http://downloads.mariadb.com/MariaDB/mariadb-10.5/repo/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/mariadb.list
+#          sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/mariadb.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+#          sudo apt-get install mariadb-server-10.5
+#          sudo systemctl start mariadb
+#          sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost'"
+#          sudo mysql -e "FLUSH PRIVILEGES"
 
       - name: Start required services
         run: mysql --version
