@@ -39,7 +39,7 @@ jobs:
         uses: shogo82148/actions-setup-mysql@v1
         with:
           distribution: 'mariadb'
-          mysql-version: '10.5'
+#          mysql-version: '10.5'
           user: 'root'
           password: 'root'
           root-password: 'root'
