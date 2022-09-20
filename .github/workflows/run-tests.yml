@@ -22,7 +22,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
-#        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=5
+#        options: --health-cmd="mysqladmin -uroot -proot ping" --health-interval=10s --health-timeout=10s --health-retries=5
 
     strategy:
       fail-fast: false
@@ -44,8 +44,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-#      - name: Remove MySQL
-#        run: sudo apt remove mysql-server-8.0 mysql-common
+      - name: Remove MySQL
+        run: sudo apt remove mysql-server-8.0 mysql-common
+
+      - name: Install MariaDB
+        run: sudo apt install mariadb-client-10.5
 
 #      - name: Install MariaDB
 #        run: |
@@ -58,7 +61,7 @@ jobs:
 #          sudo mysql -e "FLUSH PRIVILEGES"
 
       - name: Start required services
-        run: mysql --version
+        run: sudo systemctl start mariadb && mysql --version
 
       - name: Cache composer packages
         uses: actions/cache@v3
