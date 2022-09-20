@@ -39,7 +39,7 @@
     },
     "scripts": {
         "test": [
-            "vendor/bin/phpunit --configuration phpunit.xml"
+            "vendor/bin/phpunit --configuration phpunit.xml --filter it_searches_book_by_authors"
         ],
         "test-coverage": [
             "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
