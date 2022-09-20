@@ -43,7 +43,6 @@ jobs:
           sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/mariadb.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
           sudo apt-get install mariadb-server-10.5
           sudo systemctl start mariadb
-          sudo mysql -e "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'"
           sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost'"
           sudo mysql -e "FLUSH PRIVILEGES"
 
