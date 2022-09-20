@@ -42,9 +42,9 @@ jobs:
 
       - name: Start required services
         run: |
-          sudo mysql -e "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'"
-          sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost'"
-          sudo mysql -e "FLUSH PRIVILEGES"
+#          sudo mysql -e "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'"
+#          sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost'"
+#          sudo mysql -e "FLUSH PRIVILEGES"
           mysql --version
 
       - name: Cache composer packages
