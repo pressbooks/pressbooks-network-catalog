@@ -13,6 +13,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
 
+    services:
+      mariadb:
+        image: mariadb:10.5
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     strategy:
       fail-fast: false
       matrix:
@@ -20,6 +31,7 @@ jobs:
         os: [ubuntu-20.04]
         wordpress: [6.0.2, latest]
         experimental: [false]
+
 #        include:
 #          - php: 8.0
 #            os: ubuntu-20.04
@@ -32,19 +44,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Shutdown Ubuntu MySQL
-        run: sudo systemctl stop mysql.service && sudo rm -rf /var/lib/mysql
+#      - name: Shutdown Ubuntu MySQL
+#        run: sudo systemctl stop mysql.service
 
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
-        with:
-          mariadb version: 10.5
-          mysql root password: root
-          mysql user: root
-          mysql password: root
+#      - name: Set up MariaDB
+#        uses: getong/mariadb-action@v1.1
+#        with:
+#          mariadb version: 10.5
+#          mysql root password: root
+#          mysql user: root
+#          mysql password: root
 
       - name: Start required services
-        run: mysql --version
+        run: mysql --version && mariadb --version
 
       - name: Cache composer packages
         uses: actions/cache@v3
