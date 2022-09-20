@@ -36,12 +36,12 @@ jobs:
         run: sudo service mysql stop
 
       - name: Set up MariaDB
-        uses: ankane/setup-mariadb@v1
+        uses: getong/mariadb-action@v1.1
         with:
-          mariadb-version: 10.5
-          root-password: 'root'
-          user: 'root'
-          password: 'root'
+          mariadb version: 10.5
+          mysql root password: root
+          mysql user: root
+          mysql password: root
 
       - name: Start required services
         run: mysql --version
