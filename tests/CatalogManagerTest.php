@@ -279,7 +279,7 @@ class CatalogManagerTest extends TestCase
             'Edgar Alan Poe',
         ]);
 
-		$_GET['search'] = 'tolkien';
+		$_GET['search'] = 'martin';
 
 		$response = $this->catalogManager->handle();
 
@@ -287,8 +287,8 @@ class CatalogManagerTest extends TestCase
 
 		$books = collect($response['books'])->map->id;
 
-		$this->assertTrue($books->contains($firstBook), "Failed asserting that book id {$firstBook} is in [{$books->implode(', ')}]");
-		$this->assertFalse($books->contains($secondBook));
+		$this->assertTrue($books->contains($secondBook), "Failed asserting that book id {$secondBook} is in [{$books->implode(', ')}]");
+		$this->assertFalse($books->contains($firstBook));
 		$this->assertFalse($books->contains($thirdBook));
 	}
 
