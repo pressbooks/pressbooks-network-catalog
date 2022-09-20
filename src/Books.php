@@ -294,7 +294,10 @@ class Books
 			$this->booksRequestManager->getSqlOrderByForCatalogQuery().
 			$this->booksRequestManager->getSqlPaginationForCatalogQuery();
 
+        dump($sqlBooksQuery);
+
 		$this->books = $wpdb->get_results($sqlBooksQuery);
+        dump($this->books);
 	}
 
 	/**
