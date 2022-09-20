@@ -5,6 +5,7 @@ namespace Tests;
 use Illuminate\Support\Carbon;
 use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as DataCollector;
+use Pressbooks\Licensing;
 use Pressbooks\Metadata;
 use function Pressbooks\Metadata\get_in_catalog_option;
 use function Pressbooks\Metadata\get_institution_by_code;
@@ -259,7 +260,7 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_searches_book_by_authors(): void
 	{
-		$this->markTestIncomplete('Failing on GH Actions for some reason');
+//		$this->markTestIncomplete('Failing on GH Actions for some reason');
 
 		$firstBook = $this->createCatalogBook();
 
@@ -289,7 +290,7 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_searches_book_by_editors(): void
 	{
-		$this->markTestIncomplete('Failing on GH Actions for some reason');
+//		$this->markTestIncomplete('Failing on GH Actions for some reason');
 
 		$firstBook = $this->createCatalogBook();
 
@@ -319,7 +320,7 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_searches_book_by_subjects(): void
 	{
-		$this->markTestIncomplete('Failing on GH Actions for some reason');
+//		$this->markTestIncomplete('Failing on GH Actions for some reason');
 
 		$firstBook = $this->createCatalogBook();
 
@@ -351,14 +352,14 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_filters_books_by_license(): void
 	{
-		$allRightsBook1 = $this->createCatalogBook();
+		$ccByBook1 = $this->createCatalogBook();
 
-		$allRightsBook2 = $this->createCatalogBook();
+		$ccByBook2 = $this->createCatalogBook();
 
-		$ccByBook = $this->createCatalogBook($createOpenBook = true);
+		$ccByNdBook = $this->createCatalogBook('cc-by-nd');
 
 		$_GET['licenses'] = [
-			'all-rights-reserved',
+			'cc-by',
 		];
 
 		$response = $this->catalogManager->handle();
@@ -368,12 +369,12 @@ class CatalogManagerTest extends TestCase
 		$this->assertCount(2, $books);
 
 		$this->assertTrue(
-			$books->containsAll([$allRightsBook1, $allRightsBook2])
+			$books->containsAll([$ccByBook1, $ccByBook2])
 		);
-		$this->assertFalse($books->contains($ccByBook));
+		$this->assertFalse($books->contains($ccByNdBook));
 
 		$_GET['licenses'] = [
-			'cc-by',
+			'cc-by-nd',
 		];
 
 		$response = $this->catalogManager->handle();
@@ -383,9 +384,9 @@ class CatalogManagerTest extends TestCase
 		$this->assertCount(1, $books);
 
 		$this->assertFalse(
-			$books->containsAny([$allRightsBook1, $allRightsBook2])
+			$books->containsAny([$ccByBook1, $ccByBook2])
 		);
-		$this->assertTrue($books->contains($ccByBook));
+		$this->assertTrue($books->contains($ccByNdBook));
 	}
 
 	/**
@@ -394,15 +395,15 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_filters_books_by_multiple_licenses(): void
 	{
-		$allRightsBook1 = $this->createCatalogBook();
+		$ccByBook1 = $this->createCatalogBook();
 
-		$allRightsBook2 = $this->createCatalogBook();
+		$ccByBook2 = $this->createCatalogBook();
 
-		$ccByBook = $this->createCatalogBook($createOpenBook = true);
+		$ccByNdBook = $this->createCatalogBook('cc-by-nd');
 
 		$_GET['licenses'] = [
-			'all-rights-reserved',
 			'cc-by',
+			'cc-by-nd',
 		];
 
 		$response = $this->catalogManager->handle();
@@ -413,9 +414,9 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertTrue(
 			$books->containsAll([
-				$allRightsBook1,
-				$allRightsBook2,
-				$ccByBook,
+				$ccByBook1,
+				$ccByBook2,
+				$ccByNdBook,
 			])
 		);
 	}
@@ -765,12 +766,17 @@ class CatalogManagerTest extends TestCase
 		$this->assertFalse($books->contains($thirdBook));
 	}
 
-	protected function createCatalogBook(bool $createOpenBook = false): int
+	protected function createCatalogBook($license = 'cc-by'): int
 	{
-		$createOpenBook ? $this->_openTextbook() : $this->_book();
+		$this->_openTextbook();
 
-		return tap(get_current_blog_id(), function ($id) {
+		return tap(get_current_blog_id(), function ($id) use ($license) {
 			update_option(get_in_catalog_option(), 1);
+
+			if ($license !== 'cc-by') {
+				update_post_meta($this->metadata->getMetaPostId(), 'pb_book_license', $license);
+				wp_set_object_terms($this->metadata->getMetaPostId(), $license, Licensing::TAXONOMY);
+			}
 
 			$this->syncBookMetadata($id);
 		});
