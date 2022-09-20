@@ -273,6 +273,12 @@ class CatalogManagerTest extends TestCase
 			'George R. R. Martin',
 		]);
 
+        $thirdBook = $this->createCatalogBook();
+
+        $this->addAuthorsToToBook($secondBook, [
+            'Edgar Alan Poe',
+        ]);
+
 		$_GET['search'] = 'tolkien';
 
 		$response = $this->catalogManager->handle();
@@ -283,6 +289,7 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertTrue($books->contains($firstBook), "Failed asserting that book id {$firstBook} is in [{$books->implode(', ')}]");
 		$this->assertFalse($books->contains($secondBook));
+		$this->assertFalse($books->contains($thirdBook));
 	}
 
 	/**
