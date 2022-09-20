@@ -259,7 +259,7 @@ class CatalogManagerTest extends TestCase
 	 */
 	public function it_searches_book_by_authors(): void
 	{
-		$this->markTestIncomplete('Failing on GH Actions for some reason');
+//		$this->markTestIncomplete('Failing on GH Actions for some reason');
 
 		$firstBook = $this->createCatalogBook();
 
