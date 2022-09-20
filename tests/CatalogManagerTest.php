@@ -781,6 +781,7 @@ class CatalogManagerTest extends TestCase
 		foreach ($authors as $author) {
 			add_site_meta($id, DataCollector::AUTHORS, $author);
 		}
+        wp_cache_flush();
 	}
 
 	protected function addEditorsToToBook(int $id, array $authors): void
