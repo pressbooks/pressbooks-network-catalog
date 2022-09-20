@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Start required services
-        run: sudo systemctl start mysql.service
+        run: sudo systemctl start mysql.service && mysql --version
 
       - name: Cache composer packages
         uses: actions/cache@v3
