@@ -1,11 +1,11 @@
 @if( !empty( $items ) )
 <div
 	class="side-filter selectable"
-    x-data='selectableFilters(@json([
+    x-data='selectableFilters({{ json_encode([
     	'open' => $open ?? false,
     	'items' => $items,
     	'selected' => $selected ?? []
-	]))'
+	]) }})'
 >
 	<button @click="toggle" :aria-expanded="open" type="button">
 		<span>{{ $title }}</span>
