@@ -1,6 +1,6 @@
 <div class="dropdown">
 	<div
-		x-data='dropdown({{ json_encode(['selected' => $request[$name] ?? $default, 'options' => $options]) }})'
+		x-data='dropdown(@json(['selected' => $request[$name] ?? $default, 'options' => $options]))'
 		@keydown.escape.prevent.stop="close($refs.button)"
 		@focusin.window="! $refs.panel.contains($event.target) && close()"
 		x-id="['dropdown-button']"
