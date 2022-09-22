@@ -39,10 +39,12 @@ class PressbooksNetworkCatalog
 			if (get_page_template_slug() !== 'page-catalog.php') {
 				return;
 			}
+
 			// Remove old catalog.js scripts
 			add_action('wp_print_scripts', function () {
 				wp_dequeue_script('aldine/script');
 			}, 100);
+
 			/**
 			 * VITE & Tailwind JIT development
 			 * Inspired by https://github.com/andrefelipe/vite-php-setup
@@ -97,6 +99,7 @@ class PressbooksNetworkCatalog
 
 			return Container::get('Blade')->render('PressbooksNetworkCatalog::catalog', $data);
 		});
+
 		add_filter(
 			'admin_init', fn () => remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'), 1
 		);
