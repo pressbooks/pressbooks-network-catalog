@@ -12,6 +12,7 @@ export default function fakeSpaTransition() {
   barba.init({
     preventRunning: true,
     timeout: 10000, // 10 seconds timeout should be enough specially in slow networks? before barba triggers the location reload (default is 5 seconds)
+    prevent: ({ el }) => el.classList && el.closest('header').classList.contains('header'),
     transitions: [{
       name: 'spa-transition',
       leave() {
