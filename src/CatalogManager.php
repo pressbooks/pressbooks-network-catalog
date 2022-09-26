@@ -48,7 +48,9 @@ class CatalogManager
 
 	protected function getBackgroundImage(): string
 	{
-		return plugin_dir_url(__DIR__).'assets/images/catalogbg.jpg';
+		return has_post_thumbnail()
+			? get_the_post_thumbnail_url()
+			: plugin_dir_url(__DIR__).'assets/images/catalogbg.jpg';
 	}
 
 	protected function sanitizeRequestParams($request)
