@@ -1,13 +1,13 @@
 import Alpine from 'alpinejs';
 import '../css/app.css';
 import PbDatePicker from "./datepicker";
-// import fakeSpaTransition from "./spa-transitions";
+import fakeSpaTransition from "./spa-transitions";
 
 window.Alpine = Alpine;
 
-// document.addEventListener('alpine:initialized', () => {
-//   fakeSpaTransition();
-// });
+document.addEventListener('alpine:initialized', () => {
+  fakeSpaTransition();
+})
 
 const form = document.getElementById('network-catalog-form');
 
@@ -19,13 +19,8 @@ form.addEventListener('submit', function (event) {
   inputs
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
-
-  return true;
+  return false;
 });
-
-window.submitForm = () => {
-  document.getElementById('apply-filters').click();
-}
 
 window.selectableFilters = ({open, items, selected}) => {
   return {
@@ -97,8 +92,6 @@ window.removeFilter = (filter) => {
   } else {
     document.querySelector(`input[${attr}="${filter}"]`).click();
   }
-
-  submitForm();
 }
 
 window.reset = () => {
