@@ -38,7 +38,7 @@ window.selectableFilters = ({open, items, selected}) => {
     filteredItems() {
       return Object.entries(this.items)
         .filter(
-          ([key, value]) => value.toLowerCase().includes(this.search.toLowerCase())
+          ([key, value]) => value && value.toLowerCase().includes(this.search.toLowerCase())
         ).slice(0, this.displayAmount);
     },
     showMore() {
