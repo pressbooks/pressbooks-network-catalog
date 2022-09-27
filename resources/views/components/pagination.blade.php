@@ -1,6 +1,6 @@
 @unless($pagination['totalPages'] === 1)
 	<nav
-		class="pagination"
+		class="pagination {{$placement}}"
 		role="navigation"
 		aria-label="{{ sprintf(__('%s pagination', 'pressbooks-network-catalog'), $placement) }}"
 		x-data x-id="['pagination-dropdown']"

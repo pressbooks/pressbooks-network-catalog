@@ -28,5 +28,9 @@
 }
 
 .dropdown .content button {
-  @apply flex items-center gap-2 w-full px-4 py-2 text-left text-sm normal-case font-normal hover:bg-gray-200 last-of-type:rounded-b-md;
+  @apply flex items-center gap-2 w-full px-4 py-2 text-left text-sm normal-case font-normal last-of-type:rounded-b-md;
+}
+
+.dropdown .content button:hover {
+  background: var(--border-color);
 }
