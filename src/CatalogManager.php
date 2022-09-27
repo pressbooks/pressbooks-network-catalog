@@ -33,7 +33,7 @@ class CatalogManager
 
 		$this->request->replace($this->sanitizeRequestParams($this->request));
 
-		return  [
+		return [
 			'request' => $this->request,
 			'books' => $books->get(),
 			'pagination' => $books->getPagination(),

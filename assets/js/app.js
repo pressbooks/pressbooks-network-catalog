@@ -13,8 +13,8 @@ const form = document.getElementById('network-catalog-form');
 
 form.addEventListener('submit', function (event) {
   const inputs = Array
-    .from(event.target.getElementsByTagName('input'))
-    .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
+    .from(event.target.elements)
+    .filter(input => ['search', 'from', 'to'].includes(input.name));
 
   inputs
     .filter(input => input.value === '')
@@ -26,6 +26,18 @@ form.addEventListener('submit', function (event) {
 window.submitForm = () => {
   document.getElementById('apply-filters').click();
 }
+
+document.getElementsByName('pg').forEach(element => {
+  element.addEventListener('change', function(event) {
+    document.getElementsByName('pg').forEach(select => {
+      if (select.id !== element.id) {
+        select.disabled = true;
+      }
+    });
+
+    submitForm();
+  });
+});
 
 window.selectableFilters = ({open, items, selected}) => {
   return {

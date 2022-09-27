@@ -84,8 +84,8 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertEquals([
 			'currentPage' => 4,
-			'elements' => [1, '...', 3, 4, 5, '...', 8],
-			'perPage' => 1,
+			'previousPage' => 3,
+			'nextPage' => 5,
 			'total' => 8,
 			'totalPages' => 8,
 		], $response['pagination']);
@@ -98,8 +98,8 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertEquals([
 			'currentPage' => 2,
-			'elements' => [1, 2, 3, 4, '...', 8],
-			'perPage' => 1,
+			'previousPage' => 1,
+			'nextPage' => 3,
 			'total' => 8,
 			'totalPages' => 8,
 		], $response['pagination']);
@@ -112,8 +112,8 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertEquals([
 			'currentPage' => 7,
-			'elements' => [1, '...', 5, 6, 7, 8],
-			'perPage' => 1,
+			'previousPage' => 6,
+			'nextPage' => 8,
 			'total' => 8,
 			'totalPages' => 8,
 		], $response['pagination']);
@@ -137,8 +137,8 @@ class CatalogManagerTest extends TestCase
 
 		$this->assertEquals([
 			'currentPage' => 1,
-			'elements' => [1],
-			'perPage' => 20,
+			'previousPage' => 1,
+			'nextPage' => 1,
 			'total' => 11,
 			'totalPages' => 1,
 		], $response['pagination']);

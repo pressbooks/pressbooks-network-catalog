@@ -187,69 +187,30 @@ class Books
 		if (! $this->booksRequestManager->validateRequest($this->filters)) {
 			return [
 				'currentPage' => 1,
-				'elements' => [],
-				'perPage' => 0,
+				'previousPage' => 1,
+				'nextPage' => 1,
 				'total' => 0,
-				'totalPages' => 0,
+				'totalPages' => 1,
 			];
 		}
 
 		$this->queryBooksCount();
 
-		$totalPageCount = $this->getTotalPages();
-		$perPage = $this->booksRequestManager->getPerPage();
+		$pageCount = $this->getTotalPages();
 		$currentPage = $this->booksRequestManager->getPage();
-		$elements = $this->getElements($currentPage, $totalPageCount);
 
 		return [
 			'currentPage' => $currentPage,
-			'elements' => $elements ?? [],
-			'perPage' => $perPage,
+			'previousPage' => max($currentPage - 1, 1),
+			'nextPage' => min($currentPage + 1, $pageCount),
 			'total' => $this->totalBooks,
-			'totalPages' => $totalPageCount,
+			'totalPages' => $pageCount,
 		];
 	}
 
 	private function getTotalPages(): int
 	{
 		return ceil($this->totalBooks / $this->booksRequestManager->getPerPage());
-	}
-
-	private function getElements(int $currentPage, int $totalPageCount): array
-	{
-		$pagesToDisplay = 5;
-		$siblingCount = 1;
-
-		if ($pagesToDisplay >= $totalPageCount) {
-			return range(1, $totalPageCount);
-		}
-
-		$leftSiblingIndex = max($currentPage - $siblingCount, 1);
-		$rightSiblingIndex = min($currentPage + $siblingCount, $totalPageCount);
-
-		$shouldShowLeftDots = $leftSiblingIndex > 2;
-		$shouldShowRightDots = $rightSiblingIndex < $totalPageCount - 2;
-
-		$firstPageIndex = 1;
-		$lastPageIndex = $totalPageCount;
-
-		if (! $shouldShowLeftDots && $shouldShowRightDots) {
-			$leftItemCount = 2 + 2 * $siblingCount;
-			$leftRange = range(1, $leftItemCount);
-
-			return [...$leftRange, '...', $totalPageCount];
-		}
-
-		if ($shouldShowLeftDots && ! $shouldShowRightDots) {
-			$rightItemCount = 2 + 2 * $siblingCount;
-			$rightRange = range($totalPageCount - $rightItemCount + 1, $totalPageCount);
-
-			return [$firstPageIndex, '...', ...$rightRange];
-		}
-
-		$middleRange = range($leftSiblingIndex, $rightSiblingIndex);
-
-		return [$firstPageIndex, '...', ...$middleRange, '...', $lastPageIndex];
 	}
 
 	/**
