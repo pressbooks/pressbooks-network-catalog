@@ -44,11 +44,24 @@
 }
 
 .book-cards .book-card .book-info .book-description {
-  @apply mt-4;
+  @apply my-4;
 }
 
 .book-cards .book-card .book-info .book-description p {
   @apply mb-4;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a) {
+  display: contents;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a):after {
+  content: "\a";
+  white-space: break-spaces;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp p:after {
+  content: "\a\a";
 }
 
 .line-clamp {
