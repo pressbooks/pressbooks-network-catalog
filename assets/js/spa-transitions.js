@@ -13,14 +13,15 @@ export default function fakeSpaTransition() {
 
   applyButton.addEventListener('click', function (event) {
     const inputs = Array
-      .from(event.target.getElementsByTagName('input'))
-      .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
+      .from(document.getElementById('network-catalog-form').elements)
+      .filter(input => ['search', 'from', 'to'].includes(input.name));
 
     inputs
       .filter(input => input.value === '')
       .forEach(input => input.disabled = true);
     barba.go(buildUrl());
   });
+
 
   window.removeFilter = (filter) => {
     const attr = ['h5p'].includes(filter) ? 'name' : 'value';

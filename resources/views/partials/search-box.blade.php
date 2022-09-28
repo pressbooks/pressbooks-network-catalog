@@ -42,13 +42,13 @@
 </div>
 <div>
     @if(!empty($request->search) && $request->has('search'))
-        <h2 class="result-stats">
-            {{ sprintf(__('%d Results for ‘%s’', 'pressbooks-network-catalog'), $pagination['total'], $request->search ) }}
-        </h2>
+        <span class="result-stats">
+            {{ sprintf(_n('%d result for ‘%s’', '%d results for ‘%s’', $pagination['total'], 'pressbooks-network-catalog'), $pagination['total'], $request->search ) }}
+        </span>
     @elseif($pagination['currentPage'] <= $pagination['totalPages'])
-        <h2 class="result-stats">
-            {{ sprintf(__('%d Results', 'pressbooks-network-catalog'), $pagination['total']) }}
-        </h2>
+        <span class="result-stats">
+            {{ sprintf(_n('%d result', '%d results', $pagination['total'], 'pressbooks-network-catalog'), $pagination['total']) }}
+        </span>
     @endif
 
 	@if($request->activeFilters->isNotEmpty())

@@ -8,7 +8,7 @@
 }
 
 .book-cards .book-card .book-cover img {
-  @apply w-full rounded shadow object-cover;
+  @apply w-full object-cover;
 }
 
 .book-cards .book-card .book-info {
@@ -16,15 +16,16 @@
 }
 
 .book-cards .book-card .book-info h2 {
-  @apply text-2xl text-left font-bold normal-case;
+  @apply text-2xl text-left font-bold normal-case mt-0 lg:mt-4 before:hidden;
   color: var(--primary);
 }
 
 .book-cards .book-card .book-info a {
   color: var(--primary);
 }
+
 .book-cards .book-card .book-info p {
-  @apply m-0;
+  @apply text-base m-0;
 }
 
 .book-cards .book-card .book-info > p:first-of-type {
@@ -44,11 +45,24 @@
 }
 
 .book-cards .book-card .book-info .book-description {
-  @apply mt-4;
+  @apply my-4;
 }
 
 .book-cards .book-card .book-info .book-description p {
   @apply mb-4;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a) {
+  display: contents;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a):after {
+  content: "\a";
+  white-space: break-spaces;
+}
+
+.book-cards .book-card .book-info .book-description.line-clamp p:after {
+  content: "\a\a";
 }
 
 .line-clamp {

@@ -21,10 +21,6 @@
   background-position: top center;
 }
 
-.page-template-page-catalog .hero > div {
-  @apply px-4 flex mx-auto w-full max-w-8xl;
-}
-
 .page-template-page-catalog .hero h1 {
   @apply text-4xl normal-case font-bold mx-auto leading-snug lg:text-5xl lg:max-w-screen-md;
   color: var(--primary);
@@ -34,10 +30,58 @@
   color: var(--primary);
 }
 
+.page-template-page-catalog .hero > div {
+  @apply px-4 flex mx-auto w-full max-w-8xl;
+}
+
 .page-template-page-catalog .hero-content {
-  @apply py-9 px-12 w-full bg-white rounded shadow-lg lg:space-y-8;
+  @apply py-9 px-12 w-full bg-white rounded shadow-lg space-y-4 lg:space-y-8;
+}
+
+.page-template-page-catalog .hero-content h1, .page-template-page-catalog .hero-content h2, .page-template-page-catalog .hero-content h3, .page-template-page-catalog .hero-content h4, .page-template-page-catalog .hero-content h5, .page-template-page-catalog .hero-content h6 {
+  @apply text-left mt-6 font-bold before:hidden;
+}
+
+.page-template-page-catalog .hero-content h2 {
+  @apply text-3xl lg:text-4xl normal-case;
+}
+
+.page-template-page-catalog .hero-content h3 {
+  @apply text-2xl lg:text-3xl uppercase;
+}
+
+.page-template-page-catalog .hero-content h4 {
+  @apply text-2xl lg:text-3xl;
+}
+
+.page-template-page-catalog .hero-content h5 {
+  @apply text-xl lg:text-2xl;
+}
+
+.page-template-page-catalog .hero-content h6 {
+  @apply text-lg lg:text-xl;
 }
 
 .page-template-page-catalog .hero-content div {
   @apply mx-auto lg:max-w-screen-md;
+}
+
+.page-template-page-catalog .hero-content p, .page-template-page-catalog .hero-content ul, .page-template-page-catalog .hero-content li, .page-template-page-catalog .hero-content blockquote {
+  @apply text-base lg:text-lg;
+}
+
+.page-template-page-catalog .hero-content ol, .page-template-page-catalog .hero-content ul {
+  @apply list-inside pt-4;
+}
+
+.page-template-page-catalog .hero-content ol {
+  @apply list-decimal;
+}
+
+.page-template-page-catalog .hero-content ul {
+  @apply list-disc;
+}
+
+.page-template-page-catalog .hero-content blockquote {
+  @apply pl-4 mt-6 border-l-2 border-gray-400;
 }

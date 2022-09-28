@@ -36,6 +36,14 @@
   @apply rounded-t;
 }
 
+.side-filters .side-filter:last-child {
+  @apply rounded-b;
+}
+
+.side-filters .side-filter:last-child button {
+  @apply rounded-b;
+}
+
 .side-filters .side-filter:last-of-type {
   @apply border-none;
 }
@@ -98,6 +106,10 @@
 
 .side-filters .buttons {
   @apply flex gap-2 mt-1.5;
+}
+
+.side-filters .buttons button {
+  @apply shadow;
 }
 
 .side-filters .reset-filters, .side-filters .submit-filters {

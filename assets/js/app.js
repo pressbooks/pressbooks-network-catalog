@@ -14,6 +14,22 @@ document.querySelector('.js-header-nav-toggle').addEventListener('click', () => 
   document.querySelector('.header__nav').classList.toggle('header__nav--active');
 });
 
+window.submitForm = () => {
+  document.getElementById('apply-filters').click();
+}
+
+document.getElementsByName('pg').forEach(element => {
+  element.addEventListener('change', function(event) {
+    document.getElementsByName('pg').forEach(select => {
+      if (select.id !== element.id) {
+        select.disabled = true;
+      }
+    });
+
+    submitForm();
+  });
+});
+
 window.selectableFilters = ({open, items, selected}) => {
   return {
     open,

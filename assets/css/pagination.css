@@ -1,82 +1,33 @@
 .pagination {
-  @apply mx-auto flex items-center gap-12 max-w-fit;
-}
-
-.pagination .page-list {
-  @apply m-0 p-0 gap-1 inline-flex list-none;
-}
-
-.pagination .page-list .page-item a, .pagination .page-list .page-item span:not(.sr-only) {
-  @apply relative inline-flex items-center bg-transparent border border-transparent rounded px-4 py-2 text-sm font-medium focus:outline-none;
+  @apply mx-auto flex items-center gap-4 max-w-fit font-semibold;
   color: var(--accent);
 }
 
-.pagination .page-list .page-item a:focus {
-  outline-color: var(--accent);
+.pagination.top {
+  @apply hidden lg:flex;
 }
 
-.pagination .page-list .page-item.active a {
-  background-color: var(--accent);
-  color: var(--primary-fg);
-}
-
-.pagination .page-list .page-item.previous-page a,
-.pagination .page-list .page-item.previous-page span,
-.pagination .page-list .page-item.next-page a,
-.pagination .page-list .page-item.next-page span {
-  @apply px-2;
+.pagination .pagination-item {
+  @apply px-4 py-2 inline-flex items-center border rounded text-sm;
+  color: var(--accent);
+  background-color: var(--primary-fg);
   border-color: var(--accent);
 }
 
-.pagination .page-list .page-item.previous-page a:focus,
-.pagination .page-list .page-item.previous-page span:focus,
-.pagination .page-list .page-item.next-page a:focus,
-.pagination .page-list .page-item.next-page span:focus {
-  @apply border-transparent;
+.pagination .pagination-item a {
+  color: var(--accent);
 }
 
-.pagination .page-list .page-item a {
-  @apply inline-flex;
+.pagination .pagination-item:hover, .pagination .pagination-item:hover a {
+  border-color: var(--accent-dark);
+ color: var(--accent-dark);
 }
 
-.pagination .page-list .page-item svg {
+.pagination .pagination-item svg {
   @apply h-4 w-4;
 }
 
-.pagination .go-to-page {
-  @apply flex items-center gap-2;
-}
-
-.pagination .go-to-page label {
-  @apply m-0 text-sm;
-}
-
-.pagination .go-to-page > div {
-  @apply flex items-center;
-}
-
-.pagination .go-to-page .go-to-page-input {
-  @apply py-2 px-1 w-10 bg-white rounded-l focus-within:outline-none;
-}
-
-.pagination .go-to-page .go-to-page-input:focus-within {
-  outline-color: var(--accent);
-}
-
-.pagination .go-to-page .go-to-page-input input {
-  @apply p-0 w-full border-none font-normal text-center focus:outline-none;
-}
-
-.pagination .go-to-page > div button {
-  @apply py-2 px-3 border-y border-none rounded-l-none rounded-r normal-case font-normal hover:shadow focus:outline-none;
-  background-color: var(--accent);
-  color: var(--primary-fg);
-}
-
-.pagination .go-to-page > div button:focus {
-  outline-color: var(--accent);
-}
-
-.pagination .go-to-page > div button:hover, .pagination .go-to-page > div button:focus {
-  background-color: var(--accent-dark);
+.pagination select {
+  @apply py-1.5 px-2 rounded border-none shadow text-center;
+  background-color: var(--primary-fg);
 }
