@@ -3,6 +3,10 @@
   color: var(--accent);
 }
 
+.pagination.top {
+  @apply hidden lg:flex;
+}
+
 .pagination .pagination-item {
   @apply px-4 py-2 inline-flex items-center border rounded text-sm;
   color: var(--accent);

@@ -8,7 +8,7 @@
 }
 
 .book-cards .book-card .book-cover img {
-  @apply w-full rounded shadow object-cover;
+  @apply w-full object-cover;
 }
 
 .book-cards .book-card .book-info {
@@ -16,15 +16,16 @@
 }
 
 .book-cards .book-card .book-info h2 {
-  @apply text-2xl text-left font-bold normal-case;
+  @apply text-2xl text-left font-bold normal-case mt-0 lg:mt-4 before:hidden;
   color: var(--primary);
 }
 
 .book-cards .book-card .book-info a {
   color: var(--primary);
 }
+
 .book-cards .book-card .book-info p {
-  @apply m-0;
+  @apply text-base m-0;
 }
 
 .book-cards .book-card .book-info > p:first-of-type {
