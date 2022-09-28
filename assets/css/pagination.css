@@ -4,7 +4,7 @@
 }
 
 .pagination.top {
-  @apply invisible lg:visible;
+  @apply hidden lg:flex;
 }
 
 .pagination .pagination-item {
