@@ -9,17 +9,9 @@ document.addEventListener('alpine:initialized', () => {
   fakeSpaTransition();
 })
 
-const form = document.getElementById('network-catalog-form');
-
-form.addEventListener('submit', function (event) {
-  const inputs = Array
-    .from(event.target.getElementsByTagName('input'))
-    .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
-
-  inputs
-    .filter(input => input.value === '')
-    .forEach(input => input.disabled = true);
-  return false;
+// Toggle the "open" class on the hamburger menu
+document.querySelector('.js-header-nav-toggle').addEventListener('click', () => {
+  document.querySelector('.header__nav').classList.toggle('header__nav--active');
 });
 
 window.selectableFilters = ({open, items, selected}) => {
@@ -82,22 +74,6 @@ window.dropdown = ({selected, options}) => {
     }
   };
 };
-
-window.removeFilter = (filter) => {
-  const attr = ['h5p'].includes(filter) ? 'name' : 'value';
-  if(filter === 'from' || filter === 'to') {
-    const el = document.querySelector(`input[name="${filter}"]`);
-    el.value = '';
-    el.dispatchEvent(new Event('change'));
-  } else {
-    document.querySelector(`input[${attr}="${filter}"]`).click();
-  }
-}
-
-window.reset = () => {
-  form.reset();
-  window.location.href = window.location.href.split('?')[0];
-}
 
 window.hasClampedText = (element) => {
   return element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth;

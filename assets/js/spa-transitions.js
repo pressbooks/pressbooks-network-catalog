@@ -9,6 +9,34 @@ export default function fakeSpaTransition() {
 
   let loadingInterval;
 
+  const applyButton = document.getElementById('apply-filters');
+
+  applyButton.addEventListener('click', function (event) {
+    const inputs = Array
+      .from(event.target.getElementsByTagName('input'))
+      .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
+
+    inputs
+      .filter(input => input.value === '')
+      .forEach(input => input.disabled = true);
+    barba.go(buildUrl());
+  });
+
+  window.removeFilter = (filter) => {
+    const attr = ['h5p'].includes(filter) ? 'name' : 'value';
+    if(filter === 'from' || filter === 'to') {
+      const el = document.querySelector(`input[name="${filter}"]`);
+      el.value = '';
+      el.dispatchEvent(new Event('change'));
+    } else {
+      const el = document.querySelector(`input[${attr}="${filter}"]`);
+      el.click();
+    }
+    setTimeout(() => {
+      applyButton.click();
+    },500);
+  }
+
   barba.init({
     preventRunning: true,
     timeout: 10000, // 10 seconds timeout should be enough specially in slow networks? before barba triggers the location reload (default is 5 seconds)
@@ -54,20 +82,21 @@ export default function fakeSpaTransition() {
     'to': document.getElementById('updated_to').value || '',
   }
 
+  window.reset = () => {
+    document.getElementById('network-catalog-form').reset();
+    window.location.href = window.location.href.split('?')[0];
+  }
+
   document.querySelector('input[name="h5p"]').addEventListener('click', function (event) {
-      extraFilters.h5p = event.target.checked ? 1 : 0;
-      barba.go(buildUrl());
+    extraFilters.h5p = event.target.checked ? 1 : 0;
   });
 
   document.getElementById('updated_from').addEventListener('change', function (event) {
-    console.log(event.target.value);
     extraFilters.from = event.target.value;
-    barba.go(buildUrl());
   });
 
   document.getElementById('updated_to').addEventListener('change', function (event) {
     extraFilters.to = event.target.value;
-    barba.go(buildUrl());
   });
 
   function buildUrl() {
@@ -119,8 +148,6 @@ export default function fakeSpaTransition() {
       } else {
         filters[filter].splice(filters[filter].indexOf(event.target.value), 1);
       }
-      const url = buildUrl();
-      barba.go(url);
     }
   })
 
