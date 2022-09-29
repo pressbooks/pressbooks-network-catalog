@@ -52,11 +52,14 @@
   @apply mb-4;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp *:not(a) {
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a):not(em):not(del):not(span):not(strong) {
   display: contents;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp *:not(a):after {
+.book-cards .book-card .book-info .book-description.line-clamp p:after,
+.book-cards .book-card .book-info .book-description.line-clamp ul:after,
+.book-cards .book-card .book-info .book-description.line-clamp ol:after,
+.book-cards .book-card .book-info .book-description.line-clamp li:after {
   content: "\a";
   white-space: break-spaces;
 }
