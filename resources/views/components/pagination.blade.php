@@ -7,6 +7,7 @@
 	>
 		@if($pagination['currentPage'] > 1)
 			<a
+                data-barba-prevent="self"
 				class="pagination-item"
 				rel="prev"
 
@@ -35,6 +36,7 @@
 
 		@if($pagination['currentPage'] < $pagination['totalPages'])
 			<a
+                data-barba-prevent="self"
 				class="pagination-item"
 				rel="next"
 				href="{{ $request->fullUrlWithQuery(['pg' => $pagination['nextPage']]) }}"
