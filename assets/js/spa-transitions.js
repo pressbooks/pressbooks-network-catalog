@@ -37,11 +37,19 @@ export default function fakeSpaTransition() {
       applyButton.click();
     },500);
   }
-
+//el.classList && el.closest('header').classList.contains('header')
   barba.init({
     preventRunning: true,
     timeout: 10000, // 10 seconds timeout should be enough specially in slow networks? before barba triggers the location reload (default is 5 seconds)
-    prevent: ({ el }) => el.classList && el.closest('header').classList.contains('header'),
+    prevent: function ({ el }) {
+      // Prevent Barba from running on links that are not in the barba container and cannot append data-barba-prevent="self" to the link
+      if(el.classList && el.closest('header')) {
+        return el.closest('header').classList.contains('header');
+      }
+      if(el.classList && el.closest('footer')) {
+        return el.closest('footer').classList.contains('footer');
+      }
+  },
     transitions: [{
       name: 'spa-transition',
       leave() {
