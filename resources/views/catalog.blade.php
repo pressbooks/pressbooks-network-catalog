@@ -12,6 +12,9 @@
         </div>
     </div>
     <form method="get" action="{{ $request->url() }}" id="network-catalog-form">
+        <div class="mobile-bar search-box">
+            @include('PressbooksNetworkCatalog::components.search-input')
+        </div>
         <div class="network-catalog">
             <aside class="side-filters">
                 @include('PressbooksNetworkCatalog::partials.sidebar-filters')
