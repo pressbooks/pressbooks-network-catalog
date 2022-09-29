@@ -1,4 +1,4 @@
-@unless($pagination['totalPages'] === 1)
+@unless($pagination['totalPages'] <= 1)
 	<nav
 		class="pagination {{$placement}}"
 		role="navigation"
