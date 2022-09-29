@@ -42,19 +42,24 @@ document.querySelector('.js-header-nav-toggle').addEventListener('click', () => 
 
 document.getElementsByName('pg').forEach(element => {
   element.addEventListener('change', function(event) {
-    const search = new URLSearchParams(
-        window.location.search
-    );
+    const pageRegex = /pg=\d+/;
+    const pageParam = `pg=${event.target.value}`;
+    const currentSearch = window.location.search;
+    const url = window.location.href.split('?')[0];
 
-    const params = {...Object.fromEntries(search.entries()), pg: event.target.value};
+    if (currentSearch.match(pageRegex)) {
+      window.location.href = `${url}${currentSearch.replace(pageRegex, pageParam)}`;
 
-    const newSearch = new URLSearchParams();
+      return;
+    }
 
-    Object.keys(params).forEach(function(key) {
-      newSearch.set(key, params[key]);
-    });
+    if (! currentSearch) {
+      window.location.href = `${url}?${pageParam}`;
 
-    window.location.href = window.location.href.split('?')[0] + `?${newSearch.toString()}`;
+      return;
+    }
+
+    window.location.href = `${url}${currentSearch}&${pageParam}`;
   });
 });
 
