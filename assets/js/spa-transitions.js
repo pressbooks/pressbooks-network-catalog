@@ -37,7 +37,7 @@ export default function fakeSpaTransition() {
       applyButton.click();
     },500);
   }
-//el.classList && el.closest('header').classList.contains('header')
+
   barba.init({
     preventRunning: true,
     timeout: 10000, // 10 seconds timeout should be enough specially in slow networks? before barba triggers the location reload (default is 5 seconds)
