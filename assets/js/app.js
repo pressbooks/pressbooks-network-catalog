@@ -9,12 +9,17 @@ const form = document.getElementById('network-catalog-form');
 
 form.addEventListener('submit', function (event) {
   const inputs = Array
-    .from(event.target.getElementsByTagName('input'))
+    .from(event.target.elements)
     .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
+
+  inputs
+    .filter(input => input.name === 'pg')
+    .forEach(input => input.disabled = true);
 
   inputs
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
+
   return true;
 });
 
@@ -27,19 +32,21 @@ document.querySelector('.js-header-nav-toggle').addEventListener('click', () => 
   document.querySelector('.header__nav').classList.toggle('header__nav--active');
 });
 
-window.submitForm = () => {
-  document.getElementById('apply-filters').click();
-}
-
 document.getElementsByName('pg').forEach(element => {
   element.addEventListener('change', function(event) {
-    document.getElementsByName('pg').forEach(select => {
-      if (select.id !== element.id) {
-        select.disabled = true;
-      }
+    const search = new URLSearchParams(
+        window.location.search
+    );
+
+    const params = {...Object.fromEntries(search.entries()), pg: event.target.value};
+
+    const newSearch = new URLSearchParams();
+
+    Object.keys(params).forEach(function(key) {
+      newSearch.set(key, params[key]);
     });
 
-    submitForm();
+    window.location.href = window.location.href.split('?')[0] + `?${newSearch.toString()}`;
   });
 });
 
