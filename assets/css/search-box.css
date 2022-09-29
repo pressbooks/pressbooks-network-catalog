@@ -3,7 +3,7 @@
 }
 
 .search-box .search {
-  @apply w-full flex flex-1 items-center bg-white shadow rounded my-5 md:my-0;
+  @apply hidden lg:flex w-full flex-1 items-center bg-white shadow rounded my-5 md:my-0;
 }
 
 .search-box .refine-filters {
@@ -55,6 +55,14 @@
 
 .search-box .results-per-page:focus, .search-box .results-sort-by:focus {
   outline-color: var(--primary);
+}
+
+.mobile-bar {
+  @apply flex flex-row justify-between items-center p-4 lg:hidden mb-0;
+}
+
+.mobile-bar .search {
+  @apply flex;
 }
 
 .result-stats {
