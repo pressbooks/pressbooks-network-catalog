@@ -5,9 +5,9 @@ import fakeSpaTransition from "./spa-transitions";
 
 window.Alpine = Alpine;
 
-document.addEventListener('alpine:initialized', () => {
+window.addEventListener('DOMContentLoaded', () => {
   fakeSpaTransition();
-})
+});
 
 // Toggle the "open" class on the hamburger menu
 document.querySelector('.js-header-nav-toggle').addEventListener('click', () => {
