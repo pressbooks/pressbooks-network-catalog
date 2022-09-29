@@ -5,9 +5,22 @@ import fakeSpaTransition from "./spa-transitions";
 
 window.Alpine = Alpine;
 
-window.addEventListener('DOMContentLoaded', () => {
-  fakeSpaTransition();
+const form = document.getElementById('network-catalog-form');
+
+form.addEventListener('submit', function (event) {
+  const inputs = Array
+    .from(event.target.getElementsByTagName('input'))
+    .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
+
+  inputs
+    .filter(input => input.value === '')
+    .forEach(input => input.disabled = true);
+  return true;
 });
+
+window.submitForm = () => {
+  document.getElementById('apply-filters').click();
+}
 
 // Toggle the "open" class on the hamburger menu
 document.querySelector('.js-header-nav-toggle').addEventListener('click', () => {
@@ -97,6 +110,24 @@ window.hasClampedText = (element) => {
 
 window.toggleClass = (element, className) => {
   element.classList.toggle(className);
+}
+
+window.removeFilter = (filter) => {
+  const attr = ['h5p'].includes(filter) ? 'name' : 'value';
+  if(filter === 'from' || filter === 'to') {
+    const el = document.querySelector(`input[name="${filter}"]`);
+    el.value = '';
+    el.dispatchEvent(new Event('change'));
+  } else {
+    const el = document.querySelector(`input[${attr}="${filter}"]`);
+    el.click();
+  }
+  submitForm();
+}
+
+window.reset = () => {
+  document.getElementById('network-catalog-form').reset();
+  window.location.href = window.location.href.split('?')[0];
 }
 
 PbDatePicker();

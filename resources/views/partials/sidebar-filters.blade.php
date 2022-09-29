@@ -76,7 +76,7 @@
 </div>
 
 <div class="buttons">
-	<button id="apply-filters" class="submit-filters" type="button">
+	<button id="apply-filters" class="submit-filters" type="submit">
 		{{ __('Apply filters', 'pressbooks-network-catalog') }}
 	</button>
 
