@@ -12,10 +12,18 @@ form.addEventListener('submit', function (event) {
     .from(event.target.elements)
     .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
 
+  // disable pagination when submitting the form since we want to reset it
   inputs
     .filter(input => input.name === 'pg')
     .forEach(input => input.disabled = true);
 
+  // disable search input that is not visible
+  inputs
+    .filter(input => input.name === 'search')
+    .filter(input => input.offsetWidth === 0 && input.offsetHeight === 0)
+    .forEach(input => input.disabled = true);
+
+  // disable all inputs that are empty
   inputs
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
