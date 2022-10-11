@@ -302,7 +302,7 @@ class Books
 
 		return array_map(function ($book) use ($possibleLicenses, $supported_languages) {
 			$book->license = $possibleLicenses[$book->license] ?? '';
-			$book->language = $supported_languages[ $book->language ] ?? $book->language;
+			$book->language = $supported_languages[$book->language] ?? $book->language;
 
 			return $book;
 		}, $this->books);
