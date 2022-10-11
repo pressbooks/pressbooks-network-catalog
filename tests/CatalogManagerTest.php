@@ -43,6 +43,24 @@ class CatalogManagerTest extends TestCase
 	 * @test
 	 * @group request
 	 */
+	public function it_retrieves_an_empty_list_if_catalog_is_empty(): void
+	{
+		$this->_book();
+
+		$this->_book();
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books']);
+
+		$this->assertCount(0, $books);
+		$this->assertFalse($response['catalogHasBooks']);
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
 	public function it_retrieves_books_that_are_in_catalog(): void
 	{
 		$firstBookId = $this->createCatalogBook();

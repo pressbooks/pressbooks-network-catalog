@@ -182,6 +182,20 @@ class Books
 		return $this->getPreparedBooks();
 	}
 
+	public function catalogHasBooks(): bool
+	{
+		global $wpdb;
+
+		$count = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT count(DISTINCT blog_id) FROM $wpdb->blogmeta WHERE blog_id IN (SELECT blog_id FROM $wpdb->blogmeta WHERE meta_key = %s AND meta_value = 1)",
+				Book::IN_CATALOG
+			)
+		);
+
+		return (int) $count > 0;
+	}
+
 	public function getPagination(): array
 	{
 		if (! $this->booksRequestManager->validateRequest($this->filters)) {

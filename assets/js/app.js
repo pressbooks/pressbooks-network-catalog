@@ -9,12 +9,25 @@ const form = document.getElementById('network-catalog-form');
 
 form.addEventListener('submit', function (event) {
   const inputs = Array
-    .from(event.target.getElementsByTagName('input'))
+    .from(event.target.elements)
     .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
 
+  // disable pagination when submitting the form since we want to reset it
+  inputs
+    .filter(input => input.name === 'pg')
+    .forEach(input => input.disabled = true);
+
+  // disable search input that is not visible
+  inputs
+    .filter(input => input.name === 'search')
+    .filter(input => input.offsetWidth === 0 && input.offsetHeight === 0)
+    .forEach(input => input.disabled = true);
+
+  // disable all inputs that are empty
   inputs
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
+
   return true;
 });
 
@@ -27,19 +40,26 @@ document.querySelector('.js-header-nav-toggle').addEventListener('click', () => 
   document.querySelector('.header__nav').classList.toggle('header__nav--active');
 });
 
-window.submitForm = () => {
-  document.getElementById('apply-filters').click();
-}
-
 document.getElementsByName('pg').forEach(element => {
   element.addEventListener('change', function(event) {
-    document.getElementsByName('pg').forEach(select => {
-      if (select.id !== element.id) {
-        select.disabled = true;
-      }
-    });
+    const pageRegex = /pg=\d+/;
+    const pageParam = `pg=${event.target.value}`;
+    const currentSearch = window.location.search;
+    const url = window.location.href.split('?')[0];
 
-    submitForm();
+    if (currentSearch.match(pageRegex)) {
+      window.location.href = `${url}${currentSearch.replace(pageRegex, pageParam)}`;
+
+      return;
+    }
+
+    if (! currentSearch) {
+      window.location.href = `${url}?${pageParam}`;
+
+      return;
+    }
+
+    window.location.href = `${url}${currentSearch}&${pageParam}`;
   });
 });
 

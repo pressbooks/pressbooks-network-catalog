@@ -38,6 +38,7 @@ class CatalogManager
 			'books' => $books->get(),
 			'pagination' => $books->getPagination(),
 			'catalogBg' => $this->getBackgroundImage(),
+			'catalogHasBooks' => $books->catalogHasBooks(),
 		] + $this->filters;
 	}
 
