@@ -298,11 +298,11 @@ class Books
 	private function getPreparedBooks(): array
 	{
 		$possibleLicenses = License::getPossibleValues();
-        $supported_languages = \Pressbooks\L10n\supported_languages();
+		$supported_languages = \Pressbooks\L10n\supported_languages();
 
 		return array_map(function ($book) use ($possibleLicenses, $supported_languages) {
 			$book->license = $possibleLicenses[$book->license] ?? '';
-            $book->language = $supported_languages[$book->language] ?? '';
+			$book->language = $supported_languages[$book->language] ?? '';
 
 			return $book;
 		}, $this->books);
