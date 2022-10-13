@@ -3,15 +3,15 @@
 
 	<div class="refine-filters">
         @include('PressbooksNetworkCatalog::components.dropdown', [
-    	'label' => __('Results per page', 'pressbooks-network-catalog'),
-    	'name' => 'per_page',
-    	'default' => 10,
-    	'options' => [
-    		10 => sprintf(__('%d results', 'pressbooks-network-catalog'), 10),
-    		20 => sprintf(__('%d results', 'pressbooks-network-catalog'), 20),
-    		50 => sprintf(__('%d results', 'pressbooks-network-catalog'), 50),
-		]
-	])
+			'label' => __('Results per page', 'pressbooks-network-catalog'),
+			'name' => 'per_page',
+			'default' => 10,
+			'options' => [
+				10 => sprintf(__('%d results', 'pressbooks-network-catalog'), 10),
+				20 => sprintf(__('%d results', 'pressbooks-network-catalog'), 20),
+				50 => sprintf(__('%d results', 'pressbooks-network-catalog'), 50),
+			]
+		])
 
         @include('PressbooksNetworkCatalog::components.dropdown', [
             'label' => __('Sort by', 'pressbooks-network-catalog'),
@@ -37,7 +37,7 @@
     @endif
 
 	@if($request->activeFilters->isNotEmpty())
-		<div class="applied-filters" x-data>
+		<section class="applied-filters" x-data aria-label="{{ __('Applied filters', 'pressbooks-network-catalog') }}">
 			@foreach($request->activeFilters as $filter)
 				<div class="applied-filter">
 					<span>{{ $filter['label'] }}</span>
@@ -47,6 +47,6 @@
 					</button>
 				</div>
 			@endforeach
-		</div>
+		</section>
 	@endif
 </div>

@@ -12,18 +12,20 @@
 		</div>
 	</div>
 	<form method="get" action="{{ $request->url() }}" id="network-catalog-form">
-		<div class="mobile-bar search-box">
+		<section class="mobile-bar search-box" aria-label="{{ __('Search', 'pressbooks-network-catalog') }}">
 			@include('PressbooksNetworkCatalog::components.search-input')
-		</div>
+		</section>
 		<div class="network-catalog">
-			<aside class="side-filters">
+			<section class="side-filters" aria-label="{{ __('Filters', 'pressbooks-network-catalog') }}">
 				@include('PressbooksNetworkCatalog::partials.sidebar-filters')
-			</aside>
+			</section>
 
 			<div data-barba="container" data-barba-namespace="home">
-				@include('PressbooksNetworkCatalog::partials.search-box')
+				<section aria-label="{{ __('Search, pagination, and sorting', 'pressbooks-network-catalog') }}">
+					@include('PressbooksNetworkCatalog::partials.search-box')
+				</section>
 
-				<div class="book-cards">
+				<section class="book-cards" aria-label="{{ __('Book list', 'pressbooks-network-catalog') }}">
 					@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'top'])
 
 					@forelse( $books as $book )
@@ -37,7 +39,7 @@
 					@endforelse
 
 					@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'bottom'])
-				</div>
+				</section>
 			</div>
 		</div>
 	</form>
