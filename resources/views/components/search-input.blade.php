@@ -1,5 +1,5 @@
 <div class="search">
-    <label id="search-input-label" class="sr-only">{{ __('Search', 'pressbooks-network-catalog') }}</label>
+    <label id="search-input-label" class="sr-only">{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}</label>
     <div class="search-input">
         <input
             type="search"
