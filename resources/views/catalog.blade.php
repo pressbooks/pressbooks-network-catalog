@@ -25,9 +25,9 @@
 					@include('PressbooksNetworkCatalog::partials.search-box')
 				</section>
 
-				<section class="book-cards" aria-label="{{ __('Book list', 'pressbooks-network-catalog') }}">
-					@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'top'])
+				@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'top'])
 
+				<section class="book-cards" aria-label="{{ __('Book list', 'pressbooks-network-catalog') }}">
 					@forelse( $books as $book )
 						@include('PressbooksNetworkCatalog::partials.book-card')
 					@empty
@@ -37,9 +37,9 @@
 							<p>{{ __('No books have been added to the catalog yet.', 'pressbooks-network-catalog') }}</p>
 						@endif
 					@endforelse
-
-					@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'bottom'])
 				</section>
+
+				@include('PressbooksNetworkCatalog::components.pagination', ['placement' => 'bottom'])
 			</div>
 		</div>
 	</form>
