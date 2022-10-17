@@ -7,7 +7,7 @@
 	>
 		@if($pagination['currentPage'] > 1)
 			<a
-                data-barba-prevent="self"
+				data-barba-prevent="self"
 				class="pagination-item"
 				rel="prev"
 
@@ -19,24 +19,21 @@
 			</a>
 		@endif
 
-		<div>
-			<label class="sr-only" :for="$id('pagination-dropdown')">{{ sprintf(__('Go to page # of %d', 'pressbooks-network-catalog'), $pagination['totalPages']) }}</label>
-			<select name="pg" :id="$id('pagination-dropdown')">
-				@foreach(range(1, $pagination['totalPages']) as $page)
-					<option
-						{{ $page === $pagination['currentPage'] ? 'selected' : '' }}
-						value="{{ $page }}"
-					>
-						{{ $page }}
-					</option>
-				@endforeach
-			</select>
-			{{ sprintf(__('of %d', 'pressbooks-network-catalog'), $pagination['totalPages']) }}
-		</div>
+		<label class="sr-only" :for="$id('pagination-dropdown')">{{ __('Go to page', 'pressbooks-network-catalog') }}</label>
+		<select name="pg" :id="$id('pagination-dropdown')">
+			@foreach(range(1, $pagination['totalPages']) as $page)
+				<option
+					{{ $page === $pagination['currentPage'] ? 'selected' : '' }}
+					value="{{ $page }}"
+				>
+					{{ sprintf(__('%d of %d', 'pressbooks-network-catalog'), $page, $pagination['totalPages']) }}
+				</option>
+			@endforeach
+		</select>
 
 		@if($pagination['currentPage'] < $pagination['totalPages'])
 			<a
-                data-barba-prevent="self"
+				data-barba-prevent="self"
 				class="pagination-item"
 				rel="next"
 				href="{{ $request->fullUrlWithQuery(['pg' => $pagination['nextPage']]) }}"
