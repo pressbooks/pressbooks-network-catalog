@@ -1,7 +1,7 @@
 import Alpine from 'alpinejs';
 import '../css/app.css';
-import PbDatePicker from "./datepicker";
-import fakeSpaTransition from "./spa-transitions";
+import { DuetDatePicker } from "@duetds/date-picker/custom-element";
+customElements.define("duet-date-picker", DuetDatePicker);
 
 window.Alpine = Alpine;
 
@@ -149,8 +149,6 @@ window.reset = () => {
   document.getElementById('network-catalog-form').reset();
   window.location.href = window.location.href.split('?')[0];
 }
-
-PbDatePicker();
 
 Alpine.start();
 
