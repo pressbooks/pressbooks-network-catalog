@@ -3,7 +3,7 @@
 		<img src="{{ $book->cover }}" alt="{{ sprintf(__('%s book cover', 'pressbooks-network-catalog'), $book->title) }}" />
 	</div>
 	<div class="book-info">
-		<h2><a href="{{ $book->url }}" data-barba-prevent="self">{{ $book->title }}</a></h2>
+		<h2><a href="{{ $book->url }}">{{ $book->title }}</a></h2>
 		<p>
 			<span>{{ $book->license }}&nbsp;</span>
 			@if( $book->h5pCount)

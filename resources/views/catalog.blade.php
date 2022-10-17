@@ -20,7 +20,7 @@
 				@include('PressbooksNetworkCatalog::partials.sidebar-filters')
 			</section>
 
-			<div data-barba="container" data-barba-namespace="home">
+			<div>
 				<section aria-label="{{ __('Search, pagination, and sorting', 'pressbooks-network-catalog') }}">
 					@include('PressbooksNetworkCatalog::partials.search-box')
 				</section>
