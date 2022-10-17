@@ -1,36 +1,10 @@
-.dropdown {
-  @apply flex justify-center;
+select {
+  appearance: none;
+  @apply p-4 rounded shadow cursor-pointer pr-8;
+  background: var(--bg-chip) url(https://cdn.jsdelivr.net/npm/heroicons@0.4.0/solid/chevron-down.svg) no-repeat 95% center;
+  background-size: 1.3rem;
 }
 
-.dropdown > div {
-  @apply relative;
-}
-
-.dropdown button.trigger {
-  border: inherit;
-  @apply flex items-center gap-2 bg-white px-5 py-3 rounded-md shadow normal-case font-normal focus:outline-none;
-}
-
-.dropdown button.trigger.open {
-  @apply rounded-b-none;
-}
-
-.dropdown button.trigger svg {
-  @apply h-4 w-4 text-gray-500;
-}
-
-.dropdown button.trigger:focus {
+select:focus {
   outline-color: var(--primary);
-}
-
-.dropdown .content {
-  @apply absolute left-0 w-full rounded-b-md bg-white shadow-md;
-}
-
-.dropdown .content button {
-  @apply flex items-center gap-2 w-full px-4 py-2 text-left text-sm normal-case font-normal last-of-type:rounded-b-md;
-}
-
-.dropdown .content button:hover {
-  background: var(--border-color);
 }
