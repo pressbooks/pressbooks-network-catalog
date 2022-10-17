@@ -7,7 +7,11 @@
 		<p>
 			<span>{{ $book->license }}&nbsp;</span>
 			@if( $book->h5pCount)
-				<span>&nbsp;{{ sprintf(__('%d H5P Activities', 'pressbooks-network-catalog'), $book->h5pCount) . ' ' }}&nbsp;</span>
+				<span>
+					<a href="{{ "$book->url/h5p-listing" }}">
+						{{ sprintf(__('%d H5P Activities', 'pressbooks-network-catalog'), $book->h5pCount) . ' ' }}
+					</a>
+				</span>
 			@endif
 			<span>&nbsp;{{ $book->language }}</span>
 		</p>
