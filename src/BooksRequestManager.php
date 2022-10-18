@@ -83,6 +83,7 @@ class BooksRequestManager
 				'type' => 'date',
 				'sqlOperator' => '<=',
 				'field' => 'last_updated',
+                'greaterThanOrEqualsTo' => 'from',
 			],
 			'sort_by' => [
 				'type' => 'array',
@@ -122,12 +123,7 @@ class BooksRequestManager
 			$validator = ValidatorFactory::make($rules['type']);
 			$rules = $this->mergeParams($rules, $params);
 
-			$isValid = $validator->rules($rules)->validate($this->request->get($key));
-			if ($isValid && $key === 'to' && ! empty($this->request->get('from'))) {
-				$isValid = $validator->validateRange($this->request->get('from'), $this->request->get('to'));
-			}
-
-			return $isValid;
+			return $validator->rules($rules)->validate($this->request->get($key));
 		})->doesntContain(false);
 	}
 
