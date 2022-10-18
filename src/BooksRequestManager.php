@@ -122,7 +122,12 @@ class BooksRequestManager
 			$validator = ValidatorFactory::make($rules['type']);
 			$rules = $this->mergeParams($rules, $params);
 
-			return $validator->rules($rules)->validate($this->request->get($key));
+			$isValid = $validator->rules($rules)->validate($this->request->get($key));
+			if ($isValid && $key === 'to' && ! empty($this->request->get('from'))) {
+				$isValid = $validator->validateRange($this->request->get('from'), $this->request->get('to'));
+			}
+
+			return $isValid;
 		})->doesntContain(false);
 	}
 

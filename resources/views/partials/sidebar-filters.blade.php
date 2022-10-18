@@ -27,9 +27,20 @@
 	<div id="last-updated-wrapper" x-cloak :class="!open && 'hidden'">
             <div>
                 <label>From</label>
-                <duet-date-picker identifier="updated_from" name="from" value="{{$request->from ?? ''}}"></duet-date-picker>
+                <duet-date-picker
+                    identifier="updated_from"
+                    name="from"
+                    value="{{$request->from ?? ''}}"
+                    min="2010-01-01"
+                    max="{{date('Y-m-d')}}"
+                ></duet-date-picker>
                 <label>To</label>
-                <duet-date-picker identifier="updated_to" name="to" value="{{$request->to ?? ''}}"></duet-date-picker>
+                <duet-date-picker
+                    identifier="updated_to"
+                    name="to"
+                    value="{{$request->to ?? ''}}"
+                    max="{{date('Y-m-d')}}"
+                ></duet-date-picker>
             </div>
 	</div>
 </div>

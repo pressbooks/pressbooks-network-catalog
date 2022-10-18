@@ -1,4 +1,4 @@
-# Pressbooks VIP
+# Pressbooks Network Catalog plugin
 
 Contributors: fdalcin, arzola, richard015ar, steelwagstaff \
 Donate link: https://pressbooks.com/ \

@@ -28,6 +28,19 @@ form.addEventListener('submit', function (event) {
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
 
+  const dates = inputs
+    .filter(input => input.name === 'from' || input.name === 'to');
+
+  if(dates.length === 2) {
+    if(new Date(dates[0].value) > new Date(dates[1].value)) {
+      let dateToInput = document.querySelector('input[id="updated_to"]');
+      dateToInput.setCustomValidity('The "To" date must be greater than the "From" date.');
+      dateToInput.valid = false;
+      dateToInput.reportValidity();
+      event.preventDefault();
+    }
+  }
+
   return true;
 });
 
@@ -39,6 +52,7 @@ window.submitForm = () => {
 document.querySelector('.js-header-nav-toggle').addEventListener('click', () => {
   document.querySelector('.header__nav').classList.toggle('header__nav--active');
 });
+
 
 document.getElementsByName('pg').forEach(element => {
   element.addEventListener('change', function(event) {
