@@ -18,6 +18,6 @@ class DateValidator implements Validator
 
 	public function validateRange(string $from, string $to): bool
 	{
-		return \strtotime($from) <= \strtotime($to);
+		return $this->validate($from) && $this->validate($to) && \strtotime($from) <= \strtotime($to);
 	}
 }
