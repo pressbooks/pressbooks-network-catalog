@@ -1,6 +1,6 @@
 select {
   appearance: none;
-  @apply p-4 rounded shadow cursor-pointer pr-8;
+  @apply py-3 pl-4 pr-8 rounded shadow cursor-pointer;
   background: var(--bg-chip) url(https://cdn.jsdelivr.net/npm/heroicons@0.4.0/solid/chevron-down.svg) no-repeat 95% center;
   background-size: 1.3rem;
 }
