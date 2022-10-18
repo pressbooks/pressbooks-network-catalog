@@ -752,7 +752,7 @@ class CatalogManagerTest extends TestCase
 	 * @test
 	 * @group request
 	 */
-	public function it_filters_books_using_an_invalid_last_updated_range(): void
+	public function it_returns_empty_when_using_an_invalid_last_updated_range(): void
 	{
 		$firstBook = $this->createCatalogBook();
 		$firstBookLastUpdated = Carbon::now()->subDays(15);
