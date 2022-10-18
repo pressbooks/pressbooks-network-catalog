@@ -18,8 +18,8 @@ class DateValidator implements Validator
     private function extraRules($data): bool
     {
         $request = Request::capture();
-        if(isset($this->values['greaterThanOrEqualsTo']) && $request->get($this->values['greaterThanOrEqualsTo'])) {
-            return \strtotime($request->get($this->values['greaterThanOrEqualsTo'])) <= \strtotime($data);
+        if(isset($this->values['greaterThanOrEqualTo']) && $request->get($this->values['greaterThanOrEqualTo'])) {
+            return \strtotime($request->get($this->values['greaterThanOrEqualTo'])) <= \strtotime($data);
         }
         return true;
     }

@@ -8,7 +8,6 @@ window.Alpine = Alpine;
 const form = document.getElementById('network-catalog-form');
 
 form.addEventListener('submit', function (event) {
-  console.log('submitted');
   const inputs = Array
     .from(event.target.elements)
     .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
@@ -29,20 +28,19 @@ form.addEventListener('submit', function (event) {
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
 
-  const dates = inputs
+  const lastUpdateInputs = inputs
     .filter(input => input.name === 'from' || input.name === 'to');
 
-  if(dates.length === 2) {
-    console.log(new Date(dates[0].value), new Date(dates[1].value), event.cancelable);
-    if(new Date(dates[0].value) > new Date(dates[1].value)) {
+  if(lastUpdateInputs.length === 2) {
+    if(new Date(lastUpdateInputs[0].value) > new Date(lastUpdateInputs[1].value)) {
       let dateToInput = document.querySelector('input[id="updated_to"]');
-      dateToInput.setCustomValidity('The "To" date must be greater than the "From" date.');
+      dateToInput.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
       dateToInput.valid = false;
       dateToInput.reportValidity();
       event.preventDefault();
-      dateToInput.setCustomValidity("");
+      dateToInput.setCustomValidity('');
       dateToInput.valid = true;
-      return;
+      return false;
     }
   }
 

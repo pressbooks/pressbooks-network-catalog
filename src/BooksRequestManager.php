@@ -83,7 +83,7 @@ class BooksRequestManager
 				'type' => 'date',
 				'sqlOperator' => '<=',
 				'field' => 'last_updated',
-                'greaterThanOrEqualsTo' => 'from',
+                'greaterThanOrEqualTo' => 'from',
 			],
 			'sort_by' => [
 				'type' => 'array',
