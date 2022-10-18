@@ -28,6 +28,6 @@
 }
 
 .pagination select {
-  @apply py-1.5 px-2 rounded border-none shadow text-center;
+  @apply py-1.5 pl-2 rounded border-none shadow text-center;
   background-color: var(--primary-fg);
 }
