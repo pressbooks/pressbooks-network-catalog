@@ -98,30 +98,8 @@ window.selectableFilters = ({open, items, selected}) => {
   }
 };
 
-window.dropdown = ({selected, options}) => {
-  return {
-    open: false,
-    selected: selected,
-    options: options,
-    toggle() {
-      if (this.open) {
-        return this.close();
-      }
-
-      this.$refs.button.focus();
-
-      this.open = true;
-    },
-    close(focusAfter) {
-      if (!this.open) {
-        return;
-      }
-
-      this.open = false;
-
-      focusAfter && focusAfter.focus();
-    }
-  };
+window.changeOnSelect = () => {
+  submitForm();
 };
 
 window.hasClampedText = (element) => {
