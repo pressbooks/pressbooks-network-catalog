@@ -30,7 +30,7 @@
     "eslint-plugin-vue": "^9.6.0",
     "postcss": "^8.4.18",
     "postcss-nested": "^6.0.0",
-    "tailwindcss": "^3.1.8",
+    "tailwindcss": "^3.2.0",
     "vite": "^3.1.8",
     "vite-plugin-live-reload": "^3.0.1"
   },
