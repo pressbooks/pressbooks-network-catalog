@@ -28,8 +28,29 @@ form.addEventListener('submit', function (event) {
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
 
+  const lastUpdateInputs = inputs
+    .filter(input => input.name === 'from' || input.name === 'to');
+
+  if(lastUpdateInputs.length === 2) {
+    if(new Date(lastUpdateInputs[0].value) > new Date(lastUpdateInputs[1].value)) {
+      let dateToInput = document.querySelector('input[id="updated_to"]');
+      dateToInput.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
+      dateToInput.valid = false;
+      dateToInput.reportValidity();
+      event.preventDefault();
+      return false;
+    }
+  }
+
   return true;
 });
+
+const datepicker = document.getElementsByName('to')[0];
+datepicker.addEventListener('duetChange', function(event) {
+  let dateToInput = document.querySelector('input[id="updated_to"]');
+  dateToInput.setCustomValidity('');
+  dateToInput.valid = true;
+})
 
 window.submitForm = () => {
   document.getElementById('apply-filters').click();
@@ -39,6 +60,7 @@ window.submitForm = () => {
 document.querySelector('.js-header-nav-toggle').addEventListener('click', () => {
   document.querySelector('.header__nav').classList.toggle('header__nav--active');
 });
+
 
 document.getElementsByName('pg').forEach(element => {
   element.addEventListener('change', function(event) {

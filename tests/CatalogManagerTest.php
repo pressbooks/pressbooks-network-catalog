@@ -752,6 +752,35 @@ class CatalogManagerTest extends TestCase
 	 * @test
 	 * @group request
 	 */
+	public function it_returns_empty_when_using_an_invalid_last_updated_range(): void
+	{
+		$firstBook = $this->createCatalogBook();
+		$firstBookLastUpdated = Carbon::now()->subDays(15);
+
+		$this->updateLastUpdated($firstBook, $firstBookLastUpdated);
+
+		$secondBook = $this->createCatalogBook();
+
+		$this->updateLastUpdated($secondBook, Carbon::now()->subMonths(2));
+
+		$thirdBook = $this->createCatalogBook();
+
+		$this->updateLastUpdated($thirdBook, Carbon::now()->addMonths(2));
+
+		$_GET['to'] = Carbon::now()->subMonth()->toDateString();
+		$_GET['from'] = Carbon::now()->addMonth()->toDateString();
+
+		$response = $this->catalogManager->handle();
+
+		$books = collect($response['books']);
+
+		$this->assertCount(0, $books);
+	}
+
+	/**
+	 * @test
+	 * @group request
+	 */
 	public function it_filters_books_that_have_h5p_enabled(): void
 	{
 		$firstBook = $this->createCatalogBook();
