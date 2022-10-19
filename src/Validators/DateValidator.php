@@ -18,8 +18,9 @@ class DateValidator implements Validator
 	{
 		$request = Request::capture();
 		$compareTo = $this->values['greaterThanOrEqualTo'] ?? null;
-		if ($compareTo && $request->get($this->values['greaterThanOrEqualTo'])) {
-			return \strtotime($request->get($this->values['greaterThanOrEqualTo'])) <= \strtotime($data);
+
+		if ($compareTo && $request->get($compareTo)) {
+			return \strtotime($request->get($compareTo)) <= \strtotime($data);
 		}
 
 		return true;
