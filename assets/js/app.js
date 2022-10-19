@@ -38,14 +38,19 @@ form.addEventListener('submit', function (event) {
       dateToInput.valid = false;
       dateToInput.reportValidity();
       event.preventDefault();
-      dateToInput.setCustomValidity('');
-      dateToInput.valid = true;
       return false;
     }
   }
 
   return true;
 });
+
+const datepicker = document.getElementsByName('to')[0];
+datepicker.addEventListener('duetChange', function(event) {
+  let dateToInput = document.querySelector('input[id="updated_to"]');
+  dateToInput.setCustomValidity('');
+  dateToInput.valid = true;
+})
 
 window.submitForm = () => {
   document.getElementById('apply-filters').click();

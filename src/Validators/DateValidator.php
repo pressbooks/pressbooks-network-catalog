@@ -17,7 +17,8 @@ class DateValidator implements Validator
 	private function extraRules($data): bool
 	{
 		$request = Request::capture();
-		if (isset($this->values['greaterThanOrEqualTo']) && $request->get($this->values['greaterThanOrEqualTo'])) {
+		$compareTo = $this->values['greaterThanOrEqualTo'] ?? null;
+		if ($compareTo && $request->get($this->values['greaterThanOrEqualTo'])) {
 			return \strtotime($request->get($this->values['greaterThanOrEqualTo'])) <= \strtotime($data);
 		}
 
@@ -34,10 +35,5 @@ class DateValidator implements Validator
 		$this->setValues($data);
 
 		return $this;
-	}
-
-	public function validateRange(string $from, string $to): bool
-	{
-		return $this->validate($from) && $this->validate($to) && \strtotime($from) <= \strtotime($to);
 	}
 }
