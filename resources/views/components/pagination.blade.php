@@ -10,7 +10,7 @@
 				class="pagination-item"
 				rel="prev"
 
-				href="{{ $request->fullUrlWithQuery(['pg' => $pagination['previousPage']]) }}"
+				href="{{ $request->fullUrlWithQuery(['pg' => $pagination['previousPage']]) }}#catalog"
 				disabled
 			>
 				<span class="sr-only">{{ __('Go to previous page', 'pressbooks-network-catalog') }}</span>
@@ -34,7 +34,7 @@
 			<a
 				class="pagination-item"
 				rel="next"
-				href="{{ $request->fullUrlWithQuery(['pg' => $pagination['nextPage']]) }}"
+				href="{{ $request->fullUrlWithQuery(['pg' => $pagination['nextPage']]) }}#catalog"
 			>
 				<span class="sr-only">{{ __('Go to next page', 'pressbooks-network-catalog') }}</span>
 				@include('PressbooksNetworkCatalog::icons.chevron-right')

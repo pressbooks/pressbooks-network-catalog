@@ -7,6 +7,8 @@ window.Alpine = Alpine;
 
 const form = document.getElementById('network-catalog-form');
 
+const anchorIdRedirection = '#catalog';
+
 form.addEventListener('submit', function (event) {
   const inputs = Array
     .from(event.target.elements)
@@ -70,18 +72,18 @@ document.getElementsByName('pg').forEach(element => {
     const url = window.location.href.split('?')[0];
 
     if (currentSearch.match(pageRegex)) {
-      window.location.href = `${url}${currentSearch.replace(pageRegex, pageParam)}`;
+      window.location.href = `${url}${currentSearch.replace(pageRegex, pageParam)}${anchorIdRedirection}`;
 
       return;
     }
 
     if (! currentSearch) {
-      window.location.href = `${url}?${pageParam}`;
+      window.location.href = `${url}?${pageParam}${anchorIdRedirection}`;
 
       return;
     }
 
-    window.location.href = `${url}${currentSearch}&${pageParam}`;
+    window.location.href = `${url}${currentSearch}&${pageParam}${anchorIdRedirection}`;
   });
 });
 
@@ -147,7 +149,7 @@ window.removeFilter = (filter) => {
 
 window.reset = () => {
   document.getElementById('network-catalog-form').reset();
-  window.location.href = window.location.href.split('?')[0];
+  window.location.href = window.location.href.split('?')[0] + `${anchorIdRedirection}`;
 }
 
 Alpine.start();
