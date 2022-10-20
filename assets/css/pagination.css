@@ -1,5 +1,5 @@
 .pagination {
-  @apply mx-auto flex items-center gap-4 max-w-fit font-semibold;
+  @apply my-4 mx-auto flex items-center gap-4 max-w-fit font-semibold;
   color: var(--accent);
 }
 
