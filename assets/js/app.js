@@ -147,7 +147,7 @@ window.removeFilter = (filter) => {
 
 window.reset = () => {
   document.getElementById('network-catalog-form').reset();
-  window.location.href = window.location.href.split('?')[0];
+  window.location.href = window.location.href.split('?')[0] + '#catalog';
 }
 
 Alpine.start();
