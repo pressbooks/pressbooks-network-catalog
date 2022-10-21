@@ -1,10 +1,9 @@
 .book-cards .book-card {
-  @apply p-4 flex items-start justify-center gap-6 border rounded shadow-lg bg-white;
+  @apply flex flex-col items-start justify-center gap-6 p-4 rounded-md shadow-md bg-white sm:flex-row;
 }
 
 .book-cards .book-card .book-cover {
-  @apply w-2/6;
-  max-width: 17.1875rem;
+  @apply w-full sm:w-2/6 sm:max-w-[17.1875rem];
 }
 
 .book-cards .book-card .book-cover img {
@@ -45,11 +44,11 @@
 }
 
 .book-cards .book-card .book-info .book-description {
-  @apply my-4;
+  @apply mt-6 mb-2;
 }
 
 .book-cards .book-card .book-info .book-description p {
-  @apply mb-4;
+  @apply mb-2;
 }
 
 .book-cards .book-card .book-info .book-description.line-clamp *:not(a):not(em):not(del):not(span):not(strong):not(u) {
