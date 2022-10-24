@@ -10,6 +10,7 @@
 @import 'pagination.css';
 @import 'dropdown.css';
 @import 'datepicker.css';
+@import 'order-filters.css';
 
 :root{
   /* TODO: define where this colors should be */

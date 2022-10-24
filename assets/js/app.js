@@ -120,7 +120,15 @@ window.selectableFilters = ({open, items, selected}) => {
   }
 };
 
-window.changeOnSelect = () => {
+window.changeOnSelect = (event) => {
+  if(event.target.closest('.order-mobile')) { //disable desktop select to avoid duplicated parameters
+    const select = document.querySelector('.order-desktop select');
+    select.disabled = true;
+  }
+  if(event.target.closest('.order-desktop')) { //
+    const select = document.querySelector('.order-mobile select');
+    select.disabled = true;
+  }
   submitForm();
 };
 

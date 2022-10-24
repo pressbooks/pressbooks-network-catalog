@@ -16,11 +16,14 @@
 			@include('PressbooksNetworkCatalog::components.search-input')
 		</section>
 		<div class="network-catalog">
-			<section class="side-filters" aria-label="{{ __('Filters', 'pressbooks-network-catalog') }}">
-				@include('PressbooksNetworkCatalog::partials.sidebar-filters')
-			</section>
+            <div x-data="{open: false}">
+                @include('PressbooksNetworkCatalog::partials.refine-filters', ['class' => 'order-mobile'])
+                <section :class="open ? 'open': 'hidden'" class="side-filters" aria-label="{{ __('Filters', 'pressbooks-network-catalog') }}" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" x-cloak :class="!open && 'hidden'">
+                    @include('PressbooksNetworkCatalog::partials.sidebar-filters')
+                </section>
+            </div>
 
-			<div>
+			<div class="results">
 				<section aria-label="{{ __('Search, pagination, and sorting', 'pressbooks-network-catalog') }}">
 					@include('PressbooksNetworkCatalog::partials.search-box')
 				</section>

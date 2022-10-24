@@ -3,11 +3,7 @@
 }
 
 .search-box .search {
-  @apply hidden lg:flex w-full flex-1 items-center bg-white shadow rounded my-5 md:my-0;
-}
-
-.search-box .refine-filters {
-  @apply w-full flex md:justify-evenly md:w-auto md:gap-4;
+  @apply hidden lg:flex w-full flex-1 items-center bg-white shadow rounded my-0;
 }
 
 .search-box .search .search-input {

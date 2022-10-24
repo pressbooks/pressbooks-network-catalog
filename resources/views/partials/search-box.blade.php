@@ -1,29 +1,7 @@
 <div class="search-box">
 	@include('PressbooksNetworkCatalog::components.search-input')
 
-	<div class="refine-filters">
-		@include('PressbooksNetworkCatalog::components.dropdown', [
-			'label' => __('Results per page', 'pressbooks-network-catalog'),
-			'name' => 'per_page',
-			'default' => $request->per_page ?? 10,
-			'options' => [
-				10 => sprintf(__('%d results', 'pressbooks-network-catalog'), 10),
-				20 => sprintf(__('%d results', 'pressbooks-network-catalog'), 20),
-				50 => sprintf(__('%d results', 'pressbooks-network-catalog'), 50),
-			]
-		])
-
-		@include('PressbooksNetworkCatalog::components.dropdown', [
-			'label' => __('Sort by', 'pressbooks-network-catalog'),
-			'name' => 'sort_by',
-			'default' => $request->sort_by ?? 'last_updated',
-			'options' => [
-				//'relevance' => __('Sort by relevance', 'pressbooks-network-catalog'),
-				'last_updated' => __('Sort by recently updated', 'pressbooks-network-catalog'),
-				'title' => __('Sort by title (A-Z)', 'pressbooks-network-catalog'),
-			]
-		])
-	</div>
+	@include('PressbooksNetworkCatalog::partials.refine-filters', ['class' => 'order-desktop'])
 </div>
 
 @if(!empty($request->search) && $request->has('search'))
