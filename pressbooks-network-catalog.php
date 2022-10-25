@@ -13,7 +13,7 @@
 
 use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 
-const IS_VITE_DEVELOPMENT = true;
+const IS_VITE_DEVELOPMENT = false;
 
 if ( ! class_exists( 'Pressbooks\Book' ) ) {
 	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {

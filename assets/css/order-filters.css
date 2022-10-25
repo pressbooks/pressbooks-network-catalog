@@ -1,9 +1,9 @@
 .order-desktop {
-  @apply hidden sm:flex md:justify-evenly sm:w-auto sm:gap-4;
+  @apply hidden lg:flex lg:justify-evenly lg:w-auto lg:gap-4;
 }
 
 .order-mobile {
-  @apply flex sm:hidden justify-between mb-2 mt-7;
+  @apply flex lg:hidden justify-between mb-2 mt-7;
 }
 
 .order-mobile button {

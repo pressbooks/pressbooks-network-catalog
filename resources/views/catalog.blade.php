@@ -11,7 +11,7 @@
 			</div>
 		</div>
 	</div>
-	<form method="get" action="{{ $request->url() }}" id="network-catalog-form">
+	<form method="get" action="{{ $request->url() }}#catalog" id="network-catalog-form">
 		<section class="mobile-bar search-box" aria-label="{{ __('Search', 'pressbooks-network-catalog') }}">
 			@include('PressbooksNetworkCatalog::components.search-input')
 		</section>

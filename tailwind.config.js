@@ -8,11 +8,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Karla', ...fontFamily.sans],
+      },
       maxWidth: {
         '8xl': '85rem',
       },
-      fontFamily: {
-        sans: ['Karla', ...fontFamily.sans],
+      screens: {
+        'xl': '1440px',
       }
     },
   },

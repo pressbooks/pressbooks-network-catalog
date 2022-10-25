@@ -7,7 +7,7 @@ select {
   background: var(--bg-chip) url(https://cdn.jsdelivr.net/npm/heroicons@0.4.0/solid/chevron-down.svg) no-repeat 95% center;
   background-size: 1.3rem;
 }
-@media (max-width: 1024px) { /* sm */
+@media (max-width: 1024px) { /* lg */
   div.dropdown {
     @apply relative flex-1 ml-2;
   }
