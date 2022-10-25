@@ -19,7 +19,12 @@ select {
   div.dropdown.sort select {
     background: var(--bg-chip) url(https://cdn.jsdelivr.net/npm/heroicons@0.4.0/solid/sort-descending.svg) no-repeat 95% center;
     background-size: 1.2rem;
-    color: transparent;
+    /*
+    little hack to not show the selected option on mobile to override it with sort by
+    is still accessible because the select is still there
+    pretty common technique to customize select on mobile
+    */
+    text-indent: -10000px;
   }
 }
 
