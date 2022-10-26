@@ -17,11 +17,11 @@ Run `composer require pressbooks/pressbooks-network-catalog` in your project bed
 
 ## Frontend development
 
-The project uses VITE and Tailwind JIT to compile the frontend assets. Run `npm run dev` to compile the assets and uses hot reloading.
-
 Run `npm install` to install the dependencies.
 
-**To enable hot reloading.**
+The project uses VITE and Tailwind JIT to compile the frontend assets. Run `npm run dev` to compile the assets and use hot reloading.
+
+**To enable hot reloading:**
 
 1. Set `IS_VITE_DEVELOPMENT` environment variable to `true` to enable the development server, located in the `pressbooks-netwotk-catalog.php` (main plugin file).
 
@@ -29,9 +29,9 @@ Run `npm install` to install the dependencies.
 
 ## Build frontend assets
 
-Run `npm run build` to build the frontend assets.
+**If you've set up hot reloading, don't forget to revert `IS_VITE_DEVELOPMENT` to `false` in the `pressbooks-network-catalog.php` (main plugin file).**
 
-> Don't forget to revert `IS_VITE_DEVELOPMENT` to `false` in the `pressbooks-netwotk-catalog.php` (main plugin file).
+Run `npm run build` to build the frontend assets.
 
 ## Run tests
 Run `composer test` to run the tests.
