@@ -21,6 +21,11 @@
 
 .book-cards .book-card .book-info a {
   color: var(--primary);
+  text-decoration: underline;
+}
+
+.book-cards .book-card .book-info a:hover {
+  color: var(--primary-dark);
 }
 
 .book-cards .book-card .book-info p {

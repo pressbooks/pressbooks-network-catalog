@@ -28,7 +28,12 @@
 
 .page-template-page-catalog .hero a {
   color: var(--primary);
+  text-decoration: underline;
 }
+
+.page-template-page-catalog .hero a:hover {
+  color: var(--primary-dark);
+ }
 
 .page-template-page-catalog .hero > div {
   @apply px-4 flex mx-auto w-full max-w-8xl;

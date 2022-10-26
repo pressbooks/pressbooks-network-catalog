@@ -1,0 +1,19 @@
+.order-desktop {
+  @apply hidden lg:flex lg:justify-evenly lg:w-auto lg:gap-4;
+}
+
+.order-mobile {
+  @apply flex lg:hidden justify-between mb-2 mt-7;
+}
+
+.order-mobile button {
+  @apply hover:bg-white hover:text-black active:bg-white active:text-black focus:bg-white focus:text-black;
+}
+
+.order-mobile .side-filters.open button {
+  @apply shadow-none bg-white text-black outline-0 focus:shadow-none active:shadow-none focus:border-0 active:border-0;
+}
+
+.filters-dropdown {
+  @apply lg:hidden border-0 flex flex-row rounded-md bg-white px-4 text-sm shadow justify-between items-center flex-1;
+}

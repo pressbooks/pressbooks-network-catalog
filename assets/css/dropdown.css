@@ -1,8 +1,31 @@
+div.dropdown label{
+  display:none;
+}
+
 select {
-  appearance: none;
-  @apply py-3 pl-4 pr-8 rounded shadow cursor-pointer;
+  @apply w-full py-3 pl-2 pr-8 rounded shadow cursor-pointer text-sm lg:text-base text-clip appearance-none;
   background: var(--bg-chip) url(https://cdn.jsdelivr.net/npm/heroicons@0.4.0/solid/chevron-down.svg) no-repeat 95% center;
   background-size: 1.3rem;
+}
+@media (max-width: 1024px) { /* lg */
+  div.dropdown {
+    @apply relative flex-1 ml-2;
+  }
+  div.dropdown.sort label {
+    @apply text-sm absolute block;
+    top: 0.7rem;
+    left: 0.7rem;
+  }
+  div.dropdown.sort select {
+    background: var(--bg-chip) url(https://cdn.jsdelivr.net/npm/heroicons@0.4.0/solid/sort-descending.svg) no-repeat 95% center;
+    background-size: 1.2rem;
+    /*
+    little hack to not show the selected option on mobile to override it with sort by
+    is still accessible because the select is still there
+    pretty common technique to customize select on mobile
+    */
+    text-indent: -10000px;
+  }
 }
 
 select:focus {
