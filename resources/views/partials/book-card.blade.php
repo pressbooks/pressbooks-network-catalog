@@ -3,15 +3,15 @@
 		<img src="{{ $book->cover }}" alt="{{ sprintf(__('%s book cover', 'pressbooks-network-catalog'), $book->title) }}" />
 	</div>
 	<div class="book-info">
-		<h2><a href="{{ $book->url }}">{{ $book->title }}</a></h2>
+		<h2><a href="{{ $book->url }}">{!! $book->title !!}</a></h2>
 		<p>
 			<span>{{ $book->license }}&nbsp;</span>
 			@if( $book->h5pCount)
 				<span>
 					<a href="{{ "$book->url/h5p-listing" }}">
-						{{ sprintf(__('%d H5P Activities', 'pressbooks-network-catalog'), $book->h5pCount) . ' ' }}
+						{{ sprintf(__('%d H5P Activities', 'pressbooks-network-catalog'), $book->h5pCount) }}
 					</a>
-				</span>
+				</span>&nbsp;
 			@endif
 			<span>&nbsp;{{ $book->language }}</span>
 		</p>
