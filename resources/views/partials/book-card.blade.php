@@ -9,9 +9,9 @@
 			@if( $book->h5pCount)
 				<span>
 					<a href="{{ "$book->url/h5p-listing" }}">
-						{{ sprintf(__('%d H5P Activities', 'pressbooks-network-catalog'), $book->h5pCount) . ' ' }}
+						{{ sprintf(__('%d H5P Activities', 'pressbooks-network-catalog'), $book->h5pCount) }}
 					</a>
-				</span>
+				</span>&nbsp;
 			@endif
 			<span>&nbsp;{{ $book->language }}</span>
 		</p>
