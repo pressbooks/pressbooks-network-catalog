@@ -47,6 +47,10 @@
   @apply text-left mt-6 font-bold before:hidden;
 }
 
+.page-template-page-catalog .hero-content .catalog-content {
+  @apply break-words;
+}
+
 .page-template-page-catalog .hero-content h2 {
   @apply text-3xl lg:text-4xl normal-case;
 }
