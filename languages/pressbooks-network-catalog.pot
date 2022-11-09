@@ -1,0 +1,216 @@
+# Copyright (C) 2022 Pressbooks (Book Oven Inc.)
+# This file is distributed under the GPL v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pressbooks Network Catalog 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks//\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-11-09T15:41:23-08:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: pressbooks-network-catalog\n"
+
+#. Plugin Name of the plugin
+msgid "Pressbooks Network Catalog"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://pressbooks.org"
+msgstr ""
+
+#. Description of the plugin
+msgid "Add a searchable, filterable catalog to the Pressbooks Aldine theme"
+msgstr ""
+
+#. Author of the plugin
+msgid "Pressbooks (Book Oven Inc.)"
+msgstr ""
+
+#: pressbooks-network-catalog.php:22
+msgid "Missing dependencies"
+msgstr ""
+
+#: pressbooks-network-catalog.php:23
+msgid "Please run <code>composer install</code> from the root of the Pressbooks Network Catalog plugin directory."
+msgstr ""
+
+#: src/ActiveFilters.php:38
+#: resources/views/partials/sidebar-filters.blade.php:72
+msgid "H5P Activities"
+msgstr ""
+
+#: src/ActiveFilters.php:46
+msgid "From: %s"
+msgstr ""
+
+#: src/ActiveFilters.php:54
+msgid "To: %s"
+msgstr ""
+
+#: resources/views/catalog.blade.php:17
+#: resources/views/components/search-input.blade.php:13
+#: resources/views/components/selectable-filter.blade.php:20
+msgid "Search"
+msgstr ""
+
+#: resources/views/catalog.blade.php:23
+#: resources/views/partials/refine-filters.blade.php:3
+msgid "Filters"
+msgstr ""
+
+#: resources/views/catalog.blade.php:29
+msgid "Search, pagination, and sorting"
+msgstr ""
+
+#: resources/views/catalog.blade.php:35
+msgid "Book list"
+msgstr ""
+
+#: resources/views/catalog.blade.php:40
+msgid "Sorry, no results were found. You may want to check your spelling, use alternative terms with similar meanings, or clear one or more filters."
+msgstr ""
+
+#: resources/views/catalog.blade.php:42
+msgid "No books have been added to the catalog yet."
+msgstr ""
+
+#: resources/views/components/pagination.blade.php:5
+msgid "%s pagination"
+msgstr ""
+
+#: resources/views/components/pagination.blade.php:16
+msgid "Go to previous page"
+msgstr ""
+
+#: resources/views/components/pagination.blade.php:21
+msgid "Go to page"
+msgstr ""
+
+#: resources/views/components/pagination.blade.php:30
+msgid "%d of %d"
+msgstr ""
+
+#: resources/views/components/pagination.blade.php:42
+msgid "Go to next page"
+msgstr ""
+
+#: resources/views/components/search-input.blade.php:2
+#: resources/views/components/search-input.blade.php:7
+msgid "Search by title, author, keyword"
+msgstr ""
+
+#: resources/views/components/selectable-filter.blade.php:39
+msgid "No available filters at the moment"
+msgstr ""
+
+#: resources/views/components/selectable-filter.blade.php:48
+msgid "Show more +"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:3
+msgid "%s book cover"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:12
+msgid "%d H5P Activities"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:23
+msgid "Author(s):"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:30
+msgid "Editor(s):"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:37
+msgid "Subject(s):"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:44
+msgid "Institution(s):"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:51
+msgid "Publisher:"
+msgstr ""
+
+#: resources/views/partials/book-card.blade.php:57
+msgid "Last updated:"
+msgstr ""
+
+#: resources/views/partials/refine-filters.blade.php:8
+msgid "Results per page"
+msgstr ""
+
+#: resources/views/partials/refine-filters.blade.php:12
+#: resources/views/partials/refine-filters.blade.php:13
+#: resources/views/partials/refine-filters.blade.php:14
+msgid "%d results"
+msgstr ""
+
+#: resources/views/partials/refine-filters.blade.php:19
+#: resources/views/partials/refine-filters.blade.php:23
+msgid "Sort by"
+msgstr ""
+
+#: resources/views/partials/refine-filters.blade.php:25
+msgid "Recently updated"
+msgstr ""
+
+#: resources/views/partials/refine-filters.blade.php:26
+msgid "Title (A-Z)"
+msgstr ""
+
+#: resources/views/partials/search-box.blade.php:9
+msgid "%d result for ‘%s’"
+msgid_plural "%d results for ‘%s’"
+msgstr[0] ""
+msgstr[1] ""
+
+#: resources/views/partials/search-box.blade.php:14
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: resources/views/partials/search-box.blade.php:20
+msgid "Applied filters"
+msgstr ""
+
+#: resources/views/partials/search-box.blade.php:26
+msgid "Remove %s filter"
+msgstr ""
+
+#: resources/views/partials/sidebar-filters.blade.php:3
+msgid "Subject"
+msgstr ""
+
+#: resources/views/partials/sidebar-filters.blade.php:14
+msgid "License"
+msgstr ""
+
+#: resources/views/partials/sidebar-filters.blade.php:24
+msgid "Last Updated"
+msgstr ""
+
+#: resources/views/partials/sidebar-filters.blade.php:50
+msgid "Institution"
+msgstr ""
+
+#: resources/views/partials/sidebar-filters.blade.php:61
+msgid "Publisher"
+msgstr ""
+
+#: resources/views/partials/sidebar-filters.blade.php:87
+msgid "Apply filters"
+msgstr ""
+
+#: resources/views/partials/sidebar-filters.blade.php:92
+msgid "Clear filters"
+msgstr ""
