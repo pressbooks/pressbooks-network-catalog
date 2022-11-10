@@ -5,4 +5,17 @@ git:
       file_format: PO
       source_language: en
       translation_files_expression: 'languages/<lang>.po'
-      language_mapping: de:de_DE, es:es_ES, fr:fr_FR, gl:gl_ES, nb:nb_NO, it:it_IT, ka:ka_GE, ru:ru_RU, ta:ta_LK, hr_HR:hr
+
+  settings:
+    pr_branch_name: tx_translations_<br_unique_id>
+    language_mapping:
+      de: de_DE
+      es: es_ES
+      fr: fr_FR
+      gl: gl_ES
+      nb: nb_NO
+      it: it_IT
+      ka: ka_GE
+      ru: ru_RU
+      ta: ta_LK
+      hr_HR: hr
