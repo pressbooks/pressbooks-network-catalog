@@ -21,11 +21,11 @@ class InstitutionTest extends TestCase
 			Institution::getPossibleValues()
 		);
 
-		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
-		update_site_meta( 2, DataCollector::INSTITUTIONS, 'Algonquin College' );
+		update_site_meta(1, DataCollector::INSTITUTIONS, 'Algoma University');
+		update_site_meta(2, DataCollector::INSTITUTIONS, 'Algonquin College');
 
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 0 );
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
+		update_site_meta(2, DataCollector::IN_CATALOG, 0);
 
 		delete_transient('pb-network-catalog-institutions');
 
@@ -48,8 +48,8 @@ class InstitutionTest extends TestCase
 	{
 		$this->assertEmpty(get_transient('pb-network-catalog-institutions'));
 
-		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::INSTITUTIONS, 'Algoma University');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Institution::getPossibleValues();
 
@@ -68,8 +68,8 @@ class InstitutionTest extends TestCase
 	 */
 	public function it_does_not_query_institutions_when_there_are_cached_values(): void
 	{
-		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::INSTITUTIONS, 'Algoma University');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Institution::getPossibleValues();
 
@@ -77,8 +77,8 @@ class InstitutionTest extends TestCase
 			'Algoma University' => 'Algoma University',
 		];
 
-		update_site_meta( 2, DataCollector::INSTITUTIONS, 'Algonquin College' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::INSTITUTIONS, 'Algonquin College');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		$this->assertEquals($expected, Institution::getPossibleValues());
 	}
@@ -89,8 +89,8 @@ class InstitutionTest extends TestCase
 	 */
 	public function it_queries_institutions_when_cache_is_cleared(): void
 	{
-		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::INSTITUTIONS, 'Algoma University');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Institution::getPossibleValues();
 
@@ -99,8 +99,8 @@ class InstitutionTest extends TestCase
 			'Algonquin College' => 'Algonquin College',
 		];
 
-		update_site_meta( 2, DataCollector::INSTITUTIONS, 'Algonquin College' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::INSTITUTIONS, 'Algonquin College');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		delete_transient('pb-network-catalog-institutions');
 

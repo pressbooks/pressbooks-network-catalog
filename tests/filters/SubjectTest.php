@@ -2,7 +2,6 @@
 
 namespace Tests\Filters;
 
-use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as DataCollector;
 use Pressbooks\Metadata;
 use PressbooksNetworkCatalog\Filters\Subject;
@@ -38,11 +37,11 @@ class SubjectTest extends TestCase
 			Subject::getPossibleValues()
 		);
 
-		update_site_meta( 1, DataCollector::SUBJECTS_CODES, 'AVRQ' );
-		update_site_meta( 2, DataCollector::SUBJECTS_CODES, 'ABA' );
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
 
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 0 );
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
+		update_site_meta(2, DataCollector::IN_CATALOG, 0);
 
 		delete_transient('pb-network-catalog-subjects');
 
@@ -65,8 +64,8 @@ class SubjectTest extends TestCase
 	{
 		$this->assertEmpty(get_transient('pb-network-catalog-subjects'));
 
-		update_site_meta( 1, DataCollector::SUBJECTS_CODES, 'AVRQ' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Subject::getPossibleValues();
 
@@ -74,8 +73,8 @@ class SubjectTest extends TestCase
 			'AVRQ' => 'Mechanical musical instruments',
 		];
 
-		update_site_meta( 2, DataCollector::SUBJECTS_CODES, 'ABA' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		$this->assertNotEmpty(get_transient('pb-network-catalog-subjects'));
 
@@ -88,8 +87,8 @@ class SubjectTest extends TestCase
 	 */
 	public function it_does_not_query_subjects_when_there_are_cached_values(): void
 	{
-		update_site_meta( 1, DataCollector::SUBJECTS_CODES, 'AVRQ' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Subject::getPossibleValues();
 
@@ -97,8 +96,8 @@ class SubjectTest extends TestCase
 			'AVRQ' => 'Mechanical musical instruments',
 		];
 
-		update_site_meta( 2, DataCollector::SUBJECTS_CODES, 'ABA' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		$this->assertEquals($expected, Subject::getPossibleValues());
 	}
@@ -109,8 +108,8 @@ class SubjectTest extends TestCase
 	 */
 	public function it_queries_subjects_when_cache_is_cleared(): void
 	{
-		update_site_meta( 1, DataCollector::SUBJECTS_CODES, 'AVRQ' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Subject::getPossibleValues();
 
@@ -119,8 +118,8 @@ class SubjectTest extends TestCase
 			'ABA' => 'Theory of art',
 		];
 
-		update_site_meta( 2, DataCollector::SUBJECTS_CODES, 'ABA' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		delete_transient('pb-network-catalog-subjects');
 

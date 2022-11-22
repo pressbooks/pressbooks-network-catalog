@@ -21,11 +21,11 @@ class LicenseTest extends TestCase
 			License::getPossibleValues()
 		);
 
-		update_site_meta( 1, DataCollector::LICENSE, 'all-rights-reserved' );
-		update_site_meta( 2, DataCollector::LICENSE, 'cc-by' );
+		update_site_meta(1, DataCollector::LICENSE, 'all-rights-reserved');
+		update_site_meta(2, DataCollector::LICENSE, 'cc-by');
 
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 0 );
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
+		update_site_meta(2, DataCollector::IN_CATALOG, 0);
 
 		delete_transient('pb-network-catalog-licenses');
 
@@ -48,8 +48,8 @@ class LicenseTest extends TestCase
 	{
 		$this->assertEmpty(get_transient('pb-network-catalog-licenses'));
 
-		update_site_meta( 1, DataCollector::LICENSE, 'all-rights-reserved' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::LICENSE, 'all-rights-reserved');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		License::getPossibleValues();
 
@@ -57,8 +57,8 @@ class LicenseTest extends TestCase
 			'all-rights-reserved' => 'All Rights Reserved',
 		];
 
-		update_site_meta( 2, DataCollector::LICENSE, 'cc-by' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::LICENSE, 'cc-by');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		$this->assertNotEmpty(get_transient('pb-network-catalog-licenses'));
 
@@ -71,8 +71,8 @@ class LicenseTest extends TestCase
 	 */
 	public function it_does_not_query_licenses_when_there_are_cached_values(): void
 	{
-		update_site_meta( 1, DataCollector::LICENSE, 'all-rights-reserved' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::LICENSE, 'all-rights-reserved');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		License::getPossibleValues();
 
@@ -80,8 +80,8 @@ class LicenseTest extends TestCase
 			'all-rights-reserved' => 'All Rights Reserved',
 		];
 
-		update_site_meta( 2, DataCollector::LICENSE, 'cc-by' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::LICENSE, 'cc-by');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		$this->assertEquals($expected, License::getPossibleValues());
 	}
@@ -92,8 +92,8 @@ class LicenseTest extends TestCase
 	 */
 	public function it_queries_licenses_when_cache_is_cleared(): void
 	{
-		update_site_meta( 1, DataCollector::LICENSE, 'all-rights-reserved' );
-		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(1, DataCollector::LICENSE, 'all-rights-reserved');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		License::getPossibleValues();
 
@@ -102,8 +102,8 @@ class LicenseTest extends TestCase
 			'public-domain' => 'Public Domain',
 		];
 
-		update_site_meta( 2, DataCollector::LICENSE, 'public-domain' );
-		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
+		update_site_meta(2, DataCollector::LICENSE, 'public-domain');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		delete_transient('pb-network-catalog-licenses');
 
