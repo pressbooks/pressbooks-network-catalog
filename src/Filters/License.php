@@ -12,12 +12,15 @@ class License implements Filter
 	{
 		$values = get_transient('pb-network-catalog-licenses');
 
-		if ($values) {
+		if ($values !== false) {
 			return $values;
 		}
 
 		$supportedLicenses = (new Licensing)->getSupportedTypes();
-		$currentLicenses = DataCollector::init()->getPossibleValuesFor(DataCollector::LICENSE);
+		$currentLicenses = DataCollector::init()->getPossibleValuesFor(
+			DataCollector::LICENSE,
+			$in_catalog = true
+		);
 
 		$licenses = array_reduce($currentLicenses, function ($carry, $key) use ($supportedLicenses) {
 			$license = $supportedLicenses[$key] ?? ['desc' => strtoupper($key)];

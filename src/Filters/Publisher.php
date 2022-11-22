@@ -11,11 +11,14 @@ class Publisher implements Filter
 	{
 		$publishers = get_transient('pb-network-catalog-publishers');
 
-		if ($publishers) {
+		if ($publishers !== false) {
 			return $publishers;
 		}
 
-		$codes = DataCollector::init()->getPossibleValuesFor(DataCollector::PUBLISHER);
+		$codes = DataCollector::init()->getPossibleValuesFor(
+			DataCollector::PUBLISHER,
+			$in_catalog = true
+		);
 
 		$publishers = array_reduce($codes, function ($publishers, $key) {
 			$publishers[$key] = $key;

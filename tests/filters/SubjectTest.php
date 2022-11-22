@@ -2,9 +2,7 @@
 
 namespace Tests\Filters;
 
-use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as DataCollector;
-use Pressbooks\Metadata;
 use PressbooksNetworkCatalog\Filters\Subject;
 use Tests\TestCase;
 use utilsTrait;
@@ -12,21 +10,6 @@ use utilsTrait;
 class SubjectTest extends TestCase
 {
 	use utilsTrait;
-
-	protected DataCollector $collector;
-
-	protected Metadata $metadata;
-
-	public function setUp(): void
-	{
-		parent::setUp();
-
-		$this->_book();
-
-		$this->collector = new DataCollector;
-
-		$this->metadata = new Metadata;
-	}
 
 	/**
 	 * @test
@@ -38,22 +21,18 @@ class SubjectTest extends TestCase
 			Subject::getPossibleValues()
 		);
 
-		$meta_id = $this->metadata->getMetaPostId();
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
 
-		add_post_meta($meta_id, 'pb_primary_subject', 'ABA');
-		add_post_meta($meta_id, 'pb_additional_subjects', 'AVP, AVR, AVRQ');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
+		update_site_meta(2, DataCollector::IN_CATALOG, 0);
 
-		$this->collector->copyBookMetaIntoSiteTable(
-			get_current_blog_id()
-		);
+		delete_transient('pb-network-catalog-subjects');
 
 		$subjects = Subject::getPossibleValues();
 
 		$expected = [
 			'AVRQ' => 'Mechanical musical instruments',
-			'AVR' => 'Musical instruments',
-			'AVP' => 'Musicians, singers, bands and groups',
-			'ABA' => 'Theory of art',
 		];
 
 		$this->assertNotEmpty($subjects);
@@ -69,25 +48,20 @@ class SubjectTest extends TestCase
 	{
 		$this->assertEmpty(get_transient('pb-network-catalog-subjects'));
 
-		$meta_id = $this->metadata->getMetaPostId();
-
-		add_post_meta($meta_id, 'pb_primary_subject', 'ABA');
-		add_post_meta($meta_id, 'pb_additional_subjects', 'AVP, AVR, AVRQ');
-
-		$this->collector->copyBookMetaIntoSiteTable(
-			get_current_blog_id()
-		);
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Subject::getPossibleValues();
 
 		$expected = [
 			'AVRQ' => 'Mechanical musical instruments',
-			'AVR' => 'Musical instruments',
-			'AVP' => 'Musicians, singers, bands and groups',
-			'ABA' => 'Theory of art',
 		];
 
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
+
 		$this->assertNotEmpty(get_transient('pb-network-catalog-subjects'));
+
 		$this->assertEquals($expected, get_transient('pb-network-catalog-subjects'));
 	}
 
@@ -97,28 +71,17 @@ class SubjectTest extends TestCase
 	 */
 	public function it_does_not_query_subjects_when_there_are_cached_values(): void
 	{
-		$book_id = get_current_blog_id();
-
-		$meta_id = $this->metadata->getMetaPostId();
-
-		add_post_meta($meta_id, 'pb_primary_subject', 'ABA');
-		add_post_meta($meta_id, 'pb_additional_subjects', 'AVP, AVR, AVRQ');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Subject::getPossibleValues();
 
 		$expected = [
 			'AVRQ' => 'Mechanical musical instruments',
-			'AVR' => 'Musical instruments',
-			'AVP' => 'Musicians, singers, bands and groups',
-			'ABA' => 'Theory of art',
 		];
 
-		update_post_meta($meta_id, 'pb_primary_subject', 'AB');
-		update_post_meta($meta_id, 'pb_additional_subjects', 'ABC, AF, AFCC');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
 		$this->assertEquals($expected, Subject::getPossibleValues());
 	}
@@ -129,31 +92,20 @@ class SubjectTest extends TestCase
 	 */
 	public function it_queries_subjects_when_cache_is_cleared(): void
 	{
-		$book_id = get_current_blog_id();
-
-		$meta_id = $this->metadata->getMetaPostId();
-
-		add_post_meta($meta_id, 'pb_primary_subject', 'ABA');
-		add_post_meta($meta_id, 'pb_additional_subjects', 'AVP, AVR, AVRQ');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
+		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+		update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
 		Subject::getPossibleValues();
 
 		$expected = [
-			'ABC' => 'Conservation, restoration and care of artworks',
-			'AFCC' => 'Paintings and painting in watercolours or pastels',
-			'AF' => 'The Arts: art forms',
-			'AB' => 'The arts: general topics',
+			'AVRQ' => 'Mechanical musical instruments',
+			'ABA' => 'Theory of art',
 		];
 
-		update_post_meta($meta_id, 'pb_primary_subject', 'AB');
-		update_post_meta($meta_id, 'pb_additional_subjects', 'ABC, AF, AFCC');
+		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+		update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
-		Book::deleteBookObjectCache();
 		delete_transient('pb-network-catalog-subjects');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
 
 		$this->assertEquals($expected, Subject::getPossibleValues());
 	}

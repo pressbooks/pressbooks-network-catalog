@@ -59,16 +59,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.245.0",
+            "version": "3.247.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8a561bf0eddee0b905153332cfcc899801d3722b"
+                "reference": "2cd51e75e753dfe1f1677bb0a2e13a9ce70cba26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8a561bf0eddee0b905153332cfcc899801d3722b",
-                "reference": "8a561bf0eddee0b905153332cfcc899801d3722b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2cd51e75e753dfe1f1677bb0a2e13a9ce70cba26",
+                "reference": "2cd51e75e753dfe1f1677bb0a2e13a9ce70cba26",
                 "shasum": ""
             },
             "require": {
@@ -147,9 +147,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.245.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.247.0"
             },
-            "time": "2022-11-16T19:26:45+00:00"
+            "time": "2022-11-21T21:31:13+00:00"
         },
         {
             "name": "composer/installers",
@@ -3774,12 +3774,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "7293aa7be9bca9485f8ec82fbb288a8ca8206ef0"
+                "reference": "f1f1ed7bb959e2c90e046cd45e592ccc71641466"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/7293aa7be9bca9485f8ec82fbb288a8ca8206ef0",
-                "reference": "7293aa7be9bca9485f8ec82fbb288a8ca8206ef0",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/f1f1ed7bb959e2c90e046cd45e592ccc71641466",
+                "reference": "f1f1ed7bb959e2c90e046cd45e592ccc71641466",
                 "shasum": ""
             },
             "require": {
@@ -3808,7 +3808,7 @@
                 "pressbooks/pb-cli": "^3",
                 "scssphp/scssphp": "~1.1.0",
                 "sinergi/browser-detector": "^6.1",
-                "symfony/process": "^5.4",
+                "symfony/process": "^6.0",
                 "vanilla/htmlawed": "^2.2",
                 "vlucas/phpdotenv": "^5.4"
             },
@@ -3855,7 +3855,7 @@
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2022-11-17T06:20:07+00:00"
+            "time": "2022-11-22T18:05:33+00:00"
         },
         {
             "name": "psr/cache",
@@ -7043,21 +7043,20 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.4.11",
+            "version": "v6.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "6e75fe6874cbc7e4773d049616ab450eff537bf1"
+                "reference": "44270a08ccb664143dede554ff1c00aaa2247a43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/6e75fe6874cbc7e4773d049616ab450eff537bf1",
-                "reference": "6e75fe6874cbc7e4773d049616ab450eff537bf1",
+                "url": "https://api.github.com/repos/symfony/process/zipball/44270a08ccb664143dede554ff1c00aaa2247a43",
+                "reference": "44270a08ccb664143dede554ff1c00aaa2247a43",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-php80": "^1.16"
+                "php": ">=8.0.2"
             },
             "type": "library",
             "autoload": {
@@ -7085,7 +7084,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v5.4.11"
+                "source": "https://github.com/symfony/process/tree/v6.0.11"
             },
             "funding": [
                 {
@@ -7101,7 +7100,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-27T16:58:25+00:00"
+            "time": "2022-06-27T17:10:44+00:00"
         },
         {
             "name": "symfony/service-contracts",

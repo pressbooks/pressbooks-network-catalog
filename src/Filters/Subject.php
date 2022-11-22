@@ -12,11 +12,14 @@ class Subject implements Filter
 	{
 		$subjects = get_transient('pb-network-catalog-subjects');
 
-		if ($subjects) {
+		if ($subjects !== false) {
 			return $subjects;
 		}
 
-		$codes = DataCollector::init()->getPossibleValuesFor(DataCollector::SUBJECTS_CODES);
+		$codes = DataCollector::init()->getPossibleValuesFor(
+			DataCollector::SUBJECTS_CODES,
+			$in_catalog = true
+		);
 
 		$subjects = array_reduce($codes, function ($subjects, $key) {
 			$subjects[$key] = get_subject_from_thema($key, true);
