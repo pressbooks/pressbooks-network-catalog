@@ -2,9 +2,7 @@
 
 namespace Tests\Filters;
 
-use Pressbooks\Book;
 use Pressbooks\DataCollector\Book as DataCollector;
-use Pressbooks\Metadata;
 use PressbooksNetworkCatalog\Filters\Institution;
 use Tests\TestCase;
 use utilsTrait;
@@ -12,21 +10,6 @@ use utilsTrait;
 class InstitutionTest extends TestCase
 {
 	use utilsTrait;
-
-	protected DataCollector $collector;
-
-	protected Metadata $metadata;
-
-	public function setUp(): void
-	{
-		parent::setUp();
-
-		$this->_book();
-
-		$this->collector = new DataCollector;
-
-		$this->metadata = new Metadata;
-	}
 
 	/**
 	 * @test
@@ -38,14 +21,11 @@ class InstitutionTest extends TestCase
 			Institution::getPossibleValues()
 		);
 
-		$meta_id = $this->metadata->getMetaPostId();
+		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
+		update_site_meta( 2, DataCollector::INSTITUTIONS, 'Algonquin College' );
 
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');
-
-		$this->collector->copyBookMetaIntoSiteTable(
-			get_current_blog_id()
-		);
+		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
+		update_site_meta( 2, DataCollector::IN_CATALOG, 0 );
 
 		delete_transient('pb-network-catalog-institutions');
 
@@ -53,7 +33,6 @@ class InstitutionTest extends TestCase
 
 		$expected = [
 			'Algoma University' => 'Algoma University',
-			'Algonquin College' => 'Algonquin College',
 		];
 
 		$this->assertNotEmpty($institutions);
@@ -69,23 +48,17 @@ class InstitutionTest extends TestCase
 	{
 		$this->assertEmpty(get_transient('pb-network-catalog-institutions'));
 
-		$meta_id = $this->metadata->getMetaPostId();
-
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');
-
-		$this->collector->copyBookMetaIntoSiteTable(
-			get_current_blog_id()
-		);
+		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
+		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
 
 		Institution::getPossibleValues();
 
 		$expected = [
 			'Algoma University' => 'Algoma University',
-			'Algonquin College' => 'Algonquin College',
 		];
 
 		$this->assertNotEmpty(get_transient('pb-network-catalog-institutions'));
+
 		$this->assertEquals($expected, get_transient('pb-network-catalog-institutions'));
 	}
 
@@ -95,25 +68,17 @@ class InstitutionTest extends TestCase
 	 */
 	public function it_does_not_query_institutions_when_there_are_cached_values(): void
 	{
-		$book_id = get_current_blog_id();
-
-		$meta_id = $this->metadata->getMetaPostId();
-
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
+		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
+		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
 
 		Institution::getPossibleValues();
 
 		$expected = [
 			'Algoma University' => 'Algoma University',
-			'Algonquin College' => 'Algonquin College',
 		];
 
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-003');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
+		update_site_meta( 2, DataCollector::INSTITUTIONS, 'Algonquin College' );
+		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
 
 		$this->assertEquals($expected, Institution::getPossibleValues());
 	}
@@ -124,29 +89,20 @@ class InstitutionTest extends TestCase
 	 */
 	public function it_queries_institutions_when_cache_is_cleared(): void
 	{
-		$book_id = get_current_blog_id();
-
-		$meta_id = $this->metadata->getMetaPostId();
-
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-001');
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-002');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
+		update_site_meta( 1, DataCollector::INSTITUTIONS, 'Algoma University' );
+		update_site_meta( 1, DataCollector::IN_CATALOG, 1 );
 
 		Institution::getPossibleValues();
 
 		$expected = [
 			'Algoma University' => 'Algoma University',
 			'Algonquin College' => 'Algonquin College',
-			'Assumption University' => 'Assumption University',
 		];
 
-		add_post_meta($meta_id, 'pb_institutions', 'CA-ON-003');
+		update_site_meta( 2, DataCollector::INSTITUTIONS, 'Algonquin College' );
+		update_site_meta( 2, DataCollector::IN_CATALOG, 1 );
 
-		Book::deleteBookObjectCache();
 		delete_transient('pb-network-catalog-institutions');
-
-		$this->collector->copyBookMetaIntoSiteTable($book_id);
 
 		$this->assertEquals($expected, Institution::getPossibleValues());
 	}
