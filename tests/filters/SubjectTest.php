@@ -47,6 +47,8 @@ class SubjectTest extends TestCase
 			get_current_blog_id()
 		);
 
+		delete_transient('pb-network-catalog-subjects');
+
 		$subjects = Subject::getPossibleValues();
 
 		$expected = [

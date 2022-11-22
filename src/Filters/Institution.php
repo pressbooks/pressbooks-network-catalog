@@ -11,11 +11,14 @@ class Institution implements Filter
 	{
 		$institutions = get_transient('pb-network-catalog-institutions');
 
-		if ($institutions) {
+		if ($institutions !== false) {
 			return $institutions;
 		}
 
-		$codes = DataCollector::init()->getPossibleValuesFor(DataCollector::INSTITUTIONS);
+		$codes = DataCollector::init()->getPossibleValuesFor(
+			DataCollector::INSTITUTIONS,
+			$in_catalog = true
+		);
 
 		$institutions = array_reduce($codes, function ($institutions, $key) {
 			$institutions[$key] = $key;

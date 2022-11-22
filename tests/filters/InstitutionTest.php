@@ -47,6 +47,8 @@ class InstitutionTest extends TestCase
 			get_current_blog_id()
 		);
 
+		delete_transient('pb-network-catalog-institutions');
+
 		$institutions = Institution::getPossibleValues();
 
 		$expected = [
