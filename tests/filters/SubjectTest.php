@@ -3,7 +3,6 @@
 namespace Tests\Filters;
 
 use Pressbooks\DataCollector\Book as DataCollector;
-use Pressbooks\Metadata;
 use PressbooksNetworkCatalog\Filters\Subject;
 use Tests\TestCase;
 use utilsTrait;
@@ -11,21 +10,6 @@ use utilsTrait;
 class SubjectTest extends TestCase
 {
 	use utilsTrait;
-
-	protected DataCollector $collector;
-
-	protected Metadata $metadata;
-
-	public function setUp(): void
-	{
-		parent::setUp();
-
-		$this->_book();
-
-		$this->collector = new DataCollector;
-
-		$this->metadata = new Metadata;
-	}
 
 	/**
 	 * @test
