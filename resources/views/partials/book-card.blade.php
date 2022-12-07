@@ -58,7 +58,7 @@
                     @if($book->description)
                         {!! $book->description !!}
                     @elseif($book->shortDescription)
-                        {!! $book->shortDescription !!}
+                        {!! pb_decode($book->shortDescription) !!}
                     @endif
                 </div>
                 <a class="read-more" @click="window.toggleClass($el.previousElementSibling,'line-clamp'); showRead=!showRead " x-show="window.hasClampedText($el.previousElementSibling)" x-text="showRead? 'Read more' : 'Show less' "></a>
