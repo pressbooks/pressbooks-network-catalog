@@ -38,7 +38,7 @@
     "@barba/core": "^2.9.7",
     "@duetds/date-picker": "^1.4.0",
     "alpinejs": "^3.10.5",
-    "dayjs": "^1.11.6",
+    "dayjs": "^1.11.7",
     "nanobar": "^0.4.2"
   }
 }
