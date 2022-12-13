@@ -4,7 +4,7 @@ Contributors: fdalcin, arzola, richard015ar, steelwagstaff \
 Donate link: https://pressbooks.com/ \
 Requires at least: 6.1.1 \
 Tested up to: 6.1.1 \
-Stable tag: 1.1.0 \
+Stable tag: 1.2.0 \
 Requires PHP: 8.0 \
 License: GPLv3 or later \
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -47,9 +47,9 @@ Run `composer standars` to run the tests.
 
 ## Changelog
 
-### 1.1.0
+### 1.2.0
 
-* See: https://github.com/pressbooks/pressbooks-network-catalog/releases/tag/1.1.0
+* See: https://github.com/pressbooks/pressbooks-network-catalog/releases/tag/1.2.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-network-catalog/releases
 
 ## Upgrade Notices
