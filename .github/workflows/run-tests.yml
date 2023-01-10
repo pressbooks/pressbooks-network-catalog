@@ -2,11 +2,11 @@ name: Tests
 
 on:
   push:
-    branches: [development, staging, production]
+    branches: [development, production]
     tags:
       - '*.*.*'
   pull_request:
-    branches: [development, staging, production]
+    branches: [development, production]
 
 jobs:
   tests:
