@@ -4,18 +4,18 @@ Contributors: fdalcin, arzola, richard015ar, steelwagstaff \
 Donate link: https://pressbooks.com/ \
 Requires at least: 6.1.1 \
 Tested up to: 6.1.1 \
-Stable tag: 1.2.0 \
-Requires PHP: 8.0 \
+Stable tag: 1.3.0 \
+Requires PHP: 8.1 \
 License: GPLv3 or later \
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 This plugin adds a searchable, filterable catalog to the Pressbooks Aldine theme. 
 
 ## Requirements 
-* PHP >=8.0 
+* PHP >=8.1 
 * WordPress >= 6.1.1 
-* Pressbooks >= 6.4.0
-* Aldine >= 1.18.0
+* Pressbooks >= 6.9.0
+* Aldine >= 1.19.0
 
 ## Installation
 
@@ -47,12 +47,15 @@ Run `composer standars` to run the tests.
 
 ## Changelog
 
-### 1.2.0
+### 1.3.0
 
-* See: https://github.com/pressbooks/pressbooks-network-catalog/releases/tag/1.2.0
+* See: https://github.com/pressbooks/pressbooks-network-catalog/releases/tag/1.3.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-network-catalog/releases
 
 ## Upgrade Notices
+### Pressbooks Network Catalog 1.3.0
+* Pressbooks Network Catalog requires PHP >= 8.1
+
 ### Pressbooks Network Catalog 1.1.0
 * Pressbooks Network Catalog requires PHP >= 8.0
 * Pressbooks Network Catalog requires WordPress >= 6.1.1
