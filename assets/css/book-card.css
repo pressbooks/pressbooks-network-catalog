@@ -49,7 +49,7 @@
 }
 
 .book-cards .book-card .book-info .book-description {
-  @apply mt-6 mb-2 break-all;
+  @apply mt-6 mb-2 break-words;
 }
 
 .book-cards .book-card .book-info .book-description p {
