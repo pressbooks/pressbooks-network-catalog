@@ -27,9 +27,9 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks-network-catalog#readme",
   "devDependencies": {
-    "autoprefixer": "^10.4.13",
+    "autoprefixer": "^10.4.14",
     "cross-env": "^7.0.3",
-    "eslint": "^8.35.0",
+    "eslint": "^8.36.0",
     "eslint-plugin-vue": "^9.9.0",
     "postcss": "^8.4.21",
     "postcss-nested": "^6.0.1",
@@ -40,7 +40,7 @@
   "dependencies": {
     "@barba/core": "^2.9.7",
     "@duetds/date-picker": "^1.4.0",
-    "alpinejs": "^3.11.1",
+    "alpinejs": "^3.12.0",
     "dayjs": "^1.11.7",
     "nanobar": "^0.4.2"
   }
