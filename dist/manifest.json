@@ -1,14 +1,14 @@
 {
-  "assets/js/app.css": {
-    "file": "assets/app-20ea0633.css",
-    "src": "assets/js/app.css"
-  },
   "assets/js/app.js": {
-    "css": [
-      "assets/app-20ea0633.css"
-    ],
-    "file": "assets/app-0a5bd34b.js",
+    "file": "assets/app.85e99357.js",
+    "src": "assets/js/app.js",
     "isEntry": true,
-    "src": "assets/js/app.js"
+    "css": [
+      "assets/app.20ea0633.css"
+    ]
+  },
+  "assets/js/app.css": {
+    "file": "assets/app.20ea0633.css",
+    "src": "assets/js/app.css"
   }
 }
