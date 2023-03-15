@@ -3,7 +3,7 @@
  * Plugin Name: Pressbooks Network Catalog
  * Plugin URI: https://pressbooks.org
  * Description: Add a searchable, filterable catalog to the Pressbooks Aldine theme
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org
  * Text Domain: pressbooks-network-catalog
