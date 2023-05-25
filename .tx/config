@@ -1,0 +1,10 @@
+[main]
+host = https://www.transifex.com
+
+[o:pressbooks:p:pressbooks-network-catalog:r:399b357bca7c36967267e0616474b9af]
+file_filter   = languages/<lang>.po
+source_file   = languages/pressbooks-network-catalog.pot
+type          = PO
+minimum_perc  = 25
+resource_name = languages/pressbooks-network-catalog.pot (dev)
+lang_map    = pa: pa_IN, hr_HR: hr, de: de_DE, es: es_ES, fr: fr_FR, nb: nb_NO, ru: ru_RU, ta: ta_LK, gl: gl_ES, it: it_IT, ka: ka_GE
