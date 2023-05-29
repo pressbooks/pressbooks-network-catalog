@@ -29,12 +29,13 @@ export default defineConfig(() => {
     build: {
       // output dir for production build
       outDir: resolve(__dirname, './dist'),
-      target: 'es2018',
+      target: 'es2020',
       manifest: true,
       emptyOutDir: true,
       rollupOptions: {
         input: {
-          app: resolve(__dirname + '/assets/js/app.js')
+          app: resolve(__dirname + '/assets/js/app.js'),
+					css: resolve(__dirname + '/assets/css/app.css'),
         }
       },
       minify: true,

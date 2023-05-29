@@ -52,7 +52,8 @@ class PressbooksNetworkCatalog
 			if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT) {
 				// insert hmr into head for live reload
 				add_action('wp_head', function () {
-					echo '<script type="module" crossorigin src="http://127.0.0.1:3000/assets/js/app.js"></script>';
+					echo '<script type="module" crossorigin src="http://localhost:3000/assets/js/app.js"></script>';
+					echo '<link rel="stylesheet" href="http://localhost:3000/assets/css/app.css">';
 				});
 
 				return;
@@ -64,21 +65,14 @@ class PressbooksNetworkCatalog
 			// production version, 'npm run build' must be executed in order to generate assets
 			$manifest = json_decode(file_get_contents("$distPath/manifest.json"), true, 512, JSON_THROW_ON_ERROR);
 
-			if (is_array($manifest)) {
-				$manifest_key = array_keys($manifest);
-
-				if (isset($manifest_key[0])) {
-					// enqueue CSS files
-					foreach ($manifest[$manifest_key[0]]['css'] ?? [] as $css_file) {
-						wp_enqueue_style('pb-network-catalog/style', "$distUri/$css_file", ['aldine/style']); // override Aldine's
-					}
-
-					// enqueue main JS file
-					$js_file = $manifest[$manifest_key[0]]['file'] ?? null;
-					if (! empty($js_file)) {
-						wp_enqueue_script('pb-network-catalog/script', "$distUri/$js_file", [], '', true);
-					}
-				}
+			if (isset($manifest['assets/css/app.css'])) {
+				$entry_css = $manifest['assets/css/app.css']['file'];
+				wp_enqueue_style('pb-network-catalog/style', "$distUri/$entry_css",
+					['aldine/style']); // override Aldine's
+			}
+			if (isset($manifest['assets/js/app.js'])) {
+				$entry_js = $manifest['assets/js/app.js']['file'];
+				wp_enqueue_script('pb-network-catalog/script', "$distUri/$entry_js", ['jquery'], null, true);
 			}
 		});
 	}

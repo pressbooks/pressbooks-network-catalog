@@ -35,11 +35,13 @@ class InArrayValidatorTest extends TestCase
 			'allowedValues' => [
 				'key-0' => 'value 0',
 				'key-1' => 'value 1',
+				"key with fancy 'quotes'" => "value with fancy 'quotes'",
 			],
 		]);
 
 		$this->assertTrue($validator->validate('key-0'));
 		$this->assertFalse($validator->validate('key-2'));
+		$this->assertTrue($validator->validate('key with fancy \'quotes\''));
 	}
 
 	/**

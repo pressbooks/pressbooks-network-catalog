@@ -29,6 +29,9 @@ class InArrayValidator implements Validator
 
 	public function validate($data): bool
 	{
+		if (is_array($data)) {
+			$data = array_map(static fn ($value) => stripslashes($value), $data);
+		}
 		// Returns true only if all the values are in the allowed values
 		if (array_key_exists('field', $this->values)) {
 			return array_diff($data, $this->getValues()) === [];

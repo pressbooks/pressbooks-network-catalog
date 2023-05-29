@@ -133,7 +133,7 @@ class BooksRequestManager
 	 * @param $params
 	 * @return array|mixed
 	 */
-	public function mergeParams($rules, $params)
+	public function mergeParams($rules, $params): mixed
 	{
 		if (isset($rules['field']) && array_key_exists($rules['field'], $params)) {
 			foreach ($params[$rules['field']] as $key => $value) {
@@ -197,7 +197,7 @@ class BooksRequestManager
 						case 'subquery':
 							$in = '';
 							foreach ($this->request->get($filter) as $filterValue) {
-								$in .= $wpdb->prepare('%s', $filterValue).',';
+								$in .= $wpdb->prepare('%s,', stripslashes($filterValue));
 							}
 							$in = rtrim($in, ',');
 							$column = $config['column'];

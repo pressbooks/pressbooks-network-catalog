@@ -1,5 +1,4 @@
 import Alpine from 'alpinejs';
-import '../css/app.css';
 import { DuetDatePicker } from "@duetds/date-picker/custom-element";
 customElements.define("duet-date-picker", DuetDatePicker);
 
@@ -8,6 +7,8 @@ window.Alpine = Alpine;
 const form = document.getElementById('network-catalog-form');
 
 const anchorIdRedirection = '#catalog';
+
+const mobileBreakpoint = 768;
 
 form.addEventListener('submit', function (event) {
   const inputs = Array
@@ -43,6 +44,14 @@ form.addEventListener('submit', function (event) {
       return false;
     }
   }
+
+	// if is desktop, disable mobile selects to avoid sending duplicated filtering parameters
+	const select = document.querySelectorAll('.order-mobile select');
+	if(window.innerWidth > mobileBreakpoint) {
+		select.forEach(el => {
+			el.disabled = true;
+		});
+	}
 
   return true;
 });
@@ -161,4 +170,4 @@ window.reset = () => {
 
 Alpine.start();
 
-console.log('main.js - start');
+console.log('PB Network Catalog - started');
