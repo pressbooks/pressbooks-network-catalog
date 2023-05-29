@@ -3,9 +3,9 @@
     <div class="search-input">
         <input
             type="search"
-            name="search"
+            name="search_term"
             placeholder="{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}"
-            value="{{ $request->search }}"
+            value="{{ $request->search_term }}"
             aria-labelledby="search-input-label"
         />
     </div>

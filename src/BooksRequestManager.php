@@ -67,7 +67,7 @@ class BooksRequestManager
 				'type' => 'array',
 				'field' => 'publishers',
 			],
-			'search' => [
+			'search_term' => [
 				'type' => 'string',
 			],
 			'h5p' => [
@@ -219,7 +219,7 @@ class BooksRequestManager
 				}
 			}
 		});
-		if (isset($this->request->search) && ! empty($this->request->search)) {
+		if (isset($this->request->search_term) && ! empty($this->request->search_term)) {
 			$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
 		}
 
@@ -237,7 +237,7 @@ class BooksRequestManager
 		$searchableColumns = $this->bookFields->where('searchable', true);
 
 		return '('.$searchableColumns->map(function ($field) use ($wpdb) {
-			$term = $wpdb->esc_like(strtolower($this->request->search));
+			$term = $wpdb->esc_like(strtolower($this->request->search_term));
 
 			return "LOWER({$field['alias']}) LIKE '%{$term}%'";
 		})->implode(' OR ').')';
