@@ -45,12 +45,22 @@ form.addEventListener('submit', function (event) {
     }
   }
 
-	// if is desktop, disable mobile selects to avoid sending duplicated filtering parameters
-	const select = document.querySelectorAll('.order-mobile select');
+	// disable duplicated filters according to screen size to avoid duplicated parameters
+	// this is needed because we have two sets of filters, one for mobile and one for desktop because of design constraints
+	const filtersMobile = document.querySelectorAll('.order-mobile select');
+	const filtersDesktop = document.querySelectorAll('.order-desktop select');
+	const searchMobile = document.querySelector('.mobile-bar input');
+	const searchDesktop = document.querySelector('.results input');
 	if(window.innerWidth > mobileBreakpoint) {
-		select.forEach(el => {
+		filtersMobile.forEach(el => {
 			el.disabled = true;
 		});
+		searchMobile.disabled = true;
+	} else {
+		filtersDesktop.forEach(el => {
+			el.disabled = true;
+		});
+		searchDesktop.disabled = true;
 	}
 
   return true;
