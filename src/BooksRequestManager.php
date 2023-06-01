@@ -67,7 +67,7 @@ class BooksRequestManager
 				'type' => 'array',
 				'field' => 'publishers',
 			],
-			'search' => [
+			'search_term' => [
 				'type' => 'string',
 			],
 			'h5p' => [
@@ -133,7 +133,7 @@ class BooksRequestManager
 	 * @param $params
 	 * @return array|mixed
 	 */
-	public function mergeParams($rules, $params)
+	public function mergeParams($rules, $params): mixed
 	{
 		if (isset($rules['field']) && array_key_exists($rules['field'], $params)) {
 			foreach ($params[$rules['field']] as $key => $value) {
@@ -197,7 +197,7 @@ class BooksRequestManager
 						case 'subquery':
 							$in = '';
 							foreach ($this->request->get($filter) as $filterValue) {
-								$in .= $wpdb->prepare('%s', $filterValue).',';
+								$in .= $wpdb->prepare('%s,', stripslashes($filterValue));
 							}
 							$in = rtrim($in, ',');
 							$column = $config['column'];
@@ -219,7 +219,7 @@ class BooksRequestManager
 				}
 			}
 		});
-		if (isset($this->request->search) && ! empty($this->request->search)) {
+		if (isset($this->request->search_term) && ! empty($this->request->search_term)) {
 			$sqlQueryConditions[] = $this->getSqlSearchConditionsForCatalogQuery();
 		}
 
@@ -237,7 +237,7 @@ class BooksRequestManager
 		$searchableColumns = $this->bookFields->where('searchable', true);
 
 		return '('.$searchableColumns->map(function ($field) use ($wpdb) {
-			$term = $wpdb->esc_like(strtolower($this->request->search));
+			$term = $wpdb->esc_like(strtolower($this->request->search_term));
 
 			return "LOWER({$field['alias']}) LIKE '%{$term}%'";
 		})->implode(' OR ').')';

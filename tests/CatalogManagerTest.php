@@ -214,7 +214,7 @@ class CatalogManagerTest extends TestCase
 
 		$this->updateTitle($secondBook, 'Random Second Book');
 
-		$_GET['search'] = 'first';
+		$_GET['search_term'] = 'first';
 
 		$response = $this->catalogManager->handle();
 
@@ -238,7 +238,7 @@ class CatalogManagerTest extends TestCase
 
 		$this->updateLongDescription($secondBook, 'lorem ipsum dolor sit amet consectetur adipiscing elit...');
 
-		$_GET['search'] = 'long description';
+		$_GET['search_term'] = 'long description';
 
 		$response = $this->catalogManager->handle();
 
@@ -262,7 +262,7 @@ class CatalogManagerTest extends TestCase
 
 		$this->updateShortDescription($secondBook, 'lorem ipsum dolor sit amet consectetur adipiscing elit...');
 
-		$_GET['search'] = 'short description';
+		$_GET['search_term'] = 'short description';
 
 		$response = $this->catalogManager->handle();
 
@@ -290,7 +290,7 @@ class CatalogManagerTest extends TestCase
 			'George R. R. Martin',
 		]);
 
-		$_GET['search'] = 'tolkien';
+		$_GET['search_term'] = 'tolkien';
 
 		$response = $this->catalogManager->handle();
 
@@ -318,7 +318,7 @@ class CatalogManagerTest extends TestCase
 			'Some random editor',
 		]);
 
-		$_GET['search'] = 'pressbooks';
+		$_GET['search_term'] = 'pressbooks';
 
 		$response = $this->catalogManager->handle();
 
@@ -348,7 +348,7 @@ class CatalogManagerTest extends TestCase
 			'additional' => ['ABC', 'AF', 'AFCC'],
 		]);
 
-		$_GET['search'] = 'theory of art';
+		$_GET['search_term'] = 'theory of art';
 
 		$response = $this->catalogManager->handle();
 

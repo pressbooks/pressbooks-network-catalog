@@ -67,8 +67,8 @@ class CatalogManager
 		})->toArray();
 	}
 
-	protected function sanitize($value): string
+	protected function sanitize(string $value): string
 	{
-		return is_string($value) ? filter_var($value, FILTER_SANITIZE_STRING) : $value;
+		return stripslashes($value);
 	}
 }

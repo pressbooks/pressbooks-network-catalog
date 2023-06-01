@@ -1,5 +1,4 @@
 import Alpine from 'alpinejs';
-import '../css/app.css';
 import { DuetDatePicker } from "@duetds/date-picker/custom-element";
 customElements.define("duet-date-picker", DuetDatePicker);
 
@@ -8,6 +7,8 @@ window.Alpine = Alpine;
 const form = document.getElementById('network-catalog-form');
 
 const anchorIdRedirection = '#catalog';
+
+const mobileBreakpoint = 768;
 
 form.addEventListener('submit', function (event) {
   const inputs = Array
@@ -43,6 +44,24 @@ form.addEventListener('submit', function (event) {
       return false;
     }
   }
+
+	// disable duplicated filters according to screen size to avoid duplicated parameters
+	// this is needed because we have two sets of filters, one for mobile and one for desktop because of design constraints
+	const filtersMobile = document.querySelectorAll('.order-mobile select');
+	const filtersDesktop = document.querySelectorAll('.order-desktop select');
+	const searchMobile = document.querySelector('.mobile-bar input');
+	const searchDesktop = document.querySelector('.results input');
+	if(window.innerWidth > mobileBreakpoint) {
+		filtersMobile.forEach(el => {
+			el.disabled = true;
+		});
+		searchMobile.disabled = true;
+	} else {
+		filtersDesktop.forEach(el => {
+			el.disabled = true;
+		});
+		searchDesktop.disabled = true;
+	}
 
   return true;
 });
@@ -161,4 +180,4 @@ window.reset = () => {
 
 Alpine.start();
 
-console.log('main.js - start');
+console.log('PB Network Catalog - started');

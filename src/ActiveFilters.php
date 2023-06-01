@@ -22,10 +22,11 @@ class ActiveFilters
 		foreach ($this->filters as $filter => $values) {
 			if ($request->has($filter)) {
 				collect($request->{$filter})->each(function ($item) use ($filter) {
-					if ($this->filters[$filter][$item] ?? false) {
+					$value = stripslashes($item);
+					if ($this->filters[$filter][$value] ?? false) {
 						$this->items->push([
-							'key' => $item,
-							'label' => $this->getFilterValue($filter, $item),
+							'key' => $value,
+							'label' => $this->getFilterValue($filter, $value),
 							'type' => $filter,
 						]);
 					}
