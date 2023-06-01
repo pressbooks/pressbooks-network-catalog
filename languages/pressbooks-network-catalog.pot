@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-01T20:26:21+00:00\n"
+"POT-Creation-Date: 2023-06-01T20:50:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.0\n"
 "X-Domain: pressbooks-network-catalog\n"
@@ -39,16 +39,16 @@ msgstr ""
 msgid "Please run <code>composer install</code> from the root of the Pressbooks Network Catalog plugin directory."
 msgstr ""
 
-#: src/ActiveFilters.php:38
+#: src/ActiveFilters.php:39
 #: resources/views/partials/sidebar-filters.blade.php:72
 msgid "H5P Activities"
 msgstr ""
 
-#: src/ActiveFilters.php:46
+#: src/ActiveFilters.php:47
 msgid "From: %s"
 msgstr ""
 
-#: src/ActiveFilters.php:54
+#: src/ActiveFilters.php:55
 msgid "To: %s"
 msgstr ""
 
@@ -179,11 +179,11 @@ msgid_plural "%d results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: resources/views/partials/search-box.blade.php:20
+#: resources/views/partials/search-box.blade.php:19
 msgid "Applied filters"
 msgstr ""
 
-#: resources/views/partials/search-box.blade.php:26
+#: resources/views/partials/search-box.blade.php:25
 msgid "Remove %s filter"
 msgstr ""
 
