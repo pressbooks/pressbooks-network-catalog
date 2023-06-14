@@ -4,3 +4,6 @@
 /wp-content/
 .php-cs-fixer.cache
 .phpunit.result.cache
+tx
+.transifexrc
+LICENSE
