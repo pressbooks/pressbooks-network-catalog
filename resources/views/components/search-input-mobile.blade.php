@@ -1,6 +1,6 @@
 <div class="search">
 	<label id="search-input-mobile-label" class="sr-only">{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}</label>
-	<div class="search-input-mobile">
+	<div class="search-input mobile">
 		<input
 			type="search"
 			name="search_term"

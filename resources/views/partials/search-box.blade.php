@@ -1,6 +1,5 @@
 <div class="search-box">
 	@include('PressbooksNetworkCatalog::components.search-input')
-
 	@include('PressbooksNetworkCatalog::partials.refine-filters', ['class' => 'order-desktop'])
 </div>
 

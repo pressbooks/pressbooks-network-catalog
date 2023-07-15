@@ -19,7 +19,7 @@
             <div class="network-catalog">
                 <div x-data="{open: false}">
                     @include('PressbooksNetworkCatalog::partials.refine-filters', ['class' => 'order-mobile'])
-                    <section :class="open ? 'open': 'hidden'" class="side-filters" aria-label="{{ __('Filters', 'pressbooks-network-catalog') }}" aria-orientation="vertical" tabindex="-1" x-cloak :class="!open && 'hidden'">
+                    <section :class="open ? 'open': 'hidden'" class="side-filters" aria-label="{{ __('Filters', 'pressbooks-network-catalog') }}" tabindex="-1" x-cloak :class="!open && 'hidden'">
                         @include('PressbooksNetworkCatalog::partials.sidebar-filters')
                     </section>
                 </div>
