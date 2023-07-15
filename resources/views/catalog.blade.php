@@ -14,12 +14,12 @@
 	<div id="catalog">
         <form method="get" action="{{ $request->url() }}#catalog" id="network-catalog-form">
             <section class="mobile-bar search-box" aria-label="{{ __('Search', 'pressbooks-network-catalog') }}">
-                @include('PressbooksNetworkCatalog::components.search-input')
+                @include('PressbooksNetworkCatalog::components.search-input-mobile')
             </section>
             <div class="network-catalog">
                 <div x-data="{open: false}">
                     @include('PressbooksNetworkCatalog::partials.refine-filters', ['class' => 'order-mobile'])
-                    <section :class="open ? 'open': 'hidden'" class="side-filters" aria-label="{{ __('Filters', 'pressbooks-network-catalog') }}" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" x-cloak :class="!open && 'hidden'">
+                    <section :class="open ? 'open': 'hidden'" class="side-filters" aria-label="{{ __('Filters', 'pressbooks-network-catalog') }}" aria-orientation="vertical" tabindex="-1" x-cloak :class="!open && 'hidden'">
                         @include('PressbooksNetworkCatalog::partials.sidebar-filters')
                     </section>
                 </div>
