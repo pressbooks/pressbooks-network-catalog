@@ -86,9 +86,11 @@ class PressbooksNetworkCatalog
 			);
 	}
 
-	protected function load_plugin_textdomain() {
-		load_plugin_textdomain( 'pressbooks-network-catalog', FALSE, 'pressbooks-network-catalog/languages/' );
+	protected function load_plugin_textdomain()
+	{
+		load_plugin_textdomain('pressbooks-network-catalog', false, 'pressbooks-network-catalog/languages/');
 	}
+
 	protected function addHooks(): void
 	{
 		add_filter('pb_network_catalog', function () {
@@ -101,6 +103,6 @@ class PressbooksNetworkCatalog
 			'admin_init', fn () => remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'), 1
 		);
 
-		add_action( 'plugins_loaded', 'load_plugin_textdomain' );
+		add_action('plugins_loaded', 'load_plugin_textdomain');
 	}
 }
