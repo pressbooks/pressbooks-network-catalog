@@ -5,9 +5,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks Network Catalog 1.3.1\n"
+"Project-Id-Version: Pressbooks Network Catalog 1.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-network-catalog/issues\n"
-"POT-Creation-Date: 2023-03-15T18:15:42+00:00\n"
+"POT-Creation-Date: 2023-10-24T12:43:23+00:00\n"
 "PO-Revision-Date: 2023-03-08 01:17+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks-network-catalog\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks Network Catalog"
@@ -48,20 +48,21 @@ msgstr ""
 "Pressbooks Network Catalog プラグインディレクトリのルートから <code>composer install</code> "
 "を実行してください。"
 
-#: src/ActiveFilters.php:38
+#: src/ActiveFilters.php:39
 #: resources/views/partials/sidebar-filters.blade.php:72
 msgid "H5P Activities"
 msgstr "H5P アクティビティ"
 
-#: src/ActiveFilters.php:46
+#: src/ActiveFilters.php:47
 msgid "From: %s"
 msgstr "%sから"
 
-#: src/ActiveFilters.php:54
+#: src/ActiveFilters.php:55
 msgid "To: %s"
 msgstr "%sまで"
 
 #: resources/views/catalog.blade.php:17
+#: resources/views/components/search-input-mobile.blade.php:13
 #: resources/views/components/search-input.blade.php:13
 #: resources/views/components/selectable-filter.blade.php:20
 msgid "Search"
@@ -111,6 +112,8 @@ msgstr "%d/%d"
 msgid "Go to next page"
 msgstr "次のページへ"
 
+#: resources/views/components/search-input-mobile.blade.php:2
+#: resources/views/components/search-input-mobile.blade.php:7
 #: resources/views/components/search-input.blade.php:2
 #: resources/views/components/search-input.blade.php:7
 msgid "Search by title, author, keyword"
@@ -179,21 +182,21 @@ msgstr "最近更新"
 msgid "Title (A-Z)"
 msgstr "書名 (A-Z)"
 
-#: resources/views/partials/search-box.blade.php:9
+#: resources/views/partials/search-box.blade.php:8
 msgid "%d result for ‘%s’"
 msgid_plural "%d results for ‘%s’"
 msgstr[0] "「%s」に関する%d件の結果"
 
-#: resources/views/partials/search-box.blade.php:14
+#: resources/views/partials/search-box.blade.php:13
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d件の結果"
 
-#: resources/views/partials/search-box.blade.php:20
+#: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
 msgstr "適用された絞り込み"
 
-#: resources/views/partials/search-box.blade.php:26
+#: resources/views/partials/search-box.blade.php:24
 msgid "Remove %s filter"
 msgstr "絞り込み %s を削除"
 

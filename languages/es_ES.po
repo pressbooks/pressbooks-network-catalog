@@ -5,9 +5,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks Network Catalog 1.3.1\n"
+"Project-Id-Version: Pressbooks Network Catalog 1.3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-network-catalog/issues\n"
-"POT-Creation-Date: 2023-03-15T18:15:42+00:00\n"
+"POT-Creation-Date: 2023-10-24T12:43:23+00:00\n"
 "PO-Revision-Date: 2023-03-08 01:17+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-network-catalog\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 
 #. Plugin Name of the plugin
 msgid "Pressbooks Network Catalog"
@@ -50,20 +50,21 @@ msgstr ""
 "Ejecuta <code>composer install</code> desde la raíz del directorio del "
 "plugin Pressbooks Network Catalog."
 
-#: src/ActiveFilters.php:38
+#: src/ActiveFilters.php:39
 #: resources/views/partials/sidebar-filters.blade.php:72
 msgid "H5P Activities"
 msgstr "Actividades H5P"
 
-#: src/ActiveFilters.php:46
+#: src/ActiveFilters.php:47
 msgid "From: %s"
 msgstr "Desde: %s"
 
-#: src/ActiveFilters.php:54
+#: src/ActiveFilters.php:55
 msgid "To: %s"
 msgstr "Hasta: %s"
 
 #: resources/views/catalog.blade.php:17
+#: resources/views/components/search-input-mobile.blade.php:13
 #: resources/views/components/search-input.blade.php:13
 #: resources/views/components/selectable-filter.blade.php:20
 msgid "Search"
@@ -115,6 +116,8 @@ msgstr "%d de %d"
 msgid "Go to next page"
 msgstr "Ir a la página siguiente"
 
+#: resources/views/components/search-input-mobile.blade.php:2
+#: resources/views/components/search-input-mobile.blade.php:7
 #: resources/views/components/search-input.blade.php:2
 #: resources/views/components/search-input.blade.php:7
 msgid "Search by title, author, keyword"
@@ -183,25 +186,25 @@ msgstr "Última actualización"
 msgid "Title (A-Z)"
 msgstr "Título (A-Z)"
 
-#: resources/views/partials/search-box.blade.php:9
+#: resources/views/partials/search-box.blade.php:8
 msgid "%d result for ‘%s’"
 msgid_plural "%d results for ‘%s’"
 msgstr[0] "%d resultado para «%s»"
 msgstr[1] "%d resultados para «%s»"
 msgstr[2] "%d resultados para «%s»"
 
-#: resources/views/partials/search-box.blade.php:14
+#: resources/views/partials/search-box.blade.php:13
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d resultado"
 msgstr[1] "%d resultados"
 msgstr[2] "%d resultados"
 
-#: resources/views/partials/search-box.blade.php:20
+#: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
 msgstr "Filtros aplicados"
 
-#: resources/views/partials/search-box.blade.php:26
+#: resources/views/partials/search-box.blade.php:24
 msgid "Remove %s filter"
 msgstr "Quitar el filtro «%s»"
 
