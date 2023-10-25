@@ -1,0 +1,229 @@
+# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
+# This file is distributed under the GPL v3 or later.
+# Translators:
+# Eduardo Vera, 2023
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Pressbooks Network Catalog 1.3.3\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-network-catalog/issues\n"
+"POT-Creation-Date: 2023-10-24T12:43:23+00:00\n"
+"PO-Revision-Date: 2023-03-08 01:17+0000\n"
+"Last-Translator: Eduardo Vera, 2023\n"
+"Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: pressbooks-network-catalog\n"
+"X-Generator: WP-CLI 2.8.1\n"
+
+#. Plugin Name of the plugin
+msgid "Pressbooks Network Catalog"
+msgstr "Pressbooks Network Catalog"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://pressbooks.org"
+msgstr "https://pressbooks.org"
+
+#. Description of the plugin
+msgid "Add a searchable, filterable catalog to the Pressbooks Aldine theme"
+msgstr "Pressbooks Aldine テーマに検索・フィルター設定可能なカタログを追加します。"
+
+#. Author of the plugin
+msgid "Pressbooks (Book Oven Inc.)"
+msgstr "Pressbooks (Book Oven Inc.)"
+
+#: pressbooks-network-catalog.php:22
+msgid "Missing dependencies"
+msgstr "依存関係が見つかりません"
+
+#: pressbooks-network-catalog.php:23
+msgid ""
+"Please run <code>composer install</code> from the root of the Pressbooks "
+"Network Catalog plugin directory."
+msgstr ""
+"Pressbooks Network Catalog プラグインディレクトリのルートから <code>composer install</code> "
+"を実行してください。"
+
+#: src/ActiveFilters.php:39
+#: resources/views/partials/sidebar-filters.blade.php:72
+msgid "H5P Activities"
+msgstr "H5P アクティビティ"
+
+#: src/ActiveFilters.php:47
+msgid "From: %s"
+msgstr "%sから"
+
+#: src/ActiveFilters.php:55
+msgid "To: %s"
+msgstr "%sまで"
+
+#: resources/views/catalog.blade.php:17
+#: resources/views/components/search-input-mobile.blade.php:13
+#: resources/views/components/search-input.blade.php:13
+#: resources/views/components/selectable-filter.blade.php:20
+msgid "Search"
+msgstr "検索"
+
+#: resources/views/catalog.blade.php:23
+#: resources/views/partials/refine-filters.blade.php:3
+msgid "Filters"
+msgstr "絞り込み"
+
+#: resources/views/catalog.blade.php:29
+msgid "Search, pagination, and sorting"
+msgstr "検索、ページ送りと並べ替え"
+
+#: resources/views/catalog.blade.php:35
+msgid "Book list"
+msgstr "本リスト"
+
+#: resources/views/catalog.blade.php:40
+msgid ""
+"Sorry, no results were found. You may want to check your spelling, use "
+"alternative terms with similar meanings, or clear one or more filters."
+msgstr ""
+"結果が見つかりませんでした。スペルを確認したり、意味の似た代替キーワードを使用したり、1つ以上の絞り込みをクリアしたりする方がよいかもしれません。"
+
+#: resources/views/catalog.blade.php:42
+msgid "No books have been added to the catalog yet."
+msgstr "カタログに追加された本がありません。"
+
+#: resources/views/components/pagination.blade.php:5
+msgid "%s pagination"
+msgstr "%s ページ送り"
+
+#: resources/views/components/pagination.blade.php:16
+msgid "Go to previous page"
+msgstr "前のページへ"
+
+#: resources/views/components/pagination.blade.php:21
+msgid "Go to page"
+msgstr "ページへ移動:"
+
+#: resources/views/components/pagination.blade.php:30
+msgid "%d of %d"
+msgstr "%d/%d"
+
+#: resources/views/components/pagination.blade.php:42
+msgid "Go to next page"
+msgstr "次のページへ"
+
+#: resources/views/components/search-input-mobile.blade.php:2
+#: resources/views/components/search-input-mobile.blade.php:7
+#: resources/views/components/search-input.blade.php:2
+#: resources/views/components/search-input.blade.php:7
+msgid "Search by title, author, keyword"
+msgstr "書名、著者、キーワードで検索"
+
+#: resources/views/components/selectable-filter.blade.php:39
+msgid "No available filters at the moment"
+msgstr "現在利用可能な絞り込みがありません。"
+
+#: resources/views/components/selectable-filter.blade.php:48
+msgid "Show more +"
+msgstr "もっと見る +"
+
+#: resources/views/partials/book-card.blade.php:3
+msgid "%s book cover"
+msgstr "「%s」の書皮"
+
+#: resources/views/partials/book-card.blade.php:12
+msgid "%d H5P Activities"
+msgstr "%d件の H5P アクティビティ"
+
+#: resources/views/partials/book-card.blade.php:23
+msgid "Author(s):"
+msgstr "著者:"
+
+#: resources/views/partials/book-card.blade.php:30
+msgid "Editor(s):"
+msgstr "編集者:"
+
+#: resources/views/partials/book-card.blade.php:37
+msgid "Subject(s):"
+msgstr "件名:"
+
+#: resources/views/partials/book-card.blade.php:44
+msgid "Institution(s):"
+msgstr "機関:"
+
+#: resources/views/partials/book-card.blade.php:51
+msgid "Publisher:"
+msgstr "出版社:"
+
+#: resources/views/partials/book-card.blade.php:57
+msgid "Last updated:"
+msgstr "最終更新日時:"
+
+#: resources/views/partials/refine-filters.blade.php:8
+msgid "Results per page"
+msgstr "ページごとの結果数"
+
+#: resources/views/partials/refine-filters.blade.php:12
+#: resources/views/partials/refine-filters.blade.php:13
+#: resources/views/partials/refine-filters.blade.php:14
+msgid "%d results"
+msgstr "%d件の結果"
+
+#: resources/views/partials/refine-filters.blade.php:19
+#: resources/views/partials/refine-filters.blade.php:23
+msgid "Sort by"
+msgstr "並び順"
+
+#: resources/views/partials/refine-filters.blade.php:25
+msgid "Recently updated"
+msgstr "最近更新"
+
+#: resources/views/partials/refine-filters.blade.php:26
+msgid "Title (A-Z)"
+msgstr "書名 (A-Z)"
+
+#: resources/views/partials/search-box.blade.php:8
+msgid "%d result for ‘%s’"
+msgid_plural "%d results for ‘%s’"
+msgstr[0] "「%s」に関する%d件の結果"
+
+#: resources/views/partials/search-box.blade.php:13
+msgid "%d result"
+msgid_plural "%d results"
+msgstr[0] "%d件の結果"
+
+#: resources/views/partials/search-box.blade.php:18
+msgid "Applied filters"
+msgstr "適用された絞り込み"
+
+#: resources/views/partials/search-box.blade.php:24
+msgid "Remove %s filter"
+msgstr "絞り込み %s を削除"
+
+#: resources/views/partials/sidebar-filters.blade.php:3
+msgid "Subject"
+msgstr "件名"
+
+#: resources/views/partials/sidebar-filters.blade.php:14
+msgid "License"
+msgstr "ライセンス"
+
+#: resources/views/partials/sidebar-filters.blade.php:24
+msgid "Last Updated"
+msgstr "最終更新日時"
+
+#: resources/views/partials/sidebar-filters.blade.php:50
+msgid "Institution"
+msgstr "機関"
+
+#: resources/views/partials/sidebar-filters.blade.php:61
+msgid "Publisher"
+msgstr "出版社"
+
+#: resources/views/partials/sidebar-filters.blade.php:87
+msgid "Apply filters"
+msgstr "絞り込みを適用"
+
+#: resources/views/partials/sidebar-filters.blade.php:92
+msgid "Clear filters"
+msgstr "絞り込みをクリア"
