@@ -16,7 +16,7 @@
 	<section class="applied-filters" x-data aria-label="{{ __('Applied filters', 'pressbooks-network-catalog') }}">
 		@foreach($request->activeFilters as $filter)
 			<div class="applied-filter">
-				<span>{{ $filter['label'] }}</span>
+				<span>{{ pb_decode( $filter['label'] ) }}</span>
 				<button type="button" class="remove" @click="removeFilter('{{ addslashes($filter['key']) }}')">
 					<span class="sr-only">{{ sprintf(__('Remove %s filter', 'pressbooks-network-catalog'), $filter['label']) }}</span>
 					@include('PressbooksNetworkCatalog::icons.x-mark')
