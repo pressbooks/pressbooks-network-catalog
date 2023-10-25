@@ -61,5 +61,5 @@ Run `composer standards` to run the tests.
 ### Pressbooks Network Catalog 1.1.0
 * Pressbooks Network Catalog requires PHP >= 8.0
 * Pressbooks Network Catalog requires WordPress >= 6.1.1
-* Pressbooks Network Catalog requires Pressbooks >= 6.4.0
-* Pressbooks Network Catalog requires Aldine >= 1.17.0
+* Pressbooks Network Catalog requires Pressbooks >= 6.9.0
+* Pressbooks Network Catalog requires Aldine >= 1.19.0

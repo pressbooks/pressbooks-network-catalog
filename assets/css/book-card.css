@@ -28,7 +28,7 @@
   color: var(--primary-dark);
 }
 
-.book-cards .book-card .book-info * {
+.book-cards .book-card .book-info p, .book-cards .book-card .book-info ol, .book-cards .book-card .book-info ul {
   @apply text-base m-0;
 }
 
