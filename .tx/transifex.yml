@@ -4,10 +4,10 @@ git:
       source_file: languages/pressbooks-network-catalog.pot
       file_format: PO
       source_language: en
-      translation_files_expression: 'languages/<lang>.po'
+      translation_files_expression: 'languages/pressbooks-network-catalog-<lang>.po'
 
   settings:
-    pr_branch_name: chore/translations_<br_unique_id>
+    pr_branch_name: chore/translations-<br_unique_id>
     language_mapping:
       de: de_DE
       es: es_ES

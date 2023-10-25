@@ -28,9 +28,18 @@
   color: var(--primary-dark);
 }
 
-.book-cards .book-card .book-info p {
+.book-cards .book-card .book-info p, .book-cards .book-card .book-info ol, .book-cards .book-card .book-info ul {
   @apply text-base m-0;
 }
+
+.book-cards .book-card .book-info ol {
+	@apply list-decimal list-inside;
+}
+
+.book-cards .book-card .book-info ul {
+	@apply list-disc list-inside;
+}
+
 
 .book-cards .book-card .book-info > p:first-of-type {
   @apply text-sm;
@@ -57,7 +66,7 @@
   @apply mb-2;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp *:not(a):not(em):not(del):not(span):not(strong):not(u) {
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a):not(em):not(del):not(span):not(strong):not(u):not(li) {
   display: contents;
 }
 

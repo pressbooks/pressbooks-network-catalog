@@ -97,5 +97,9 @@ class PressbooksNetworkCatalog
 		add_filter(
 			'admin_init', fn () => remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'), 1
 		);
+
+		add_action('init', function () {
+			load_plugin_textdomain('pressbooks-network-catalog', false, 'pressbooks-network-catalog/languages');
+		});
 	}
 }

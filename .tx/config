@@ -2,7 +2,7 @@
 host = https://www.transifex.com
 
 [o:pressbooks:p:pressbooks-network-catalog:r:399b357bca7c36967267e0616474b9af]
-file_filter   = languages/<lang>.po
+file_filter   = languages/pressbooks-network-catalog-<lang>.po
 source_file   = languages/pressbooks-network-catalog.pot
 type          = PO
 minimum_perc  = 25
