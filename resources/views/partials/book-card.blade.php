@@ -5,7 +5,7 @@
 	<div class="book-info">
 		<h2><a href="{{ $book->url }}">{!! $book->title !!}</a></h2>
 		<p>
-			<span>{{ $book->license }}&nbsp;</span>
+			<span>{{ pb_decode( $book->license ) }}&nbsp;</span>
 			@if( $book->h5pCount)
 				<span>
 					<a href="{{ "$book->url/h5p-listing" }}">
