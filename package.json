@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks-network-catalog#readme",
   "devDependencies": {
-    "autoprefixer": "^10.4.16",
+    "autoprefixer": "^10.4.17",
     "cross-env": "^7.0.3",
     "eslint": "^8.52.0",
     "eslint-plugin-vue": "^9.17.0",
