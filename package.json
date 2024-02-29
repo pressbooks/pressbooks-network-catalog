@@ -1,7 +1,6 @@
 {
   "name": "pressbooks-network-catalog",
-  "version": "1.3.3",
-  "description": "",
+  "description": "A plugin which provides an improved catalog for the Pressbooks Aldine theme",
   "main": "assets/js/app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development vite",
