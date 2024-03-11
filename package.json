@@ -39,7 +39,7 @@
   "dependencies": {
     "@barba/core": "^2.9.7",
     "@duetds/date-picker": "^1.4.0",
-    "alpinejs": "^3.13.2",
+    "alpinejs": "^3.13.7",
     "dayjs": "^1.11.10",
     "nanobar": "^0.4.2"
   }
