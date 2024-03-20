@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Cache composer packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ matrix.php }}-php-${{ hashFiles('**/composer.lock') }}
