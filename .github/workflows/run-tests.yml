@@ -18,12 +18,12 @@ jobs:
       matrix:
         php: [8.1, 8.2]
         os: [ubuntu-20.04]
-        wordpress: [6.4.3, latest]
+        wordpress: ['6.5', latest]
         include:
           - experimental: true
           - experimental: false
             php: 8.1
-            wordpress: 6.4.3
+            wordpress: '6.5'
 
     name: Tests - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
@@ -61,8 +61,12 @@ jobs:
           tools: composer
           coverage: pcov
 
-      - name: Install dependencies
-        run: composer install --no-interaction --no-progress
+      - name: Install PHP dependencies
+        run: |
+          composer install --no-interaction --no-progress
+          git clone --depth=1 https://github.com/pressbooks/pressbooks.git ../pressbooks
+          cd ../pressbooks && composer install --no-dev
+          cd ../pressbooks-network-catalog
 
       - name: Install WP tests
         run: bash install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
@@ -107,8 +111,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_FOR_GITHUB_ACTIONS }}
         with:
-          files:
-            ${{github.workspace}}/*.zip
+          files: ${{github.workspace}}/*.zip
 
       - name: Trigger Bedrock Update
         if: (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/production')  && matrix.experimental == false

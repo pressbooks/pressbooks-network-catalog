@@ -14,15 +14,11 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.10",
-        "pressbooks/pressbooks": "dev-dev",
         "yoast/phpunit-polyfills": "^1.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "preferred-install": {
-            "pressbooks/pressbooks": "source"
-        },
         "allow-plugins": {
             "composer/installers": true
         }
