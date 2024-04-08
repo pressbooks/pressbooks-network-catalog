@@ -1,13 +1,13 @@
-# Copyright (C) 2023 Pressbooks (Book Oven Inc.)
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Eduardo Vera, 2023
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks Network Catalog 1.3.4\n"
+"Project-Id-Version: Pressbooks Network Catalog 1.3.5\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-network-catalog/issues\n"
-"POT-Creation-Date: 2023-10-25T22:48:58+00:00\n"
+"POT-Creation-Date: 2024-04-08T17:42:55+00:00\n"
 "PO-Revision-Date: 2023-03-08 01:17+0000\n"
 "Last-Translator: Eduardo Vera, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -17,38 +17,30 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-network-catalog\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
+#: pressbooks-network-catalog.php
 msgid "Pressbooks Network Catalog"
 msgstr "Pressbooks Network Catalog"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: pressbooks-network-catalog.php
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
 #. Description of the plugin
+#: pressbooks-network-catalog.php
 msgid "Add a searchable, filterable catalog to the Pressbooks Aldine theme"
 msgstr ""
 "Añade un catálogo que permite filtros y búsquedas al tema Aldine de "
 "Pressbooks."
 
 #. Author of the plugin
+#: pressbooks-network-catalog.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
-
-#: pressbooks-network-catalog.php:23
-msgid "Missing dependencies"
-msgstr "Hay dependencias faltantes"
-
-#: pressbooks-network-catalog.php:24
-msgid ""
-"Please run <code>composer install</code> from the root of the Pressbooks "
-"Network Catalog plugin directory."
-msgstr ""
-"Ejecuta <code>composer install</code> desde la raíz del directorio del "
-"plugin Pressbooks Network Catalog."
 
 #: src/ActiveFilters.php:39
 #: resources/views/partials/sidebar-filters.blade.php:72
