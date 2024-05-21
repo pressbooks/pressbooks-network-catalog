@@ -4,7 +4,9 @@ Contributors: fdalcin, arzola, richard015ar, steelwagstaff \
 Donate link: https://pressbooks.com/ \
 Requires at least: 6.5 \
 Tested up to: 6.5 \
+<!-- x-release-please-start-version -->
 Stable tag: 1.3.5 \
+<!-- x-release-please-end -->
 Requires PHP: 8.1 \
 License: GPLv3 or later \
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -45,24 +47,5 @@ Run `composer test` to run the tests.
 ## Lint coding standards
 Run `composer standards` to run the tests.
 
-## Changelog
-
-### 1.3.5
-* See: https://github.com/pressbooks/pressbooks-network-catalog/releases/tag/1.3.5
-* Full release history available at: https://github.com/pressbooks/pressbooks-network-catalog/releases
-
-## Upgrade Notices
-### Pressbooks Network Catalog 1.3.5
-* Pressbooks Network Catalog requires WordPress >= 6.5
-
-### Pressbooks Network Catalog 1.3.4
-* Pressbooks Network Catalog requires WordPress >= 6.3.2
-
-### Pressbooks Network Catalog 1.3.0
-* Pressbooks Network Catalog requires PHP >= 8.1
-
-### Pressbooks Network Catalog 1.1.0
-* Pressbooks Network Catalog requires PHP >= 8.0
-* Pressbooks Network Catalog requires WordPress >= 6.1.1
-* Pressbooks Network Catalog requires Pressbooks >= 6.9.0
-* Pressbooks Network Catalog requires Aldine >= 1.19.0
+### Changelog
+Please see the [CHANGELOG](CHANGELOG.md) file for more information.
