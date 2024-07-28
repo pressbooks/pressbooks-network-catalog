@@ -144,7 +144,7 @@ msgstr "机构："
 
 #: resources/views/partials/book-card.blade.php:51
 msgid "Publisher:"
-msgstr ""
+msgstr "出版商："
 
 #: resources/views/partials/book-card.blade.php:57
 msgid "Last updated:"
