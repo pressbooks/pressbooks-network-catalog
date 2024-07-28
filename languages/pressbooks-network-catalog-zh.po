@@ -132,15 +132,15 @@ msgstr "作者："
 
 #: resources/views/partials/book-card.blade.php:30
 msgid "Editor(s):"
-msgstr ""
+msgstr "编辑："
 
 #: resources/views/partials/book-card.blade.php:37
 msgid "Subject(s):"
-msgstr ""
+msgstr "主题："
 
 #: resources/views/partials/book-card.blade.php:44
 msgid "Institution(s):"
-msgstr ""
+msgstr "机构："
 
 #: resources/views/partials/book-card.blade.php:51
 msgid "Publisher:"
