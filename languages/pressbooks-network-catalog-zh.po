@@ -93,11 +93,11 @@ msgstr "前一页"
 
 #: resources/views/components/pagination.blade.php:21
 msgid "Go to page"
-msgstr ""
+msgstr "跳到页面"
 
 #: resources/views/components/pagination.blade.php:30
 msgid "%d of %d"
-msgstr ""
+msgstr "%d of %d"
 
 #: resources/views/components/pagination.blade.php:42
 msgid "Go to next page"
