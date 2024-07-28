@@ -81,11 +81,11 @@ msgstr "抱歉，未找到任何结果。您可能需要检查拼写、使用具
 
 #: resources/views/catalog.blade.php:42
 msgid "No books have been added to the catalog yet."
-msgstr ""
+msgstr "尚未添加任何书籍到目录中。"
 
 #: resources/views/components/pagination.blade.php:5
 msgid "%s pagination"
-msgstr ""
+msgstr "%s分页"
 
 #: resources/views/components/pagination.blade.php:16
 msgid "Go to previous page"
