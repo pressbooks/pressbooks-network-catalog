@@ -217,4 +217,4 @@ msgstr "应用过滤条件"
 
 #: resources/views/partials/sidebar-filters.blade.php:92
 msgid "Clear filters"
-msgstr ""
+msgstr "清除过滤条件"
