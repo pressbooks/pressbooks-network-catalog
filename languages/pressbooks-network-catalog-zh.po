@@ -213,7 +213,7 @@ msgstr "出版商"
 
 #: resources/views/partials/sidebar-filters.blade.php:87
 msgid "Apply filters"
-msgstr ""
+msgstr "应用过滤条件"
 
 #: resources/views/partials/sidebar-filters.blade.php:92
 msgid "Clear filters"
