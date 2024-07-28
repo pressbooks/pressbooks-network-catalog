@@ -116,7 +116,7 @@ msgstr "当前无可用过滤条件"
 
 #: resources/views/components/selectable-filter.blade.php:48
 msgid "Show more +"
-msgstr ""
+msgstr "显示更多+"
 
 #: resources/views/partials/book-card.blade.php:3
 msgid "%s book cover"
