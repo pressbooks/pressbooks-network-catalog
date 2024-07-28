@@ -171,7 +171,7 @@ msgstr "最近更新"
 
 #: resources/views/partials/refine-filters.blade.php:26
 msgid "Title (A-Z)"
-msgstr ""
+msgstr "标题（A-Z）"
 
 #: resources/views/partials/search-box.blade.php:8
 msgid "%d result for ‘%s’"
