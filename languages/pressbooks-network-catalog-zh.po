@@ -101,7 +101,7 @@ msgstr "%d of %d"
 
 #: resources/views/components/pagination.blade.php:42
 msgid "Go to next page"
-msgstr ""
+msgstr "后一页"
 
 #: resources/views/components/search-input-mobile.blade.php:2
 #: resources/views/components/search-input-mobile.blade.php:7
