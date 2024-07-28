@@ -185,7 +185,7 @@ msgstr[0] "%d结果"
 
 #: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
-msgstr ""
+msgstr "应用过滤条件"
 
 #: resources/views/partials/search-box.blade.php:24
 msgid "Remove %s filter"
