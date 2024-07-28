@@ -189,11 +189,11 @@ msgstr "应用过滤条件"
 
 #: resources/views/partials/search-box.blade.php:24
 msgid "Remove %s filter"
-msgstr ""
+msgstr "移除%s过滤条件"
 
 #: resources/views/partials/sidebar-filters.blade.php:3
 msgid "Subject"
-msgstr ""
+msgstr "主题"
 
 #: resources/views/partials/sidebar-filters.blade.php:14
 msgid "License"
