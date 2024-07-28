@@ -120,15 +120,15 @@ msgstr "显示更多+"
 
 #: resources/views/partials/book-card.blade.php:3
 msgid "%s book cover"
-msgstr ""
+msgstr "%s书籍封面"
 
 #: resources/views/partials/book-card.blade.php:12
 msgid "%d H5P Activities"
-msgstr ""
+msgstr "%dH5P活动"
 
 #: resources/views/partials/book-card.blade.php:23
 msgid "Author(s):"
-msgstr ""
+msgstr "作者："
 
 #: resources/views/partials/book-card.blade.php:30
 msgid "Editor(s):"
