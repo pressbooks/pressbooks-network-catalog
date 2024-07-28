@@ -112,7 +112,7 @@ msgstr "通过标题、作者、关键词来搜索"
 
 #: resources/views/components/selectable-filter.blade.php:39
 msgid "No available filters at the moment"
-msgstr ""
+msgstr "当前无可用过滤条件"
 
 #: resources/views/components/selectable-filter.blade.php:48
 msgid "Show more +"
