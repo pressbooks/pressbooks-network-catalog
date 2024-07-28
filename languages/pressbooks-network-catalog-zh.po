@@ -148,11 +148,11 @@ msgstr "出版商："
 
 #: resources/views/partials/book-card.blade.php:57
 msgid "Last updated:"
-msgstr ""
+msgstr "最后更新时间："
 
 #: resources/views/partials/refine-filters.blade.php:8
 msgid "Results per page"
-msgstr ""
+msgstr "每页显示条数"
 
 #: resources/views/partials/refine-filters.blade.php:12
 #: resources/views/partials/refine-filters.blade.php:13
