@@ -158,7 +158,7 @@ msgstr "每页显示条数"
 #: resources/views/partials/refine-filters.blade.php:13
 #: resources/views/partials/refine-filters.blade.php:14
 msgid "%d results"
-msgstr ""
+msgstr "%d结果"
 
 #: resources/views/partials/refine-filters.blade.php:19
 #: resources/views/partials/refine-filters.blade.php:23
