@@ -197,7 +197,7 @@ msgstr "主题"
 
 #: resources/views/partials/sidebar-filters.blade.php:14
 msgid "License"
-msgstr ""
+msgstr "授权"
 
 #: resources/views/partials/sidebar-filters.blade.php:24
 msgid "Last Updated"
