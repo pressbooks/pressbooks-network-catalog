@@ -176,12 +176,12 @@ msgstr "标题（A-Z）"
 #: resources/views/partials/search-box.blade.php:8
 msgid "%d result for ‘%s’"
 msgid_plural "%d results for ‘%s’"
-msgstr[0] ""
+msgstr[0] "“%s”的搜搜结果%d"
 
 #: resources/views/partials/search-box.blade.php:13
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
+msgstr[0] "%d结果"
 
 #: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
