@@ -89,7 +89,7 @@ msgstr "%s分页"
 
 #: resources/views/components/pagination.blade.php:16
 msgid "Go to previous page"
-msgstr ""
+msgstr "前一页"
 
 #: resources/views/components/pagination.blade.php:21
 msgid "Go to page"
