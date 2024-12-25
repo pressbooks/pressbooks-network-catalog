@@ -113,7 +113,7 @@ msgstr ""
 
 #: resources/views/components/selectable-filter.blade.php:39
 msgid "No available filters at the moment"
-msgstr "No available filters at the moment"
+msgstr "Şu anda mevcut filtre yok"
 
 #: resources/views/components/selectable-filter.blade.php:48
 msgid "Show more +"
