@@ -164,11 +164,11 @@ msgstr ""
 #: resources/views/partials/refine-filters.blade.php:19
 #: resources/views/partials/refine-filters.blade.php:23
 msgid "Sort by"
-msgstr ""
+msgstr "Şuna göre sırala"
 
 #: resources/views/partials/refine-filters.blade.php:25
 msgid "Recently updated"
-msgstr ""
+msgstr "Yakın zamanda güncellendi"
 
 #: resources/views/partials/refine-filters.blade.php:26
 msgid "Title (A-Z)"
