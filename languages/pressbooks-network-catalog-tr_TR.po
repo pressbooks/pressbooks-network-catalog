@@ -90,7 +90,7 @@ msgstr ""
 
 #: resources/views/components/pagination.blade.php:16
 msgid "Go to previous page"
-msgstr ""
+msgstr "Önceki sayfaya git"
 
 #: resources/views/components/pagination.blade.php:21
 msgid "Go to page"
