@@ -72,7 +72,7 @@ msgstr ""
 
 #: resources/views/catalog.blade.php:35
 msgid "Book list"
-msgstr ""
+msgstr "Kitap listesi"
 
 #: resources/views/catalog.blade.php:40
 msgid ""
