@@ -79,6 +79,9 @@ msgid ""
 "Sorry, no results were found. You may want to check your spelling, use "
 "alternative terms with similar meanings, or clear one or more filters."
 msgstr ""
+"Üzgünüz, hiçbir sonuç bulunamadı. Yazımınızı kontrol etmek veya benzer "
+"anlamlara sahip farklı terimler kullanmak ya da bir veya daha fazla filtreyi"
+" temizlemek gerekebilir."
 
 #: resources/views/catalog.blade.php:42
 msgid "No books have been added to the catalog yet."
@@ -86,7 +89,7 @@ msgstr "Henüz kataloğa kitap eklenmemiş."
 
 #: resources/views/components/pagination.blade.php:5
 msgid "%s pagination"
-msgstr ""
+msgstr "%s sayfalama"
 
 #: resources/views/components/pagination.blade.php:16
 msgid "Go to previous page"
