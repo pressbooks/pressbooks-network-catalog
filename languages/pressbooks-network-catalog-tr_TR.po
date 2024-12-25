@@ -156,7 +156,7 @@ msgstr "Son güncelleme:"
 
 #: resources/views/partials/refine-filters.blade.php:8
 msgid "Results per page"
-msgstr ""
+msgstr "Sayfa başına sonuç"
 
 #: resources/views/partials/refine-filters.blade.php:12
 #: resources/views/partials/refine-filters.blade.php:13
