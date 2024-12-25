@@ -141,7 +141,7 @@ msgstr ""
 
 #: resources/views/partials/book-card.blade.php:44
 msgid "Institution(s):"
-msgstr ""
+msgstr "Kurum(lar):"
 
 #: resources/views/partials/book-card.blade.php:51
 msgid "Publisher:"
