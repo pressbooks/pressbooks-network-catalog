@@ -137,7 +137,7 @@ msgstr ""
 
 #: resources/views/partials/book-card.blade.php:37
 msgid "Subject(s):"
-msgstr ""
+msgstr "Konu(lar):"
 
 #: resources/views/partials/book-card.blade.php:44
 msgid "Institution(s):"
