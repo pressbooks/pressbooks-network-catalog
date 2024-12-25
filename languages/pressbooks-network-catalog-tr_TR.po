@@ -125,7 +125,7 @@ msgstr ""
 
 #: resources/views/partials/book-card.blade.php:12
 msgid "%d H5P Activities"
-msgstr ""
+msgstr "%d H5P Etkinlikleri"
 
 #: resources/views/partials/book-card.blade.php:23
 msgid "Author(s):"
