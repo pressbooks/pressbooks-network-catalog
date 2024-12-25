@@ -132,7 +132,7 @@ msgstr "%d H5P Etkinlikleri"
 
 #: resources/views/partials/book-card.blade.php:23
 msgid "Author(s):"
-msgstr ""
+msgstr "Yazar(lar):"
 
 #: resources/views/partials/book-card.blade.php:30
 msgid "Editor(s):"
