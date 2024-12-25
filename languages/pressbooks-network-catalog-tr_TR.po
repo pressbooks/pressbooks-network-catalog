@@ -149,7 +149,7 @@ msgstr ""
 
 #: resources/views/partials/book-card.blade.php:57
 msgid "Last updated:"
-msgstr ""
+msgstr "Son güncelleme:"
 
 #: resources/views/partials/refine-filters.blade.php:8
 msgid "Results per page"
