@@ -145,7 +145,7 @@ msgstr ""
 
 #: resources/views/partials/book-card.blade.php:51
 msgid "Publisher:"
-msgstr ""
+msgstr "Yayıncı:"
 
 #: resources/views/partials/book-card.blade.php:57
 msgid "Last updated:"
