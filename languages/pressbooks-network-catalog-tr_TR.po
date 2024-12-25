@@ -98,7 +98,7 @@ msgstr "Sayfaya git"
 
 #: resources/views/components/pagination.blade.php:30
 msgid "%d of %d"
-msgstr ""
+msgstr "%d den %d"
 
 #: resources/views/components/pagination.blade.php:42
 msgid "Go to next page"
