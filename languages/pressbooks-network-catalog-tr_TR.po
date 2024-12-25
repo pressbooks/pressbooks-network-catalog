@@ -117,7 +117,7 @@ msgstr ""
 
 #: resources/views/components/selectable-filter.blade.php:48
 msgid "Show more +"
-msgstr "Show more +"
+msgstr "Daha fazla göster +"
 
 #: resources/views/partials/book-card.blade.php:3
 msgid "%s book cover"
