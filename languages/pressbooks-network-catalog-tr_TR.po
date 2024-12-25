@@ -59,7 +59,7 @@ msgstr ""
 #: resources/views/components/search-input.blade.php:13
 #: resources/views/components/selectable-filter.blade.php:20
 msgid "Search"
-msgstr ""
+msgstr "Arama"
 
 #: resources/views/catalog.blade.php:23
 #: resources/views/partials/refine-filters.blade.php:3
