@@ -109,7 +109,7 @@ msgstr "Sonraki sayfaya git"
 #: resources/views/components/search-input.blade.php:2
 #: resources/views/components/search-input.blade.php:7
 msgid "Search by title, author, keyword"
-msgstr ""
+msgstr "Başlığa, yazara, anahtar kelimeye göre arama"
 
 #: resources/views/components/selectable-filter.blade.php:39
 msgid "No available filters at the moment"
