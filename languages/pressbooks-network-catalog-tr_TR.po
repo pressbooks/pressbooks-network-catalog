@@ -48,7 +48,7 @@ msgstr "H5P Etkinlikleri"
 
 #: src/ActiveFilters.php:47
 msgid "From: %s"
-msgstr "Arama, sayfalandırma ve sıralama"
+msgstr "Şuraya: %s"
 
 #: src/ActiveFilters.php:55
 msgid "To: %s"
