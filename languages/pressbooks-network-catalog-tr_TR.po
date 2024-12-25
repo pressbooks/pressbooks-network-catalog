@@ -68,7 +68,7 @@ msgstr "Filitreler"
 
 #: resources/views/catalog.blade.php:29
 msgid "Search, pagination, and sorting"
-msgstr ""
+msgstr "Arama, sayfalama ve sıralama"
 
 #: resources/views/catalog.blade.php:35
 msgid "Book list"
