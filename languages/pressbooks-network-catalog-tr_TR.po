@@ -121,7 +121,7 @@ msgstr ""
 
 #: resources/views/partials/book-card.blade.php:3
 msgid "%s book cover"
-msgstr ""
+msgstr "%s kitap kapağı"
 
 #: resources/views/partials/book-card.blade.php:12
 msgid "%d H5P Activities"
