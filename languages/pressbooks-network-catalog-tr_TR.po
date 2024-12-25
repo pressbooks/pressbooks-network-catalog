@@ -159,7 +159,7 @@ msgstr ""
 #: resources/views/partials/refine-filters.blade.php:13
 #: resources/views/partials/refine-filters.blade.php:14
 msgid "%d results"
-msgstr ""
+msgstr "%d sonuç"
 
 #: resources/views/partials/refine-filters.blade.php:19
 #: resources/views/partials/refine-filters.blade.php:23
