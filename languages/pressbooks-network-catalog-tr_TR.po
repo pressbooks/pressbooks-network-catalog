@@ -183,8 +183,8 @@ msgstr[1] ""
 #: resources/views/partials/search-box.blade.php:13
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d sonuç"
+msgstr[1] "%d sonuç"
 
 #: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
