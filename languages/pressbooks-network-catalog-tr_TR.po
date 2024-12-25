@@ -52,7 +52,7 @@ msgstr "Şuraya: %s"
 
 #: src/ActiveFilters.php:55
 msgid "To: %s"
-msgstr ""
+msgstr "Şurdan: %s"
 
 #: resources/views/catalog.blade.php:17
 #: resources/views/components/search-input-mobile.blade.php:13
