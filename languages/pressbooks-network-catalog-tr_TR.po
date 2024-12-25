@@ -82,7 +82,7 @@ msgstr ""
 
 #: resources/views/catalog.blade.php:42
 msgid "No books have been added to the catalog yet."
-msgstr ""
+msgstr "Henüz kataloğa kitap eklenmemiş."
 
 #: resources/views/components/pagination.blade.php:5
 msgid "%s pagination"
