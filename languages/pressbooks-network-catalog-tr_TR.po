@@ -133,7 +133,7 @@ msgstr ""
 
 #: resources/views/partials/book-card.blade.php:30
 msgid "Editor(s):"
-msgstr ""
+msgstr "Editör(ler):"
 
 #: resources/views/partials/book-card.blade.php:37
 msgid "Subject(s):"
