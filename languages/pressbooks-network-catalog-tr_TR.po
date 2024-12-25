@@ -48,7 +48,7 @@ msgstr "H5P Etkinlikleri"
 
 #: src/ActiveFilters.php:47
 msgid "From: %s"
-msgstr ""
+msgstr "Arama, sayfalandırma ve sıralama"
 
 #: src/ActiveFilters.php:55
 msgid "To: %s"
@@ -64,7 +64,7 @@ msgstr "Arama"
 #: resources/views/catalog.blade.php:23
 #: resources/views/partials/refine-filters.blade.php:3
 msgid "Filters"
-msgstr ""
+msgstr "Filitreler"
 
 #: resources/views/catalog.blade.php:29
 msgid "Search, pagination, and sorting"
