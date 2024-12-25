@@ -188,7 +188,7 @@ msgstr[1] ""
 
 #: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
-msgstr ""
+msgstr "Uygulanan filtreler"
 
 #: resources/views/partials/search-box.blade.php:24
 msgid "Remove %s filter"
