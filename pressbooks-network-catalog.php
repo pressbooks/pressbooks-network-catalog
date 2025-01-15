@@ -6,7 +6,7 @@
  * Requires Plugins: pressbooks
  * Description: Add a searchable, filterable catalog to the Pressbooks Aldine theme
  * x-release-please-start-version
- * Version: 1.3.6
+ * Version: 1.3.7
  * x-release-please-end
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org
