@@ -1,6 +1,6 @@
 <div class="book-card">
 	<div class="book-cover">
-		<a href="{{ $book->url }}"><img src="{{ $book->cover }}" alt="{{ sprintf(__('%s book cover', 'pressbooks-network-catalog'), $book->title) }}" /></a>
+		<a href="{{ $book->url }}" aria-hidden="true" tabindex="-1"><img src="{{ $book->cover }}" alt="{{ sprintf(__('%s book cover', 'pressbooks-network-catalog'), $book->title) }}" /></a>
 	</div>
 	<div class="book-info">
 		<h2><a href="{{ $book->url }}">{!! $book->title !!}</a></h2>
