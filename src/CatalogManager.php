@@ -15,6 +15,8 @@ class CatalogManager
 
 	private $request;
 
+	private Collection $activeFilters;
+
 	public function handle(): array
 	{
 		$this->request = Request::capture();
@@ -27,7 +29,7 @@ class CatalogManager
 		];
 
 		// Inject active filters into the request object
-		$this->request->activeFilters = $this->getActiveFilters();
+		$this->activeFilters = $this->getActiveFilters();
 
 		$books = new Books($this->filters);
 
@@ -39,6 +41,7 @@ class CatalogManager
 			'pagination' => $books->getPagination(),
 			'catalogBg' => $this->getBackgroundImage(),
 			'catalogHasBooks' => $books->catalogHasBooks(),
+			'activeFilters' => $this->activeFilters,
 		] + $this->filters;
 	}
 

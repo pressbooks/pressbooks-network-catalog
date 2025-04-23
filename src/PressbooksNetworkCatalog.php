@@ -3,6 +3,8 @@
 namespace PressbooksNetworkCatalog;
 
 use Pressbooks\Container;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class PressbooksNetworkCatalog
 {
@@ -77,6 +79,10 @@ class PressbooksNetworkCatalog
 		});
 	}
 
+	/**
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
+	 */
 	protected function setUpBlade(): void
 	{
 		Container::get('Blade')
@@ -86,6 +92,10 @@ class PressbooksNetworkCatalog
 			);
 	}
 
+	/**
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
+	 */
 	protected function addHooks(): void
 	{
 		add_filter('pb_network_catalog', function () {
