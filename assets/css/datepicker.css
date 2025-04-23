@@ -24,6 +24,10 @@
   @apply pt-4 pl-2 m-0;
 }
 
+#last-updated-wrapper p {
+	@apply text-sm text-gray-500 leading-none mt-1;
+}
+
 .duet-date__day:not(.is-month), .duet-date__day[aria-disabled=true] {
   opacity: 0.8;
   color: var(--primary);

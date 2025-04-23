@@ -26,21 +26,25 @@
 	</button>
 	<div id="last-updated-wrapper" x-cloak :class="!open && 'hidden'">
             <div>
-                <label>From</label>
+                <label for="updated_from">From</label>
                 <duet-date-picker
                     identifier="updated_from"
                     name="from"
                     value="{{$request->from ?? ''}}"
                     min="2010-01-01"
                     max="{{date('Y-m-d')}}"
+					aria-describedby="updated_from-hint"
                 ></duet-date-picker>
-                <label>To</label>
+				<p id="updated_from-hint">Select or type a date to filter books updated from this point onwards</p>
+                <label for="updated_to">To</label>
                 <duet-date-picker
                     identifier="updated_to"
                     name="to"
                     value="{{$request->to ?? ''}}"
                     max="{{date('Y-m-d')}}"
+					aria-describedby="updated_to-hint"
                 ></duet-date-picker>
+				<p id="updated_to-hint">Select or type date to filter books updated up to this point</p>
             </div>
 	</div>
 </div>
