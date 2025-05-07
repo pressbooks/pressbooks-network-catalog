@@ -12,9 +12,9 @@
 		{{ sprintf(_n('%d result', '%d results', $pagination['total'], 'pressbooks-network-catalog'), $pagination['total']) }}
 	</span>
 @endif
-@if($request->activeFilters->isNotEmpty())
+@if($activeFilters->isNotEmpty())
 	<section class="applied-filters" x-data aria-label="{{ __('Applied filters', 'pressbooks-network-catalog') }}">
-		@foreach($request->activeFilters as $filter)
+		@foreach($activeFilters as $filter)
 			<div class="applied-filter">
 				<span>{{ pb_decode( $filter['label'] ) }}</span>
 				<button type="button" class="remove" @click="removeFilter('{{ addslashes($filter['key']) }}')">

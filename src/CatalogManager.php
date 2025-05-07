@@ -26,9 +26,6 @@ class CatalogManager
 			'publishers' => Publisher::getPossibleValues(),
 		];
 
-		// Inject active filters into the request object
-		$this->request->activeFilters = $this->getActiveFilters();
-
 		$books = new Books($this->filters);
 
 		$this->request->replace($this->sanitizeRequestParams($this->request));
@@ -39,6 +36,7 @@ class CatalogManager
 			'pagination' => $books->getPagination(),
 			'catalogBg' => $this->getBackgroundImage(),
 			'catalogHasBooks' => $books->catalogHasBooks(),
+			'activeFilters' => $this->getActiveFilters(),
 		] + $this->filters;
 	}
 
