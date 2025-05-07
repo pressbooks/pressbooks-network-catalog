@@ -15,7 +15,7 @@
 }
 
 .book-cards .book-card .book-info h2 {
-  @apply text-2xl text-left font-bold normal-case mt-0 lg:mt-4 before:hidden;
+  @apply text-2xl text-left font-bold normal-case mt-0 before:hidden;
   color: var(--primary);
 }
 
