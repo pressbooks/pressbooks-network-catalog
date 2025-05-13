@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.8](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.3.7...1.3.8) (2025-05-07)
+
+
+### Bug Fixes
+
+* add link to book card image ([#465](https://github.com/pressbooks/pressbooks-network-catalog/issues/465)) ([7f69c39](https://github.com/pressbooks/pressbooks-network-catalog/commit/7f69c391ad7e86f8e9a82ce546dff10eed4fd755))
+
 ## [1.3.7](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.3.6...1.3.7) (2025-01-15)
 
 
