@@ -13,7 +13,7 @@ const mobileBreakpoint = 768;
 form.addEventListener('submit', function (event) {
   const inputs = Array
     .from(event.target.elements)
-    .filter(input => ['search', 'pg', 'from', 'to', 'published_from', 'published_to', 'updated_from', 'updated_to'].includes(input.name));
+    .filter(input => ['search', 'pg', 'published_from', 'published_to', 'updated_from', 'updated_to'].includes(input.name));
 
   // disable pagination when submitting the form since we want to reset it
   inputs
@@ -31,30 +31,40 @@ form.addEventListener('submit', function (event) {
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
 
-  // Validate each date pair separately (published and updated)
-  const publishedFrom = event.target.elements['published_from'];
-  const publishedTo = event.target.elements['published_to'];
-  if (publishedFrom && publishedTo && publishedFrom.value && publishedTo.value) {
-    if (new Date(publishedFrom.value) > new Date(publishedTo.value)) {
-      publishedTo.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
-      publishedTo.valid = false;
-      publishedTo.reportValidity();
-      event.preventDefault();
-      return false;
-    }
-  }
+  // Validate date pairs (published and updated) using a small helper
+  const validateDatePair = (fromName, toName) => {
+    const fromEl = event.target.elements[fromName];
+    const toEl = event.target.elements[toName];
+    if (!fromEl || !toEl) return true;
 
-  const updatedFrom = event.target.elements['updated_from'];
-  const updatedTo = event.target.elements['updated_to'];
-  if (updatedFrom && updatedTo && updatedFrom.value && updatedTo.value) {
-    if (new Date(updatedFrom.value) > new Date(updatedTo.value)) {
-      updatedTo.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
-      updatedTo.valid = false;
-      updatedTo.reportValidity();
+    // clear any previous custom validity
+    toEl.setCustomValidity('');
+
+    if (!fromEl.value || !toEl.value) return true; // nothing to validate
+
+    const fromDate = new Date(fromEl.value);
+    const toDate = new Date(toEl.value);
+
+    // basic validity check
+    if (isNaN(fromDate) || isNaN(toDate)) {
+      toEl.setCustomValidity('Please provide valid dates.');
+      toEl.reportValidity();
       event.preventDefault();
       return false;
     }
-  }
+
+    if (fromDate > toDate) {
+      toEl.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
+      toEl.reportValidity();
+      event.preventDefault();
+      return false;
+    }
+
+    return true;
+  };
+
+  if (!validateDatePair('published_from', 'published_to')) return false;
+  if (!validateDatePair('updated_from', 'updated_to')) return false;
 
 	// disable duplicated filters according to screen size to avoid duplicated parameters
 	// this is needed because we have two sets of filters, one for mobile and one for desktop because of design constraints
@@ -81,11 +91,26 @@ form.addEventListener('submit', function (event) {
 document.querySelectorAll('duet-date-picker').forEach(el => {
   el.addEventListener('duetChange', function(e) {
     const id = el.getAttribute('identifier') || '';
-    // Clear any matching underlying input validity messages if present
-    const maybePublishedTo = document.querySelector('input[name="published_to"]');
-    if (maybePublishedTo) { maybePublishedTo.setCustomValidity(''); maybePublishedTo.valid = true; }
-    const maybeUpdatedTo = document.querySelector('input[name="updated_to"]');
-    if (maybeUpdatedTo) { maybeUpdatedTo.setCustomValidity(''); maybeUpdatedTo.valid = true; }
+    if (!id) return;
+
+    // Try to clear validity on the underlying input with the same name
+    const underlying = document.querySelector(`input[name="${id}"]`);
+    if (underlying) {
+      underlying.setCustomValidity('');
+      underlying.valid = true;
+      // notify any listeners that the value/validity changed
+      underlying.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // If a "_from" field changed, also clear the paired "_to" validity so users can revalidate
+    if (id.endsWith('_from')) {
+      const toName = id.replace('_from', '_to');
+      const maybeTo = document.querySelector(`input[name="${toName}"]`);
+      if (maybeTo) {
+        maybeTo.setCustomValidity('');
+        maybeTo.valid = true;
+      }
+    }
   });
 });
 
