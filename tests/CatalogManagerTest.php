@@ -819,7 +819,7 @@ class CatalogManagerTest extends TestCase
 		$secondBook = $this->createCatalogBook();
 		$secondBookLastUpdated = Carbon::now()->subMonth();
 
-		$this->updateLastUpdated($secondBook, $secondBook);
+		$this->updateLastUpdated($secondBook, $secondBookLastUpdated);
 
 		$_GET['updated_to'] = $firstBookLastUpdated->toDateString();
 

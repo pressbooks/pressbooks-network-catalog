@@ -40,92 +40,92 @@ class BooksRequestManager
 	/**
 	 * @param Collection $bookFields
 	 */
-	public function __construct(Collection $bookFields)
-	{
-		$this->bookFields = $bookFields;
-		$this->allowedParams = collect([
-			'pg' => [
-				'type' => 'number',
-				'default' => 1,
-			],
-			'per_page' => [
-				'type' => 'number',
-				'default' => $this->defaultPerPage,
-			],
-			'subjects' => [
-				'type' => 'array',
-				'field' => 'subjects',
-			],
-			'licenses' => [
-				'type' => 'array',
-				'field' => 'licenses',
-			],
-			'institutions' => [
-				'type' => 'array',
-				'field' => 'institutions',
-			],
-			'publishers' => [
-				'type' => 'array',
-				'field' => 'publishers',
-			],
-			'search_term' => [
-				'type' => 'string',
-			],
-			'h5p' => [
-				'type' => 'flag',
-				'field' => 'h5p',
-			],
-			'date_field' => [
-				'type' => 'array',
-				'default' => 'last_updated',
-				'allowedValues' => [
-					'last_updated' => ['field' => 'last_updated'],
-					'publication_date' => ['field' => 'publicationDate'],
-				],
-			],
-			'published_from' => [
-				'type' => 'date',
-				'sqlOperator' => '>=',
-				'field' => 'publicationDate',
-			],
-			'published_to' => [
-				'type' => 'date',
-				'sqlOperator' => '<=',
-				'field' => 'publicationDate',
-				'greaterThanOrEqualTo' => 'published_from',
-			],
-			'updated_from' => [
-				'type' => 'date',
-				'sqlOperator' => '>=',
-				'field' => 'updatedAt',
-			],
-			'updated_to' => [
-				'type' => 'date',
-				'sqlOperator' => '<=',
-				'field' => 'updatedAt',
-				'greaterThanOrEqualTo' => 'updated_from',
-			],
-			'sort_by' => [
-				'type' => 'array',
-				'default' => 'last_updated',
-				'allowedValues' => [
-					'last_updated' => [
-						'field' => 'updatedAt',
-						'order' => 'DESC',
-					],
-					'title' => [
-						'field' => 'title',
-						'order' => 'ASC',
-					],
-					'publication_date' => [
-						'field' => 'publicationDate',
-						'order' => 'DESC',
-					],
-				],
-			],
-		]);
-		$this->request = Request::capture();
-	}
+	public function __construct(Collection $bookFields, Request $request = null) {
+    $this->bookFields = $bookFields;
+    $this->allowedParams = collect([
+        'pg' => [
+            'type' => 'number',
+            'default' => 1,
+        ],
+        'per_page' => [
+            'type' => 'number',
+            'default' => $this->defaultPerPage,
+        ],
+        'subjects' => [
+            'type' => 'array',
+            'field' => 'subjects',
+        ],
+        'licenses' => [
+            'type' => 'array',
+            'field' => 'licenses',
+        ],
+        'institutions' => [
+            'type' => 'array',
+            'field' => 'institutions',
+        ],
+        'publishers' => [
+            'type' => 'array',
+            'field' => 'publishers',
+        ],
+        'search_term' => [
+            'type' => 'string',
+        ],
+        'h5p' => [
+            'type' => 'flag',
+            'field' => 'h5p',
+        ],
+        'date_field' => [
+            'type' => 'array',
+            'default' => 'last_updated',
+            'allowedValues' => [
+                'last_updated' => ['field' => 'last_updated'],
+                'publication_date' => ['field' => 'publication_date'],
+            ],
+        ],
+        'published_from' => [
+            'type' => 'date',
+            'sqlOperator' => '>=',
+            'field' => 'publication_date',
+        ],
+        'published_to' => [
+            'type' => 'date',
+            'sqlOperator' => '<=',
+            'field' => 'publication_date',
+            'greaterThanOrEqualTo' => 'published_from',
+        ],
+		'updated_from' => [
+			'type' => 'date',
+			'sqlOperator' => '>=',
+			'field' => 'last_updated',
+		],
+		'updated_to' => [
+			'type' => 'date',
+			'sqlOperator' => '<=',
+			'field' => 'last_updated',
+			'greaterThanOrEqualTo' => 'updated_from',
+		],
+        'sort_by' => [
+            'type' => 'array',
+            'default' => 'last_updated',
+            'allowedValues' => [
+                'last_updated' => [
+                    'field' => 'updated_at',
+                    'order' => 'DESC',
+                ],
+                'title' => [
+                    'field' => 'title',
+                    'order' => 'ASC',
+                ],
+                'publication_date' => [
+                    'field' => 'publication_date',
+                    'order' => 'DESC',
+                ],
+            ],
+        ],
+    ]);
+    $this->request = $request ?? Request::capture();
+}
+
 
 	/**
 	 * Validate parameters requests.
@@ -138,17 +138,15 @@ class BooksRequestManager
 	public function validateRequest($params): bool
 	{
 		return $this->allowedParams->map(function ($rules, $key) use ($params) {
-			if (empty($this->request->get($key))) {
-				$this->request->request->remove($key);
+            if (! $this->request->has($key) || empty($this->request->get($key))) {
+                return true; // skip if not present
+            }
 
-				return true; // Skip parameter validation if param is not present or empty.
-			}
+            $validator = ValidatorFactory::make($rules['type']);
+            $rules = $this->mergeParams($rules, $params);
 
-			$validator = ValidatorFactory::make($rules['type']);
-			$rules = $this->mergeParams($rules, $params);
-
-			return $validator->rules($rules)->validate($this->request->get($key));
-		})->doesntContain(false);
+            return $validator->rules($rules)->validate($this->request->get($key));
+        })->doesntContain(false);
 	}
 
 	/**
@@ -181,15 +179,19 @@ class BooksRequestManager
 	}
 
 	public function getPerPage(): int
-	{
-		return $this->request->per_page ?? $this->defaultPerPage;
-	}
+    {
+        return (int) ($this->request->get('per_page', $this->defaultPerPage));
+    }
+
+	public function getPage(): int
+    {
+        return (int) ($this->request->get('pg', 1));
+    }
 
 	public function getPageOffset(): int
-	{
-		return $this->request->pg ?
-			((int) $this->request->pg - 1) * $this->getPerPage() : 0;
-	}
+    {
+        return ($this->getPage() - 1) * $this->getPerPage();
+    }
 
 	/**
 	 * Get SQL Books Catalog Query conditions according to the request parameters.
@@ -233,7 +235,7 @@ class BooksRequestManager
 							break;
 						case 'date':
 							if (isset($paramConfig['sqlOperator'])) {
-								$dateField = $paramConfig['field'] ?? 'updatedAt';
+								$dateField = $paramConfig['field'] ?? 'updated_at';
 								$selectedConfig = $filterableColumns->where('filterColumn', $dateField)->first();
 								$column = $selectedConfig['alias'] ?? $config['alias'];
 								$sqlOperator = $paramConfig['sqlOperator'];
@@ -247,13 +249,9 @@ class BooksRequestManager
 									$date = $date->endOfDay();
 								}
 								
-								if ($column === 'publicationDate') {
-									// publicationDate is stored as UNIX timestamp
-									$sqlQueryConditions[] = "$column $sqlOperator ".$wpdb->prepare('%s', $date->timestamp);
-        						} elseif ($column === 'updatedAt') {
-            					// last_edited / updatedAt stored as DATETIME
-								    $sqlQueryConditions[] = "$column $sqlOperator ".$wpdb->prepare('%s', $date->toDateTimeString());
-        						}
+								// Compare DATE() of the column to a YYYY-MM-DD string for both publication_date (which uses FROM_UNIXTIME) and and updated_at.
+								$dateString = $date->toDateString();
+								$sqlQueryConditions[] = "DATE($column) $sqlOperator ".$wpdb->prepare('%s', $dateString);
 							}
 							break;
 						case 'numeric':
@@ -306,10 +304,5 @@ class BooksRequestManager
 		$orderBy = $this->allowedParams->get('sort_by')['allowedValues']['last_updated'];
 
 		return ' ORDER BY '.$orderBy['field'].' '.$orderBy['order'];
-	}
-
-	public function getPage(): int
-	{
-		return $this->request->pg ?? $this->allowedParams->get('pg')['default'];
 	}
 }

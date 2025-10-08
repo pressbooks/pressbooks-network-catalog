@@ -139,15 +139,15 @@ class Books
 			],
 			[
 				'column' => Book::PUBLICATION_DATE,
-				'alias' => 'publicationDate',
+				'alias' => 'publication_date',
 				'selectMethod' => 'MAX(IF(b.meta_key=%s AND b.meta_value REGEXP "^[0-9]+$", FROM_UNIXTIME(CAST(b.meta_value AS UNSIGNED)), NULL))',
 				'conditionQueryType' => 'date',
 				'filterable' => true,
-				'filterColumn' => 'publicationDate',
+				'filterColumn' => 'publication_date',
 			],
 			[
 				'column' => Book::LAST_EDITED,
-				'alias' => 'updatedAt',
+				'alias' => 'updated_at',
 				'selectMethod' => 'MAX(IF(b.meta_key=%s,CAST(b.meta_value AS DATETIME),null))',
 				'conditionQueryType' => 'date',
 				'filterable' => true,
