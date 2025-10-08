@@ -140,8 +140,7 @@ class Books
 			[
 				'column' => Book::PUBLICATION_DATE,
 				'alias' => 'publicationDate',
-				// Accept either a UNIX timestamp (numeric) or a DATETIME string. If numeric, convert with FROM_UNIXTIME.
-				'selectMethod' => 'MAX(IF(b.meta_key=%s,IF(b.meta_value REGEXP "^[0-9]+$", FROM_UNIXTIME(CAST(b.meta_value AS UNSIGNED)), CAST(b.meta_value AS DATETIME)),null))',
+				'selectMethod' => 'MAX(IF(b.meta_key=%s AND b.meta_value REGEXP "^[0-9]+$", FROM_UNIXTIME(CAST(b.meta_value AS UNSIGNED)), NULL))',
 				'conditionQueryType' => 'date',
 				'filterable' => true,
 				'filterColumn' => 'publicationDate',

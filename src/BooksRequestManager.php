@@ -2,6 +2,7 @@
 
 namespace PressbooksNetworkCatalog;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use PressbooksNetworkCatalog\Validators\ValidatorFactory;
@@ -210,6 +211,9 @@ class BooksRequestManager
 		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filterableColumns) {
 			if (isset($paramConfig['field']) && $this->request->has($filter) && ! empty($this->request->get($filter))) {
 				$config = $filterableColumns->where('filterColumn', $paramConfig['field'])->first();
+				if ( ! $config) {
+					return;
+				}
 				if ($config['conditionQueryType']) {
 					switch ($config['conditionQueryType']) {
 						case 'standard':
@@ -229,24 +233,27 @@ class BooksRequestManager
 							break;
 						case 'date':
 							if (isset($paramConfig['sqlOperator'])) {
-								// Determine which date field to target. Default is the param's configured field.
-								$dateField = $paramConfig['field'] ?? 'last_updated';
-								// If the request specifies a date_field and it's an allowed value, map it to filterColumn
-								if ($this->request->has('date_field') && ! empty($this->request->get('date_field')) &&
-									is_string($this->request->get('date_field'))
-								) {
-									$allowedDate = $this->allowedParams->get('date_field')['allowedValues'] ?? [];
-									if (array_key_exists($this->request->get('date_field'), $allowedDate)) {
-										$dateField = $allowedDate[$this->request->get('date_field')]['field'];
-									}
-								}
-
-								// Now find the column alias for the selected dateField
+								$dateField = $paramConfig['field'] ?? 'updatedAt';
 								$selectedConfig = $filterableColumns->where('filterColumn', $dateField)->first();
 								$column = $selectedConfig['alias'] ?? $config['alias'];
 								$sqlOperator = $paramConfig['sqlOperator'];
-								$sqlQueryConditions[] = "DATE($column) $sqlOperator DATE(".
-									$wpdb->prepare('%s', $this->request->get($filter)).')';
+
+								$dateValue = $this->request->get($filter);
+								$date = Carbon::parse($dateValue);
+							
+								if ($sqlOperator === '>=') {
+ 							        $date = $date->startOfDay();
+								} elseif ($sqlOperator === '<=') {
+									$date = $date->endOfDay();
+								}
+								
+								if ($column === 'publicationDate') {
+									// publicationDate is stored as UNIX timestamp
+									$sqlQueryConditions[] = "$column $sqlOperator ".$wpdb->prepare('%s', $date->timestamp);
+        						} elseif ($column === 'updatedAt') {
+            					// last_edited / updatedAt stored as DATETIME
+								    $sqlQueryConditions[] = "$column $sqlOperator ".$wpdb->prepare('%s', $date->toDateTimeString());
+        						}
 							}
 							break;
 						case 'numeric':
