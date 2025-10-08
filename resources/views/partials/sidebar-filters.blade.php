@@ -19,7 +19,7 @@
 	]
 )
 
-<div class="side-filter" x-data="{open: {{ !empty($request->from) || !empty($request->to) ? 'true' : 'false'}}}">
+<div class="side-filter" x-data="{open: {{ !empty($request->published_from) || !empty($request->published_to) ? 'true' : 'false'}}}">
 	<button @click="open = !open" :aria-expanded="open" type="button">
 		<span>{{ __('Publication Date', 'pressbooks-network-catalog') }}</span>
 		@include('PressbooksNetworkCatalog::icons.chevron-down')
