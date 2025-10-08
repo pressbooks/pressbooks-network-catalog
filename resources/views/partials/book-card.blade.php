@@ -47,8 +47,14 @@
 				</p>
 			@endif
 
+			@if($book->publicationDate)
+				<p>
+					<span>{{ __('Publication date:', 'pressbooks-network-catalog') }}</span> {{ \Illuminate\Support\Carbon::create($book->publicationDate)->format('Y/m/d') }}
+				</p>
+			@endif
+
 			<p>
-				<span>{{ __('Last updated:', 'pressbooks-network-catalog') }}</span> {{ \Illuminate\Support\Carbon::create($book->updatedAt)->format('d/m/Y') }}
+				<span>{{ __('Last updated:', 'pressbooks-network-catalog') }}</span> {{ \Illuminate\Support\Carbon::create($book->updatedAt)->format('Y/m/d') }}
 			</p>
 		</div>
 

@@ -74,16 +74,35 @@ class BooksRequestManager
 				'type' => 'flag',
 				'field' => 'h5p',
 			],
-			'from' => [
+			'date_field' => [
+				'type' => 'array',
+				'default' => 'last_updated',
+				'allowedValues' => [
+					'last_updated' => ['field' => 'last_updated'],
+					'publication_date' => ['field' => 'publicationDate'],
+				],
+			],
+			'published_from' => [
 				'type' => 'date',
 				'sqlOperator' => '>=',
-				'field' => 'last_updated',
+				'field' => 'publicationDate',
 			],
-			'to' => [
+			'published_to' => [
 				'type' => 'date',
 				'sqlOperator' => '<=',
-				'field' => 'last_updated',
-				'greaterThanOrEqualTo' => 'from',
+				'field' => 'publicationDate',
+				'greaterThanOrEqualTo' => 'published_from',
+			],
+			'updated_from' => [
+				'type' => 'date',
+				'sqlOperator' => '>=',
+				'field' => 'updatedAt',
+			],
+			'updated_to' => [
+				'type' => 'date',
+				'sqlOperator' => '<=',
+				'field' => 'updatedAt',
+				'greaterThanOrEqualTo' => 'updated_from',
 			],
 			'sort_by' => [
 				'type' => 'array',
@@ -96,6 +115,10 @@ class BooksRequestManager
 					'title' => [
 						'field' => 'title',
 						'order' => 'ASC',
+					],
+					'publication_date' => [
+						'field' => 'publicationDate',
+						'order' => 'DESC',
 					],
 				],
 			],
@@ -206,7 +229,21 @@ class BooksRequestManager
 							break;
 						case 'date':
 							if (isset($paramConfig['sqlOperator'])) {
-								$column = $config['alias'];
+								// Determine which date field to target. Default is the param's configured field.
+								$dateField = $paramConfig['field'] ?? 'last_updated';
+								// If the request specifies a date_field and it's an allowed value, map it to filterColumn
+								if ($this->request->has('date_field') && ! empty($this->request->get('date_field')) &&
+									is_string($this->request->get('date_field'))
+								) {
+									$allowedDate = $this->allowedParams->get('date_field')['allowedValues'] ?? [];
+									if (array_key_exists($this->request->get('date_field'), $allowedDate)) {
+										$dateField = $allowedDate[$this->request->get('date_field')]['field'];
+									}
+								}
+
+								// Now find the column alias for the selected dateField
+								$selectedConfig = $filtearableColumns->where('filterColumn', $dateField)->first();
+								$column = $selectedConfig['alias'] ?? $config['alias'];
 								$sqlOperator = $paramConfig['sqlOperator'];
 								$sqlQueryConditions[] = "DATE($column) $sqlOperator DATE(".
 									$wpdb->prepare('%s', $this->request->get($filter)).')';

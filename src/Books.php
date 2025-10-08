@@ -3,6 +3,7 @@
 namespace  PressbooksNetworkCatalog;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Carbon;
 use Pressbooks\DataCollector\Book;
 use PressbooksNetworkCatalog\Filters\License;
 
@@ -136,6 +137,15 @@ class Books
 				'conditionQueryType' => 'numeric',
 				'filterable' => true,
 				'filterColumn' => 'h5p',
+			],
+			[
+				'column' => Book::PUBLICATION_DATE,
+				'alias' => 'publicationDate',
+				// Accept either a UNIX timestamp (numeric) or a DATETIME string. If numeric, convert with FROM_UNIXTIME.
+				'selectMethod' => 'MAX(IF(b.meta_key=%s,IF(b.meta_value REGEXP "^[0-9]+$", FROM_UNIXTIME(CAST(b.meta_value AS UNSIGNED)), CAST(b.meta_value AS DATETIME)),null))',
+				'conditionQueryType' => 'date',
+				'filterable' => true,
+				'filterColumn' => 'publicationDate',
 			],
 			[
 				'column' => Book::LAST_EDITED,
@@ -303,6 +313,19 @@ class Books
 		return array_map(function ($book) use ($possibleLicenses, $supported_languages) {
 			$book->license = $possibleLicenses[$book->license] ?? '';
 			$book->language = $supported_languages[$book->language] ?? $book->language;
+
+			// Normalize publicationDate and expose publicationYear for templates
+			if (!empty($book->publicationDate)) {
+				try {
+					$dt = Carbon::parse($book->publicationDate);
+					$book->publicationDate = $dt->toDateString();
+					$book->publicationYear = $dt->format('Y');
+				} catch (\Exception $e) {
+					$book->publicationYear = '';
+				}
+			} else {
+				$book->publicationYear = '';
+			}
 
 			return $book;
 		}, $this->books);

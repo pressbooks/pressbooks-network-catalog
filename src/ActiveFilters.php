@@ -41,18 +41,36 @@ class ActiveFilters
 			]);
 		}
 
-		if ($request->from) {
+		// Publication date pickers
+		if ($request->has('published_from') && ! empty($request->published_from)) {
 			$this->items->push([
-				'key' => 'from',
-				'label' => sprintf(__('From: %s', 'pressbooks-network-catalog'), $request->from),
+				'key' => 'publication_date:from',
+				'label' => sprintf(__('Publication date — From: %s', 'pressbooks-network-catalog'), $request->published_from),
 				'type' => 'date',
 			]);
 		}
 
-		if ($request->to) {
+		if ($request->has('published_to') && ! empty($request->published_to)) {
 			$this->items->push([
-				'key' => 'to',
-				'label' => sprintf(__('To: %s', 'pressbooks-network-catalog'), $request->to),
+				'key' => 'publication_date:to',
+				'label' => sprintf(__('Publication date — To: %s', 'pressbooks-network-catalog'), $request->published_to),
+				'type' => 'date',
+			]);
+		}
+
+		// Last-updated pickers
+		if ($request->has('updated_from') && ! empty($request->updated_from)) {
+			$this->items->push([
+				'key' => 'last_updated:from',
+				'label' => sprintf(__('Last updated — From: %s', 'pressbooks-network-catalog'), $request->updated_from),
+				'type' => 'date',
+			]);
+		}
+
+		if ($request->has('updated_to') && ! empty($request->updated_to)) {
+			$this->items->push([
+				'key' => 'last_updated:to',
+				'label' => sprintf(__('Last updated — To: %s', 'pressbooks-network-catalog'), $request->updated_to),
 				'type' => 'date',
 			]);
 		}

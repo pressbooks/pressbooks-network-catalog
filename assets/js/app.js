@@ -13,7 +13,7 @@ const mobileBreakpoint = 768;
 form.addEventListener('submit', function (event) {
   const inputs = Array
     .from(event.target.elements)
-    .filter(input => ['search', 'pg', 'from', 'to'].includes(input.name));
+    .filter(input => ['search', 'pg', 'from', 'to', 'published_from', 'published_to', 'updated_from', 'updated_to'].includes(input.name));
 
   // disable pagination when submitting the form since we want to reset it
   inputs
@@ -31,15 +31,26 @@ form.addEventListener('submit', function (event) {
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
 
-  const lastUpdateInputs = inputs
-    .filter(input => input.name === 'from' || input.name === 'to');
+  // Validate each date pair separately (published and updated)
+  const publishedFrom = event.target.elements['published_from'];
+  const publishedTo = event.target.elements['published_to'];
+  if (publishedFrom && publishedTo && publishedFrom.value && publishedTo.value) {
+    if (new Date(publishedFrom.value) > new Date(publishedTo.value)) {
+      publishedTo.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
+      publishedTo.valid = false;
+      publishedTo.reportValidity();
+      event.preventDefault();
+      return false;
+    }
+  }
 
-  if(lastUpdateInputs.length === 2) {
-    if(new Date(lastUpdateInputs[0].value) > new Date(lastUpdateInputs[1].value)) {
-      let dateToInput = document.querySelector('input[id="updated_to"]');
-      dateToInput.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
-      dateToInput.valid = false;
-      dateToInput.reportValidity();
+  const updatedFrom = event.target.elements['updated_from'];
+  const updatedTo = event.target.elements['updated_to'];
+  if (updatedFrom && updatedTo && updatedFrom.value && updatedTo.value) {
+    if (new Date(updatedFrom.value) > new Date(updatedTo.value)) {
+      updatedTo.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
+      updatedTo.valid = false;
+      updatedTo.reportValidity();
       event.preventDefault();
       return false;
     }
@@ -66,12 +77,17 @@ form.addEventListener('submit', function (event) {
   return true;
 });
 
-const datepicker = document.getElementsByName('to')[0];
-datepicker.addEventListener('duetChange', function(event) {
-  let dateToInput = document.querySelector('input[id="updated_to"]');
-  dateToInput.setCustomValidity('');
-  dateToInput.valid = true;
-})
+// When any date picker changes, clear validity messages (no global date_field needed)
+document.querySelectorAll('duet-date-picker').forEach(el => {
+  el.addEventListener('duetChange', function(e) {
+    const id = el.getAttribute('identifier') || '';
+    // Clear any matching underlying input validity messages if present
+    const maybePublishedTo = document.querySelector('input[name="published_to"]');
+    if (maybePublishedTo) { maybePublishedTo.setCustomValidity(''); maybePublishedTo.valid = true; }
+    const maybeUpdatedTo = document.querySelector('input[name="updated_to"]');
+    if (maybeUpdatedTo) { maybeUpdatedTo.setCustomValidity(''); maybeUpdatedTo.valid = true; }
+  });
+});
 
 window.submitForm = () => {
   document.getElementById('apply-filters').click();
@@ -161,14 +177,40 @@ window.toggleClass = (element, className) => {
 }
 
 window.removeFilter = (filter) => {
-  const attr = ['h5p'].includes(filter) ? 'name' : 'value';
-  if(filter === 'from' || filter === 'to') {
-    const el = document.querySelector(`input[name="${filter}"]`);
-    el.value = '';
-    el.dispatchEvent(new Event('change'));
+  // Allow keys like 'publication_date:from' or 'publication_date:to'
+  let field = filter;
+  let suffix = null;
+  if(filter.includes(':')) {
+    [field, suffix] = filter.split(':');
+  }
+
+  // date keys are removed by clearing the corresponding input (now distinct names)
+  if(suffix === 'from' || suffix === 'to') {
+    let name = null;
+    if(field === 'publication_date') {
+      name = suffix === 'from' ? 'published_from' : 'published_to';
+    } else if(field === 'last_updated') {
+      name = suffix === 'from' ? 'updated_from' : 'updated_to';
+    } else {
+      // legacy fallback
+      name = suffix;
+    }
+    const input = document.querySelector(`input[name="${name}"]`);
+    if(input) {
+      input.value = '';
+      input.dispatchEvent(new Event('change'));
+    } else {
+      // fallback: try duet date-picker by identifier
+      const identifier = name.replace('_', '_');
+      const duet = document.querySelector(`duet-date-picker[identifier="${identifier}"]`);
+      if(duet) {
+        duet.setAttribute('value', '');
+      }
+    }
   } else {
-    const el = document.querySelector(`input[${attr}="${filter}"]`);
-    el.click();
+    const attr = ['h5p'].includes(field) ? 'name' : 'value';
+    const el = document.querySelector(`input[${attr}="${field}"]`);
+    if(el) el.click();
   }
   submitForm();
 }
