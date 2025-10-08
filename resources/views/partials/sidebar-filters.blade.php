@@ -45,7 +45,7 @@
 	</div>
 </div>
 
-<div class="side-filter" x-data="{open: {{ !empty($request->from) || !empty($request->to) ? 'true' : 'false'}}}">
+<div class="side-filter" x-data="{open: {{ !empty($request->updated_from) || !empty($request->updated_to) ? 'true' : 'false'}}}">
 	<button @click="open = !open" :aria-expanded="open" type="button">
 		<span>{{ __('Last Updated', 'pressbooks-network-catalog') }}</span>
 		@include('PressbooksNetworkCatalog::icons.chevron-down')

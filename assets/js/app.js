@@ -176,44 +176,71 @@ window.toggleClass = (element, className) => {
   element.classList.toggle(className);
 }
 
-window.removeFilter = (filter) => {
-  // Allow keys like 'publication_date:from' or 'publication_date:to'
+window.removeFilter = async (filter) => {
+  if (!filter) return;
+
   let field = filter;
   let suffix = null;
-  if(filter.includes(':')) {
+  if (filter.includes(':')) {
     [field, suffix] = filter.split(':');
   }
 
-  // date keys are removed by clearing the corresponding input (now distinct names)
-  if(suffix === 'from' || suffix === 'to') {
-    let name = null;
-    if(field === 'publication_date') {
-      name = suffix === 'from' ? 'published_from' : 'published_to';
-    } else if(field === 'last_updated') {
-      name = suffix === 'from' ? 'updated_from' : 'updated_to';
-    } else {
-      // legacy fallback
-      name = suffix;
+  const clearInputValue = (selector) => {
+    const el = document.querySelector(selector);
+    if (!el) return false;
+
+    if (el.tagName.toLowerCase() === 'duet-date-picker') {
+      el.setAttribute('value', '');
+    } else if ('value' in el) {
+      el.value = '';
+      el.dispatchEvent(new Event('change', { bubbles: true }));
     }
-    const input = document.querySelector(`input[name="${name}"]`);
-    if(input) {
-      input.value = '';
-      input.dispatchEvent(new Event('change'));
-    } else {
-      // fallback: try duet date-picker by identifier
-      const identifier = name.replace('_', '_');
-      const duet = document.querySelector(`duet-date-picker[identifier="${identifier}"]`);
-      if(duet) {
-        duet.setAttribute('value', '');
-      }
+    return true;
+  };
+
+  // Handle date filters (publication_date:from, last_updated:to, etc.)
+  if (suffix === 'from' || suffix === 'to') {
+    let name;
+    switch (field) {
+      case 'publication_date':
+        name = suffix === 'from' ? 'published_from' : 'published_to';
+        break;
+      case 'last_updated':
+        name = suffix === 'from' ? 'updated_from' : 'updated_to';
+        break;
+      default:
+        name = suffix; // legacy fallback
     }
+
+    // Try to clear input or duet-date-picker
+    const cleared =
+      clearInputValue(`input[name="${name}"]`) ||
+      clearInputValue(`duet-date-picker[identifier="${name}"]`);
+
+    if (!cleared) {
+      console.warn(`Could not find input or date-picker for ${name}`);
+    }
+
+  // Handle other filters
   } else {
-    const attr = ['h5p'].includes(field) ? 'name' : 'value';
+    const attr = field === 'h5p' ? 'name' : 'value';
     const el = document.querySelector(`input[${attr}="${field}"]`);
-    if(el) el.click();
+    if (el) {
+      el.click();
+    } else {
+      console.warn(`No input found for filter "${field}"`);
+    }
   }
-  submitForm();
-}
+
+  // Debounce form submission slightly
+  if (typeof submitForm === 'function') {
+    await new Promise((r) => setTimeout(r, 100));
+    submitForm();
+  } else {
+    console.error('submitForm() is not defined.');
+  }
+};
+
 
 window.reset = () => {
   document.getElementById('network-catalog-form').reset();

@@ -201,15 +201,15 @@ class BooksRequestManager
 			return '';
 		}
 
-		$filtearableColumns = $this->bookFields->where('filterable', true);
+		$filterableColumns = $this->bookFields->where('filterable', true);
 
 		$sqlQueryConditions = [];
 
 		global $wpdb;
 
-		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filtearableColumns) {
+		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filterableColumns) {
 			if (isset($paramConfig['field']) && $this->request->has($filter) && ! empty($this->request->get($filter))) {
-				$config = $filtearableColumns->where('filterColumn', $paramConfig['field'])->first();
+				$config = $filterableColumns->where('filterColumn', $paramConfig['field'])->first();
 				if ($config['conditionQueryType']) {
 					switch ($config['conditionQueryType']) {
 						case 'standard':
@@ -242,7 +242,7 @@ class BooksRequestManager
 								}
 
 								// Now find the column alias for the selected dateField
-								$selectedConfig = $filtearableColumns->where('filterColumn', $dateField)->first();
+								$selectedConfig = $filterableColumns->where('filterColumn', $dateField)->first();
 								$column = $selectedConfig['alias'] ?? $config['alias'];
 								$sqlOperator = $paramConfig['sqlOperator'];
 								$sqlQueryConditions[] = "DATE($column) $sqlOperator DATE(".

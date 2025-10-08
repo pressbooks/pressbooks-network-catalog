@@ -3,7 +3,6 @@
 namespace  PressbooksNetworkCatalog;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Carbon;
 use Pressbooks\DataCollector\Book;
 use PressbooksNetworkCatalog\Filters\License;
 
@@ -313,19 +312,6 @@ class Books
 		return array_map(function ($book) use ($possibleLicenses, $supported_languages) {
 			$book->license = $possibleLicenses[$book->license] ?? '';
 			$book->language = $supported_languages[$book->language] ?? $book->language;
-
-			// Normalize publicationDate and expose publicationYear for templates
-			if (!empty($book->publicationDate)) {
-				try {
-					$dt = Carbon::parse($book->publicationDate);
-					$book->publicationDate = $dt->toDateString();
-					$book->publicationYear = $dt->format('Y');
-				} catch (\Exception $e) {
-					$book->publicationYear = '';
-				}
-			} else {
-				$book->publicationYear = '';
-			}
 
 			return $book;
 		}, $this->books);
