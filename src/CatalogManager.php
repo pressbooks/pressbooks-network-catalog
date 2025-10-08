@@ -13,7 +13,7 @@ class CatalogManager
 {
 	private array $filters = [];
 
-	public $request;
+	private Request $request;
 
 	public function handle(): array
 	{

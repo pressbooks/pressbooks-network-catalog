@@ -672,12 +672,12 @@ class CatalogManagerTest extends TestCase
 		$firstBookPublished = Carbon::now()->subMonth();
 
 		$this->updateDatePublished($firstBook, $firstBookPublished);
-		
+
 		$secondBook = $this->createCatalogBook();
 		$secondBookPublished = Carbon::now()->subMonths(2);
 
-		$this->updateDatePublished($secondBook, $secondBookPublished );
-		
+		$this->updateDatePublished($secondBook, $secondBookPublished);
+
 		$_GET['published_from'] = $firstBookPublished->toDateString();
 
 		$response = $this->catalogManager->handle();

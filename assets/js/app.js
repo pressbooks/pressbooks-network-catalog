@@ -94,12 +94,17 @@ window.submitForm = () => {
 }
 
 // Toggle the "open" class on the hamburger menu
-document.querySelector('.js-header-nav-toggle').addEventListener('click', () => {
-  document.querySelector('.header__nav').classList.toggle('header__nav--active');
-});
+const headerToggle = document.querySelector('.js-header-nav-toggle');
+if (headerToggle) {
+  const headerNav = document.querySelector('.header__nav');
+  headerToggle.addEventListener('click', () => {
+    if (headerNav) headerNav.classList.toggle('header__nav--active');
+  });
+}
 
 
-document.getElementsByName('pg').forEach(element => {
+const pgElements = document.querySelectorAll('[name="pg"]');
+pgElements.forEach(element => {
   element.addEventListener('change', function(event) {
     const pageRegex = /pg=\d+/;
     const pageParam = `pg=${event.target.value}`;
