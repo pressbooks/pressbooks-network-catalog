@@ -10,10 +10,33 @@ const anchorIdRedirection = '#catalog';
 
 const mobileBreakpoint = 768;
 
+// Keep duet pickers mirrored to real inputs at submit-time; validation will target visible inputs only
+
 form.addEventListener('submit', function (event) {
   const inputs = Array
     .from(event.target.elements)
     .filter(input => ['search', 'pg', 'published_from', 'published_to', 'updated_from', 'updated_to'].includes(input.name));
+
+  // Ensure duet pickers' values are reflected in real inputs so browser validation works
+  const mirrorPickerToInput = (identifier) => {
+    // look for an existing input inside the form
+    let input = event.target.querySelector(`input[name="${identifier}"]`);
+    const picker = document.querySelector(`duet-date-picker[identifier="${identifier}"]`);
+    const value = picker ? (picker.getAttribute('value') || picker.value || '') : (input ? input.value : '');
+    if (!input) {
+      // create a hidden input only if none exists (so the form submission contains the value)
+      input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = identifier;
+      input.id = identifier;
+      input.value = value;
+      event.target.appendChild(input);
+    } else {
+      input.value = value;
+    }
+  };
+
+  ['published_from', 'published_to', 'updated_from', 'updated_to'].forEach(mirrorPickerToInput);
 
   // disable pagination when submitting the form since we want to reset it
   inputs
@@ -31,40 +54,37 @@ form.addEventListener('submit', function (event) {
     .filter(input => input.value === '')
     .forEach(input => input.disabled = true);
 
-  // Validate date pairs (published and updated) using a small helper
-  const validateDatePair = (fromName, toName) => {
-    const fromEl = event.target.elements[fromName];
-    const toEl = event.target.elements[toName];
-    if (!fromEl || !toEl) return true;
+  // Ensure that the two date ranges (published and updated) are valid.
+  const validateDateRange = (fromName, toName) => {
+    const from = document.querySelector(`input[name="${fromName}"]`);
+    const to = document.querySelector(`input[name="${toName}"]`);
+    if (!(from && to && from.value && to.value)) return false; // nothing to validate
 
-    // clear any previous custom validity
-    toEl.setCustomValidity('');
-
-    if (!fromEl.value || !toEl.value) return true; // nothing to validate
-
-    const fromDate = new Date(fromEl.value);
-    const toDate = new Date(toEl.value);
-
-    // basic validity check
-    if (isNaN(fromDate) || isNaN(toDate)) {
-      toEl.setCustomValidity('Please provide valid dates.');
-      toEl.reportValidity();
-      event.preventDefault();
-      return false;
-    }
-
+    const fromDate = new Date(from.value);
+    const toDate = new Date(to.value);
     if (fromDate > toDate) {
-      toEl.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
-      toEl.reportValidity();
-      event.preventDefault();
-      return false;
+      // Try to report validity on a visible input so the browser popup appears
+      const candidate = document.querySelector(`input[id="${toName}"], input[name="${toName}"]`);
+      const isVisible = (el) => el && el.type !== 'hidden' && el.offsetWidth > 0 && el.offsetHeight > 0 && window.getComputedStyle(el).visibility !== 'hidden';
+      if (isVisible(candidate)) {
+        candidate.setCustomValidity('The "To" date must be greater than or equal to the "From" date.');
+        try { candidate.focus({ preventScroll: true }); } catch (e) {}
+        candidate.reportValidity();
+        return true; // validation failed and reported
+      }
     }
-
-    return true;
+    return false;
   };
 
-  if (!validateDatePair('published_from', 'published_to')) return false;
-  if (!validateDatePair('updated_from', 'updated_to')) return false;
+  // Validate published and updated ranges; if either reports a visible validation error, prevent submit
+  if (validateDateRange('published_from', 'published_to')) {
+    event.preventDefault();
+    return false;
+  }
+  if (validateDateRange('updated_from', 'updated_to')) {
+    event.preventDefault();
+    return false;
+  }
 
 	// disable duplicated filters according to screen size to avoid duplicated parameters
 	// this is needed because we have two sets of filters, one for mobile and one for desktop because of design constraints
@@ -87,30 +107,17 @@ form.addEventListener('submit', function (event) {
   return true;
 });
 
-// When any date picker changes, clear validity messages (no global date_field needed)
-document.querySelectorAll('duet-date-picker').forEach(el => {
-  el.addEventListener('duetChange', function(e) {
-    const id = el.getAttribute('identifier') || '';
-    if (!id) return;
-
-    // Try to clear validity on the underlying input with the same name
-    const underlying = document.querySelector(`input[name="${id}"]`);
-    if (underlying) {
-      underlying.setCustomValidity('');
-      underlying.valid = true;
-      // notify any listeners that the value/validity changed
-      underlying.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-
-    // If a "_from" field changed, also clear the paired "_to" validity so users can revalidate
-    if (id.endsWith('_from')) {
-      const toName = id.replace('_from', '_to');
-      const maybeTo = document.querySelector(`input[name="${toName}"]`);
-      if (maybeTo) {
-        maybeTo.setCustomValidity('');
-        maybeTo.valid = true;
-      }
-    }
+// Attach the same duetChange handler to both published_to and updated_to date-pickers
+['updated_to', 'published_to'].forEach((identifier) => {
+  const picker = document.querySelector(`duet-date-picker[identifier="${identifier}"]`);
+  if (!picker) return;
+  picker.addEventListener('duetChange', () => {
+    const targetInput = document.querySelector(`input[name="${identifier}"], #${identifier}`);
+    if (!targetInput) return;
+    // Clear custom validity so browser validation UI is removed
+    targetInput.setCustomValidity('');
+    // Notify other code that the underlying input changed
+    targetInput.dispatchEvent(new Event('change', { bubbles: true }));
   });
 });
 
@@ -206,71 +213,34 @@ window.toggleClass = (element, className) => {
   element.classList.toggle(className);
 }
 
-window.removeFilter = async (filter) => {
+window.removeFilter = (filter) => {
   if (!filter) return;
+  const attr = ['h5p'].includes(filter) ? 'name' : 'value';
 
-  let field = filter;
-  let suffix = null;
-  if (filter.includes(':')) {
-    [field, suffix] = filter.split(':');
-  }
-
-  const clearInputValue = (selector) => {
-    const el = document.querySelector(selector);
-    if (!el) return false;
-
-    if (el.tagName.toLowerCase() === 'duet-date-picker') {
-      el.setAttribute('value', '');
-    } else if ('value' in el) {
-      el.value = '';
-      el.dispatchEvent(new Event('change', { bubbles: true }));
+  if ( filter.endsWith('_from') || filter.endsWith('_to') ) {
+    // clear the duet picker by identifier (mirrorPickerToInput looks for identifier)
+    const identifier = filter;
+    const dp = document.querySelector(`duet-date-picker[identifier="${identifier}"], duet-date-picker[name="${identifier}"]`);
+    if (dp) {
+      try { dp.setAttribute('value', ''); } catch (e) {}
+      try { dp.value = ''; } catch (e) {}
+      dp.dispatchEvent(new Event('duetChange', { bubbles: true }));
     }
-    return true;
-  };
-
-  // Handle date filters (publication_date:from, last_updated:to, etc.)
-  if (suffix === 'from' || suffix === 'to') {
-    let name;
-    switch (field) {
-      case 'publication_date':
-        name = suffix === 'from' ? 'published_from' : 'published_to';
-        break;
-      case 'last_updated':
-        name = suffix === 'from' ? 'updated_from' : 'updated_to';
-        break;
-      default:
-        name = suffix; // legacy fallback
-    }
-
-    // Try to clear input or duet-date-picker
-    const cleared =
-      clearInputValue(`input[name="${name}"]`) ||
-      clearInputValue(`duet-date-picker[identifier="${name}"]`);
-
-    if (!cleared) {
-      console.warn(`Could not find input or date-picker for ${name}`);
-    }
-
-  // Handle other filters
+    // remove any underlying native input so the submit-time mirror won't repopulate the old value
+    const hiddenByName = document.querySelector(`input[name="${identifier}"]`);
+    if (hiddenByName) hiddenByName.remove();
+    const hiddenById = document.querySelector(`input[id="${identifier}"]`);
+    if (hiddenById) hiddenById.remove();
+    // delay submit slightly to let duet update its internals before mirror runs
+    if (typeof submitForm === 'function') setTimeout(submitForm, 80);
+    return;
   } else {
-    const attr = field === 'h5p' ? 'name' : 'value';
-    const el = document.querySelector(`input[${attr}="${field}"]`);
-    if (el) {
-      el.click();
-    } else {
-      console.warn(`No input found for filter "${field}"`);
-    }
+    const el = document.querySelector(`input[${attr}="${filter}"]`);
+    if (el) el.click();
   }
-
-  // Debounce form submission slightly
-  if (typeof submitForm === 'function') {
-    await new Promise((r) => setTimeout(r, 100));
-    submitForm();
-  } else {
-    console.error('submitForm() is not defined.');
-  }
+  // non-date filters submit immediately
+  if (typeof submitForm === 'function') submitForm();
 };
-
 
 window.reset = () => {
   document.getElementById('network-catalog-form').reset();
@@ -278,5 +248,3 @@ window.reset = () => {
 }
 
 Alpine.start();
-
-console.log('PB Network Catalog - started');

@@ -44,7 +44,7 @@ class ActiveFilters
 		// Publication date pickers
 		if ($request->has('published_from') && ! empty($request->published_from)) {
 			$this->items->push([
-				'key' => 'publication_date:from',
+				'key' => 'published_from',
 				'label' => sprintf(__('Publication date — From: %s', 'pressbooks-network-catalog'), $request->published_from),
 				'type' => 'date',
 			]);
@@ -52,7 +52,7 @@ class ActiveFilters
 
 		if ($request->has('published_to') && ! empty($request->published_to)) {
 			$this->items->push([
-				'key' => 'publication_date:to',
+				'key' => 'published_to',
 				'label' => sprintf(__('Publication date — To: %s', 'pressbooks-network-catalog'), $request->published_to),
 				'type' => 'date',
 			]);
@@ -61,7 +61,7 @@ class ActiveFilters
 		// Last-updated pickers
 		if ($request->has('updated_from') && ! empty($request->updated_from)) {
 			$this->items->push([
-				'key' => 'last_updated:from',
+				'key' => 'updated_from',
 				'label' => sprintf(__('Last updated — From: %s', 'pressbooks-network-catalog'), $request->updated_from),
 				'type' => 'date',
 			]);
@@ -69,7 +69,7 @@ class ActiveFilters
 
 		if ($request->has('updated_to') && ! empty($request->updated_to)) {
 			$this->items->push([
-				'key' => 'last_updated:to',
+				'key' => 'updated_to',
 				'label' => sprintf(__('Last updated — To: %s', 'pressbooks-network-catalog'), $request->updated_to),
 				'type' => 'date',
 			]);

@@ -20,7 +20,16 @@ class DateValidator implements Validator
 		$compareTo = $this->values['greaterThanOrEqualTo'] ?? null;
 
 		if ($compareTo && $request->get($compareTo)) {
-			return \strtotime($request->get($compareTo)) <= \strtotime($data);
+			$compareVal = $request->get($compareTo);
+			$compareTs = \strtotime($compareVal);
+			$dataTs = \strtotime($data);
+
+			// If either value does not parse as a date, treat as invalid.
+			if ($compareTs === false || $dataTs === false) {
+				return false;
+			}
+
+			return $compareTs <= $dataTs;
 		}
 
 		return true;
