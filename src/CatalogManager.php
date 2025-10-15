@@ -13,7 +13,7 @@ class CatalogManager
 {
 	private array $filters = [];
 
-	private $request;
+	private Request $request;
 
 	public function handle(): array
 	{
@@ -26,8 +26,8 @@ class CatalogManager
 			'publishers' => Publisher::getPossibleValues(),
 		];
 
-		// Inject active filters into the request object
-		$this->request->activeFilters = $this->getActiveFilters();
+		// Inject active filters into the request (avoids creating a dynamic property)
+		$this->request->attributes->set('activeFilters', $this->getActiveFilters());
 
 		$books = new Books($this->filters);
 

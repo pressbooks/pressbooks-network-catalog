@@ -19,7 +19,33 @@
 	]
 )
 
-<div class="side-filter" x-data="{open: {{ !empty($request->from) || !empty($request->to) ? 'true' : 'false'}}}">
+<div class="side-filter" x-data="{open: {{ !empty($request->published_from) || !empty($request->published_to) ? 'true' : 'false'}}}">
+	<button @click="open = !open" :aria-expanded="open" type="button">
+		<span>{{ __('Publication Date', 'pressbooks-network-catalog') }}</span>
+		@include('PressbooksNetworkCatalog::icons.chevron-down')
+	</button>
+	<div id="date-published-wrapper" x-cloak :class="!open && 'hidden'">
+            <div>
+                <label>From</label>
+                <duet-date-picker
+                    identifier="published_from"
+					name="published_from"
+                    value="{{$request->published_from ?? ''}}"
+                    min="2010-01-01"
+                    max="{{date('Y-m-d')}}"
+                ></duet-date-picker>
+                <label>To</label>
+                <duet-date-picker
+                    identifier="published_to"
+					name="published_to"
+					value="{{$request->published_to ?? ''}}"
+                    max="{{date('Y-m-d')}}"
+                ></duet-date-picker>
+            </div>
+	</div>
+</div>
+
+<div class="side-filter" x-data="{open: {{ !empty($request->updated_from) || !empty($request->updated_to) ? 'true' : 'false'}}}">
 	<button @click="open = !open" :aria-expanded="open" type="button">
 		<span>{{ __('Last Updated', 'pressbooks-network-catalog') }}</span>
 		@include('PressbooksNetworkCatalog::icons.chevron-down')
@@ -29,16 +55,16 @@
                 <label>From</label>
                 <duet-date-picker
                     identifier="updated_from"
-                    name="from"
-                    value="{{$request->from ?? ''}}"
+					name="updated_from"
+					value="{{$request->updated_from ?? ''}}"
                     min="2010-01-01"
                     max="{{date('Y-m-d')}}"
                 ></duet-date-picker>
                 <label>To</label>
                 <duet-date-picker
                     identifier="updated_to"
-                    name="to"
-                    value="{{$request->to ?? ''}}"
+					name="updated_to"
+					value="{{$request->updated_to ?? ''}}"
                     max="{{date('Y-m-d')}}"
                 ></duet-date-picker>
             </div>

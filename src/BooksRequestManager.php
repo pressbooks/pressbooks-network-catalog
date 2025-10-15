@@ -3,6 +3,7 @@
 namespace PressbooksNetworkCatalog;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use PressbooksNetworkCatalog\Validators\ValidatorFactory;
 
@@ -39,7 +40,7 @@ class BooksRequestManager
 	/**
 	 * @param Collection $bookFields
 	 */
-	public function __construct(Collection $bookFields)
+	public function __construct(Collection $bookFields, Request $request = null)
 	{
 		$this->bookFields = $bookFields;
 		$this->allowedParams = collect([
@@ -74,22 +75,42 @@ class BooksRequestManager
 				'type' => 'flag',
 				'field' => 'h5p',
 			],
-			'from' => [
+			'date_field' => [
+				'type' => 'array',
+				'default' => 'last_updated',
+				'allowedValues' => [
+					'last_updated' => ['field' => 'last_updated'],
+					'publication_date' => ['field' => 'publication_date'],
+				],
+			],
+			'published_from' => [
+				'type' => 'date',
+				'sqlOperator' => '>=',
+				'field' => 'publication_date',
+			],
+			'published_to' => [
+				'type' => 'date',
+				'sqlOperator' => '<=',
+				'field' => 'publication_date',
+				'greaterThanOrEqualTo' => 'published_from',
+			],
+			'updated_from' => [
 				'type' => 'date',
 				'sqlOperator' => '>=',
 				'field' => 'last_updated',
 			],
-			'to' => [
+			'updated_to' => [
 				'type' => 'date',
 				'sqlOperator' => '<=',
 				'field' => 'last_updated',
-				'greaterThanOrEqualTo' => 'from',
+				'greaterThanOrEqualTo' => 'updated_from',
 			],
 			'sort_by' => [
 				'type' => 'array',
 				'default' => 'last_updated',
 				'allowedValues' => [
 					'last_updated' => [
+						// ORDER BY uses the SELECT alias from Books (camelCase)
 						'field' => 'updatedAt',
 						'order' => 'DESC',
 					],
@@ -97,10 +118,15 @@ class BooksRequestManager
 						'field' => 'title',
 						'order' => 'ASC',
 					],
+					'publication_date' => [
+						// ORDER BY uses the SELECT alias from Books (camelCase)
+						'field' => 'publicationDate',
+						'order' => 'DESC',
+					],
 				],
 			],
 		]);
-		$this->request = Request::capture();
+		$this->request = $request ?? Request::capture();
 	}
 
 	/**
@@ -114,10 +140,8 @@ class BooksRequestManager
 	public function validateRequest($params): bool
 	{
 		return $this->allowedParams->map(function ($rules, $key) use ($params) {
-			if (empty($this->request->get($key))) {
-				$this->request->request->remove($key);
-
-				return true; // Skip parameter validation if param is not present or empty.
+			if (! $this->request->has($key) || empty($this->request->get($key))) {
+				return true; // skip if not present
 			}
 
 			$validator = ValidatorFactory::make($rules['type']);
@@ -158,13 +182,17 @@ class BooksRequestManager
 
 	public function getPerPage(): int
 	{
-		return $this->request->per_page ?? $this->defaultPerPage;
+		return (int) ($this->request->get('per_page', $this->defaultPerPage));
+	}
+
+	public function getPage(): int
+	{
+		return (int) ($this->request->get('pg', 1));
 	}
 
 	public function getPageOffset(): int
 	{
-		return $this->request->pg ?
-			((int) $this->request->pg - 1) * $this->getPerPage() : 0;
+		return ($this->getPage() - 1) * $this->getPerPage();
 	}
 
 	/**
@@ -178,15 +206,18 @@ class BooksRequestManager
 			return '';
 		}
 
-		$filtearableColumns = $this->bookFields->where('filterable', true);
+		$filterableColumns = $this->bookFields->where('filterable', true);
 
 		$sqlQueryConditions = [];
 
 		global $wpdb;
 
-		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filtearableColumns) {
+		$this->allowedParams->each(function ($paramConfig, $filter) use (&$sqlQueryConditions, $wpdb, $filterableColumns) {
 			if (isset($paramConfig['field']) && $this->request->has($filter) && ! empty($this->request->get($filter))) {
-				$config = $filtearableColumns->where('filterColumn', $paramConfig['field'])->first();
+				$config = $filterableColumns->where('filterColumn', $paramConfig['field'])->first();
+				if (! $config) {
+					return;
+				}
 				if ($config['conditionQueryType']) {
 					switch ($config['conditionQueryType']) {
 						case 'standard':
@@ -195,21 +226,33 @@ class BooksRequestManager
 								$wpdb->prepare(' IN ('.implode(', ', $in_placeholder).')', $this->request->get($filter));
 							break;
 						case 'subquery':
-							$in = '';
-							foreach ($this->request->get($filter) as $filterValue) {
-								$in .= $wpdb->prepare('%s,', stripslashes($filterValue));
-							}
-							$in = rtrim($in, ',');
+							$values = $this->request->get($filter);
+							$placeholders = implode(', ', array_fill(0, count($values), '%s'));
 							$column = $config['column'];
+							// Prepare the meta_value IN (...) safely
+							$inCondition = $wpdb->prepare("meta_value IN ($placeholders)", ...$values);
 							$sqlQueryConditions[] = " blog_id IN (SELECT blog_id FROM {$wpdb->blogmeta}
-                            WHERE meta_key = '$column' AND meta_value IN ($in) GROUP BY blog_id)";
+	                            WHERE meta_key = '$column' AND {$inCondition} GROUP BY blog_id)";
 							break;
 						case 'date':
 							if (isset($paramConfig['sqlOperator'])) {
-								$column = $config['alias'];
+								$dateField = $paramConfig['field'] ?? 'updated_at';
+								$selectedConfig = $filterableColumns->where('filterColumn', $dateField)->first();
+								$column = $selectedConfig['alias'] ?? $config['alias'];
 								$sqlOperator = $paramConfig['sqlOperator'];
-								$sqlQueryConditions[] = "DATE($column) $sqlOperator DATE(".
-									$wpdb->prepare('%s', $this->request->get($filter)).')';
+
+								$dateValue = $this->request->get($filter);
+								$date = Carbon::parse($dateValue);
+
+								if ($sqlOperator === '>=') {
+									$date = $date->startOfDay();
+								} elseif ($sqlOperator === '<=') {
+									$date = $date->endOfDay();
+								}
+
+								// Compare DATE() of the column to a YYYY-MM-DD string for both publication_date (which uses FROM_UNIXTIME) and and updated_at.
+								$dateString = $date->toDateString();
+								$sqlQueryConditions[] = "DATE($column) $sqlOperator ".$wpdb->prepare('%s', $dateString);
 							}
 							break;
 						case 'numeric':
@@ -262,10 +305,5 @@ class BooksRequestManager
 		$orderBy = $this->allowedParams->get('sort_by')['allowedValues']['last_updated'];
 
 		return ' ORDER BY '.$orderBy['field'].' '.$orderBy['order'];
-	}
-
-	public function getPage(): int
-	{
-		return $this->request->pg ?? $this->allowedParams->get('pg')['default'];
 	}
 }

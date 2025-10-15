@@ -24,6 +24,7 @@
         'options' => [
             'last_updated' => __('Recently updated', 'pressbooks-network-catalog'),
             'title' => __('Title (A-Z)', 'pressbooks-network-catalog'),
+            'publication_date' => __('Publication date (newest first)', 'pressbooks-network-catalog'),
         ]
     ])
 </div>

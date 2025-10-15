@@ -16,11 +16,11 @@
   --duet-z-index: 600;
 }
 
-#last-updated-wrapper > div{
+#last-updated-wrapper > div, #date-published-wrapper > div {
   @apply bg-white px-2;
 }
 
-#last-updated-wrapper label {
+#last-updated-wrapper label, #date-published-wrapper label {
   @apply pt-4 pl-2 m-0;
 }
 

@@ -12,12 +12,13 @@
 		{{ sprintf(_n('%d result', '%d results', $pagination['total'], 'pressbooks-network-catalog'), $pagination['total']) }}
 	</span>
 @endif
-@if($request->activeFilters->isNotEmpty())
+@php $activeFilters = $request->attributes->get('activeFilters') ?? collect(); @endphp
+@if($activeFilters->isNotEmpty())
 	<section class="applied-filters" x-data aria-label="{{ __('Applied filters', 'pressbooks-network-catalog') }}">
-		@foreach($request->activeFilters as $filter)
+		@foreach($activeFilters as $filter)
 			<div class="applied-filter">
 				<span>{{ pb_decode( $filter['label'] ) }}</span>
-				<button type="button" class="remove" @click="removeFilter('{{ addslashes($filter['key']) }}')">
+				<button type="button" class="remove" @click="removeFilter({{ json_encode($filter['key']) }})">
 					<span class="sr-only">{{ sprintf(__('Remove %s filter', 'pressbooks-network-catalog'), $filter['label']) }}</span>
 					@include('PressbooksNetworkCatalog::icons.x-mark')
 				</button>
