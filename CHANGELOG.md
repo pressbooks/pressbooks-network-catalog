@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.3.8...1.4.0) (2025-10-15)
+
+
+### Features
+
+* add publication date ([#481](https://github.com/pressbooks/pressbooks-network-catalog/issues/481)) ([9b5020c](https://github.com/pressbooks/pressbooks-network-catalog/commit/9b5020c1f4602f66dce727e8b5a2434001f97825))
+
+
+### Bug Fixes
+
+* pot workflow ([#474](https://github.com/pressbooks/pressbooks-network-catalog/issues/474)) ([e9ca9e2](https://github.com/pressbooks/pressbooks-network-catalog/commit/e9ca9e20db9e714c7e470fba90614b164ac289fe))
+
 ## [1.3.8](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.3.7...1.3.8) (2025-05-07)
 
 
