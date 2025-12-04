@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.0](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.4.0...1.5.0) (2025-12-04)
+
+
+### Features
+
+* remove po generation workflow and tx files ([#486](https://github.com/pressbooks/pressbooks-network-catalog/issues/486)) ([802a86f](https://github.com/pressbooks/pressbooks-network-catalog/commit/802a86fb0a939edd18b274da8212cbca822788b7))
+
+
+### Bug Fixes
+
+* remove unwanted CSS customizations ([#490](https://github.com/pressbooks/pressbooks-network-catalog/issues/490)) ([ee4f528](https://github.com/pressbooks/pressbooks-network-catalog/commit/ee4f528a9d9da48afd961346167b4b8924e8841f))
+
 ## [1.4.0](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.3.8...1.4.0) (2025-10-15)
 
 
