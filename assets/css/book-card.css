@@ -16,6 +16,7 @@
 
 .book-cards .book-card .book-info h2 {
   @apply text-2xl text-left font-bold normal-case mt-0 before:hidden;
+
   color: var(--primary);
 }
 
@@ -59,6 +60,7 @@
 
 .book-cards .book-card .book-info .book-description {
   @apply mt-6 mb-2;
+
 	word-break: break-word;
 }
 
@@ -66,20 +68,20 @@
   @apply mb-2;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp *:not(a):not(em):not(del):not(span):not(strong):not(u):not(li) {
+.book-cards .book-card .book-info .book-description.line-clamp *:not(a, em, del, span, strong, u, li) {
   display: contents;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp p:after,
-.book-cards .book-card .book-info .book-description.line-clamp ul:after,
-.book-cards .book-card .book-info .book-description.line-clamp ol:after,
-.book-cards .book-card .book-info .book-description.line-clamp li:after,
-.book-cards .book-card .book-info .book-description.line-clamp u:after {
+.book-cards .book-card .book-info .book-description.line-clamp p::after,
+.book-cards .book-card .book-info .book-description.line-clamp ul::after,
+.book-cards .book-card .book-info .book-description.line-clamp ol::after,
+.book-cards .book-card .book-info .book-description.line-clamp li::after,
+.book-cards .book-card .book-info .book-description.line-clamp u::after {
   content: "\a";
   white-space: break-spaces;
 }
 
-.book-cards .book-card .book-info .book-description.line-clamp p:after {
+.book-cards .book-card .book-info .book-description.line-clamp p::after {
   content: "\a\a";
 }
 

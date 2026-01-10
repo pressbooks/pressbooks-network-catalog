@@ -1,12 +1,21 @@
 {
   "assets/css/app.css": {
+<<<<<<< Updated upstream
     "file": "assets/app-5170dd6a.css",
+=======
+    "file": "assets/styles-Cn58dkVA.css",
+    "src": "assets/css/app.css",
+>>>>>>> Stashed changes
     "isEntry": true,
-    "src": "assets/css/app.css"
+    "name": "styles",
+    "names": [
+      "styles.css"
+    ]
   },
   "assets/js/app.js": {
-    "file": "assets/app-8be09f34.js",
-    "isEntry": true,
-    "src": "assets/js/app.js"
+    "file": "assets/app-CiPMeXRR.js",
+    "name": "app",
+    "src": "assets/js/app.js",
+    "isEntry": true
   }
 }

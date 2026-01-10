@@ -1,5 +1,6 @@
 .pagination {
   @apply my-4 mx-auto flex items-center gap-4 max-w-fit font-semibold;
+
   color: var(--accent);
 }
 
@@ -9,6 +10,7 @@
 
 .pagination .pagination-item {
   @apply px-4 py-2 inline-flex items-center border rounded text-sm;
+
   color: var(--accent);
   background-color: var(--primary-fg);
   border-color: var(--accent);
@@ -29,5 +31,6 @@
 
 .pagination select {
   @apply py-1.5 pl-2 rounded border-none shadow text-center;
+
   background-color: var(--primary-fg);
 }

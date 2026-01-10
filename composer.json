@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-      "php": "^8.1"
+      "php": "^8.1",
+      "pressbooks/frontend-tools": "^1.0.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.10",

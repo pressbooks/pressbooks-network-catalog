@@ -1,5 +1,5 @@
 /* Apply basic tailwindcss defaults */
-*, :after, :before {
+*, ::after, ::before {
   @apply box-border border-0 border-solid border-gray-300;
 }
 
@@ -17,6 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .page-template-page-catalog #content {
   @apply w-full max-w-none;
+
   background-color: #f6f6f6;
 }
 
@@ -46,6 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact h2 {
   @apply text-3xl font-bold lg:text-4xl;
+
   color: var(--primary);
 }
 

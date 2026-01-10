@@ -1,16 +1,19 @@
 {
   "name": "pressbooks-network-catalog",
   "description": "A plugin which provides an improved catalog for the Pressbooks Aldine theme",
-  "main": "assets/js/app.js",
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development vite",
-    "build": "vite build",
-    "build:staging": "TAILWIND_MODE=build vite build --mode staging",
-    "serve": "vite preview"
+  "type": "module",
+  "engines": {
+    "node": ">= 22"
   },
-	"engines": {
-		"node": ">=18"
-	},
+  "scripts": {
+    "build": "pressbooks-build-tools build",
+    "watch": "pressbooks-build-tools dev",
+    "lint:scripts": "pressbooks-build-tools lint:scripts 'assets/js/**/*.js'",
+    "lint:styles": "pressbooks-build-tools lint:styles 'assets/css/**/*.css'",
+    "fix:scripts": "pressbooks-build-tools fix:scripts 'assets/js/**/*.js'",
+    "fix:styles": "pressbooks-build-tools fix:styles 'assets/css/**/*.css'",
+    "lint": "npm run lint:scripts && npm run lint:styles"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pressbooks/pressbooks-network-catalog.git"
@@ -25,21 +28,22 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks-network-catalog#readme",
   "devDependencies": {
+    "pressbooks-build-tools": "^5.0.0",
     "autoprefixer": "^10.4.16",
-    "cross-env": "^7.0.3",
-    "eslint": "^8.52.0",
-    "eslint-plugin-vue": "^9.26.0",
     "postcss": "^8.4.31",
     "postcss-nested": "^6.0.1",
-    "tailwindcss": "^3.3.3",
-    "vite": "^4",
-    "vite-plugin-live-reload": "^3.0.2"
+    "tailwindcss": "^3.3.3"
   },
   "dependencies": {
-    "@barba/core": "^2.9.7",
     "@duetds/date-picker": "^1.4.0",
     "alpinejs": "^3.14.0",
     "dayjs": "^1.11.11",
     "nanobar": "^0.4.2"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/pressbooks-build-tools/config/eslint.cjs"
+  },
+  "stylelint": {
+    "extends": "./node_modules/pressbooks-build-tools/config/stylelint.js"
   }
 }
