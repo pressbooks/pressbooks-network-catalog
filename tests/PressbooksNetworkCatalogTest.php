@@ -3,8 +3,8 @@
 namespace Tests;
 
 use Pressbooks\DataCollector\Book;
-use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 use function Pressbooks\Metadata\get_in_catalog_option;
+use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 use utilsTrait;
 
 class PressbooksNetworkCatalogTest extends TestCase
@@ -60,7 +60,7 @@ class PressbooksNetworkCatalogTest extends TestCase
 		$blogId = get_current_blog_id();
 
 		update_option(get_in_catalog_option(), 1);
-		
+
 		restore_current_blog();
 
 		update_site_meta($blogId, Book::IN_CATALOG, 1);
