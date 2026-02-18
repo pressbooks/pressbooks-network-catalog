@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.5.1...1.5.2) (2026-02-17)
+
+
+### Bug Fixes
+
+* remove deactivated books from catalog ([#501](https://github.com/pressbooks/pressbooks-network-catalog/issues/501)) ([ea805bb](https://github.com/pressbooks/pressbooks-network-catalog/commit/ea805bb936f0fbe81b92b8d35a2888fc2ae86e6f))
+
 ## [1.5.1](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.5.0...1.5.1) (2026-01-20)
 
 
