@@ -3,6 +3,8 @@
 namespace PressbooksNetworkCatalog;
 
 use Pressbooks\Container;
+use Pressbooks\DataCollector\Book;
+use function Pressbooks\Metadata\get_in_catalog_option;
 use PressbooksFrontendTools\Assets;
 use PressbooksFrontendTools\AssetType;
 
@@ -77,6 +79,15 @@ class PressbooksNetworkCatalog
 
 		add_action('init', function () {
 			load_plugin_textdomain('pressbooks-network-catalog', false, 'pressbooks-network-catalog/languages');
+		});
+
+		add_action('deactivate_blog', function ($blogId) {
+			switch_to_blog($blogId);
+
+			update_option(get_in_catalog_option(), 0);
+			update_site_meta($blogId, Book::IN_CATALOG, 0);
+
+			restore_current_blog();
 		});
 	}
 }
