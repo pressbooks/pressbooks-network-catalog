@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks-network-catalog#readme",
   "devDependencies": {
-    "pressbooks-build-tools": "^5.0.0",
+    "pressbooks-build-tools": "^5.1.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "postcss-nested": "^6.0.1",
