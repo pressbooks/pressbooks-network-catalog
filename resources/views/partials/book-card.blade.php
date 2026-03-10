@@ -67,7 +67,7 @@
                         {!! pb_decode($book->shortDescription) !!}
                     @endif
                 </div>
-                <a class="read-more" @click="window.toggleClass($el.previousElementSibling,'line-clamp'); showRead=!showRead " x-show="window.hasClampedText($el.previousElementSibling)" x-text="showRead? 'Read more' : 'Show less' "></a>
+                <a class="read-more" @click="window.toggleClass($el.previousElementSibling,'line-clamp'); showRead=!showRead " x-show="window.hasClampedText($el.previousElementSibling)" x-text="showRead? '{{ __( 'Read more', 'pressbooks-network-catalog' ) }}' : '{{ __( 'Show less', 'pressbooks-network-catalog' ) }}' "></a>
             </div>
         @endif
 	</div>
