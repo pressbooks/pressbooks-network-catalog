@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use ReflectionClass;
+use ReflectionProperty;
 use WP_UnitTestCase;
 
 class TestCase extends WP_UnitTestCase
@@ -16,12 +16,8 @@ class TestCase extends WP_UnitTestCase
 	 */
 	protected function resetSingletonInstance(string $className): void
 	{
-		$class = new ReflectionClass($className);
+		$property = new ReflectionProperty($className, 'instance');
 
-		$instance = $class->getProperty('instance');
-
-		$instance->setAccessible(true);
-		$instance->setValue(null);
-		$instance->setAccessible(false);
+		$property->setValue(null, null);
 	}
 }

@@ -5,6 +5,8 @@ namespace PressbooksNetworkCatalog;
 use Pressbooks\Container;
 use Pressbooks\DataCollector\Book;
 use function Pressbooks\Metadata\get_in_catalog_option;
+use PressbooksFrontendTools\Assets;
+use PressbooksFrontendTools\AssetType;
 
 class PressbooksNetworkCatalog
 {
@@ -32,7 +34,6 @@ class PressbooksNetworkCatalog
 
 	/**
 	 * @return void
-	 * @throws \JsonException
 	 * @codeCoverageIgnore
 	 */
 	protected function enqueueScripts(): void
@@ -47,35 +48,11 @@ class PressbooksNetworkCatalog
 				wp_dequeue_script('aldine/script');
 			}, 100);
 
-			/**
-			 * VITE & Tailwind JIT development
-			 * Inspired by https://github.com/andrefelipe/vite-php-setup
-			 */
-			if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT) {
-				// insert hmr into head for live reload
-				add_action('wp_head', function () {
-					echo '<script type="module" crossorigin src="http://localhost:3000/assets/js/app.js"></script>';
-					echo '<link rel="stylesheet" href="http://localhost:3000/assets/css/app.css">';
-				});
-
-				return;
-			}
-
-			$distUri = plugin_dir_url(__DIR__).'/dist';
-			$distPath = plugin_dir_path(__DIR__).'/dist';
-
-			// production version, 'npm run build' must be executed in order to generate assets
-			$manifest = json_decode(file_get_contents("$distPath/manifest.json"), true, 512, JSON_THROW_ON_ERROR);
-
-			if (isset($manifest['assets/css/app.css'])) {
-				$entry_css = $manifest['assets/css/app.css']['file'];
-				wp_enqueue_style('pb-network-catalog/style', "$distUri/$entry_css",
-					['aldine/style']); // override Aldine's
-			}
-			if (isset($manifest['assets/js/app.js'])) {
-				$entry_js = $manifest['assets/js/app.js']['file'];
-				wp_enqueue_script('pb-network-catalog/script', "$distUri/$entry_js", ['jquery'], null, true);
-			}
+			$assets = new Assets('pressbooks-network-catalog', AssetType::PLUGIN);
+			$assets->enqueue('assets/js/app.js', 'pb-network-catalog-script', [
+				'dependencies' => ['jquery'],
+				'css-dependencies' => ['aldine/style'],
+			]);
 		});
 	}
 

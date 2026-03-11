@@ -1,10 +1,12 @@
 .page-template-page-catalog .header {
   @apply h-fit !important;
+
   background-image: none !important;
 }
 
 .page-template-page-catalog .hero {
   @apply pt-16 pb-24 w-full;
+
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
@@ -12,6 +14,7 @@
 
 .page-template-page-catalog .hero h1 {
   @apply text-4xl normal-case font-bold mx-auto leading-snug lg:text-5xl lg:max-w-screen-md;
+
   color: var(--primary);
 }
 
