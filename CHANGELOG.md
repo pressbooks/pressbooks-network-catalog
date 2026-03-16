@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.5.2...1.6.0) (2026-03-11)
+
+
+### Features
+
+* new build tools ([#492](https://github.com/pressbooks/pressbooks-network-catalog/issues/492)) ([ff357b5](https://github.com/pressbooks/pressbooks-network-catalog/commit/ff357b53056979f92108b7c8308745844ae37461))
+
+
+### Chores
+
+* **l10n:** migrate from Transifex to Crowdin ([#506](https://github.com/pressbooks/pressbooks-network-catalog/issues/506)) ([61ee1f2](https://github.com/pressbooks/pressbooks-network-catalog/commit/61ee1f23a7d2139486205315d66582393195f989))
+
 ## [1.5.2](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.5.1...1.5.2) (2026-02-17)
 
 
