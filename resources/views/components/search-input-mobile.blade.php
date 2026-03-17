@@ -6,7 +6,7 @@
 			name="search_term"
 			placeholder="{{ __('Search by title, author, keyword', 'pressbooks-network-catalog') }}"
 			value="{{ $request->search_term }}"
-			aria-labelledby="search-input-label"
+			aria-labelledby="search-input-mobile-label"
 		/>
 	</div>
 	<button id="search-mobile" type="submit">

@@ -1,5 +1,4 @@
 <div class="dropdown {{$dropdown_class??''}}">
-    <label>{{$options_prefix??''}}</label>
     <select x-data @change="changeOnSelect" name="{{ $name }}" aria-label="{{ $label }}">
         @foreach($options as $value => $text)
             <option
