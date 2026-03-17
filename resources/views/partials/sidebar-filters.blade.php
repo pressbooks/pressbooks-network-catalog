@@ -26,16 +26,18 @@
 	</button>
 	<div id="date-published-wrapper" x-cloak :class="!open && 'hidden'">
             <div>
-                <label>{{ __( 'From', 'pressbooks-network-catalog' ) }}</label>
+                <label for="published_from">{{ __( 'From', 'pressbooks-network-catalog' ) }}</label>
                 <duet-date-picker
+                    id="published_from"
                     identifier="published_from"
 					name="published_from"
                     value="{{$request->published_from ?? ''}}"
                     min="2010-01-01"
                     max="{{date('Y-m-d')}}"
                 ></duet-date-picker>
-                <label>{{ __( 'To', 'pressbooks-network-catalog' ) }}</label>
+                <label for="published_to">{{ __( 'To', 'pressbooks-network-catalog' ) }}</label>
                 <duet-date-picker
+                    id="published_to"
                     identifier="published_to"
 					name="published_to"
 					value="{{$request->published_to ?? ''}}"
@@ -52,16 +54,18 @@
 	</button>
 	<div id="last-updated-wrapper" x-cloak :class="!open && 'hidden'">
             <div>
-                <label>{{ __( 'From', 'pressbooks-network-catalog' ) }}</label>
+                <label for="updated_from">{{ __( 'From', 'pressbooks-network-catalog' ) }}</label>
                 <duet-date-picker
+                    id="updated_from"
                     identifier="updated_from"
 					name="updated_from"
 					value="{{$request->updated_from ?? ''}}"
                     min="2010-01-01"
                     max="{{date('Y-m-d')}}"
                 ></duet-date-picker>
-                <label>{{ __( 'To', 'pressbooks-network-catalog' ) }}</label>
+                <label for="updated_to">{{ __( 'To', 'pressbooks-network-catalog' ) }}</label>
                 <duet-date-picker
+                    id="updated_to"
                     identifier="updated_to"
 					name="updated_to"
 					value="{{$request->updated_to ?? ''}}"
