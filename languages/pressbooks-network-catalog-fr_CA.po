@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: pressbooks-open-source\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-network-catalog/issues\n"
 "Last-Translator: \n"
-"Language-Team: Spanish\n"
+"Language-Team: French, Canada\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,18 +13,18 @@ msgstr ""
 "PO-Revision-Date: 2026-03-18 00:13\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: pressbooks-network-catalog\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: pressbooks-open-source\n"
 "X-Crowdin-Project-ID: 866076\n"
-"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-Language: fr-CA\n"
 "X-Crowdin-File: /pressbooks-network-catalog/languages/pressbooks-network-catalog.pot\n"
 "X-Crowdin-File-ID: 158\n"
-"Language: es_ES\n"
+"Language: fr_CA\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-network-catalog.php
 msgid "Pressbooks Network Catalog"
-msgstr "Pressbooks Network Catalog"
+msgstr "Catalogue du réseau Pressbooks"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
@@ -35,7 +35,7 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks-network-catalog.php
 msgid "Add a searchable, filterable catalog to the Pressbooks Aldine theme"
-msgstr "Añade un catálogo que permite filtros y búsquedas al tema Aldine de Pressbooks."
+msgstr "Ajouter un catalogue consultable et filtrable au thème Pressbooks Aldine"
 
 #. Author of the plugin
 #: pressbooks-network-catalog.php
@@ -45,55 +45,55 @@ msgstr "Pressbooks (Book Oven Inc.)"
 #: src/ActiveFilters.php:39
 #: resources/views/partials/sidebar-filters.blade.php:72
 msgid "H5P Activities"
-msgstr "Actividades H5P"
+msgstr "Activités H5P"
 
 #: src/ActiveFilters.php:47
 msgid "From: %s"
-msgstr "Desde: %s"
+msgstr "De : %s"
 
 #: src/ActiveFilters.php:55
 msgid "To: %s"
-msgstr "Hasta: %s"
+msgstr "À : %s"
 
 #: resources/views/catalog.blade.php:17
 #: resources/views/components/search-input-mobile.blade.php:13
 #: resources/views/components/search-input.blade.php:13
 #: resources/views/components/selectable-filter.blade.php:20
 msgid "Search"
-msgstr "Buscar"
+msgstr "Chercher"
 
 #: resources/views/catalog.blade.php:23
 #: resources/views/partials/refine-filters.blade.php:3
 msgid "Filters"
-msgstr "Filtros"
+msgstr "Filtres"
 
 #: resources/views/catalog.blade.php:29
 msgid "Search, pagination, and sorting"
-msgstr "Búsqueda, paginación y ordenación"
+msgstr "Recherche, pagination et tri"
 
 #: resources/views/catalog.blade.php:35
 msgid "Book list"
-msgstr "Lista de libros"
+msgstr "Liste de livres"
 
 #: resources/views/catalog.blade.php:40
 msgid "Sorry, no results were found. You may want to check your spelling, use alternative terms with similar meanings, or clear one or more filters."
-msgstr "Lo siento, no se encontró ningún resultado. Puedes comprobar la ortografía, usar términos alternativos con un significado similar o desactivar uno o más filtros."
+msgstr "Désolé, aucun résultat n'a été trouvé. Vous voudrez peut-être vérifier votre orthographe, utiliser des termes alternatifs ayant des significations similaires ou supprimer un ou plusieurs filtres."
 
 #: resources/views/catalog.blade.php:42
 msgid "No books have been added to the catalog yet."
-msgstr "Todavía no se han añadido libros al catálogo."
+msgstr "Aucun livre n'a encore été ajouté au catalogue."
 
 #: resources/views/components/pagination.blade.php:5
 msgid "%s pagination"
-msgstr "Paginación %s"
+msgstr "%s pagination"
 
 #: resources/views/components/pagination.blade.php:16
 msgid "Go to previous page"
-msgstr "Ir a la página anterior"
+msgstr "Aller à la page précédente"
 
 #: resources/views/components/pagination.blade.php:21
 msgid "Go to page"
-msgstr "Ir a la página"
+msgstr "Aller à la page"
 
 #: resources/views/components/pagination.blade.php:30
 msgid "%d of %d"
@@ -101,123 +101,123 @@ msgstr "%d de %d"
 
 #: resources/views/components/pagination.blade.php:42
 msgid "Go to next page"
-msgstr "Ir a la página siguiente"
+msgstr "Aller au suivant page"
 
 #: resources/views/components/search-input-mobile.blade.php:2
 #: resources/views/components/search-input-mobile.blade.php:7
 #: resources/views/components/search-input.blade.php:2
 #: resources/views/components/search-input.blade.php:7
 msgid "Search by title, author, keyword"
-msgstr "Buscar por título, autor, palabra clave"
+msgstr "Recherche par titre, auteur, mot clé"
 
 #: resources/views/components/selectable-filter.blade.php:39
 msgid "No available filters at the moment"
-msgstr "No hay filtros disponibles en este momento."
+msgstr "Aucun filtre disponible pour le moment"
 
 #: resources/views/components/selectable-filter.blade.php:48
 msgid "Show more +"
-msgstr "Mostrar más +"
+msgstr "Afficher plus +"
 
 #: resources/views/partials/book-card.blade.php:3
 msgid "%s book cover"
-msgstr "Cubierta del libro «%s»"
+msgstr "%s couverture de livre"
 
 #: resources/views/partials/book-card.blade.php:12
 msgid "%d H5P Activities"
-msgstr "%d actividades H5P"
+msgstr "%d Activités H5P"
 
 #: resources/views/partials/book-card.blade.php:23
 msgid "Author(s):"
-msgstr "Autor(es):"
+msgstr "Auteur(s) :"
 
 #: resources/views/partials/book-card.blade.php:30
 msgid "Editor(s):"
-msgstr "Editor(es):"
+msgstr "Rédacteur(s) :"
 
 #: resources/views/partials/book-card.blade.php:37
 msgid "Subject(s):"
-msgstr "Tema(s):"
+msgstr "Sujet(s) :"
 
 #: resources/views/partials/book-card.blade.php:44
 msgid "Institution(s):"
-msgstr "Institución(es):"
+msgstr "Institution(s) :"
 
 #: resources/views/partials/book-card.blade.php:51
 msgid "Publisher:"
-msgstr "Editorial:"
+msgstr "Éditeur :"
 
 #: resources/views/partials/book-card.blade.php:57
 msgid "Last updated:"
-msgstr "Última actualización:"
+msgstr "Dernière mise à jour :"
 
 #: resources/views/partials/refine-filters.blade.php:8
 msgid "Results per page"
-msgstr "Resultados por página"
+msgstr "Résultats par page"
 
 #: resources/views/partials/refine-filters.blade.php:12
 #: resources/views/partials/refine-filters.blade.php:13
 #: resources/views/partials/refine-filters.blade.php:14
 msgid "%d results"
-msgstr "%d resultados"
+msgstr "%d résultats"
 
 #: resources/views/partials/refine-filters.blade.php:19
 #: resources/views/partials/refine-filters.blade.php:23
 msgid "Sort by"
-msgstr "Ordenar por"
+msgstr "Trier par"
 
 #: resources/views/partials/refine-filters.blade.php:25
 msgid "Recently updated"
-msgstr "Última actualización"
+msgstr "Récemment mis à jour"
 
 #: resources/views/partials/refine-filters.blade.php:26
 msgid "Title (A-Z)"
-msgstr "Título (A-Z)"
+msgstr "Titre (A-Z)"
 
 #: resources/views/partials/search-box.blade.php:8
 msgid "%d result for ‘%s’"
 msgid_plural "%d results for ‘%s’"
-msgstr[0] "%d resultado para «%s»"
-msgstr[1] "%d resultados para «%s»"
+msgstr[0] "%drésultat pour '%s'"
+msgstr[1] "%d résultats pour '%s'"
 
 #: resources/views/partials/search-box.blade.php:13
 msgid "%d result"
 msgid_plural "%d results"
-msgstr[0] "%d resultado"
-msgstr[1] "%d resultados"
+msgstr[0] "%d résultat"
+msgstr[1] "%d résultats"
 
 #: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
-msgstr "Filtros aplicados"
+msgstr "Filtres appliqués"
 
 #: resources/views/partials/search-box.blade.php:24
 msgid "Remove %s filter"
-msgstr "Quitar el filtro «%s»"
+msgstr "Supprimer %s filtre"
 
 #: resources/views/partials/sidebar-filters.blade.php:3
 msgid "Subject"
-msgstr "Tema"
+msgstr "Sujet"
 
 #: resources/views/partials/sidebar-filters.blade.php:14
 msgid "License"
-msgstr "Licencia"
+msgstr "Licence"
 
 #: resources/views/partials/sidebar-filters.blade.php:24
 msgid "Last Updated"
-msgstr "Última actualización"
+msgstr "Dernière mise à jour"
 
 #: resources/views/partials/sidebar-filters.blade.php:50
 msgid "Institution"
-msgstr "Institución"
+msgstr "Institution"
 
 #: resources/views/partials/sidebar-filters.blade.php:61
 msgid "Publisher"
-msgstr "Editorial"
+msgstr "Éditeur"
 
 #: resources/views/partials/sidebar-filters.blade.php:87
 msgid "Apply filters"
-msgstr "Aplicar filtros"
+msgstr "Appliquer des filtres"
 
 #: resources/views/partials/sidebar-filters.blade.php:92
 msgid "Clear filters"
-msgstr "Vaciar filtros"
+msgstr "Effacer les filtres"
 

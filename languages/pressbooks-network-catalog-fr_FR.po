@@ -1,28 +1,30 @@
 # Copyright (C) 2025 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
-# Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2023
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks Network Catalog 1.3.6\n"
+"Project-Id-Version: pressbooks-open-source\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-network-catalog/issues\n"
-"POT-Creation-Date: 2025-01-13T22:22:37+00:00\n"
-"PO-Revision-Date: 2023-03-08 01:17+0000\n"
-"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2023\n"
-"Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
-"X-Domain: pressbooks-network-catalog\n"
+"POT-Creation-Date: 2025-01-13T22:22:37+00:00\n"
+"PO-Revision-Date: 2026-03-18 00:13\n"
 "X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: pressbooks-network-catalog\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Crowdin-Project: pressbooks-open-source\n"
+"X-Crowdin-Project-ID: 866076\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /pressbooks-network-catalog/languages/pressbooks-network-catalog.pot\n"
+"X-Crowdin-File-ID: 158\n"
+"Language: fr_FR\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-network-catalog.php
 msgid "Pressbooks Network Catalog"
-msgstr "Pressbooks Network Catalog"
+msgstr "Catalogue du réseau Pressbooks"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
@@ -33,8 +35,7 @@ msgstr "https://pressbooks.org"
 #. Description of the plugin
 #: pressbooks-network-catalog.php
 msgid "Add a searchable, filterable catalog to the Pressbooks Aldine theme"
-msgstr ""
-"Ajouter un catalogue consultable et filtrable au thème Pressbooks Aldine"
+msgstr "Ajouter un catalogue consultable et filtrable au thème Pressbooks Aldine"
 
 #. Author of the plugin
 #: pressbooks-network-catalog.php
@@ -48,11 +49,11 @@ msgstr "Activités H5P"
 
 #: src/ActiveFilters.php:47
 msgid "From: %s"
-msgstr "De: %s"
+msgstr "De : %s"
 
 #: src/ActiveFilters.php:55
 msgid "To: %s"
-msgstr "À: %s"
+msgstr "À : %s"
 
 #: resources/views/catalog.blade.php:17
 #: resources/views/components/search-input-mobile.blade.php:13
@@ -75,13 +76,8 @@ msgid "Book list"
 msgstr "Liste de livres"
 
 #: resources/views/catalog.blade.php:40
-msgid ""
-"Sorry, no results were found. You may want to check your spelling, use "
-"alternative terms with similar meanings, or clear one or more filters."
-msgstr ""
-"Désolé, aucun résultat n'a été trouvé. Vous voudrez peut-être vérifier votre"
-" orthographe, utiliser des termes alternatifs ayant des significations "
-"similaires ou supprimer un ou plusieurs filtres."
+msgid "Sorry, no results were found. You may want to check your spelling, use alternative terms with similar meanings, or clear one or more filters."
+msgstr "Désolé, aucun résultat n'a été trouvé. Vous voudrez peut-être vérifier votre orthographe, utiliser des termes alternatifs ayant des significations similaires ou supprimer un ou plusieurs filtres."
 
 #: resources/views/catalog.blade.php:42
 msgid "No books have been added to the catalog yet."
@@ -132,27 +128,27 @@ msgstr "%d Activités H5P"
 
 #: resources/views/partials/book-card.blade.php:23
 msgid "Author(s):"
-msgstr "Auteur(s):"
+msgstr "Auteur(s) :"
 
 #: resources/views/partials/book-card.blade.php:30
 msgid "Editor(s):"
-msgstr "Rédacteur(s):"
+msgstr "Rédacteur(s) :"
 
 #: resources/views/partials/book-card.blade.php:37
 msgid "Subject(s):"
-msgstr "Sujet(s):"
+msgstr "Sujet(s) :"
 
 #: resources/views/partials/book-card.blade.php:44
 msgid "Institution(s):"
-msgstr "Institution(s):"
+msgstr "Institution(s) :"
 
 #: resources/views/partials/book-card.blade.php:51
 msgid "Publisher:"
-msgstr "Éditeur:"
+msgstr "Éditeur :"
 
 #: resources/views/partials/book-card.blade.php:57
 msgid "Last updated:"
-msgstr "Dernière mise à jour:"
+msgstr "Dernière mise à jour :"
 
 #: resources/views/partials/refine-filters.blade.php:8
 msgid "Results per page"
@@ -182,14 +178,12 @@ msgid "%d result for ‘%s’"
 msgid_plural "%d results for ‘%s’"
 msgstr[0] "%drésultat pour '%s'"
 msgstr[1] "%d résultats pour '%s'"
-msgstr[2] "%d résultats pour ‘%s’"
 
 #: resources/views/partials/search-box.blade.php:13
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d résultat"
 msgstr[1] "%d résultats"
-msgstr[2] "%d résultat"
 
 #: resources/views/partials/search-box.blade.php:18
 msgid "Applied filters"
@@ -226,3 +220,4 @@ msgstr "Appliquer des filtres"
 #: resources/views/partials/sidebar-filters.blade.php:92
 msgid "Clear filters"
 msgstr "Effacer les filtres"
+
