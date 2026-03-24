@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.1](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.0...1.6.1) (2026-03-18)
+
+
+### Bug Fixes
+
+* accessibility labels ([#511](https://github.com/pressbooks/pressbooks-network-catalog/issues/511)) ([cf4d10b](https://github.com/pressbooks/pressbooks-network-catalog/commit/cf4d10b1a3fd9d6b4a2fac2a3e632e534aa271da))
+
+
+### Chores
+
+* **l10n:** update languages ([#509](https://github.com/pressbooks/pressbooks-network-catalog/issues/509)) ([b59b1d6](https://github.com/pressbooks/pressbooks-network-catalog/commit/b59b1d681157af3dfe524f1fe6e00d79ec861103))
+
 ## [1.6.0](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.5.2...1.6.0) (2026-03-11)
 
 

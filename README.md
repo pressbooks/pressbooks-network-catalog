@@ -5,7 +5,7 @@ Donate link: https://pressbooks.com/ \
 Requires at least: 6.5 \
 Tested up to: 6.5 \
 <!-- x-release-please-start-version -->
-Stable tag: 1.6.0 \
+Stable tag: 1.6.1 \
 <!-- x-release-please-end -->
 Requires PHP: 8.1 \
 License: GPLv3 or later \
