@@ -50,7 +50,7 @@ class PressbooksNetworkCatalog
 
 			$assets = new Assets('pressbooks-network-catalog', AssetType::PLUGIN);
 			$assets->enqueue('assets/js/app.js', 'pb-network-catalog-script', [
-				'dependencies' => ['jquery'],
+				'dependencies' => ['jquery', 'duet-date-picker'],
 				'css-dependencies' => ['aldine/style'],
 			]);
 		});
