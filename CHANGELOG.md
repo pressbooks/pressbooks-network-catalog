@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.1...1.6.2) (2026-07-09)
+
+
+### Bug Fixes
+
+* global duet datepicker for proper enqueue ([#529](https://github.com/pressbooks/pressbooks-network-catalog/issues/529)) ([8dde5ce](https://github.com/pressbooks/pressbooks-network-catalog/commit/8dde5ce5f5e218d81fef52eea61486fe817f12af))
+
 ## [1.6.1](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.0...1.6.1) (2026-03-18)
 
 
