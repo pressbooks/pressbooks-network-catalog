@@ -1,7 +1,9 @@
 import '../css/app.css';
-import { DuetDatePicker } from '@duetds/date-picker/custom-element';
 import Alpine from 'alpinejs';
-customElements.define( 'duet-date-picker', DuetDatePicker );
+
+// The `duet-date-picker` custom element is provided by the core Pressbooks
+// `duet-date-picker` script handle, declared as a dependency when this bundle
+// is enqueued (see PressbooksNetworkCatalog::enqueueScripts).
 
 window.Alpine = Alpine;
 
