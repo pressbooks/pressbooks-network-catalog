@@ -60,14 +60,14 @@
 
 		@if($book->description || $book->shortDescription)
 			<div x-data="{showRead: true}">
-                <div class="book-description line-clamp">
+                <div class="book-description line-clamp" id="book-description-{{ $book->id }}">
                     @if($book->description)
                         {!! $book->description !!}
                     @elseif($book->shortDescription)
                         {!! pb_decode($book->shortDescription) !!}
                     @endif
                 </div>
-                <a class="read-more" @click="window.toggleClass($el.previousElementSibling,'line-clamp'); showRead=!showRead " x-show="window.hasClampedText($el.previousElementSibling)" x-text="showRead? '{{ __( 'Read more', 'pressbooks-network-catalog' ) }}' : '{{ __( 'Show less', 'pressbooks-network-catalog' ) }}' "></a>
+                <button type="button" class="read-more" @click="window.toggleClass($el.previousElementSibling,'line-clamp'); showRead=!showRead " x-show="window.hasClampedText($el.previousElementSibling)" :aria-expanded="!showRead" aria-controls="book-description-{{ $book->id }}" x-text="showRead? '{{ __( 'Read more', 'pressbooks-network-catalog' ) }}' : '{{ __( 'Show less', 'pressbooks-network-catalog' ) }}' "></button>
             </div>
         @endif
 	</div>
