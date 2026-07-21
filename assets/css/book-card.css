@@ -93,7 +93,23 @@
 }
 
 .read-more {
-  @apply cursor-pointer;
+  @apply cursor-pointer bg-transparent border-0 p-0 underline text-base focus:outline-none;
+
+  color: var(--primary);
+  font: inherit;
+}
+
+.read-more:hover,
+.read-more:focus,
+.read-more:focus-visible {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--primary-dark);
+  box-shadow: none;
+}
+
+.read-more:focus-visible {
+  outline: auto;
 }
 
 
