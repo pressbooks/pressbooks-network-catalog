@@ -109,7 +109,7 @@
 }
 
 .read-more:focus-visible {
-  outline-color: var(--primary);
+  outline: auto;
 }
 
 
