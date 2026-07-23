@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.3](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.2...1.6.3) (2026-07-21)
+
+
+### Bug Fixes
+
+* add focus for read more action ([#531](https://github.com/pressbooks/pressbooks-network-catalog/issues/531)) ([8990172](https://github.com/pressbooks/pressbooks-network-catalog/commit/899017215422be239eb8e0d3ea04c80fbbf0a5ce))
+
 ## [1.6.2](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.1...1.6.2) (2026-07-09)
 
 
