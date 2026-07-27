@@ -89,5 +89,26 @@ class PressbooksNetworkCatalog
 
 			restore_current_blog();
 		});
+
+		add_filter('pb_robots_txt_disallow', function ($rules) {
+			// The catalog only renders on the network root site.
+			if (! is_main_site()) {
+				return $rules;
+			}
+
+			return array_merge($rules, [
+				'/*?*search_term=',
+				'/*?*subjects=',
+				'/*?*licenses=',
+				'/*?*institutions=',
+				'/*?*publishers=',
+				'/*?*sort_by=',
+				'/*?*published_from=',
+				'/*?*published_to=',
+				'/*?*updated_from=',
+				'/*?*updated_to=',
+				'/*?*h5p=',
+			]);
+		});
 	}
 }
