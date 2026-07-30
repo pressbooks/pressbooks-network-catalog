@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.3...1.7.0) (2026-07-30)
+
+
+### Features
+
+* add filter for robots.txt ([#533](https://github.com/pressbooks/pressbooks-network-catalog/issues/533)) ([5d9d57c](https://github.com/pressbooks/pressbooks-network-catalog/commit/5d9d57ca96cc99301712a9ba08a6d97356583b49))
+
 ## [1.6.3](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.2...1.6.3) (2026-07-21)
 
 
