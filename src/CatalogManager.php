@@ -11,64 +11,64 @@ use PressbooksNetworkCatalog\Filters\Subject;
 
 class CatalogManager
 {
-	private array $filters = [];
+    private array $filters = [];
 
-	private Request $request;
+    private Request $request;
 
-	public function handle(): array
-	{
-		$this->request = Request::capture();
+    public function handle(): array
+    {
+        $this->request = Request::capture();
 
-		$this->filters = [
-			'subjects' => Subject::getPossibleValues(),
-			'licenses' => License::getPossibleValues(),
-			'institutions' => Institution::getPossibleValues(),
-			'publishers' => Publisher::getPossibleValues(),
-		];
+        $this->filters = [
+            'subjects' => Subject::getPossibleValues(),
+            'licenses' => License::getPossibleValues(),
+            'institutions' => Institution::getPossibleValues(),
+            'publishers' => Publisher::getPossibleValues(),
+        ];
 
-		// Inject active filters into the request (avoids creating a dynamic property)
-		$this->request->attributes->set('activeFilters', $this->getActiveFilters());
+        // Inject active filters into the request (avoids creating a dynamic property)
+        $this->request->attributes->set('activeFilters', $this->getActiveFilters());
 
-		$books = new Books($this->filters);
+        $books = new Books($this->filters);
 
-		$this->request->replace($this->sanitizeRequestParams($this->request));
+        $this->request->replace($this->sanitizeRequestParams($this->request));
 
-		return [
-			'request' => $this->request,
-			'books' => $books->get(),
-			'pagination' => $books->getPagination(),
-			'catalogBg' => $this->getBackgroundImage(),
-			'catalogHasBooks' => $books->catalogHasBooks(),
-		] + $this->filters;
-	}
+        return [
+            'request' => $this->request,
+            'books' => $books->get(),
+            'pagination' => $books->getPagination(),
+            'catalogBg' => $this->getBackgroundImage(),
+            'catalogHasBooks' => $books->catalogHasBooks(),
+        ] + $this->filters;
+    }
 
-	protected function getActiveFilters(): Collection
-	{
-		return (new ActiveFilters($this->filters))->getFilters($this->request);
-	}
+    protected function getActiveFilters(): Collection
+    {
+        return (new ActiveFilters($this->filters))->getFilters($this->request);
+    }
 
-	protected function getBackgroundImage(): string
-	{
-		return has_post_thumbnail()
-			? get_the_post_thumbnail_url()
-			: plugin_dir_url(__DIR__).'assets/images/catalogbg.jpg';
-	}
+    protected function getBackgroundImage(): string
+    {
+        return has_post_thumbnail()
+            ? get_the_post_thumbnail_url()
+            : plugin_dir_url(__DIR__).'assets/images/catalogbg.jpg';
+    }
 
-	protected function sanitizeRequestParams($request)
-	{
-		return $request->collect()->map(function ($value) {
-			if (is_array($value)) {
-				return array_map(function ($param) {
-					return $this->sanitize($param);
-				}, $value);
-			}
+    protected function sanitizeRequestParams($request)
+    {
+        return $request->collect()->map(function ($value) {
+            if (is_array($value)) {
+                return array_map(function ($param) {
+                    return $this->sanitize($param);
+                }, $value);
+            }
 
-			return $this->sanitize($value);
-		})->toArray();
-	}
+            return $this->sanitize($value);
+        })->toArray();
+    }
 
-	protected function sanitize(string $value): string
-	{
-		return stripslashes($value);
-	}
+    protected function sanitize(string $value): string
+    {
+        return stripslashes($value);
+    }
 }

@@ -7,29 +7,29 @@ use PressbooksNetworkCatalog\Contracts\Filter;
 
 class Publisher implements Filter
 {
-	public static function getPossibleValues(): array
-	{
-		$publishers = get_transient('pb-network-catalog-publishers');
+    public static function getPossibleValues(): array
+    {
+        $publishers = get_transient('pb-network-catalog-publishers');
 
-		if ($publishers !== false) {
-			return $publishers;
-		}
+        if ($publishers !== false) {
+            return $publishers;
+        }
 
-		$codes = DataCollector::init()->getPossibleValuesFor(
-			DataCollector::PUBLISHER,
-			$in_catalog = true
-		);
+        $codes = DataCollector::init()->getPossibleValuesFor(
+            DataCollector::PUBLISHER,
+            $in_catalog = true
+        );
 
-		$publishers = array_reduce($codes, function ($publishers, $key) {
-			$publishers[$key] = $key;
+        $publishers = array_reduce($codes, function ($publishers, $key) {
+            $publishers[$key] = $key;
 
-			return $publishers;
-		}, []);
+            return $publishers;
+        }, []);
 
-		asort($publishers);
+        asort($publishers);
 
-		set_transient('pb-network-catalog-publishers', $publishers, DAY_IN_SECONDS);
+        set_transient('pb-network-catalog-publishers', $publishers, DAY_IN_SECONDS);
 
-		return $publishers;
-	}
+        return $publishers;
+    }
 }

@@ -4,111 +4,114 @@ namespace PressbooksNetworkCatalog;
 
 use Pressbooks\Container;
 use Pressbooks\DataCollector\Book;
-use function Pressbooks\Metadata\get_in_catalog_option;
 use PressbooksFrontendTools\Assets;
 use PressbooksFrontendTools\AssetType;
 
+use function Pressbooks\Metadata\get_in_catalog_option;
+
 class PressbooksNetworkCatalog
 {
-	protected static ?PressbooksNetworkCatalog $instance = null;
+    protected static ?PressbooksNetworkCatalog $instance = null;
 
-	public static function init(): self
-	{
-		if (! static::$instance) {
-			static::$instance = new static;
+    public static function init(): self
+    {
+        if (! static::$instance) {
+            static::$instance = new static;
 
-			static::$instance->setUp();
-		}
+            static::$instance->setUp();
+        }
 
-		return static::$instance;
-	}
+        return static::$instance;
+    }
 
-	public function setUp(): void
-	{
-		$this->enqueueScripts();
+    public function setUp(): void
+    {
+        $this->enqueueScripts();
 
-		$this->setUpBlade();
+        $this->setUpBlade();
 
-		$this->addHooks();
-	}
+        $this->addHooks();
+    }
 
-	/**
-	 * @return void
-	 * @codeCoverageIgnore
-	 */
-	protected function enqueueScripts(): void
-	{
-		add_action('wp_enqueue_scripts', function () {
-			if (get_page_template_slug() !== 'page-catalog.php') {
-				return;
-			}
+    /**
+     * @return void
+     * @codeCoverageIgnore
+     */
+    protected function enqueueScripts(): void
+    {
+        add_action('wp_enqueue_scripts', function () {
+            if (get_page_template_slug() !== 'page-catalog.php') {
+                return;
+            }
 
-			// Remove old catalog.js scripts
-			add_action('wp_print_scripts', function () {
-				wp_dequeue_script('aldine/script');
-			}, 100);
+            // Remove old catalog.js scripts
+            add_action('wp_print_scripts', function () {
+                wp_dequeue_script('aldine/script');
+            }, 100);
 
-			$assets = new Assets('pressbooks-network-catalog', AssetType::PLUGIN);
-			$assets->enqueue('assets/js/app.js', 'pb-network-catalog-script', [
-				'dependencies' => ['jquery', 'duet-date-picker'],
-				'css-dependencies' => ['aldine/style'],
-			]);
-		});
-	}
+            $assets = new Assets('pressbooks-network-catalog', AssetType::PLUGIN);
+            $assets->enqueue('assets/js/app.js', 'pb-network-catalog-script', [
+                'dependencies' => ['jquery', 'duet-date-picker'],
+                'css-dependencies' => ['aldine/style'],
+            ]);
+        });
+    }
 
-	protected function setUpBlade(): void
-	{
-		Container::get('Blade')
-			->addNamespace(
-				'PressbooksNetworkCatalog',
-				dirname(__DIR__).'/resources/views'
-			);
-	}
+    protected function setUpBlade(): void
+    {
+        Container::get('Blade')
+            ->addNamespace(
+                'PressbooksNetworkCatalog',
+                dirname(__DIR__).'/resources/views'
+            );
+    }
 
-	protected function addHooks(): void
-	{
-		add_filter('pb_network_catalog', function () {
-			$data = (new CatalogManager)->handle();
+    protected function addHooks(): void
+    {
+        add_filter('pb_network_catalog', function () {
+            $data = (new CatalogManager)->handle();
 
-			return Container::get('Blade')->render('PressbooksNetworkCatalog::catalog', $data);
-		});
+            return Container::get('Blade')->render('PressbooksNetworkCatalog::catalog', $data);
+        });
 
-		add_filter(
-			'admin_init', fn () => remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'), 1
-		);
+        add_filter(
+            'admin_init',
+            fn () => remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'),
+            1
+        );
 
-		add_action('init', function () {
-			load_plugin_textdomain('pressbooks-network-catalog', false, 'pressbooks-network-catalog/languages');
-		});
+        add_action('init', function () {
+            load_plugin_textdomain('pressbooks-network-catalog', false, 'pressbooks-network-catalog/languages');
+        });
 
-		add_action('deactivate_blog', function ($blogId) {
-			switch_to_blog($blogId);
+        add_action('deactivate_blog', function ($blogId) {
+            switch_to_blog($blogId);
 
-			update_option(get_in_catalog_option(), 0);
-			update_site_meta($blogId, Book::IN_CATALOG, 0);
+            update_option(get_in_catalog_option(), 0);
+            update_site_meta($blogId, Book::IN_CATALOG, 0);
 
-			restore_current_blog();
-		});
+            restore_current_blog();
+        });
 
-		add_filter('pb_robots_txt_disallow', function ($rules) {
-			// The catalog only renders on the network root site.
-			if (! is_main_site()) {
-				return $rules;
-			}
+        add_filter('pb_robots_txt_disallow', function ($rules) {
+            // The catalog only renders on the network root site.
+            if (! is_main_site()) {
+                return $rules;
+            }
 
-			return array_merge($rules, [
-				'/*?*search_term=',
-				'/*?*subjects=',
-				'/*?*licenses=',
-				'/*?*institutions=',
-				'/*?*publishers=',
-				'/*?*sort_by=',
-				'/*?*published_from=',
-				'/*?*published_to=',
-				'/*?*updated_from=',
-				'/*?*updated_to=',
-				'/*?*h5p=',
-			]);
-		});
-	}
+            return array_merge($rules, [
+                '/*?*search_term=',
+                '/*?*subjects=',
+                '/*?*licenses=',
+                '/*?*institutions=',
+                '/*?*publishers=',
+                '/*?*sort_by=',
+                '/*?*published_from=',
+                '/*?*published_to=',
+                '/*?*updated_from=',
+                '/*?*updated_to=',
+                '/*?*h5p=',
+            ]);
+        });
+    }
 }
