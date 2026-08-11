@@ -9,104 +9,104 @@ use utilsTrait;
 
 class SubjectTest extends TestCase
 {
-	use utilsTrait;
+    use utilsTrait;
 
-	/**
-	 * @test
-	 * @group filters
-	 */
-	public function it_retrieves_possible_subject_values(): void
-	{
-		$this->assertEmpty(
-			Subject::getPossibleValues()
-		);
+    /**
+     * @test
+     * @group filters
+     */
+    public function it_retrieves_possible_subject_values(): void
+    {
+        $this->assertEmpty(
+            Subject::getPossibleValues()
+        );
 
-		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
-		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+        update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+        update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
 
-		update_site_meta(1, DataCollector::IN_CATALOG, 1);
-		update_site_meta(2, DataCollector::IN_CATALOG, 0);
+        update_site_meta(1, DataCollector::IN_CATALOG, 1);
+        update_site_meta(2, DataCollector::IN_CATALOG, 0);
 
-		delete_transient('pb-network-catalog-subjects');
+        delete_transient('pb-network-catalog-subjects');
 
-		$subjects = Subject::getPossibleValues();
+        $subjects = Subject::getPossibleValues();
 
-		$expected = [
-			'AVRQ' => 'Mechanical musical instruments',
-		];
+        $expected = [
+            'AVRQ' => 'Mechanical musical instruments',
+        ];
 
-		$this->assertNotEmpty($subjects);
+        $this->assertNotEmpty($subjects);
 
-		$this->assertEquals($expected, $subjects);
-	}
+        $this->assertEquals($expected, $subjects);
+    }
 
-	/**
-	 * @test
-	 * @group filters
-	 */
-	public function it_caches_subjects_for_subsequent_queries(): void
-	{
-		$this->assertEmpty(get_transient('pb-network-catalog-subjects'));
+    /**
+     * @test
+     * @group filters
+     */
+    public function it_caches_subjects_for_subsequent_queries(): void
+    {
+        $this->assertEmpty(get_transient('pb-network-catalog-subjects'));
 
-		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
-		update_site_meta(1, DataCollector::IN_CATALOG, 1);
+        update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+        update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
-		Subject::getPossibleValues();
+        Subject::getPossibleValues();
 
-		$expected = [
-			'AVRQ' => 'Mechanical musical instruments',
-		];
+        $expected = [
+            'AVRQ' => 'Mechanical musical instruments',
+        ];
 
-		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
-		update_site_meta(2, DataCollector::IN_CATALOG, 1);
+        update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+        update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
-		$this->assertNotEmpty(get_transient('pb-network-catalog-subjects'));
+        $this->assertNotEmpty(get_transient('pb-network-catalog-subjects'));
 
-		$this->assertEquals($expected, get_transient('pb-network-catalog-subjects'));
-	}
+        $this->assertEquals($expected, get_transient('pb-network-catalog-subjects'));
+    }
 
-	/**
-	 * @test
-	 * @group filters
-	 */
-	public function it_does_not_query_subjects_when_there_are_cached_values(): void
-	{
-		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
-		update_site_meta(1, DataCollector::IN_CATALOG, 1);
+    /**
+     * @test
+     * @group filters
+     */
+    public function it_does_not_query_subjects_when_there_are_cached_values(): void
+    {
+        update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+        update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
-		Subject::getPossibleValues();
+        Subject::getPossibleValues();
 
-		$expected = [
-			'AVRQ' => 'Mechanical musical instruments',
-		];
+        $expected = [
+            'AVRQ' => 'Mechanical musical instruments',
+        ];
 
-		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
-		update_site_meta(2, DataCollector::IN_CATALOG, 1);
+        update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+        update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
-		$this->assertEquals($expected, Subject::getPossibleValues());
-	}
+        $this->assertEquals($expected, Subject::getPossibleValues());
+    }
 
-	/**
-	 * @test
-	 * @group filters
-	 */
-	public function it_queries_subjects_when_cache_is_cleared(): void
-	{
-		update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
-		update_site_meta(1, DataCollector::IN_CATALOG, 1);
+    /**
+     * @test
+     * @group filters
+     */
+    public function it_queries_subjects_when_cache_is_cleared(): void
+    {
+        update_site_meta(1, DataCollector::SUBJECTS_CODES, 'AVRQ');
+        update_site_meta(1, DataCollector::IN_CATALOG, 1);
 
-		Subject::getPossibleValues();
+        Subject::getPossibleValues();
 
-		$expected = [
-			'AVRQ' => 'Mechanical musical instruments',
-			'ABA' => 'Theory of art',
-		];
+        $expected = [
+            'AVRQ' => 'Mechanical musical instruments',
+            'ABA' => 'Theory of art',
+        ];
 
-		update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
-		update_site_meta(2, DataCollector::IN_CATALOG, 1);
+        update_site_meta(2, DataCollector::SUBJECTS_CODES, 'ABA');
+        update_site_meta(2, DataCollector::IN_CATALOG, 1);
 
-		delete_transient('pb-network-catalog-subjects');
+        delete_transient('pb-network-catalog-subjects');
 
-		$this->assertEquals($expected, Subject::getPossibleValues());
-	}
+        $this->assertEquals($expected, Subject::getPossibleValues());
+    }
 }

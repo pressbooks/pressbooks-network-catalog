@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Plugin Name: Pressbooks Network Catalog
  * Plugin URI: https://pressbooks.org
@@ -20,4 +21,4 @@ use PressbooksNetworkCatalog\PressbooksNetworkCatalog;
 
 const IS_VITE_DEVELOPMENT = false;
 
-add_action( 'plugins_loaded', [PressbooksNetworkCatalog::class, 'init']);
+add_action('plugins_loaded', [PressbooksNetworkCatalog::class, 'init']);
