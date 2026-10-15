@@ -74,11 +74,15 @@ class PressbooksNetworkCatalog
             return Container::get('Blade')->render('PressbooksNetworkCatalog::catalog', $data);
         });
 
-        add_filter(
-            'admin_init',
-            fn () => remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'),
-            1
-        );
+        add_filter('admin_init', function () {
+            // pressbooks-aldine's PSR-4 migration (theme PR #588) changes how this
+            // hook is registered from a plain function-string callback to an
+            // array-callable static method -- remove_action() matches by exact
+            // callback identity, so both forms must be removed here to work
+            // whether the installed Aldine version predates that migration or not.
+            remove_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor');
+            remove_action('admin_init', [ \Aldine\Actions::class, 'hideCatalogContentEditor' ]);
+        }, 1);
 
         add_action('init', function () {
             load_plugin_textdomain('pressbooks-network-catalog', false, 'pressbooks-network-catalog/languages');
