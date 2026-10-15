@@ -50,6 +50,58 @@ class PressbooksNetworkCatalogTest extends TestCase
 	}
 
 	/**
+	 * pressbooks-aldine's PSR-4 migration (theme PR #588) changes
+	 * '\Aldine\Actions\hide_catalog_content_editor' (a plain function-string
+	 * admin_init callback) into [\Aldine\Actions::class, 'hideCatalogContentEditor']
+	 * (an array-callable static method). remove_action() matches by exact
+	 * callback identity, so both forms must keep working here regardless of
+	 * which Aldine version is actually installed.
+	 *
+	 * @test
+	 * @group network-catalog
+	 */
+	public function it_removes_aldines_hide_catalog_content_editor_hook_old_callback_form(): void
+	{
+		if (! function_exists('\Aldine\Actions\hide_catalog_content_editor')) {
+			require_once __DIR__.'/stubs/aldine-actions-old.php';
+		}
+
+		// Firing admin_init directly (rather than via a real wp-admin request)
+		// trips WP core's own wp_add_privacy_policy_content() "doing it wrong"
+		// notice -- unrelated to what this test is verifying.
+		$this->setExpectedIncorrectUsage('wp_add_privacy_policy_content');
+
+		add_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor');
+		$this->assertNotFalse(has_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'));
+
+		PressbooksNetworkCatalog::init();
+		do_action('admin_init');
+
+		$this->assertFalse(has_action('admin_init', '\Aldine\Actions\hide_catalog_content_editor'));
+	}
+
+	/**
+	 * @test
+	 * @group network-catalog
+	 */
+	public function it_removes_aldines_hide_catalog_content_editor_hook_new_callback_form(): void
+	{
+		if (! class_exists('\Aldine\Actions')) {
+			require_once __DIR__.'/stubs/aldine-actions-new.php';
+		}
+
+		$this->setExpectedIncorrectUsage('wp_add_privacy_policy_content');
+
+		add_action('admin_init', [\Aldine\Actions::class, 'hideCatalogContentEditor']);
+		$this->assertNotFalse(has_action('admin_init', [\Aldine\Actions::class, 'hideCatalogContentEditor']));
+
+		PressbooksNetworkCatalog::init();
+		do_action('admin_init');
+
+		$this->assertFalse(has_action('admin_init', [\Aldine\Actions::class, 'hideCatalogContentEditor']));
+	}
+
+	/**
 	 * @test
 	 * @group network-catalog
 	 */
