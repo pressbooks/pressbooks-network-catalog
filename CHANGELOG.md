@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.0](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.3...1.7.0) (2026-10-16)
+
+
+### Features
+
+* add filter for robots.txt ([#533](https://github.com/pressbooks/pressbooks-network-catalog/issues/533)) ([5d9d57c](https://github.com/pressbooks/pressbooks-network-catalog/commit/5d9d57ca96cc99301712a9ba08a6d97356583b49))
+* migrate to PSR-4 ([#544](https://github.com/pressbooks/pressbooks-network-catalog/issues/544)) ([79246cc](https://github.com/pressbooks/pressbooks-network-catalog/commit/79246cc162ba10862815af7afabf5ebbd1f0cc54))
+
 ## [1.6.3](https://github.com/pressbooks/pressbooks-network-catalog/compare/1.6.2...1.6.3) (2026-07-21)
 
 
