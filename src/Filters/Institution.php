@@ -7,29 +7,29 @@ use PressbooksNetworkCatalog\Contracts\Filter;
 
 class Institution implements Filter
 {
-	public static function getPossibleValues(): array
-	{
-		$institutions = get_transient('pb-network-catalog-institutions');
+    public static function getPossibleValues(): array
+    {
+        $institutions = get_transient('pb-network-catalog-institutions');
 
-		if ($institutions !== false) {
-			return $institutions;
-		}
+        if ($institutions !== false) {
+            return $institutions;
+        }
 
-		$codes = DataCollector::init()->getPossibleValuesFor(
-			DataCollector::INSTITUTIONS,
-			$in_catalog = true
-		);
+        $codes = DataCollector::init()->getPossibleValuesFor(
+            DataCollector::INSTITUTIONS,
+            $in_catalog = true
+        );
 
-		$institutions = array_reduce($codes, function ($institutions, $key) {
-			$institutions[$key] = $key;
+        $institutions = array_reduce($codes, function ($institutions, $key) {
+            $institutions[$key] = $key;
 
-			return $institutions;
-		}, []);
+            return $institutions;
+        }, []);
 
-		asort($institutions);
+        asort($institutions);
 
-		set_transient('pb-network-catalog-institutions', $institutions, DAY_IN_SECONDS);
+        set_transient('pb-network-catalog-institutions', $institutions, DAY_IN_SECONDS);
 
-		return $institutions;
-	}
+        return $institutions;
+    }
 }

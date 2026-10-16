@@ -10,11 +10,11 @@
         }
     ],
     "require": {
-      "php": "^8.3",
-      "pressbooks/frontend-tools": "^1.0.0"
+        "php": "^8.3",
+        "pressbooks/frontend-tools": "^1.0.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.10",
+        "laravel/pint": "^1.10",
         "yoast/phpunit-polyfills": "^1.1"
     },
     "minimum-stability": "dev",
@@ -22,6 +22,9 @@
     "config": {
         "allow-plugins": {
             "composer/installers": true
+        },
+        "platform": {
+            "php": "8.3"
         }
     },
     "autoload": {
@@ -42,10 +45,10 @@
             "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
         ],
         "fix": [
-            "vendor/bin/php-cs-fixer fix"
+            "vendor/bin/pint"
         ],
         "standards": [
-            "vendor/bin/php-cs-fixer fix --dry-run"
+            "vendor/bin/pint --test"
         ]
     }
 }
